@@ -1,0 +1,50 @@
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+            <div class="container">
+                    <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </a>
+                        <h2 class="quote"><?php echo $quote;?></h2>
+                    <div class="nav-collapse collapse pull-right">
+                            <ul class="nav pull-right">
+                                <?php
+                                if($method != '404')
+                                {
+                                    $active = 'class="active"';
+                                }
+                                else
+                                {
+                                    $active = '';
+                                }
+                                ?>
+                                    <li <?php echo ($controller == 'projects' ? $active : '');?>><a href="<?php echo Uri::base();?>">PROJECTS <p class="menu_sub_text">look at em</p></a></li>
+                                    <li <?php echo ($controller == 'blog' ? $active : '');?>><a href="<?php echo Uri::base();?>blog">MY BLOG<p class="menu_sub_text">latest blogs</p></a></li>
+                                    <li <?php echo ($controller == 'resume' ? $active : '');?>><a href="<?php echo Uri::base();?>resume">MY RESUME<p class="menu_sub_text">check me out</p></a></li>
+                                    <li><a data-toggle="modal" href="#contact_me">CONTACT <p class="menu_sub_text">email this guy</p></a></li>
+                                    <?php
+                                    if(Auth::check())
+                                    {
+                                    ?>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">SECRET PROJECTS<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="<?php echo Uri::base();?>project/admin">Admin Section</a></li>
+                                            <li class="divider"></li>
+                                            <li class="nav-header">Project - "Brain"</li>
+                                            <li><a href="<?php echo Uri::base();?>project/brain">Roadmap</a></li>
+                                            <li><a href="<?php echo Uri::base();?>project/brain/members">Members</a></li>
+                                            <li><a href="<?php echo Uri::base();?>project/brain/positions">Positions</a></li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li><a href="<?php echo Uri::base();?>logout">LOGOUT<p class="menu_sub_text">get me outta here</p></a></li>
+                                    <?php
+                                    }
+                                    ?>
+                            </ul>
+                    </div><!--/.nav-collapse -->
+            </div>
+    </div>
+</div>

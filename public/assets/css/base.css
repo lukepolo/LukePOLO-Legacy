@@ -1,0 +1,124 @@
+body{
+    background-color:#EDEDED !important;
+    background-image:url('https://static.lukepolo.com/lukepolo/public/assets/img/broken_noise.png') !important;
+}
+.hero-unit p,
+p{
+    font-size:100% !important;
+}
+
+body > .container{
+    min-height:100%;
+}
+
+html, body {
+    height: 100%;
+ }
+ 
+footer{
+    position:relative;
+    margin-top:-56px !important;
+    padding:10px;
+    background-image:url('https://static.lukepolo.com/lukepolo/public/assets/img/broken_noise.png') !important;
+    color:white;
+}
+footer p{
+    display:inline-block;
+}
+.quote{
+    margin-top:25px;
+    display:inline-block
+}
+.navbar{
+    position:absolute;
+    margin-bottom:100px;
+}
+#content{
+    background-color:white;
+}
+
+.navbar-inner {
+    background:white !important; 
+    border-bottom: 20px solid #232323 !important;
+}
+
+.navbar .nav .active > a{
+    color:#FF8E00;
+    background-color:#232323;
+}
+
+.navbar .nav > li > a:hover {
+    background-color: #222222 !important;
+    color:#FF8E00;
+}
+
+/*
+  The top text color on the nav bar
+*/
+.navbar .nav > li > a {
+    color: #FF8E00;
+    font-weight:bold;
+}
+
+.menu_sub_text{
+    color:white;
+    text-shadow:none !important;
+    font-weight:none !important;
+}
+
+.portfolio{
+    max-height: 300px;
+    min-height: 300px;
+    overflow: hidden;
+}
+
+/*
+ Text of quote
+*/
+.navbar-inner h2{
+    font-weight: bold;
+    line-height: 13px;
+    color:#FF8E00;    
+}
+.bottom_body{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1000;
+    background-image:url('https://static.lukepolo.com/lukepolo/public/assets/img/blue.png') !important;
+    height:auto;
+}
+
+.date {
+  position: relative;
+  width: 70px;
+  font-family: Georgia, serif;
+  color: #999;
+  margin: 0 auto;
+ }
+ 
+.day, .month, .year {
+  position: absolute;
+  }
+ 
+.day { 
+  font-size: 30px;
+  top: 25px;
+  }
+ 
+.month { 
+  top: 0;
+  left: 0;  
+  font-size: 18px;
+  }
+ 
+.year { 
+  top: 30px;
+  right: 0;
+  font-size: 20px;
+  rotation: -90deg !important;
+  /* ** Hacks ** */
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);  
+  }
