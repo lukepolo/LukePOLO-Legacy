@@ -33,8 +33,12 @@ footer p{
     position:absolute;
     margin-bottom:100px;
 }
-#content{
+.hero-unit{
     background-color:white;
+}
+
+.profile{
+    background-color: white;
 }
 
 .navbar-inner {
@@ -115,7 +119,7 @@ footer p{
  
 .year { 
   top: 30px;
-  right: 0;
+  right: 8px;
   font-size: 20px;
   rotation: -90deg !important;
   /* ** Hacks ** */

@@ -28,14 +28,9 @@
                                     {
                                     ?>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">SECRET PROJECTS<b class="caret"></b></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Menu<b class="caret"></b><p class="menu_sub_text">lets do this</p></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="<?php echo Uri::base();?>project/admin">Admin Section</a></li>
-                                            <li class="divider"></li>
-                                            <li class="nav-header">Project - "Brain"</li>
-                                            <li><a href="<?php echo Uri::base();?>project/brain">Roadmap</a></li>
-                                            <li><a href="<?php echo Uri::base();?>project/brain/members">Members</a></li>
-                                            <li><a href="<?php echo Uri::base();?>project/brain/positions">Positions</a></li>
+                                            <li><a href="<?php echo Uri::base();?>blog/create">Create New Blog!</a></li>
                                         </ul>
                                     </li>
                                     

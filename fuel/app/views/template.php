@@ -14,14 +14,19 @@
 			Casset::css('jquery-ui-1.8.23.custom.css');
 			echo Casset::Render_css();
 		?>
+		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+		<!-- Need to get this into the correct package -->
+		<script type="text/javascript" src="https://raw.github.com/PANmedia/Raptor/master/packages/raptor.0deps.js"></script>
 
 	</head>
 	<body  onload="prettyPrint()">
 		<div class="content container">
 			<?php echo $header;?>
 			<div class="container" style="padding-bottom:56px;margin-top:100px;">
-				<div id="content" class="hero-unit">
+				<div id="content" class="<?php
+				$segment_2 = Uri::segment(2);
+				echo (Uri::segment(1) == 'blog' && empty($segment_2) === true) ? '' : 'hero-unit';?>">
 				<?php
 					if (Session::get_flash('error'))
 					{
@@ -44,18 +49,6 @@
 						</div>
 					<?php
 					}
-					
-					if (isset($_SERVER['HTTP_USER_AGENT']) === true && strpos($_SERVER['HTTP_USER_AGENT'],'MSIE') !== false)
-					{
-					?>
-					<div class="alert-message block-message error">
-						<p><strong>Internet Explorer is not supported!</strong> If you want all of the features of <?php echo Config::get('site_name'); ?> to work with your browser, please download a modern web browser.</p>
-						<div class="alert-actions">
-							<a class="btn small" href="http://chrome.google.com">Get Chrome</a> <a class="btn small" href="http://getfirefox.com">Get Firefox</a>
-						</div>
-					</div>
-				<?php
-				} // end show disclaimer for IE.
 				?>
 					<?php echo $content; ?>
 				
@@ -105,6 +98,7 @@
 		Casset::js('jquery-ui-1.8.23.custom.min.js');
 		Casset::js('jquery.autosize-min.js');
 		Casset::js('sisyphus.min.js');
+		Casset::js('modernizr-2.0.6.min.js');
 		
 		
 		echo Casset::Render_js();

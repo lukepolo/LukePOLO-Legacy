@@ -1,3 +1,10 @@
+<script>
+    $(document).ready(function()
+    {
+        $('input').first().focus();
+    });
+    
+</script>
 <?php
 echo Form::open();
 ?>
