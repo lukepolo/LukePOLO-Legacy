@@ -3,10 +3,10 @@
  * Part of the Fuel framework.
  *
  * @package    Fuel
- * @version    1.0
+ * @version    1.5
  * @author     Fuel Development Team
  * @license    MIT License
- * @copyright  2010 - 2012 Fuel Development Team
+ * @copyright  2010 - 2013 Fuel Development Team
  * @link       http://fuelphp.com
  */
 
@@ -36,13 +36,23 @@ if ( ! function_exists('logger'))
 {
 	function logger($level, $msg, $method = null)
 	{
-		// defined default error labels
 		static $labels = array(
-			1  => 'Error',
-			2  => 'Warning',
-			3  => 'Debug',
-			4  => 'Info',
+			100 => 'DEBUG',
+			200 => 'INFO',
+			250 => 'NOTICE',
+			300 => 'WARNING',
+			400 => 'ERROR',
+			500 => 'CRITICAL',
+			550 => 'ALERT',
+			600 => 'EMERGENCY',
+			700 => 'ALL',
 		);
+
+		// make sure $level has the correct value
+		if ((is_int($level) and ! isset($labels[$level])) or (is_string($level) and ! array_search(strtoupper($level), $labels)))
+		{
+			throw new \FuelException('Invalid level "'.$level.'" passed to logger()');
+		}
 
 		// get the levels defined to be logged
 		$loglabels = \Config::get('log_threshold');
@@ -53,10 +63,21 @@ if ( ! function_exists('logger'))
 			return false;
 		}
 
+		// if profiling is active log the message to the profile
+		if (\Config::get('profiling'))
+		{
+			\Console::log($method.' - '.$msg);
+		}
+
 		// if it's not an array, assume it's an "up to" level
 		if ( ! is_array($loglabels))
 		{
-			$loglabels = array_keys(array_slice($labels, 0, $loglabels, true));
+			$a = array();
+			foreach ($labels as $l => $label)
+			{
+				$l >= $loglabels and $a[] = $l;
+			}
+			$loglabels = $a;
 		}
 
 		// do we need to log the message with this level?
@@ -65,10 +86,9 @@ if ( ! function_exists('logger'))
 			return false;
 		}
 
-		! class_exists('Fuel\\Core\\Log') and import('log');
-		! class_exists('Log') and class_alias('Fuel\\Core\\Log', 'Log');
+		! class_exists('Log') and \Package::load('log');
 
-		return \Log::write($level, $msg, $method);
+		return \Log::instance()->log($level, (empty($method) ? '' : $method.' - ').$msg);
 	}
 }
 
@@ -87,8 +107,8 @@ if ( ! function_exists('array_to_attr'))
 
 		foreach ((array) $attr as $property => $value)
 		{
-			// Ignore empty values (null/false/[empty string])
-			if (empty($value))
+			// Ignore null/false
+			if ($value === null or $value === false)
 			{
 				continue;
 			}
