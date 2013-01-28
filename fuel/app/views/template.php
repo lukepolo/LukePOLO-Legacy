@@ -17,7 +17,6 @@
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
 		<!-- Need to get this into the correct package -->
-		<script type="text/javascript" src="https://raw.github.com/PANmedia/Raptor/master/packages/raptor.0deps.js"></script>
 
 	</head>
 	<body  onload="prettyPrint()">
