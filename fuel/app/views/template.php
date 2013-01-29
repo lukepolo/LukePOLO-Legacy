@@ -11,12 +11,14 @@
 			Casset::css('bootstrap-responsive.css');
 			Casset::css('chosen.css');
 			Casset::css('base.css');
+			Casset::css('markitup_skin.css');
+			Casset::css('markitup_set.css');
 			Casset::css('jquery-ui-1.8.23.custom.css');
+			
 			echo Casset::Render_css();
 		?>
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-		<!-- Need to get this into the correct package -->
 
 	</head>
 	<body  onload="prettyPrint()">
@@ -98,7 +100,8 @@
 		Casset::js('jquery.autosize-min.js');
 		Casset::js('sisyphus.min.js');
 		Casset::js('modernizr-2.0.6.min.js');
-		
+		Casset::js('jquery.markitup.js');
+		Casset::js('markitup_set.js');
 		
 		echo Casset::Render_js();
 		

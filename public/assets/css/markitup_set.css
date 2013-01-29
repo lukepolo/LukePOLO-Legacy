@@ -1,0 +1,34 @@
+/* -------------------------------------------------------------------
+// markItUp!
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+.markItUp .markItUpButton1 a {
+	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/bold.png);
+}
+.markItUp .markItUpButton2 a {
+	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/italic.png);
+}
+.markItUp .markItUpButton3 a {
+	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/stroke.png);
+}
+
+.markItUp .markItUpButton4 a {
+	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/list-bullet.png); 
+}
+.markItUp .markItUpButton5 a {
+	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/list-numeric.png);
+}
+
+.markItUp .markItUpButton6 a {
+	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/picture.png); 
+}
+.markItUp .markItUpButton7 a {
+	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/link.png);
+}
+
+.markItUp .markItUpButton8 a {
+	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/clean.png);
+}
+.markItUp .preview a {
+	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/preview.png);
+}
