@@ -31,3 +31,11 @@ ERROR - 2013-01-28 20:48:19 --> Error - Found no files matching assets/js/markit
 ERROR - 2013-01-28 20:48:20 --> Error - Found no files matching assets/js/markitup.js in /home/content/13/9543113/html/lukepolo/fuel/packages/casset/classes/casset.php on line 952
 ERROR - 2013-01-28 20:48:20 --> Error - Found no files matching assets/js/markitup.js in /home/content/13/9543113/html/lukepolo/fuel/packages/casset/classes/casset.php on line 952
 ERROR - 2013-01-28 20:48:21 --> Error - Found no files matching assets/js/markitup.js in /home/content/13/9543113/html/lukepolo/fuel/packages/casset/classes/casset.php on line 952
+ERROR - 2013-01-28 21:57:21 --> 2 - preg_match_all() expects at least 3 parameters, 2 given in /home/content/13/9543113/html/lukepolo/fuel/app/classes/controller/blog.php on line 61
+ERROR - 2013-01-28 22:00:30 --> 8 - Undefined variable: out in /home/content/13/9543113/html/lukepolo/fuel/app/classes/controller/blog.php on line 63
+ERROR - 2013-01-28 22:00:31 --> 8 - Undefined variable: out in /home/content/13/9543113/html/lukepolo/fuel/app/classes/controller/blog.php on line 63
+ERROR - 2013-01-28 22:04:53 --> 2 - preg_replace() [<a href='function.preg-replace'>function.preg-replace</a>]: No ending delimiter '/' found in /home/content/13/9543113/html/lukepolo/fuel/app/classes/controller/blog.php on line 61
+ERROR - 2013-01-28 22:04:55 --> 2 - preg_replace() [<a href='function.preg-replace'>function.preg-replace</a>]: No ending delimiter '/' found in /home/content/13/9543113/html/lukepolo/fuel/app/classes/controller/blog.php on line 61
+ERROR - 2013-01-28 22:04:56 --> 2 - preg_replace() [<a href='function.preg-replace'>function.preg-replace</a>]: No ending delimiter '/' found in /home/content/13/9543113/html/lukepolo/fuel/app/classes/controller/blog.php on line 61
+ERROR - 2013-01-28 22:05:09 --> 2 - preg_replace() [<a href='function.preg-replace'>function.preg-replace</a>]: No ending delimiter '/' found in /home/content/13/9543113/html/lukepolo/fuel/app/classes/controller/blog.php on line 61
+ERROR - 2013-01-28 22:05:16 --> 2 - preg_replace() [<a href='function.preg-replace'>function.preg-replace</a>]: No ending delimiter '/' found in /home/content/13/9543113/html/lukepolo/fuel/app/classes/controller/blog.php on line 61

@@ -56,7 +56,12 @@ class Controller_Blog extends Controller_Template
 				
 			if(Input::method() == "POST")
 			{
-				$data->blog->text = Input::post('text');
+				$text = Input::post('text');
+				
+				$text = preg_replace("/\\\\+'/",'\'',$text);
+				$text = preg_replace("/\\\\+\"/",'"',$text);
+				
+				$data->blog->text = $text;
 				$data->blog->title = Input::post('title');
 				$data->blog->sub_title = Input::post('sub_title');
 				$data->blog->slug = Input::post('slug');

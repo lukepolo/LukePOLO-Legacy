@@ -7,6 +7,6 @@
 
 <script type='text/javascript'>
     window.onload = function (){
-      var myPDF = new PDFObject({ url: "https://dl.dropbox.com/u/20485770/Resume.pdf"}).embed('pdf');
+      var myPDF = new PDFObject({ url: "https://dl.dropbox.com/u/20485770/Luke_Policinski_Resume.pdf"}).embed('pdf');
     };
 </script>
