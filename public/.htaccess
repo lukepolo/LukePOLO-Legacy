@@ -12,3 +12,8 @@
 </IfModule>
 
 SetEnv FUEL_ENV development
+
+<FilesMatch "\.(ico|pdf|flv|jpe?g|png|gif|js|css|swf)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 year"
+</FilesMatch>

@@ -101,6 +101,7 @@
 		Casset::js('sisyphus.min.js');
 		Casset::js('modernizr-2.0.6.min.js');
 		Casset::js('jquery.markitup.js');
+		Casset::js('pdfobject.js');
 		Casset::js('markitup_set.js');
 		
 		echo Casset::Render_js();

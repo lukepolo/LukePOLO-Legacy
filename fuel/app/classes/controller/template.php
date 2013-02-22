@@ -29,12 +29,6 @@ abstract class Controller_Template extends \Fuel\Core\Controller_Template {
 		
 		$title = $data->controller.' | Luke Polo';
 		
-		$quotes = array(
-		    'Luke Policinski',
-		);
-		
-		$data->quote = $quotes[array_rand($quotes)];
-		
 		$this->template->footer = View::forge('core/footer');
 		$this->template->header = View::forge('core/header',$data);
 	}
