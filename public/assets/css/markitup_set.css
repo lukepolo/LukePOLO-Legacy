@@ -3,32 +3,32 @@
 // By Jay Salvat - http://markitup.jaysalvat.com/
 // ------------------------------------------------------------------*/
 .markItUp .markItUpButton1 a {
-	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/bold.png);
+	background-image:url(http://static.lukepolo.com/assets/img/bold.png);
 }
 .markItUp .markItUpButton2 a {
-	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/italic.png);
+	background-image:url(http://static.lukepolo.com/assets/img/italic.png);
 }
 .markItUp .markItUpButton3 a {
-	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/stroke.png);
+	background-image:url(http://static.lukepolo.com/assets/img/stroke.png);
 }
 
 .markItUp .markItUpButton4 a {
-	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/list-bullet.png); 
+	background-image:url(http://static.lukepolo.com/assets/img/list-bullet.png); 
 }
 .markItUp .markItUpButton5 a {
-	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/list-numeric.png);
+	background-image:url(http://static.lukepolo.com/assets/img/list-numeric.png);
 }
 
 .markItUp .markItUpButton6 a {
-	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/picture.png); 
+	background-image:url(http://static.lukepolo.com/assets/img/picture.png); 
 }
 .markItUp .markItUpButton7 a {
-	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/link.png);
+	background-image:url(http://static.lukepolo.com/assets/img/link.png);
 }
 
 .markItUp .markItUpButton8 a {
-	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/clean.png);
+	background-image:url(http://static.lukepolo.com/assets/img/clean.png);
 }
 .markItUp .preview a {
-	background-image:url(https://static.lukepolo.com/lukepolo/public/assets/img/preview.png);
+	background-image:url(http://static.lukepolo.com/assets/img/preview.png);
 }

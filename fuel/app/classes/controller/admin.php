@@ -3,11 +3,10 @@ class Controller_Admin extends Controller_Template {
     
     public function action_index()
     {
-
-	
         if(Auth::check())
         {
             Response::redirect(Uri::base());
+	    
         }
         else
         {
