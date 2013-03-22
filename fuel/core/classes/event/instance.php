@@ -100,9 +100,9 @@ class Event_Instance
 	{
 		if (isset($this->_events[$event]))
 		{
-			if ($callback === true)
+			if ($callback === null)
 			{
-				$this->_events = array();
+				unset($this->_events[$event]);
 				return true;
 			}
 

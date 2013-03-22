@@ -17,7 +17,7 @@
 
 function displayPqp($output) {
 
-	$css = str_replace("\n", "", <<<CSS
+	$css = preg_replace('/[\n\r]/', '', <<<CSS
 .pQp{width:100%;z-index:9999;text-align:center;position:fixed;bottom:0;}
 * html .pQp{position:absolute;}
 .pQp *{margin:0 ;padding:0;border:none;background:#222;}
@@ -497,7 +497,7 @@ else {
 			}
 			$return_output .='Speed: <b>'.$query['time'].'</b>';
 			$query['duplicate'] and $return_output .=' &middot; <b>DUPLICATE</b>';
-			$return_output .='</em></td></tr>';
+			$return_output .='</em>'.$query['stacktrace'].'</td></tr>';
 			if($class == '') $class = 'alt';
 			else $class = '';
 		}
@@ -662,5 +662,3 @@ FOOTER;
 
 	return $return_output;
 }
-
-?>

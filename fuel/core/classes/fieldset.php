@@ -517,10 +517,13 @@ class Fieldset
 		{
 			if (is_array($input) or $input instanceof \ArrayAccess)
 			{
-				if (isset($input[$f->basename]))
-				{
-					$f->set_value($input[$f->basename], true);
-				}
+				// convert form field array's to Fuel dotted notation
+				$name = str_replace(array('[',']'), array('.', ''), $f->name);
+
+				// fetch the value for this field, and set it if found
+				$value = \Arr::get($input, $name, null);
+				$value === null and $value = \Arr::get($input, $f->basename, null);
+				$value !== null and $f->set_value($value, true);
 			}
 			elseif (is_object($input) and property_exists($input, $f->basename))
 			{

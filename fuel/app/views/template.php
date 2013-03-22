@@ -19,77 +19,82 @@
 		?>
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-
+		<link rel="icon" type="image/ico" href="http://lukepolo.com/assets/img/favicon.ico"/>
 	</head>
 	<body  onload="prettyPrint()">
-		<div class="content container">
-			<?php echo $header;?>
-			<div class="container" style="padding-bottom:56px;margin-top:100px;">
-				<div id="content" class="<?php
-				$segment_2 = Uri::segment(2);
-				echo (Uri::segment(1) == 'blog' && empty($segment_2) === true) ? '' : 'hero-unit';?>">
-				<?php
-					if (Session::get_flash('error'))
-					{
-						$error = Session::get_flash('error')
-					?>
-						<div class="alert alert-danger">
-							<?php
-								echo $error;
-							?>
-						</div>
+		<div id="wrap">
+			<div class="container">
+				<?php echo $header;?>
+				<div class="container" style="padding-bottom:56px;margin-top:100px;">
+					<div id="content" class="<?php
+					$segment_2 = Uri::segment(2);
+					echo (Uri::segment(1) == 'blog' && empty($segment_2) === true) ? '' : 'hero-unit';?>">
 					<?php
-					}
-					if (Session::get_flash('success'))
+						if (Session::get_flash('error'))
+						{
+							$error = Session::get_flash('error')
+						?>
+							<div class="alert alert-danger">
+								<?php
+									echo $error;
+								?>
+							</div>
+						<?php
+						}
+						if (Session::get_flash('success'))
+						{
+						?>
+							<div class="alert alert-success">
+								<?php
+									echo Session::get_flash('success');
+								?>
+							</div>
+						<?php
+						}
+					?>
+						<?php echo $content; ?>
+					
+					</div>
+					<?php
+					if(isset($content_below) === true)
 					{
 					?>
-						<div class="alert alert-success">
-							<?php
-								echo Session::get_flash('success');
-							?>
-						</div>
+					<div class="container">
+						<?php echo $content_below;?>
+					</div>
 					<?php
 					}
 				?>
-					<?php echo $content; ?>
-				
 				</div>
-				<?php
-				if(isset($content_below) === true)
-				{
-				?>
-				<div class="container">
-					<?php echo $content_below;?>
+				<!-- Contact me modal -->
+				<div class="modal hide fade" id="contact_me">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times</button>
+						<h3>Luke Policinski's Contact Info</h3>
+					</div>
+					<div class="modal-body">
+						<p>
+								<a href="mailto:luke@lukepolo.com">Luke@LukePolo.com</a> 
+								<a href="https://twitter.com/lpolicin" class="twitter-follow-button" data-show-count="false">Follow @lpolicin</a>
+									<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+						</p>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn" data-dismiss="modal">Close</a>
+					</div>
 				</div>
-				<?php
-				}
-			?>
+				<!--  end of contact me modal -->
+				<div class="bottom_body"></div>
 			</div>
-			<!-- Contact me modal -->
-			<div class="modal hide fade" id="contact_me">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times</button>
-					<h3>Luke Policinski's Contact Info</h3>
-				</div>
-				<div class="modal-body">
-					<p>
-							<a href="mailto:luke@lukepolo.com">Luke@LukePolo.com</a> 
-							<a href="https://twitter.com/lpolicin" class="twitter-follow-button" data-show-count="false">Follow @lpolicin</a>
-								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-					</p>
-				</div>
-				<div class="modal-footer">
-					<a href="#" class="btn" data-dismiss="modal">Close</a>
-				</div>
-			</div>
-			<!--  end of contact me modal -->
-			<div class="bottom_body"></div>
+			<div class="push"></div>
 		</div>
-		<footer>
-			<?php echo $footer;?>
-		</footer>
+		<div id="footer">
+			<div class="container">
+			       <?php echo $footer;?>
+			</div>
+		</div>
 	</body>
-	
+
 	<?php
 		// All Javascript loads here
 		Casset::js('jquery.fancybox-1.3.4.js');
@@ -190,7 +195,7 @@
 		var height = null;
 		$(window).resize(function() {
 			height = $(window).height();
-			$('.bottom_body').height(height - 220);
+			$('.bottom_body').height(height - 550);
 		});
 		$(window).resize();
 	// Google analytics
@@ -204,6 +209,4 @@
 	  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	})();
 	</script>
-
-
 </html>

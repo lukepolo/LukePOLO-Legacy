@@ -1,37 +1,41 @@
 body{
     background-color:#EDEDED !important;
-    background-image:url('http://static.lukepolo.com/assets/img/broken_noise.png') !important;
+    background-image:url('https://static.lukepolo.com/lukepolo/public/assets/img/broken_noise.png') !important;
 }
 .hero-unit p,
 p{
     font-size:100% !important;
 }
-
-body > .container{
+ 
+#wrap{
     min-height:100%;
+    padding-bottom: 25px;
 }
 
 html, body {
     height: 100%;
  }
  
-footer{
-    position:relative;
-    margin-top:-56px !important;
-    padding:10px;
-    background-image:url('http://static.lukepolo.com/assets/img/broken_noise.png') !important;
+
+#footer{
+    margin-top: -71px;
+    padding:15px 0 0 0;
+    background-image:url('https://static.lukepolo.com/lukepolo/public/assets/img/broken_noise.png') !important;
     color:white;
 }
-footer p{
+#footer p{
     display:inline-block;
 }
 .quote{
     margin-top:25px;
     display:inline-block
 }
+.website-picture{
+    height: 300px !important;
+    overflow: hidden;
+}
 .navbar{
     position:absolute;
-    margin-bottom:100px;
 }
 .hero-unit{
     background-color:white;
@@ -71,9 +75,16 @@ footer p{
 }
 
 .portfolio{
-    max-height: 300px;
-    min-height: 300px;
-    overflow: hidden;
+    height: 415px ;
+}
+
+.portfolio img{
+    width:100% !important;
+}
+
+.portfolio p{
+    padding-top:15px;
+    text-align: center;
 }
 
 /*
@@ -90,8 +101,7 @@ footer p{
     left: 0;
     width: 100%;
     z-index: -1000;
-    background-image:url('http://static.lukepolo.com/assets/img/blue.png') !important;
-    height:auto;
+    background-image:url('https://static.lukepolo.com/lukepolo/public/assets/img/blue.png') !important;
 }
 
 .date {
@@ -126,3 +136,14 @@ footer p{
   -webkit-transform: rotate(-90deg);
   -moz-transform: rotate(-90deg);  
   }
+  
+  .white-block {
+    position: relative;
+    margin: 15px 0;
+    padding: 10px 10px 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}

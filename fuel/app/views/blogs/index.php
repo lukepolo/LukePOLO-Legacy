@@ -7,7 +7,7 @@
 			<div class="hero-unit content">
 			<!-- Start of blog header -->
 				<div id="<?php echo $blog->slug;?>" class="page-header">
-					<h1><?php echo $blog->title;?><small><h2 style="color:#336699;display:inline-block"><?php echo $blog->sub_title;?></h2><?php echo Auth::check() ? '<a href="'.Uri::base().'blog/edit/'.$blog->id.'">edit</a>' : '';?></small></h1>
+					<h1><?php echo $blog->title;?> <small><h2 style="color:#336699;display:inline-block"><?php echo $blog->sub_title;?></h2><?php echo Auth::check() ? '<a href="'.Uri::base().'blog/edit/'.$blog->id.'">edit</a>' : '';?></small></h1>
 					<?php
 						if($blog->updated_at != $blog->created_at)
 						{

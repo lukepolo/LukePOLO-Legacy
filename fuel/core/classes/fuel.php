@@ -29,7 +29,7 @@ class Fuel
 	/**
 	 * @var  string  The version of Fuel
 	 */
-	const VERSION = '1.5';
+	const VERSION = '1.6-dev';
 
 	/**
 	 * @var  string  constant used for when in testing mode
@@ -49,7 +49,7 @@ class Fuel
 	/**
 	 * @var  string  constant used for when testing the app in a staging env.
 	 */
-	const STAGE = 'stage';
+	const STAGING = 'staging';
 
 	/**
 	 * @var  int  No logging
@@ -291,9 +291,9 @@ class Fuel
 		{
 			foreach ($array['classes'] as $class)
 			{
-				if ( ! class_exists($class = ucfirst($class)))
+				if ( ! class_exists($class = \Str::ucwords($class)))
 				{
-					throw new \FuelException('Always load class does not exist. Unable to load: '.$class);
+					throw new \FuelException('Class '.$class.' defined in your "always_load" config could not be loaded.');
 				}
 			}
 		}

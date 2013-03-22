@@ -86,8 +86,6 @@ if ( ! function_exists('logger'))
 			return false;
 		}
 
-		! class_exists('Log') and \Package::load('log');
-
 		return \Log::instance()->log($level, (empty($method) ? '' : $method.' - ').$msg);
 	}
 }
@@ -204,9 +202,9 @@ if ( ! function_exists('render'))
  */
 if ( ! function_exists('__'))
 {
-	function __($string, $params = array(), $default = null)
+	function __($string, $params = array(), $default = null, $language = null)
 	{
-		return \Lang::get($string, $params, $default);
+		return \Lang::get($string, $params, $default, $language);
 	}
 }
 
@@ -362,28 +360,5 @@ if (!function_exists('http_build_url'))
 			.((isset($parse_url['query'])) ? '?' . $parse_url['query'] : '')
 			.((isset($parse_url['fragment'])) ? '#' . $parse_url['fragment'] : '')
 		;
-	}
-}
-
-/**
- * Loads in the classes used for the error handlers.  The class_exists() calls
- * will trigger the autoloader if it is loaded, if not, then it will import
- * the classes and do the work itself.
- *
- * @return  void
- */
-if ( ! function_exists('load_error_classes'))
-{
-	function load_error_classes()
-	{
-		class_exists('Fuel\\Core\\Error') or import('error');
-		class_exists('Error') or class_alias('Fuel\\Core\\Error', 'Error');
-		class_exists('PhpErrorException') or class_alias('Fuel\\Core\\PhpErrorException', 'PhpErrorException');
-
-		class_exists('Fuel\\Core\\Debug') or import('debug');
-		class_exists('Debug') or class_alias('Fuel\\Core\\Debug', 'Debug');
-
-		class_exists('Fuel\\Core\\View') or import('view');
-		class_exists('View') or class_alias('Fuel\\Core\\View', 'View');
 	}
 }

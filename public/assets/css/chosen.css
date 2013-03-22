@@ -69,7 +69,7 @@
   width: 12px;
   height: 13px;
   font-size: 1px;
-  background: url('http://static.lukepolo.com/assets/img/chosen-sprite.png') right top no-repeat;
+  background: url('https://static.lukepolo.com/lukepolo/public/assets/img/chosen-sprite.png') right top no-repeat;
 }
 .chzn-container-single .chzn-single abbr:hover {
   background-position: right -11px;
