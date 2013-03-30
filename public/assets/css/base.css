@@ -1,6 +1,6 @@
 body{
     background-color:#EDEDED !important;
-    background-image:url('https://static.lukepolo.com/lukepolo/public/assets/img/broken_noise.png') !important;
+    background-image:url('https://lukepolo.com/assets/img/broken_noise.png') !important;
 }
 .hero-unit p,
 p{
@@ -20,7 +20,7 @@ html, body {
 #footer{
     margin-top: -71px;
     padding:15px 0 0 0;
-    background-image:url('https://static.lukepolo.com/lukepolo/public/assets/img/broken_noise.png') !important;
+    background-image:url('https://lukepolo.com/assets/img/broken_noise.png') !important;
     color:white;
 }
 #footer p{
@@ -101,7 +101,7 @@ html, body {
     left: 0;
     width: 100%;
     z-index: -1000;
-    background-image:url('https://static.lukepolo.com/lukepolo/public/assets/img/blue.png') !important;
+    background-image:url('https://lukepolo.com/assets/img/blue.png') !important;
 }
 
 .date {
