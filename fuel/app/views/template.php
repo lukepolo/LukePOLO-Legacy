@@ -6,7 +6,7 @@
 		<?php
 			// All CSS loads here
 			Casset::css('prettify.css');
-			Casset::css('jquery.fancybox-1.3.4.css');
+			Casset::css('jquery.fancybox.css');
 			Casset::css('bootstrap.min.css');
 			Casset::css('bootstrap-responsive.css');
 			Casset::css('chosen.css');
@@ -97,7 +97,7 @@
 
 	<?php
 		// All Javascript loads here
-		Casset::js('jquery.fancybox-1.3.4.js');
+		Casset::js('jquery.fancybox.js');
 		Casset::js('prettify.js');
 		Casset::js('bootstrap.min.js');
 		Casset::js('chosen.jquery.min.js');

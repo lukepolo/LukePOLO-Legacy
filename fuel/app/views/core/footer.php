@@ -10,5 +10,5 @@
     Page rendered in {exec_time}s <br> Using {mem_usage}mb of memory
 </p>
 <div style="text-align:center">
-    Designed by Luke Policinski <br> Copyright &copy 2012 &#8226; All Rights Reserved
+    <h5><a  style="color:#fcb033 !important" href="http://LukePolo.com">Luke Policinski</a></h5>
 </div>
