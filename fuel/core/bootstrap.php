@@ -3,7 +3,7 @@
  * Part of the Fuel framework.
  *
  * @package    Fuel
- * @version    1.5
+ * @version    1.6
  * @author     Fuel Development Team
  * @license    MIT License
  * @copyright  2010 - 2013 Fuel Development Team
@@ -42,9 +42,24 @@ register_shutdown_function(function ()
 	// reset the autoloader
 	\Autoloader::_reset();
 
-	// Fire off the shutdown events
-	Event::shutdown();
+	// make sure we're having an output filter so we can display errors
+	// occuring before the main config file is loaded
+	\Config::get('security.output_filter', null) or \Config::set('security.output_filter', 'Security::htmlentities');
 
+	// Fire off the shutdown events
+	try
+	{
+		Event::shutdown();
+	}
+	catch (\Exception $e)
+	{
+		if (\Fuel::$is_cli)
+		{
+			\Cli::error("Error: ".$e->getMessage()." in ".$e->getFile()." on ".$e->getLine());
+			\Cli::beep();
+			exit(1);
+		}
+	}
 	return \Error::shutdown_handler();
 });
 

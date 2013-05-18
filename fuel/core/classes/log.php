@@ -3,7 +3,7 @@
  * Fuel is a fast, lightweight, community driven PHP5 framework.
  *
  * @package    Fuel
- * @version    1.0
+ * @version    1.6
  * @author     Fuel Development Team
  * @license    MIT License
  * @copyright  2010 - 2013 Fuel Development Team
@@ -47,19 +47,34 @@ class Log
 		// load the file config
 		\Config::load('file', true);
 
-		// determine the name and location of the logfile
-		$filepath = \Config::get('log_path').date('Y/m').'/';
-
-		if ( ! is_dir($filepath))
+		// make sure the log directories exist
+		try
 		{
-			@mkdir($filepath, \Config::get('file.chmod.folders', 0777), true);
+			// determine the name and location of the logfile
+			$rootpath = \Config::get('log_path').date('Y').'/';
+			$filepath = \Config::get('log_path').date('Y/m').'/';
+			$filename = $filepath.date('d').'.php';
+
+			// get the required folder permissions
+			$permission = \Config::get('file.chmod.folders', 0777);
+
+			if ( ! is_dir($rootpath))
+			{
+				mkdir($rootpath, 0777, true);
+				chmod($rootpath, $permission);
+			}
+			if ( ! is_dir($filepath))
+			{
+				mkdir($filepath, 0777, true);
+				chmod($filepath, $permission);
+			}
+
+			$handle = fopen($filename, 'a');
 		}
-
-		$filename = $filepath.date('d').'.php';
-
-		if ( ! $handle = @fopen($filename, 'a'))
+		catch (\Exception $e)
 		{
-			die('Fatal error: could not create or access the log file ('.$filename.')<br />check your file system permissions!');
+			\Config::set('log_threshold', \Fuel::L_NONE);
+			throw new \FuelException('Unable to create or write to the log file. Please check the permissions on '.\Config::get('log_path'));
 		}
 
 		if ( ! filesize($filename))

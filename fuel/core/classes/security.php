@@ -3,7 +3,7 @@
  * Part of the Fuel framework.
  *
  * @package    Fuel
- * @version    1.5
+ * @version    1.6
  * @author     Fuel Development Team
  * @license    MIT License
  * @copyright  2010 - 2013 Fuel Development Team
@@ -73,7 +73,7 @@ class Security
 		foreach (array('output_filter', 'uri_filter', 'input_filter') as $setting)
 		{
 			$config = \Config::get('security.'.$setting, array());
-			is_array($config) and \Config::set('security.'.$setting, array_keys(array_flip($config)));
+			is_array($config) and \Config::set('security.'.$setting, \Arr::unique($config));
 		}
 	}
 

@@ -3,7 +3,7 @@
  * Part of the Fuel framework.
  *
  * @package    Fuel
- * @version    1.5
+ * @version    1.6
  * @author     Fuel Development Team
  * @license    MIT License
  * @copyright  2010 - 2013 Fuel Development Team
@@ -88,6 +88,21 @@ class Upload
 
 		// get an upload instance
 		static::$upload = new \FuelPHP\Upload\Upload($config);
+
+		// and load the uploaded files
+		static::$upload->processFiles();
+	}
+
+	// ---------------------------------------------------------------------------
+
+	/**
+	 * return the Upload instance
+	 *
+	 * @return	\FuelPHP\Upload\Upload
+	 */
+	public static function instance()
+	{
+		return static::$upload;
 	}
 
 	// ---------------------------------------------------------------------------

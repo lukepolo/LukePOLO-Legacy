@@ -3,7 +3,7 @@
  * Part of the Fuel framework.
  *
  * @package    Fuel
- * @version    1.5
+ * @version    1.6
  * @author     Fuel Development Team
  * @license    MIT License
  * @copyright  2010 - 2013 Fuel Development Team
@@ -348,6 +348,11 @@ class DBUtil
 			if (array_key_exists('AUTO_INCREMENT', $attr) and $attr['AUTO_INCREMENT'] === true)
 			{
 				$sql .= ' AUTO_INCREMENT';
+			}
+
+			if (array_key_exists('PRIMARY_KEY', $attr) and $attr['PRIMARY_KEY'] === true)
+			{
+				$sql .= ' PRIMARY KEY';
 			}
 
 			if (array_key_exists('FIRST', $attr) and $attr['FIRST'] === true)

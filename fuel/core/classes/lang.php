@@ -3,7 +3,7 @@
  * Part of the Fuel framework.
  *
  * @package    Fuel
- * @version    1.5
+ * @version    1.6
  * @author     Fuel Development Team
  * @license    MIT License
  * @copyright  2010 - 2013 Fuel Development Team
@@ -239,7 +239,7 @@ class Lang
 	 */
 	public static function delete($item, $group = null, $language = null)
 	{
-		$group === null or $line = $group.'.'.$line;
+		$group === null or $item = $group.'.'.$item;
 
 		($language === null) and $language = static::get_lang();
 
