@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+                <meta charset='utf-8'> 
 		<title><?php echo $title;?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<?php
@@ -25,7 +26,7 @@
 		<div id="wrap">
 			<div class="container">
 				<?php echo $header;?>
-				<div class="container" style="padding-bottom:56px;margin-top:100px;">
+				<div class="container" style="margin-bottom:76px;margin-top:100px;">
 					<div id="content" class="<?php
 					$segment_2 = Uri::segment(2);
 					echo (Uri::segment(1) == 'blog' && empty($segment_2) === true) ? '' : 'hero-unit';?>">

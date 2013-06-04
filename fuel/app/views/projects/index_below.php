@@ -7,7 +7,7 @@
                     <a class="fancybox" href="assets/img/portfolio/trams.jpg"><img  style="cursor: pointer" src="assets/img/portfolio/trams.jpg" alt="trams.purdue.edu"></a>
                 </div>
                 <p>
-                    TRAMS is a web application built for <a href="http://www.itap.purdue.edu/resnet/">ResNet</a> at <a href="http://www.purdue.edu/">Purdue University</a>, to monitor and run the ResNet services. TRAMS was co-developed with <a href="http://naterad.com">Nathan Radebaugh</a>
+                    A web application built for <a href="http://www.itap.purdue.edu/resnet/">ResNet</a> at <a href="http://www.purdue.edu/">Purdue University</a>, to monitor and run the ResNet services. TRAMS was co-developed with <a href="http://naterad.com">Nathan Radebaugh</a>
                 </p>
             </div>
             
@@ -28,12 +28,12 @@
     <div class="row">
         <div class="span6">
             <div class="white-block portfolio profile">
-                <h6><a href="http://purduesg.com">Purdue Student Goverment (PSG)</a> <small>(Released August 2012)</small></h6>
+                <h6><a href="http://purduesg.com">Purdue Student Government (PSG)</a> <small>(Released August 2012)</small></h6>
                 <div class="website-picture">
                     <a class="fancybox" href="assets/img/portfolio/psg.jpg"><img  style="cursor: pointer" src="assets/img/portfolio/psg.jpg" alt="purduesg.com"/></a>
                 </div>
                 <p>
-                    This website was built for PSG which is an organization at <a href="http://www.purdue.edu/">Purdue University</a> 
+                    Purdue Student Government (PSG) is a organization at <a href="http://www.purdue.edu/">Purdue University</a> 
                 </p>
             </div>
         </div>
@@ -44,7 +44,7 @@
                     <a class="fancybox" href="assets/img/portfolio/onepurdue.jpg"><img style="cursor: pointer;" src="assets/img/portfolio/onepurdue.jpg" alt="one-purdue"/></a>
                 </div>
                 <p>
-                    One Purdue is a campaign site that was used for Purdue Student Government President and Vice President Candidates, <a href=http://www.purdue.edu/fivestudents/change-makers/rust.html"">Joe Rust</a> and <a href="http://www.linkedin.com/pub/lexi-hiland/44/161/260">Lexi Hiland</a>,
+                    A campaign site that was used for Purdue Student Government President and Vice President Candidates, <a href=http://www.purdue.edu/fivestudents/change-makers/rust.html"">Joe Rust</a> and <a href="http://www.linkedin.com/pub/lexi-hiland/44/161/260">Lexi Hiland</a>,
                     they won!
                 </p>
             </div>
@@ -53,24 +53,38 @@
     <div class="row">
         <div class="span6">
             <div class="white-block portfolio profile">
-                <h6><a href="https://boilerprojects.com">Boiler Porjects</a> <small>(Development)</small></h6>
-                <div class="website-picture">
-                    <a class="fancybox" href="assets/img/portfolio/boilerprojects.jpg"><img style="cursor: pointer;" src="assets/img/portfolio/boilerprojects.jpg" alt="one-purdue"/></a>                    
-                </div>
-                <p>
-                    Boiler Projects is in <span style="color:red;">Development</span> , it is a project managment website for anyone, any size , your way. But there is a lot of work left todo!
-                </p>
-            </div>
-        </div>
-        <div class="span6">
-            <div class="white-block portfolio profile">
                 <h6><a href="http://boilerstateofmind.com">Boiler State of Mind</a> <small>(Released March 2013)</small></h6>
                 <div class="website-picture">
                     <a class="fancybox" href="assets/img/portfolio/bsom.jpg"><img style="cursor: pointer;" src="assets/img/portfolio/bsom.jpg" alt="one-purdue"/></a>
                 </div>
                 <p>
-                    Boiler State of Mind is a campaign site that was used for Purdue Student Government President and Vice President Candidates, <a href="http://www.linkedin.com/pub/bobby-egan/47/3a5/1b1">Bobby Egan</a> and <a href="http://www.linkedin.com/pub/erin-whittaker/40/483/311">Erin Whittaker</a> currently happening now!
+                    A campaign site that was used for Purdue Student Government President and Vice President Candidates, <a href="http://www.linkedin.com/pub/bobby-egan/47/3a5/1b1">Bobby Egan</a> and <a href="http://www.linkedin.com/pub/erin-whittaker/40/483/311">Erin Whittaker</a> currently happening now!
                 </p>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="white-block portfolio profile">
+                <h6><a href="https://boilerprojects.com">Boiler Porjects</a> <small style="color:red;">(Development)</small></h6>
+                <div class="website-picture">
+                    <a class="fancybox" href="assets/img/portfolio/boilerprojects.jpg"><img style="cursor: pointer;" src="assets/img/portfolio/boilerprojects.jpg" alt="one-purdue"/></a>                    
+                </div>
+                <p>
+                    A project management website for anyone, any size , your way. But there is a lot of work left to do, look for alpha testing in the fall!
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            <div class="white-block portfolio profile" style="height: auto;">
+                <h6><a href="#">Purdue University Hockey</a> <small style="color:red;">(Development)</small></h6>
+                <div class="website-picture">
+					<a class="fancybox" href="https://sphotos-a.xx.fbcdn.net/hphotos-ash3/s720x720/944214_10151613445908827_1196015849_n.jpg"><img style="margin-top:-200px;position:relative;clip:rect(200px,438px,500px,0px);" src="https://sphotos-a.xx.fbcdn.net/hphotos-ash3/s720x720/944214_10151613445908827_1196015849_n.jpg"></a>
+                    <!--<a class="fancybox" href="assets/img/portfolio/bsom.jpg"><img style="cursor: pointer;" src="assets/img/portfolio/bsom.jpg" alt="one-purdue"/></a>-->
+					<p style="font-weight: bold;">
+						Coming Soon!
+					</p>
+                </div>
             </div>
         </div>
     </div>
