@@ -31,6 +31,7 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Menu<b class="caret"></b><p class="menu_sub_text">lets do this</p></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="<?php echo Uri::base();?>blog/create">Create New Blog!</a></li>
+											<li><a href="<?php echo Uri::base();?>/apc.php">APC Info</a></li>
                                         </ul>
                                     </li>
                                     

@@ -45,9 +45,6 @@ html, body {
     background-color: white;
 }
 
-.navbar navbar-fixed-top{
-	box-shadow: 10px 10px 5px red;
-}
 .navbar-inner {
     background:white !important; 
     border-bottom: 20px solid #232323 !important;
@@ -58,7 +55,7 @@ html, body {
     background-color:#232323;
 }
 
-.navbar .nav > li > a:hover {
+.navbar .nav > li > a:hover:not(.active){
     background-color: #222222 !important;
     color:#FF8E00;
 }
@@ -69,6 +66,7 @@ html, body {
 .navbar .nav > li > a {
     color: #FF8E00;
     font-weight:bold;
+	/*text-shadow: none;*/
 }
 
 .menu_sub_text{
