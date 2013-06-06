@@ -90,101 +90,100 @@
 	?>
 	<!-- DOCUMENT READY STUFF HERE -->
 	<script type="text/javascript">
-	$(document).ready(function(){
-		
-		
-                $('.fancybox').fancybox({
-                    live: false
-                });
-		
-		// open all external links in a new window
-		$("a[href^=http]").each(function(){
-			if (this.href.indexOf(location.hostname) == -1)
-			{
-				$(this).attr(
-					'target',
-					'_blank'
-				);
-			}
-		});
-	
-		// validate
-		// add a title
-		/*
-		$('a:not([title])').each(function(){
-			$(this).attr(
-				'title',
-				$(this).html().replace(/<.+>/g,'').trim()
-			);
-		});
-		*/
-		// make sure there's a proper href
-		$('a[href="#"], a:not([href])').each(function(){
-			$(this).attr(
-				'href',
-				window.location+'#'
-			);
-		});
-		// add an alt tag
-		$('img:not([alt]), img[alt=""]').each(function(){
-			$(this).attr(
-				'alt',
-				$(this).attr('src')
-			);
-		});
-		// strip empty classes
-		$('[class=""]').each(function(){
-			$(this).removeAttr('class');
-		});
-		// strip empty ids
-		$('[id=""]').each(function(){
-			$(this).removeAttr('id');
-		});
-	
-		// Adds chosen to all selects
-		$("select").each(function(){
-				var add = $(this).html();
-				$(this).html('<option value=""><option>' + add);
-				$(this).chosen();
-		});
-		
-		
-		// only let us submit a form once
-		$('form').submit(function(){
-			$(this).find('input[type="submit"]').each(function(){
-				$(this).attr('disabled','disabled');
-				$(this).addClass('disabled');
+		$(document).ready(function(){
+			
+			$('.fancybox').fancybox({
+				live: false
 			});
-		});
+			
+			// open all external links in a new window
+			$("a[href^=http]").each(function(){
+				if (this.href.indexOf(location.hostname) == -1)
+				{
+					$(this).attr(
+						'target',
+						'_blank'
+					);
+				}
+			});
 		
-		// automatically resize inputs for their text
-		$('textarea, input').autosize();
+			// validate
+			// add a title
+			$('a:not([title])').each(function(){
+				$(this).attr(
+					'title',
+					$(this).html().replace(/<.+>/g,'').trim()
+				);
+			});
+			// make sure there's a proper href
+			$('a[href="#"], a:not([href])').each(function(){
+				$(this).attr(
+					'href',
+					window.location+'#'
+				);
+			});
+			// add an alt tag
+			$('img:not([alt]), img[alt=""]').each(function(){
+				$(this).attr(
+					'alt',
+					$(this).attr('src')
+				);
+			});
+			// strip empty classes
+			$('[class=""]').each(function(){
+				$(this).removeAttr('class');
+			});
+			// strip empty ids
+			$('[id=""]').each(function(){
+				$(this).removeAttr('id');
+			});
 		
-		// remembers form data when you reload the page
-		$('form').sisyphus();
+			// Adds chosen to all selects
+			$("select").each(function(){
+					var add = $(this).html();
+					$(this).html('<option value=""><option>' + add);
+					$(this).chosen();
+			});
+			
+			// only let us submit a form once
+			$('form').submit(function(){
+				$(this).find('input[type="submit"]').each(function(){
+					$(this).attr('disabled','disabled');
+					$(this).addClass('disabled');
+				});
+			});
+			
+			// automatically resize inputs for their text
+			$('textarea, input').autosize();
+			
+			// remembers form data when you reload the page
+			$('form').sisyphus();
+			
+			$( ".datepicker" ).datepicker({
+				minDate: 0,
+				changeMonth: true,
+				changeYear: true,
+			});
+		});	
 		
-		$( ".datepicker" ).datepicker({
-			minDate: 0,
-			changeMonth: true,
-			changeYear: true,
-		});
-	});	
-	
+		// Sets the blue overlay
 		var height = null;
 		$(window).resize(function() {
 			height = $(window).height();
-			$('.bottom_body').height(height - 550);
+			$('.bottom_body').height(height / 2);
 		});
+		
 		$(window).resize();
-	// Google analytics
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-33266635-1']);
-	_gaq.push(['_trackPageview']);
-      
-	(function() {
-	  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	})();
+		
+		// Google analytics
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-33266635-1']);
+		_gaq.push(['_trackPageview']);
+		  
+		(function() {
+		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
 	</script>
 </html>

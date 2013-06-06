@@ -186,9 +186,13 @@ body {
 }
 
 #footer_digital {
-	text-align:center;
+	text-align:center !important;
 }
 
-#footer_stats {
-	text-align:right;
+#footer_contents {
+	text-align: center;
+}
+
+#footer_contents div{
+	margin-bottom: 10px;
 }
