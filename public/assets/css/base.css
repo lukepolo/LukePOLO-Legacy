@@ -71,10 +71,37 @@ body {
     display:inline-block
 }
 
-.website-picture{
-    height: 300px !important;
-    overflow: hidden;
+/* Portfolio */
+.portfolio {
+	height: 350px;
+	background-color: white;
+	overflow: hidden;
 }
+
+.website-picture{
+	text-align: center;
+	height: 250px;
+	width: 445px;
+	overflow: hidden;
+	margin: auto;
+}
+
+.portfolio img {
+    width:100% !important;
+	clear: both;
+}
+
+.portfolio p {
+    padding-top:15px;
+    text-align: center;
+}
+
+/*.website-picture{*/
+/*    height: 300px !important;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/* End of Portfolio */
 
 .hero-unit{
     background-color:white;
@@ -108,20 +135,6 @@ body {
     color:white;
     text-shadow:none !important;
     font-weight:none !important;
-}
-
-.portfolio {
-    height: 425px;
-	background-color: white;
-}
-
-.portfolio img {
-    width:100% !important;
-}
-
-.portfolio p {
-    padding-top:15px;
-    text-align: center;
 }
 
 /*

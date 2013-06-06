@@ -3,7 +3,7 @@
 		<div class="white-block portfolio">
 			<h6><a href="#">Purdue University Hockey</a> <small style="color:red;">(In Development)</small></h6>
 			<div class="website-picture">
-				<a class="fancybox" href="https://sphotos-a.xx.fbcdn.net/hphotos-ash3/s720x720/944214_10151613445908827_1196015849_n.jpg"><img style="margin-top:-200px;position:relative;clip:rect(200px,438px,500px,0px);" src="https://sphotos-a.xx.fbcdn.net/hphotos-ash3/s720x720/944214_10151613445908827_1196015849_n.jpg"></a>
+				<a class="fancybox" href="https://sphotos-a.xx.fbcdn.net/hphotos-ash3/s720x720/944214_10151613445908827_1196015849_n.jpg"><img style="margin-top:-200px;position:relative;clip:rect(200px,438px,500px,0px) !important;" src="https://sphotos-a.xx.fbcdn.net/hphotos-ash3/s720x720/944214_10151613445908827_1196015849_n.jpg"></a>
 				<!--<a class="fancybox" href="assets/img/portfolio/bsom.jpg"><img style="cursor: pointer;" src="assets/img/portfolio/bsom.jpg" alt="one-purdue"/></a>-->
 			</div>
 			<p>
