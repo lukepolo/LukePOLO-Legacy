@@ -28,7 +28,7 @@ body {
   /* Set the fixed height of the footer here */
 #push,
 #footer {
-	padding-top: 15px;
+	padding-top: 20px;
 	background-image:url('https://lukepolo.com/assets/img/broken_noise.png') !important;
 	color:white;
 }
@@ -43,6 +43,13 @@ body {
 	  margin-right: -20px;
 	  padding-left: 20px;
 	  padding-right: 20px;
+	  text-align: center !important;
+	}
+	#footer_contents div {
+		margin-bottom: 10px;		
+	}
+	#footer_right_contents {
+		text-align: center !important;
 	}
 }
 
@@ -189,10 +196,6 @@ body {
 	text-align:center !important;
 }
 
-#footer_contents {
-	text-align: center;
-}
-
-#footer_contents div{
-	margin-bottom: 10px;
+#footer_right_contents{
+	text-align: right;
 }
