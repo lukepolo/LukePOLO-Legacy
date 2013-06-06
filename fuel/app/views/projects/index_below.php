@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="span6">
-		<div class="white-block portfolio profile">
+		<div class="white-block portfolio">
 			<h6><a href="#">Purdue University Hockey</a> <small style="color:red;">(In Development)</small></h6>
 			<div class="website-picture">
 				<a class="fancybox" href="https://sphotos-a.xx.fbcdn.net/hphotos-ash3/s720x720/944214_10151613445908827_1196015849_n.jpg"><img style="margin-top:-200px;position:relative;clip:rect(200px,438px,500px,0px);" src="https://sphotos-a.xx.fbcdn.net/hphotos-ash3/s720x720/944214_10151613445908827_1196015849_n.jpg"></a>
@@ -12,7 +12,7 @@
 		</div>
 	</div>
 	<div class="span6">
-		<div class="white-block portfolio profile">
+		<div class="white-block portfolio">
 			<h6><a href="https://boilerprojects.com">Boiler Porjects</a> <small style="color:red;">(In Development)</small></h6>
 			<div class="website-picture">
 				<a class="fancybox" href="assets/img/portfolio/boilerprojects.jpg"><img style="cursor: pointer;" src="assets/img/portfolio/boilerprojects.jpg" alt="one-purdue"/></a>                    
@@ -25,7 +25,7 @@
 </div>
 <div class="row">
 	<div class="span6">
-		<div class="white-block portfolio profile">
+		<div class="white-block portfolio">
 			<h6><a href="http://boilerstateofmind.com">Boiler State of Mind</a> <small>(Released March 2013)</small></h6>
 			<div class="website-picture">
 				<a class="fancybox" href="assets/img/portfolio/bsom.jpg"><img style="cursor: pointer;" src="assets/img/portfolio/bsom.jpg" alt="one-purdue"/></a>
@@ -36,7 +36,7 @@
 		</div>
 	</div>
 	<div class="span6">
-		<div class="white-block portfolio profile">
+		<div class="white-block portfolio">
 			<h6><a href="http://purduesg.com">Purdue Student Government (PSG)</a> <small>(Released August 2012)</small></h6>
 			<div class="website-picture">
 				<a class="fancybox" href="assets/img/portfolio/psg.jpg"><img  style="cursor: pointer" src="assets/img/portfolio/psg.jpg" alt="purduesg.com"/></a>
@@ -49,7 +49,7 @@
 </div>
 <div class="row">
 	<div class="span6">
-		<div class="white-block portfolio profile">
+		<div class="white-block portfolio">
 			<h6 style="display: inline;">TRAMS 6 <small>(Released June 2012)</small></h6>
 			<div class="website-picture">
 				<a class="fancybox" href="assets/img/portfolio/trams.jpg"><img  style="cursor: pointer" src="assets/img/portfolio/trams.jpg" alt="trams.purdue.edu"></a>
@@ -60,7 +60,7 @@
 		</div>
 	</div>
 	<div class="span6">
-		<div class="white-block portfolio profile">
+		<div class="white-block portfolio">
 			<h6><a href="https://my.resnet.purdue.edu" target="_blank">My ResNet</a> <small>(Released June 2012)</small></h6>
 			<div class="website-picture">
 				<a class="fancybox" href="assets/img/portfolio/my-resnet.jpg"><img style="cursor: pointer;" src="assets/img/portfolio/my-resnet.jpg" alt="my-resnet.purdue.edu"/></a>
@@ -73,7 +73,7 @@
 </div>
 <div class="row">
 	<div class="span6">
-		<div class="white-block portfolio profile">
+		<div class="white-block portfolio">
 			<h6><a href="http://onepurdue.org" target="_blank">One Purdue</a> <small>(Released March 2012)</small></h6>
 			<div class="website-picture">
 				<a class="fancybox" href="assets/img/portfolio/onepurdue.jpg"><img style="cursor: pointer;" src="assets/img/portfolio/onepurdue.jpg" alt="one-purdue"/></a>
