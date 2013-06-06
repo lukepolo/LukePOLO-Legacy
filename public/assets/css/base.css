@@ -8,30 +8,45 @@ p{
     font-size:100% !important;
 }
  
-#wrap{
-    min-height:100%;
+/* STICKY FOOTER */
+
+html,
+body {
+	height: 100%;
+	/* The html and body elements cannot have any padding or margin. */
 }
 
-/* Lastly, apply responsive CSS fixes as necessary */
+  /* Wrapper for page content to push down footer */
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -66px;
+}
+
+  /* Set the fixed height of the footer here */
+#push,
+#footer {
+	padding-top: 15px;
+	background-image:url('https://lukepolo.com/assets/img/broken_noise.png') !important;
+	color:white;
+}
+#footer {
+	background-color: #f5f5f5;
+}
+
+  /* Lastly, apply responsive CSS fixes as necessary */
 @media (max-width: 767px) {
-  #footer {
-	margin-left: -20px;
-	margin-right: -20px;
-	padding-left: 20px;
-	padding-right: 20px;
-  }
+	#footer {
+	  margin-left: -20px;
+	  margin-right: -20px;
+	  padding-left: 20px;
+	  padding-right: 20px;
+	}
 }
-html, body {
-    height: 100%;
- }
- 
 
-#footer{
-    margin-top: -66px;
-    padding:15px 0 0 0;
-    background-image:url('https://lukepolo.com/assets/img/broken_noise.png') !important;
-    color:white;
-}
+/* STICKEY FOOTER END */
 #footer p{
     display:inline-block;
 }
@@ -152,7 +167,7 @@ html, body {
   
 .white-block {
     position: relative;
-    margin: 15px 0;
+    margin-top: 15px;
     padding: 10px 10px 10px;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -162,7 +177,7 @@ html, body {
 }
 
 #content_holder {
-	margin-bottom:76px;
+	margin-bottom:100px;
 	margin-top:15px;
 }
 

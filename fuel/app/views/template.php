@@ -23,48 +23,50 @@
 		<link rel="icon" type="image/ico" href="http://lukepolo.com/assets/img/favicon.ico"/>
 	</head>
 	<body  onload="prettyPrint()">
-		<?php echo $header;?>
-		<div id="wrap" class="container">
-			<div id="content_holder">
-				<div id="content" class="<?php
-					$segment_2 = Uri::segment(2);
-					echo (Uri::segment(1) == 'blog' && empty($segment_2) === true) ? '' : 'hero-unit';?>">
+		<div id="wrap">
+			<?php echo $header;?>
+			<div class="container">
+				<div id="content_holder">
+					<div id="content" class="<?php
+						$segment_2 = Uri::segment(2);
+						echo (Uri::segment(1) == 'blog' && empty($segment_2) === true) ? '' : 'hero-unit';?>">
+						<?php
+							if (Session::get_flash('error'))
+							{
+								$error = Session::get_flash('error')
+							?>
+								<div class="alert alert-danger">
+									<?php
+										echo $error;
+									?>
+								</div>
+							<?php
+							}
+							if (Session::get_flash('success'))
+							{
+							?>
+								<div class="alert alert-success">
+									<?php
+										echo Session::get_flash('success');
+									?>
+								</div>
+							<?php
+							}
+						?>
+						<?php echo $content; ?>
+					</div>
 					<?php
-						if (Session::get_flash('error'))
-						{
-							$error = Session::get_flash('error')
-						?>
-							<div class="alert alert-danger">
-								<?php
-									echo $error;
-								?>
-							</div>
-						<?php
-						}
-						if (Session::get_flash('success'))
-						{
-						?>
-							<div class="alert alert-success">
-								<?php
-									echo Session::get_flash('success');
-								?>
-							</div>
-						<?php
-						}
+					if(isset($content_below) === true)
+					{
 					?>
-					<?php echo $content; ?>
+						<?php echo $content_below;?>
+					<?php
+					}
+					?>
 				</div>
-				<?php
-				if(isset($content_below) === true)
-				{
-				?>
-					<?php echo $content_below;?>
-				<?php
-				}
-				?>
+				<div class="bottom_body"></div>
+				<div class="push"></div>
 			</div>
-			<div class="bottom_body"></div>
-			<div class="push"></div>
 		</div>
 		<?php echo $footer;?>
 	</body>
