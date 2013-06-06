@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-                <meta charset='utf-8'> 
+        <meta charset='utf-8'> 
 		<title><?php echo $title;?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<?php
@@ -23,11 +23,10 @@
 		<link rel="icon" type="image/ico" href="http://lukepolo.com/assets/img/favicon.ico"/>
 	</head>
 	<body  onload="prettyPrint()">
-		<div id="wrap">
-			<div class="container">
-				<?php echo $header;?>
-				<div class="container" style="margin-bottom:76px;margin-top:100px;">
-					<div id="content" class="<?php
+		<?php echo $header;?>
+		<div id="wrap" class="container">
+			<div id="content_holder">
+				<div id="content" class="<?php
 					$segment_2 = Uri::segment(2);
 					echo (Uri::segment(1) == 'blog' && empty($segment_2) === true) ? '' : 'hero-unit';?>">
 					<?php
@@ -53,47 +52,21 @@
 						<?php
 						}
 					?>
-						<?php echo $content; ?>
-					
-					</div>
-					<?php
-					if(isset($content_below) === true)
-					{
-					?>
-					<div class="container">
-						<?php echo $content_below;?>
-					</div>
-					<?php
-					}
+					<?php echo $content; ?>
+				</div>
+				<?php
+				if(isset($content_below) === true)
+				{
 				?>
-				</div>
-				<!-- Contact me modal -->
-				<div class="modal hide fade" id="contact_me">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times</button>
-						<h3>Luke Policinski's Contact Info</h3>
-					</div>
-					<div class="modal-body">
-						<p>
-								<a href="mailto:luke@lukepolo.com">Luke@LukePolo.com</a> 
-								<a href="https://twitter.com/lpolicin" class="twitter-follow-button" data-show-count="false">Follow @lpolicin</a>
-									<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-						</p>
-					</div>
-					<div class="modal-footer">
-						<a href="#" class="btn" data-dismiss="modal">Close</a>
-					</div>
-				</div>
-				<!--  end of contact me modal -->
-				<div class="bottom_body"></div>
+					<?php echo $content_below;?>
+				<?php
+				}
+				?>
 			</div>
+			<div class="bottom_body"></div>
 			<div class="push"></div>
 		</div>
-		<div id="footer">
-			<div class="container">
-			       <?php echo $footer;?>
-			</div>
-		</div>
+		<?php echo $footer;?>
 	</body>
 
 	<?php

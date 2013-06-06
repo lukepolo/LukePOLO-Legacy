@@ -20,7 +20,14 @@ class Controller_Admin extends Controller_Template {
 	            // Check to see if they had a valid username / password
 	            if(Auth::validate_user(Input::post('username'),Input::post('password')) && $auth->login())
 	            {
-		        Response::redirect(Uri::base());
+					if(isset($_SERVER['HTTP_REFERER']))
+					{
+						Response::redirect($_SERVER['HTTP_REFERER']);
+					}
+					else
+					{
+						Response::redirect(Uri::base());
+					}
 	            }
 	            else
 	            {
@@ -47,6 +54,13 @@ class Controller_Admin extends Controller_Template {
             Session::set_flash('error','You were never logged in! Sneaky sneaky are we?!');
         }
         
-        Response::redirect(Uri::base());
+		if(isset($_SERVER['HTTP_REFERER']))
+		{
+			Response::redirect($_SERVER['HTTP_REFERER']);
+		}
+		else
+		{
+			Response::redirect(Uri::base());
+		}
     }
 }

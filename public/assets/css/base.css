@@ -12,13 +12,22 @@ p{
     min-height:100%;
 }
 
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+  #footer {
+	margin-left: -20px;
+	margin-right: -20px;
+	padding-left: 20px;
+	padding-right: 20px;
+  }
+}
 html, body {
     height: 100%;
  }
  
 
 #footer{
-    margin-top: -71px;
+    margin-top: -66px;
     padding:15px 0 0 0;
     background-image:url('https://lukepolo.com/assets/img/broken_noise.png') !important;
     color:white;
@@ -34,9 +43,7 @@ html, body {
     height: 300px !important;
     overflow: hidden;
 }
-.navbar{
-    position:absolute;
-}
+
 .hero-unit{
     background-color:white;
 }
@@ -120,18 +127,18 @@ html, body {
  
 .day, .month, .year {
   position: absolute;
-  }
+}
  
 .day { 
   font-size: 30px;
   top: 25px;
-  }
+}
  
 .month { 
   top: 0;
   left: 0;  
   font-size: 18px;
-  }
+}
  
 .year { 
   top: 30px;
@@ -143,7 +150,7 @@ html, body {
   -moz-transform: rotate(-90deg);  
   }
   
-  .white-block {
+.white-block {
     position: relative;
     margin: 15px 0;
     padding: 10px 10px 10px;
@@ -152,4 +159,21 @@ html, body {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
+}
+
+#content_holder {
+	margin-bottom:76px;
+	margin-top:15px;
+}
+
+.header_logo {
+	width:185px;
+}
+
+#footer_digital {
+	text-align:center;
+}
+
+#footer_stats {
+	text-align:right;
 }
