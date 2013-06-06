@@ -227,3 +227,13 @@ body {
 #live {
 	font-size: 14px !important;
 }
+#busisnesscard{
+	cursor: default;
+	color:grey;
+	font-weight: bold;
+	text-align: center;
+}
+
+#contact_form textarea{
+	resize: none;
+}

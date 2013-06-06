@@ -29,7 +29,30 @@
 			{
 				$('#skype_choice').html('<div style="text-align:center;"><a class="btn btn-success" id="skype_done">I have Skype Installed Now!</a></div>');
 			}
-		})
+		});
+		
+		
+		$('#submit').live('click',function()
+		{
+			$.ajax({
+				type: "POST",
+				url: "<?php echo Uri::Create('ajax/email');?>",
+				data: { name: $('#name').val(), email: $('#email').val() , message: $('#message').val()},
+				dataType: 'json',
+				success : function(results)
+				{
+					if (typeof(results.error) == 'undefined')
+					{
+						$('#contact_form').html('<div class="alert alert-success">'+results.message+'</div.');
+					}
+					else
+					{
+						$('#contact_form').html('<div class="alert alert-danger">'+results.error+'</div.');
+					}
+				}
+			});
+		});
+
 	});
 </script>
 <div style="text-align:center;margin-top:20px;">
@@ -67,14 +90,37 @@
 		</div>
 	</div>
 </div>
-<div class="alert alert-danger">Currenlty Working On Other Ways</div>
-Sorry for plain text for now :<br>
-
-E-Mail : <a target="_blank" href="mailto:Luke@LukePOLO.com?Subject=Hello!">Luke@LukePOLO.com</a>
-<br>
-Phone : <a href="tel:2606091511">(260) 609 - 1511</a>
 <!-- END SKYPE MODAL -->
-<br>
-Coming Soon!
-<br>
-Schedule A Meeting / Internal Contact Form / Resume Circle / Better Gmail Circle (yah i made that one looks awful doesn't it?!)
+<div class="content">
+	<hr>
+		<div id="busisnesscard">
+			<img style="width:50%;" src="<?php echo Uri::Create('assets/img/LukePOLO.png');?>">
+			<p>Luke@LukePOLO.com</a> | LukePOLO.com</p>
+			<p style="margin-top: -20px;">(260) 609-1511</p>
+		</div>
+	<hr>
+	<form class="form-horizontal" id="contact_form">
+		<div class="control-group">
+			<label class="control-label" for="inputEmail">Name <span style="color:red;">*</span></label>
+			<div class="controls">
+				<input type="text" id="name" placeholder="Your Name" required="required">
+			</div>
+			<br>
+			<label class="control-label" for="inputEmail">Email</label>
+			<div class="controls">
+				<input type="email" id="email" placeholder="Email">
+			</div>
+			<br>
+			<label class="control-label">Message <span style="color:red;">*</span></label>
+			<div class="controls">
+				<textarea id="message" style="width:100%;height: 200px;" required="required"></textarea>
+			</div>
+		</div>
+		<div class="control-group">
+			
+			<div class="controls">
+				<div id="submit" class="btn btn-primary">Email Me!</div>
+			</div>
+		</div>
+	<?php echo Form::close();?>
+</div>
