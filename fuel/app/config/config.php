@@ -18,8 +18,6 @@
  *
  * This will allow you to upgrade fuel without losing your custom config.
  */
-
-
 return array(
 
 	/**
@@ -53,7 +51,7 @@ return array(
 	 */
 	'index_file' => false,
 
-	'profiling'  => false,
+	'profiling'  => Session::Get('profiler'),
 
         /**
 	 * profiling_paths - The paths to show in profiler.
@@ -81,13 +79,13 @@ return array(
 	/**
 	 * Callback to use with ob_start(), set this to 'ob_gzhandler' for gzip encoding of output
 	 */
-	'ob_callback'  => '',
+	'ob_callback'  => null,
 
 	'errors'  => array(
 		// Which errors should we show, but continue execution? You can add the following:
 		// E_NOTICE, E_WARNING, E_DEPRECATED, E_STRICT to mimic PHP's default behaviour
 		// (which is to continue on non-fatal errors). We consider this bad practice.
-		'continue_on'  => array(),
+		'continue_on'  => array(E_NOTICE, E_WARNING, E_DEPRECATED),
 		// How many errors should we show before we stop showing them? (prevents out-of-memory errors)
 		'throttle'     => 10,
 		// Should notices from Error::notice() be shown?

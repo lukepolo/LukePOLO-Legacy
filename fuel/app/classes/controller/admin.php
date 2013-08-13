@@ -54,13 +54,31 @@ class Controller_Admin extends Controller_Template {
             Session::set_flash('error','You were never logged in! Sneaky sneaky are we?!');
         }
         
-		if(isset($_SERVER['HTTP_REFERER']))
-		{
-			Response::redirect($_SERVER['HTTP_REFERER']);
-		}
-		else
-		{
-			Response::redirect(Uri::base());
-		}
+	if(isset($_SERVER['HTTP_REFERER']))
+	{
+		Response::redirect($_SERVER['HTTP_REFERER']);
+	}
+	else
+	{
+		Response::redirect(Uri::base());
+	}
+    }
+    
+    public function action_profiler()
+    {
+	if(Auth::check())
+        {
+	    if (Session::get('profiler'))
+	    {
+		Session::delete('profiler');
+	    }
+	    else
+	    {
+		Session::set('profiler', true);
+	    }
+	}
+	
+	Response::redirect(Uri::base());
+	
     }
 }
