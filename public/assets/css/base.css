@@ -73,7 +73,7 @@ body {
 
 /* Portfolio */
 .portfolio {
-	height: 350px;
+	height: 360px;
 	background-color: white;
 	overflow: hidden;
 }
@@ -95,11 +95,6 @@ body {
     padding-top:15px;
     text-align: center;
 }
-
-/*.website-picture{*/
-/*    height: 300px !important;*/
-/*    overflow: hidden;*/
-/*}*/
 
 /* End of Portfolio */
 

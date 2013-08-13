@@ -5,12 +5,12 @@
 
 return array(
 	'default' => array(
-                'type'           => 'mysql',
+                'type'               => 'mysqli',
 		'connection'  => array(
-			'hostname'   => 'lpolicin.db.9543113.hostedresource.com',
-                        'database'   => 'lpolicin',
+			'hostname'   => 'localhost',
+                        'database'   => 'LukePOLO',
 			'username'   => 'lpolicin',
-			'password'   => 'M4rsh4ll',
+			'password'   => '09xba94!mnza%',
 		),
 	),
 );

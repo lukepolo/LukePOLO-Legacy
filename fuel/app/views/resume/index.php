@@ -1,3 +1,4 @@
+<a href="https://dl.dropboxusercontent.com/u/20485770/Luke_Policinski_Resume.pdf">Download PDF</a>
 <?php
 if (strtolower(Agent::browser()) == 'chrome')
 {
@@ -26,4 +27,3 @@ else
 <?php
 }
 ?>
-

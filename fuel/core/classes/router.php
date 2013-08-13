@@ -257,7 +257,7 @@ class Router
 	protected static function parse_segments($segments, $namespace = '', $module = false)
 	{
 		$temp_segments = $segments;
-
+		
 		foreach (array_reverse($segments, true) as $key => $segment)
 		{
 			$class = $namespace.static::$prefix.\Inflector::words_to_upper(implode('_', $temp_segments));

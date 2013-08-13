@@ -1,14 +1,24 @@
 <?php
 /**
- * Fuel is a fast, lightweight, community driven PHP5 framework.
+ * Part of the Fuel framework.
  *
  * @package    Fuel
- * @version    1.0
+ * @version    1.6
  * @author     Fuel Development Team
  * @license    MIT License
- * @copyright  2010 - 2012 Fuel Development Team
+ * @copyright  2010 - 2013 Fuel Development Team
  * @link       http://fuelphp.com
  */
+
+/**
+ * NOTICE:
+ *
+ * If you need to make modifications to the default configuration, copy
+ * this file to your app/config folder, and make them in there.
+ *
+ * This will allow you to upgrade fuel without losing your custom config.
+ */
+
 
 return array(
 
@@ -39,11 +49,23 @@ return array(
 	/**
 	 * index_file - The name of the main bootstrap file.
 	 *
-	 * Set this to false or remove if you using mod_rewrite.
+	 * Set this to 'index.php if you don't use URL rewriting
 	 */
-	'index_file'  => '',
+	'index_file' => false,
 
 	'profiling'  => false,
+
+        /**
+	 * profiling_paths - The paths to show in profiler.
+	 *
+	 * If you do not wish to see path set to 'NULL'
+	 * You can also add other paths that you wish not to see
+	 */
+	'profiling_paths' => array(
+	    'APPPATH' => APPPATH,
+	    'COREPATH' => NULL,
+	    'PKGPATH' => NULL,
+	),
 
 	/**
 	 * Default location for the file cache
@@ -51,7 +73,7 @@ return array(
 	'cache_dir'       => APPPATH.'cache/',
 
 	/**
-	 * Setttings for the file finder cache (the Cache class has it's own config!)
+	 * Settings for the file finder cache (the Cache class has it's own config!)
 	 */
 	'caching'         => true,
 	'cache_lifetime'  => 3600, // In Seconds
@@ -59,15 +81,19 @@ return array(
 	/**
 	 * Callback to use with ob_start(), set this to 'ob_gzhandler' for gzip encoding of output
 	 */
-	'ob_callback'  => null,
+	'ob_callback'  => '',
 
 	'errors'  => array(
-		// Which errors should we show, but continue execution?
-		'continue_on'  => array(E_NOTICE, E_WARNING, E_DEPRECATED, E_STRICT),
+		// Which errors should we show, but continue execution? You can add the following:
+		// E_NOTICE, E_WARNING, E_DEPRECATED, E_STRICT to mimic PHP's default behaviour
+		// (which is to continue on non-fatal errors). We consider this bad practice.
+		'continue_on'  => array(),
 		// How many errors should we show before we stop showing them? (prevents out-of-memory errors)
 		'throttle'     => 10,
 		// Should notices from Error::notice() be shown?
 		'notices'      => true,
+		// Render previous contents or show it as HTML?
+		'render_prior' => false,
 	),
 
 	/**
@@ -77,6 +103,9 @@ return array(
 	'language_fallback'  => 'en', // Fallback language when file isn't available for default language
 	'locale'             => 'en_US', // PHP set_locale() setting, null to not set
 
+	/**
+	 * Internal string encoding charset
+	 */
 	'encoding'  => 'UTF-8',
 
 	/**
@@ -86,7 +115,7 @@ return array(
 	 * default_timezone		optional, if you want to change the server's default timezone
 	 */
 	'server_gmt_offset'  => 0,
-	'default_timezone'   => 'America/Indiana/Indianapolis',
+	'default_timezone'   => null,
 
 	/**
 	 * Logging Threshold.  Can be set to any of the following:
@@ -106,26 +135,69 @@ return array(
 	 * Security settings
 	 */
 	'security' => array(
-		'csrf_autoload'    => false,
-		'csrf_token_key'   => 'fuel_csrf_token',
-		'csrf_expiration'  => 0,
-		'uri_filter'       => array('htmlentities'),
+		/**
+		 * If true, every HTTP request of the type speficied in autoload_methods
+		 * will be checked for a CSRF token. If not present or not valid, a
+		 * security exception will be thrown.
+		 */
+		'csrf_autoload'         => false,
+		'csrf_autoload_methods' => array('post', 'put', 'delete'),
+
+		/**
+		 * Name of the form field that holds the CSRF token.
+		 */
+		'csrf_token_key'        => 'fuel_csrf_token',
+
+		/**
+		 * Expiry of the token in seconds. If zero, the token remains the same
+		 * for the entire user session.
+		 */
+		'csrf_expiration'       => 0,
+
+		/**
+		 * A salt to make sure the generated security tokens are not predictable
+		 */
+		'token_salt'       => 'mysaltisverysalty',
 
 		/**
 		 * This input filter can be any normal PHP function as well as 'xss_clean'
 		 *
-		 * WARNING: Using xss_clean will cause a performance hit.  How much is
-		 * dependant on how much input data there is.
+		 * WARNING: Using xss_clean will cause a performance hit.
+		 * How much is dependant on how much input data there is.
+		 *
+		 * Note: MUST BE DEFINED IN THE APP CONFIG FILE!
+		 */
+		'uri_filter'       => array(),
+
+		/**
+		 * This input filter can be any normal PHP function as well as 'xss_clean'
+		 *
+		 * WARNING: Using xss_clean will cause a performance hit.
+		 * How much is dependant on how much input data there is.
+		 *
+		 * Note: MUST BE DEFINED IN THE APP CONFIG FILE!
 		 */
 		'input_filter'  => array(),
 
 		/**
 		 * This output filter can be any normal PHP function as well as 'xss_clean'
 		 *
-		 * WARNING: Using xss_clean will cause a performance hit.  How much is
-		 * dependant on how much input data there is.
+		 * WARNING: Using xss_clean will cause a performance hit.
+		 * How much is dependant on how much input data there is.
+		 *
+		 * Note: MUST BE DEFINED IN THE APP CONFIG FILE!
 		 */
-		'output_filter'  => array('Security::htmlentities'),
+		'output_filter'  => array(),
+
+		/**
+		 * Encoding mechanism to use on htmlentities()
+		 */
+		'htmlentities_flags' => ENT_QUOTES,
+
+		/**
+		 * Wether to encode HTML entities as well
+		 */
+		'htmlentities_double_encode' => false,
 
 		/**
 		 * Whether to automatically filter view data
@@ -136,12 +208,7 @@ return array(
 		 * With output encoding switched on all objects passed will be converted to strings or
 		 * throw exceptions unless they are instances of the classes in this array.
 		 */
-		'whitelisted_classes' => array(
-			'Fuel\\Core\\Response',
-			'Fuel\\Core\\View',
-			'Fuel\\Core\\ViewModel',
-			'Closure',
-		)
+		'whitelisted_classes' => array(),
 	),
 
 	/**
@@ -155,30 +222,39 @@ return array(
 		// Restrict the domain that the cookie is available to
 		'domain'      => null,
 		// Only transmit cookies over secure connections
-		'secure'      => false,
+		'secure'      => true,
 		// Only transmit cookies over HTTP, disabling Javascript access
 		'http_only'   => false,
 	),
 
 	/**
-	 * Validation settings.
+	 * Validation settings
 	 */
 	'validation' => array(
 		/**
-		 * Wether to fallback to global when a
-		 *value is not found in the input array.
+		 * Wether to fallback to global when a value is not found in the input array.
 		 */
 		'global_input_fallback' => true,
 	),
 
 	/**
-	 * Routing settings.
+	 * Controller class prefix
+	 */
+	 'controller_prefix' => 'Controller_',
+
+	/**
+	 * Routing settings
 	 */
 	'routing' => array(
 		/**
 		 * Whether URI routing is case sensitive or not
 		 */
 		'case_sensitive' => true,
+
+		/**
+		 *  Wether to strip the extension
+		 */
+		'strip_extension' => true,
 	),
 
 	/**
@@ -187,9 +263,23 @@ return array(
 	 * here. By default empty, but to use them you can add something
 	 * like this:
 	 *      array(APPPATH.'modules'.DS)
+	 *
+	 * Paths MUST end with a directory separator (the DS constant)!
 	 */
 	'module_paths' => array(
 		//APPPATH.'modules'.DS
+	),
+
+	/**
+	 * To enable you to split up your additions to the framework, packages are
+	 * used. You can define the basepaths for your packages here. By default
+	 * empty, but to use them you can add something like this:
+	 *      array(APPPATH.'modules'.DS)
+	 *
+	 * Paths MUST end with a directory separator (the DS constant)!
+	 */
+	'package_paths' => array(
+		//PKGPATH
 	),
 
 
@@ -199,8 +289,8 @@ return array(
 	'always_load'  => array(
 
 		/**
-		 * These packages are loaded on Fuel's startup.  You can specify them in
-		 * the following manner:
+		 * These packages are loaded on Fuel's startup.
+		 * You can specify them in the following manner:
 		 *
 		 * array('auth'); // This will assume the packages are in PKGPATH
 		 *
@@ -210,10 +300,10 @@ return array(
 		 * );
 		 */
 		'packages'  => array(
+			//'orm',
                         'auth',
                         'orm',
-                        'casset',
-                        'parser',                        
+                        'casset'
 		),
 
 		/**
@@ -253,5 +343,3 @@ return array(
 	),
 
 );
-
-/* End of file config.php */
