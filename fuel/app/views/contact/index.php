@@ -56,7 +56,7 @@
 	});
 </script>
 <div style="text-align:center;margin-top:20px;">
-	<a href="http://linkedin.com/pub/luke-policinski/28/204/584/"><?php echo Asset::img('extreme-garments/linkedin.png');?></a>
+	<a href="http://linkedin.com/in/LukePOLO"><?php echo Asset::img('extreme-garments/linkedin.png');?></a>
 	<a href="https://twitter.com/lpolicin"><?php echo Asset::img('extreme-garments/twitter.png');?></a>
 	<a href="https://www.facebook.com/luke.policinski"><?php echo Asset::img('extreme-garments/facebook.png');?></a>
 	<br>

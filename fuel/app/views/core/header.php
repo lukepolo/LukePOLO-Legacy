@@ -6,7 +6,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<a href="<?php echo Uri::base();?>"><?php echo Html::img('https://static.lukepolo.com/lukepolo/public/assets/img/LukePOLO.png',array('class'=>'header_logo'));?></a>
+			<a href="<?php echo Uri::base();?>"><?php echo Html::img('http://static.lukepolo.com/lukepolo/public/assets/img/LukePOLO.png',array('class'=>'header_logo'));?></a>
 			<div class="nav-collapse collapse pull-right">
 					<ul class="nav pull-right">
 						<?php
