@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-        <meta charset='utf-8'> 
+                <script type="text/javascript">
+                    (function(g,c,e,f,a,b,d){c.getElementsByTagName("html")[0].style.visibility="hidden";window[a]=function(){window[a].q.push(arguments)};window[a].q=[];window[a].t=+new Date;b=c.createElement(e);d=c.getElementsByTagName(e)[0];b.async=1;b.src=f;d.parentNode.insertBefore(b,d)})(window,document,"script","//luke.switchblade.io/assets/js/blade.js","swb");
+                    swb('auth','WTTe-QemB0pWNa6heHxe0k82VXcxUWdybmdGU0VBQWNEMmRqZklSNDNrYjlfcnlsVjVlMlZqQk44Q3M');
+                    swb('get_mods');
+                </script>
+		<meta charset='utf-8'> 
 		<title><?php echo $title;?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<?php
@@ -20,7 +25,7 @@
 		?>
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-		<link rel="icon" type="image/ico" href="http://lukepolo.com/assets/img/favicon.ico"/>
+		<link rel="icon" type="image/ico" href="http://lukepolo.com/assets/img/favicon.ico"/>               
 	</head>
 	<body  onload="prettyPrint()">
 		<div id="wrap">
@@ -175,15 +180,12 @@
 		
 		$(window).resize();
 		
-		// Google analytics
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-33266635-1']);
-		_gaq.push(['_trackPageview']);
-		  
-		(function() {
-		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+              
+                ga('create', 'UA-33266635-1', 'auto');
+                ga('send', 'pageview');       
 	</script>
 </html>
