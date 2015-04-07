@@ -4,7 +4,7 @@
     <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
     <style>
         html, body {
-            font-family: Inconsolata;
+            font-family: Inconsolata, sans-serif;
         }
         .logo-text {
             font-size:120px;
@@ -21,8 +21,8 @@
     </svg>
     <script>
         var projects;
-        var circles = new Array();
-        var branches = new Array()  ;
+        var circles = [];
+        var branches = [];
 
         var default_x = 50;
         var default_y = 100;
@@ -38,11 +38,9 @@
             draw_line(default_x, default_y, default_y + default_y);
 
             new_branch('Purdue', '{{ strtotime('-5 years') }}', {{ strtotime('-6 months') }});
-            new_branch('LukePOLO', '{{ strtotime('-4 years') }}', {{ strtotime('-3 months   ')  }});
+            new_branch('LukePOLO', '{{ strtotime('-4 years') }}', {{ strtotime('-3 months')  }});
             new_branch('BoilerProjects', {{ strtotime('-2 years') }}, {{ strtotime('-1 year') }});
             new_branch('SwitchBlade', {{ strtotime('-5 months') }});
-            new_branch('Blog Post 1', {{ strtotime('-4 months') }}, {{ strtotime('-4 months') }});
-            new_branch('Blog Post 2', {{ strtotime('-3.9 months') }}, {{ strtotime('-3.9 months') }});
 
             draw();
 
@@ -102,11 +100,11 @@
 
         function draw()
         {
-            var horizontal_multiplier = 1;
-
             var groups = {};
             var group_index = 0;
             var branch_index = 0;
+            var branch_index_group;
+            var current_branch;
 
             console.log('We gotta figure out their horizontal multipliers');
             while(branch_index < branches.length - 1)
@@ -114,21 +112,29 @@
                 // Check to see if the branch has a greater end date than the start date
                 if (branches[branch_index].end_date > branches[branch_index + 1].start_date || branches[branch_index].end_date == null)
                 {
-                    var current_branch = branches[branch_index];
-                    console.log(branches[branch_index].name+' + 1 : because of ');
+                    current_branch = branches[branch_index];
+                    if(current_branch.end_date != null)
+                    {
+                        console.log(branches[branch_index].name+' +1 : because of ');
+                    }
+                    else
+                    {
+                        console.log(branches[branch_index].name+' +1 : because of end date is null');
+                    }
+
                     branches[branch_index].horizontal_multiplier++;
 
                     // Add them to their own group!
-                    groups[group_index++] = new Array(
+                    groups[group_index++] = [
                             branches[branch_index]
-                    );
+                    ];
 
                     // And start a new group !
-                    groups[group_index] = new Array();
+                    groups[group_index] = [];
 
-                    var branch_index_group = branch_index + 1;
+                    branch_index_group = branch_index + 1;
 
-                    // While the current branch has a end date thats greater than the start date we know they should be inside of that branch
+                    // While the current branch has a end date that is greater than the start date we know they should be inside of that branch
                     while(
                         branch_index_group < branches[branch_index_group].length ||
                         branches[branch_index].end_date >= branches[branch_index_group].start_date
@@ -137,25 +143,21 @@
                         console.log('       '+branches[branch_index_group].name);
                         groups[group_index].push(branches[branch_index_group++]);
                         branch_index++;
-                        current_branch.merge = branches[branch_index_group].vertical_multiplier;
-
                     }
-                    console.log('MERGE POINT @ '+ branches[branch_index_group].name);
 
-
-                    // Go through each branch till we find somthing that has a end_date greater than the start date
+                    // Go through each branch till we find something that has a end_date greater than the start date
                     $.each(groups[group_index], function(index, branch)
                     {
                         // now if that sub branch has a greater end date we have to move the whole groups multiplier
                         if(branch.end_date > branches[branch_index + 1].start_date)
                         {
-                            console.log('Groups');
+                            console.log('Groups +1 ');
                             while(group_index > -1)
                             {
                                 console.log('       '+group_index);
-                                $.each(groups[group_index], function (index, branch)
+                                $.each(groups[group_index], function (index, group_branch)
                                 {
-                                    branch.horizontal_multiplier++;
+                                    group_branch.horizontal_multiplier++;
                                 });
                                 group_index--;
                             }
@@ -168,8 +170,30 @@
             }
             console.log('End of calculations for Horizontal Multipliers');
 
-            $.each(branches, function(index, branch)
+            console.log('Determine thier merege levels');
+            $.each(branches, function(branch_index, branch)
             {
+                if(branch.end_date != null && branch_index != branches.length - 1 && branch.horizontal_multiplier != 0)
+                {
+                    console.log(branch.name + ' merge @');
+                    while (branch_index < (branches.length - 1))
+                    {
+                        branch_index++;
+                        if (branch.end_date <= branches[branch_index].start_date)
+                        {
+                            console.log('        ' + branches[branch_index].name);
+                            branch.merge = branches[branch_index].vertical_multiplier;
+                            branch_index = branches.length;
+                        }
+                    }
+                    if(branch.merge == null)
+                    {
+                        // merge at the end
+                        console.log('  No merge was found, but has end date, so it merges after ' + branches[branch_index].name);
+                        branch.merge = branches[branch_index].vertical_multiplier + 1;
+                    }
+                }
+
                 var end_x = default_x + (default_x * branch.horizontal_multiplier);
 
                 var start_y = default_y * branch.vertical_multiplier;
@@ -224,9 +248,11 @@
 
         function render_circles()
         {
+            var rand_color;
+
             $.each(circles, function()
             {
-                var rand_color = tinycolor.random().toString();
+                rand_color = tinycolor.random().toString();
                 projects.circle(this.x, this.y , this.r).attr({
                     fill: rand_color,
                     stroke: rand_color,
@@ -238,44 +264,49 @@
 
         function merge()
         {
+            var start_x;
+            var end_x;
+            var start_y;
+            var end_y;
+            var final_x;
+            var final_y;
+
             $.each(branches, function(index, branch)
             {
+                // Draw a line while they do not have a merge
                 while (index < branches.length - 1)
                 {
                     if (branch.merge > branches[index + 1].vertical_multiplier || branch.merge == null)
                     {
-                        var start_x = default_x * (branch.horizontal_multiplier + 1);
-                        var end_x = default_x + (default_x * branch.horizontal_multiplier);
-                        var start_y = default_y * branches[index + 1].vertical_multiplier;
-                        var end_y = default_y + (default_y * branches[index + 1].vertical_multiplier);
+                        start_x = default_x * (branch.horizontal_multiplier + 1);
+                        end_x = default_x + (default_x * branch.horizontal_multiplier);
+                        start_y = default_y * branches[index + 1].vertical_multiplier;
+                        end_y = default_y + (default_y * branches[index + 1].vertical_multiplier);
                         draw_line(start_x, start_y, end_y);
                     }
                     index++;
                 }
 
-                // extend 1 more
+                // extend 1 more if they dont have an end date!
                 if(branch.end_date == null)
                 {
-                    console.log(branch);
-                    console.log(branch.vertical_multiplier);
-
-                    var start_x = default_x * (branch.horizontal_multiplier + 1);
-                    var start_y = default_y * (branches.length + 1);
-                    var end_y = default_y + (default_y * (branches.length + 1));
+                    start_x = default_x * (branch.horizontal_multiplier + 1);
+                    start_y = default_y * (branches.length + 1);
+                    end_y = default_y + (default_y * (branches.length + 1));
                     draw_line(start_x, start_y, end_y);
                 }
-                else if(start_x)
+                // finally draw a inverse curve at their merge point
+                else if(branch.merge != null)
                 {
-                    console.log(branch.name+' merge @ '+branch.horizontal_multiplier);
+                    final_x = end_x - default_x * (branch.horizontal_multiplier);
+                    final_y = (end_y + default_y);
 
-                    // finally draw a inverse curve
-                    var final_x = end_x - default_x * (branch.horizontal_multiplier);
-                    var final_y = (end_y + default_y);
+                    if(branch.name != 'LukePOLO' || branch.name != 'Blog Post 1')
+                    {
+                        draw_curve(start_x, start_y + default_y, final_x, final_y);
+                    }
 
-                    draw_curve(start_x, start_y + default_y, final_x, final_y);
                 }
-
-
             });
         }
     </script>
