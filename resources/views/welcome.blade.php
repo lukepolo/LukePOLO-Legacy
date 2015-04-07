@@ -15,7 +15,7 @@
             height:800px;
         }
     </style>
-    <p class="logo-text">{Luke.POLO</p>
+    {{--<p class="logo-text">{Luke.POLO</p>--}}
 
     <svg id="projects">
     </svg>
@@ -32,18 +32,18 @@
 
         var colors;
 
+        var colors = {};
 
         $(document).ready(function()
         {
+
+
             projects = Snap("#projects");
-            colors = tinycolor("rgb(0, 153, 153)").analogous(10);
 
-            colors = colors.map(function(t)
-            {
-                return t.toHexString();
-            });
+            colors['lines'] = {};
+            colors.lines['0'] = tinycolor.random().toHexString();
 
-            draw_circle(default_x, default_y, colors[0]);
+            draw_circle(default_x, default_y, tinycolor(colors.lines['0']).complement().toHexString());
 
             new_branch('Purdue', '{{ strtotime('-5 years') }}', {{ strtotime('-6 months') }});
             new_branch('LukePOLO', '{{ strtotime('-4 years') }}', {{ strtotime('-3 months')  }});
@@ -56,14 +56,16 @@
 
             // Line along side
             var start_y = default_y * vertical_multiplier;
-            draw_line(default_x, start_y, start_y + default_y, colors[0]);
+            draw_line(default_x, start_y, start_y + default_y, colors.lines[0]);
 
             render_circles();
 
-            var lines = projects.paper.g(projects.paper.selectAll('path'));
+            var curves = projects.paper.g(projects.paper.selectAll('.curves'));
+            var lines = projects.paper.g(projects.paper.selectAll('.lines'));
             var circles = projects.paper.g(projects.paper.selectAll('circle'));
             var flip_matrix = new Snap.Matrix().scale(1, -1).translate(0, -$('#projects').height());
 
+            curves.transform(flip_matrix);
             lines.transform(flip_matrix);
             circles.transform(flip_matrix);
 
@@ -74,7 +76,7 @@
                 elem.mouseover(function()
                 {
                     this.animate({
-                        fill: tinycolor($(this.node).attr('fill')).darken(10).toString()
+                        fill: tinycolor($(this.node).attr('fill')).darken(10).toHexString()
                     },
                     200,
                     mina.easeinout);
@@ -100,7 +102,6 @@
                 vertical_multiplier: vertical_multiplier++,
                 start_date: start_date,
                 end_date: end_date,
-                color: colors[vertical_multiplier],
                 merge: null,
                 indent: null
             });
@@ -200,6 +201,14 @@
                         console.log('  No merge was found, but has end date, so it merges after ' + branches[branch_index].name);
                         branch.merge = branches[branch_index].vertical_multiplier + 1;
                     }
+
+
+                }
+
+                // also lets set the colors
+                if(!colors.lines[branch.horizontal_multiplier])
+                {
+                    colors.lines[branch.horizontal_multiplier] = tinycolor.random().toHexString();
                 }
 
                 var end_x = default_x + (default_x * branch.horizontal_multiplier);
@@ -208,13 +217,13 @@
                 var end_y = default_y + (default_y * branch.vertical_multiplier);
 
                 // Draw most left line
-                draw_line(default_x, start_y, end_y, branch.color);
+                draw_line(default_x, start_y, end_y, colors.lines[0]);
 
                 // Branch Line
-                draw_curve(default_x, start_y, end_x, end_y, branch.color);
+                draw_curve(default_x, start_y, end_x, end_y, colors.lines[branch.horizontal_multiplier]);
 
                 // Draw a circle
-                draw_circle(end_x, end_y, branch.color);
+                draw_circle(end_x, end_y, tinycolor(colors.lines[branch.horizontal_multiplier]).complement().toHexString());
             });
         }
 
@@ -224,20 +233,19 @@
 
             // Curved Lines to new path
             projects.path("M"+start_x+","+start_y+" C"+start_x+","+break_point+" "+end_x+","+break_point+" "+end_x+","+end_y+"").attr({
-//                stroke: "rgb(0, 153, 153)",
                 stroke: color,
-                strokeWidth: 3,
-                fill: "none"
+                strokeWidth: 4,
+                fill: "none",
+                class: 'curves'
             });
         }
 
         function draw_line(x, start_y, end_y, color)
         {
-
             projects.path("M" + x + "," + start_y + " L" + x + "," + end_y + "").attr({
-//                stroke: "rgb(0, 153, 153)",
                 stroke: color,
-                strokeWidth: 3
+                strokeWidth: 4,
+                class: 'lines'
             });
         }
 
@@ -248,12 +256,15 @@
                 x: x,
                 y: y,
                 r: default_r,
-                color: color
+                color: color,
+                class: 'circles'
             });
         }
 
         function render_circles()
         {
+            var color = tinycolor.random().toHexString();
+
             $.each(circles, function()
             {
                 projects.circle(this.x, this.y , this.r).attr({
@@ -285,7 +296,7 @@
                         end_x = default_x + (default_x * branch.horizontal_multiplier);
                         start_y = default_y * branches[index + 1].vertical_multiplier;
                         end_y = default_y + (default_y * branches[index + 1].vertical_multiplier);
-                        draw_line(start_x, start_y, end_y, branch.color);
+                        draw_line(start_x, start_y, end_y, colors.lines[branch.horizontal_multiplier]);
                     }
                     index++;
                 }
@@ -296,7 +307,7 @@
                     start_x = default_x * (branch.horizontal_multiplier + 1);
                     start_y = default_y * (branches.length + 1);
                     end_y = default_y + (default_y * (branches.length + 1));
-                    draw_line(start_x, start_y, end_y, branch.color);
+                    draw_line(start_x, start_y, end_y, colors.lines[branch.horizontal_multiplier]);
                 }
                 // finally draw a inverse curve at their merge point
                 else if(branch.merge != null)
@@ -306,7 +317,7 @@
 
                     if(branch.name != 'LukePOLO' || branch.name != 'Blog Post 1')
                     {
-                        draw_curve(start_x, start_y + default_y, final_x, final_y, branch.color);
+                        draw_curve(start_x, start_y + default_y, final_x, final_y, colors.lines[branch.horizontal_multiplier]);
                     }
 
                 }
