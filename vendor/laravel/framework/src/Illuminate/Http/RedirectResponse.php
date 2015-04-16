@@ -98,8 +98,13 @@ class RedirectResponse extends BaseRedirectResponse {
 	{
 		$input = $input ?: $this->request->input();
 
-		$this->session->flashInput(array_filter($input, function ($value)
+		$this->session->flashInput($data = array_filter($input, $callback = function (&$value) use (&$callback)
 		{
+			if (is_array($value))
+			{
+				$value = array_filter($value, $callback);
+			}
+
 			return ! $value instanceof UploadedFile;
 		}));
 
@@ -131,7 +136,7 @@ class RedirectResponse extends BaseRedirectResponse {
 	/**
 	 * Flash a container of errors to the session.
 	 *
-	 * @param  \Illuminate\Contracts\Support\MessageProvider|array  $provider
+	 * @param  \Illuminate\Contracts\Support\MessageProvider|array|string  $provider
 	 * @param  string  $key
 	 * @return $this
 	 */
@@ -149,7 +154,7 @@ class RedirectResponse extends BaseRedirectResponse {
 	/**
 	 * Parse the given errors into an appropriate value.
 	 *
-	 * @param  \Illuminate\Contracts\Support\MessageProvider|array  $provider
+	 * @param  \Illuminate\Contracts\Support\MessageProvider|array|string  $provider
 	 * @return \Illuminate\Support\MessageBag
 	 */
 	protected function parseErrors($provider)

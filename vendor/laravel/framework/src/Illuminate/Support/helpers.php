@@ -52,11 +52,11 @@ if ( ! function_exists('array_build'))
 	/**
 	 * Build a new array using a callback.
 	 *
-	 * @param  array     $array
-	 * @param  \Closure  $callback
+	 * @param  array  $array
+	 * @param  callable  $callback
 	 * @return array
 	 */
-	function array_build($array, Closure $callback)
+	function array_build($array, callable $callback)
 	{
 		return Arr::build($array, $callback);
 	}
@@ -126,12 +126,12 @@ if ( ! function_exists('array_first'))
 	/**
 	 * Return the first element in an array passing a given truth test.
 	 *
-	 * @param  array     $array
-	 * @param  \Closure  $callback
-	 * @param  mixed     $default
+	 * @param  array  $array
+	 * @param  callable  $callback
+	 * @param  mixed  $default
 	 * @return mixed
 	 */
-	function array_first($array, $callback, $default = null)
+	function array_first($array, callable $callback, $default = null)
 	{
 		return Arr::first($array, $callback, $default);
 	}
@@ -142,9 +142,9 @@ if ( ! function_exists('array_last'))
 	/**
 	 * Return the last element in an array passing a given truth test.
 	 *
-	 * @param  array     $array
-	 * @param  \Closure  $callback
-	 * @param  mixed     $default
+	 * @param  array  $array
+	 * @param  callable  $callback
+	 * @param  mixed  $default
 	 * @return mixed
 	 */
 	function array_last($array, $callback, $default = null)
@@ -281,13 +281,13 @@ if ( ! function_exists('array_set'))
 if ( ! function_exists('array_sort'))
 {
 	/**
-	 * Sort the array using the given Closure.
+	 * Sort the array using the given callback.
 	 *
-	 * @param  array     $array
-	 * @param  \Closure  $callback
+	 * @param  array  $array
+	 * @param  callable  $callback
 	 * @return array
 	 */
-	function array_sort($array, Closure $callback)
+	function array_sort($array, callable $callback)
 	{
 		return Arr::sort($array, $callback);
 	}
@@ -296,13 +296,13 @@ if ( ! function_exists('array_sort'))
 if ( ! function_exists('array_where'))
 {
 	/**
-	 * Filter the array using the given Closure.
+	 * Filter the array using the given callback.
 	 *
-	 * @param  array     $array
-	 * @param  \Closure  $callback
+	 * @param  array  $array
+	 * @param  callable  $callback
 	 * @return array
 	 */
-	function array_where($array, Closure $callback)
+	function array_where($array, callable $callback)
 	{
 		return Arr::where($array, $callback);
 	}
@@ -341,7 +341,7 @@ if ( ! function_exists('class_basename'))
 if ( ! function_exists('class_uses_recursive'))
 {
 	/**
-	 * Returns all traits used by a class, it's subclasses and trait of their traits
+	 * Returns all traits used by a class, its subclasses and trait of their traits.
 	 *
 	 * @param  string  $class
 	 * @return array
@@ -541,7 +541,10 @@ if ( ! function_exists('preg_replace_sub'))
 	{
 		return preg_replace_callback($pattern, function($match) use (&$replacements)
 		{
-			return array_shift($replacements);
+			foreach ($replacements as $key => $value)
+			{
+				return array_shift($replacements);
+			}
 
 		}, $subject);
 	}
@@ -736,7 +739,7 @@ if ( ! function_exists('studly_case'))
 if ( ! function_exists('trait_uses_recursive'))
 {
 	/**
-	 * Returns all traits used by a trait and its traits
+	 * Returns all traits used by a trait and its traits.
 	 *
 	 * @param  string  $trait
 	 * @return array

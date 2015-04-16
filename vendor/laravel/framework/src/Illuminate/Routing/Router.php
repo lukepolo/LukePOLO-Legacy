@@ -440,6 +440,7 @@ class Router implements RegistrarContract {
 		if ( ! empty($this->groupStack))
 		{
 			$last = end($this->groupStack);
+
 			return isset($last['prefix']) ? $last['prefix'] : '';
 		}
 
@@ -595,7 +596,7 @@ class Router implements RegistrarContract {
 	{
 		$group = last($this->groupStack);
 
-		return isset($group['namespace']) ? $group['namespace'].'\\'.$uses : $uses;
+		return isset($group['namespace']) && strpos($uses, '\\') !== 0 ? $group['namespace'].'\\'.$uses : $uses;
 	}
 
 	/**
@@ -699,13 +700,13 @@ class Router implements RegistrarContract {
 	 * @param  \Illuminate\Routing\Route  $route
 	 * @return array
 	 */
-	protected function gatherRouteMiddlewares(Route $route)
+	public function gatherRouteMiddlewares(Route $route)
 	{
 		return Collection::make($route->middleware())->map(function($m)
 		{
-			return array_get($this->middleware, $m, $m);
+			return Collection::make(array_get($this->middleware, $m, $m));
 
-		})->all();
+		})->collapse()->all();
 	}
 
 	/**
@@ -959,7 +960,7 @@ class Router implements RegistrarContract {
 	}
 
 	/**
-	 * Set a global where pattern on all routes
+	 * Set a global where pattern on all routes.
 	 *
 	 * @param  string  $key
 	 * @param  string  $pattern
@@ -971,7 +972,7 @@ class Router implements RegistrarContract {
 	}
 
 	/**
-	 * Set a group of global where patterns on all routes
+	 * Set a group of global where patterns on all routes.
 	 *
 	 * @param  array  $patterns
 	 * @return void
@@ -1107,7 +1108,7 @@ class Router implements RegistrarContract {
 	{
 		$methods = $filter['methods'];
 
-		return (is_null($methods) || in_array($method, $methods));
+		return is_null($methods) || in_array($method, $methods);
 	}
 
 	/**
@@ -1261,7 +1262,7 @@ class Router implements RegistrarContract {
 	 */
 	public function currentRouteName()
 	{
-		return ($this->current()) ? $this->current()->getName() : null;
+		return $this->current() ? $this->current()->getName() : null;
 	}
 
 	/**
@@ -1291,7 +1292,7 @@ class Router implements RegistrarContract {
 	 */
 	public function currentRouteNamed($name)
 	{
-		return ($this->current()) ? $this->current()->getName() == $name : false;
+		return $this->current() ? $this->current()->getName() == $name : false;
 	}
 
 	/**

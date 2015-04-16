@@ -145,6 +145,14 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+        /*
+         * Third Party Service Providers
+         */
+        'Barryvdh\Debugbar\ServiceProvider',
+        'Jenssegers\Mongodb\MongodbServiceProvider',
+        'Laravel\Socialite\SocialiteServiceProvider',
+        'Collective\Html\HtmlServiceProvider',
+
 	],
 
 	/*
@@ -193,6 +201,13 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 
+        /*
+         * Third Party Aliases
+         */
+        'Moloquent' => 'Jenssegers\Mongodb\Model',
+        'Socialize' => 'Laravel\Socialite\Facades\Socialite',
+        'Form' => 'Collective\Html\FormFacade',
+        'Html' => 'Collective\Html\HtmlFacade',
 	],
 
 ];

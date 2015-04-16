@@ -1,38 +1,181 @@
 @extends('layouts.master')
-
 @section('content')
-    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
     <style>
-        html, body {
-            font-family: Inconsolata, sans-serif;
-        }
-        .logo-text {
-            font-size:120px;
-        }
-
         #projects {
-            width:100%;
-            height:900px;
+            height:{{ ($timelines->count() + 2 )* 100 }}px;
+            width: 100%;
+            opacity: 0.9;
         }
     </style>
-    {{--<p class="logo-text">{Luke.POLO</p>--}}
+    <div class="container">
+        <div class="col-lg-3">
+            <svg id="projects"></svg>
+        </div>
+        <style>
+            .img-holder {
+                height: 180px;
+                overflow:hidden;
+                margin-bottom: 40px;
+                cursor: pointer;
+            }
 
-    <svg id="projects">
-    </svg>
+        </style>
+        <div class="col-lg-9" style="margin-top:15px;">
+            <h1 style="margin-bottom:-5px;">{ Projects</h1>
+            <small>
+                <i class="fa fa-long-arrow-left"></i> You can navigate my site using my "git tree" just hover over them
+                <br>
+                .... or just look below
+            </small>
+            <hr>
+            <div id="project-lists">
+                <div class="col-md-6 img-holder" data-project-id="1">
+                    <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/psg_robbert/Lp.png">
+                </div>
+                <div class="col-md-6 img-holder">
+                    <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/boilerprojects.jpg">
+                </div>
+                <div class="col-md-6 img-holder">
+                    <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/acv/acv_1.jpg">
+                </div>
+                <div class="col-md-6 img-holder">
+                    <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/shortpolo/shortpolo_1.jpg">
+                </div>
+                <div class="col-md-6 img-holder">
+                    <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/tipping-point.jpg">
+                </div>
+                <div class="col-md-6 img-holder">
+                    <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/bsom.jpg">
+                </div>
+                <div class="col-md-6 img-holder">
+                    <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/psg.jpg">
+                </div>
+                <div class="col-md-6 img-holder">
+                    <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/trams.jpg">
+                </div>
+                <div class="col-md-6 img-holder">
+                    <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/my-resnet.jpg">
+                </div>
+            </div>
+            <style>
+                .panel {
+                    border-radius: 0;;
+                }
+                .panel .technology-badge {
+                    padding: 4px 7px;
+                    background-color: #777777;
+                }
+                .panel-body {
+                    font-size: 15px;
+                    cursor: pointer;
+                }
+            </style>
+            <div class="hide" id="project-view">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="panel panel-default">
+                            <div style="background-color:#A68BBA" class="technology-badge"></div>
+                            <div class="panel-body">
+                                FuelPHP
+                                <span>
+                                    <a class="pull-right" target="_blank" href="http://fuelphp.com">
+                                        <i style="color:#A68BBA" class="fa fa-arrow-right"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="panel panel-default">
+                            <div style="background-color:#0769AD" class="technology-badge"></div>
+                            <div class="panel-body">
+                                Javascript/JQuery
+                                <span>
+                                    <a class="pull-right" target="_blank" href="https://jquery.com/">
+                                        <i style="color:#0769AD" class="fa fa-arrow-right"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="panel panel-default">
+                            <div class="technology-badge"></div>
+                            <div class="panel-body">
+                                AJAX Pages
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="panel panel-default">
+                            <div style="background-color:#563d7c" class="technology-badge"></div>
+                            <div class="panel-body">
+                                Bootstrap
+                                <span>
+                                    <a class="pull-right" target="_blank" href="http://getbootstrap.com/">
+                                        <i style="color:#563d7c" class="fa fa-arrow-right"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <hr>
+                        <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/psg_robbert/Lp.png">
+                        <p>
+                            This was a really fun project, I was recruited to build this team running for Purdue Student
+                            Government President and Vice President. Within a week I had a mock up and was ready to code!
+                            I decided to build a backbone like system where they could navigate without losing focus of
+                            content around them. Particiulary they wanted a video to be played and continued to play
+                            if they navigated to a new page.
+
+                            <br><br>
+                            <h2>{ Problems I ran into</h2>
+                            <p>
+                               The ajax pages worked like a charm, but I realized there was a problem if people where
+                                to share pages on facebook that directly poitned them to the correct page. There are a couple of solutions
+                                but I decided to go the "backbone.js like" functionality by changing the url while they
+                                continued throughout the site. I had to insert the urls into the history with javascript and that solved all the problems.
+                            </p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         var projects;
         var circles = [];
         var branches = [];
 
-        var default_x = 50;
+        var default_x = 32;
         var default_y = 100;
         var default_r = 15;
+        var big_r = 45;
 
         var vertical_multiplier = 1;
 
         var colors;
+        var ag_colors = {};
 
         var colors = {};
+
+        $(document).on('click', '.panel-body', function(e)
+        {
+            var href = $(this).find('a').attr('href');
+            if(href)
+            {
+                window.open(href);
+            }
+        });
+
+        $(document).on('click', '.img-holder', function()
+        {
+            $('#project-lists').hide();
+            $('#project-view').toggleClass('hide');
+        });
 
         $(document).ready(function()
         {
@@ -40,17 +183,20 @@
 
             projects = Snap("#projects");
 
+            // http://paletton.com/#uid=70f0u0ke9vf4TW49xJliLoCnugw
             colors['lines'] = {};
-            colors.lines['0'] = tinycolor.random().toHexString();
+            colors.lines['0'] = 'rgb(249, 170, 139)';
+            colors.lines['1'] = 'rgb(249, 202, 139)';
+            colors.lines['2'] = 'rgb(94, 131, 160)';
+            colors.lines['3'] = 'rgb(95, 171, 138)';
+            colors.lines['4'] = 'rgb(196, 114, 81)';
+            colors.lines['5'] = 'rgb(255, 223, 179)';
 
             draw_circle(default_x, default_y, tinycolor(colors.lines['0']).complement().toHexString());
 
-            new_branch('Purdue', '{{ strtotime('-5 years') }}', {{ strtotime('-6 months') }});
-            new_branch('LukePOLO', '{{ strtotime('-4 years') }}', {{ strtotime('-3 months')  }});
-            new_branch('OnePurdue', '{{ strtotime('-3 years') }}', {{ strtotime('-2.9 years')  }});
-            new_branch('BoilerProjects', {{ strtotime('-2 years') }}, {{ strtotime('-1 year') }});
-            new_branch('SwitchBlade', {{ strtotime('-5 months') }});
-            new_branch('Blog', {{ strtotime('today') }}, {{ strtotime('today') }});
+            @foreach($timelines as $timeline)
+                new_branch("{{ $timeline->name }}", "{{ $timeline->start_date }}", "{{ $timeline->end_date }}", {{ $timeline->horizontal_multiplier }});
+            @endforeach
 
             draw();
             merge();
@@ -77,7 +223,10 @@
                 elem.mouseover(function()
                 {
                     this.animate({
-                        fill: tinycolor($(this.node).attr('fill')).darken(10).toHexString()
+                        //fill: tinycolor($(this.node).attr('fill')).darken(10).toHexString(),
+                        fill: '#FFFFFF',
+                        r: big_r,
+                        strokeOpacity: 1
                     },
                     200,
                     mina.easeinout);
@@ -86,244 +235,15 @@
                 elem.mouseout(function()
                 {
                     this.animate({
-                        fill: $(this.node).attr('old_color')
+                        fill: $(this.node).attr('old_color'),
+                        r: default_r,
+                        strokeOpacity: .3
                     },
                     200,
                     mina.easeinout);
                 });
             });
-
         });
-
-        function new_branch(name, start_date, end_date)
-        {
-            branches.push({
-                name: name,
-                horizontal_multiplier: 0,
-                vertical_multiplier: vertical_multiplier++,
-                start_date: start_date,
-                end_date: end_date,
-                merge: null,
-                indent: null
-            });
-        }
-
-        function draw()
-        {
-            var groups = {};
-            var group_index = 0;
-            var branch_index = 0;
-            var branch_index_group;
-            var current_branch;
-
-            console.log('We gotta figure out their horizontal multipliers');
-            while(branch_index < branches.length - 1)
-            {
-                // Check to see if the branch has a greater end date than the start date
-                if (branches[branch_index].end_date > branches[branch_index + 1].start_date || branches[branch_index].end_date == null)
-                {
-                    current_branch = branches[branch_index];
-                    if(current_branch.end_date != null)
-                    {
-                        console.log(branches[branch_index].name+' +1 : because of ');
-                    }
-                    else
-                    {
-                        console.log(branches[branch_index].name+' +1 : because of end date is null');
-                    }
-
-                    branches[branch_index].horizontal_multiplier++;
-
-                    // Add them to their own group!
-                    groups[group_index++] = [
-                            branches[branch_index]
-                    ];
-
-                    // And start a new group !
-                    groups[group_index] = [];
-
-                    branch_index_group = branch_index + 1;
-
-                    // While the current branch has a end date that is greater than the start date we know they should be inside of that branch
-                    while(
-                        branch_index_group < branches[branch_index_group].length ||
-                        branches[branch_index].end_date >= branches[branch_index_group].start_date
-                    )
-                    {
-                        console.log('       '+branches[branch_index_group].name);
-                        groups[group_index].push(branches[branch_index_group++]);
-                        branch_index++;
-                    }
-
-                    // Go through each branch till we find something that has a end_date greater than the start date
-                    $.each(groups[group_index], function(index, branch)
-                    {
-                        // now if that sub branch has a greater end date we have to move the whole groups multiplier
-                        if(branch.end_date > branches[branch_index + 1].start_date)
-                        {
-                            console.log('Groups +1 ');
-                            while(group_index > -1)
-                            {
-                                console.log('       '+group_index);
-                                $.each(groups[group_index], function (index, group_branch)
-                                {
-                                    group_branch.horizontal_multiplier++;
-                                });
-                                group_index--;
-                            }
-                            console.log('       because of '+branch.name);
-                            return;
-                        }
-                    });
-                }
-                branch_index++;
-            }
-            console.log('End of calculations for Horizontal Multipliers');
-
-            console.log('Determine thier merege levels');
-            $.each(branches, function(branch_index, branch)
-            {
-                if(branch.end_date != null && branch_index != branches.length - 1 && branch.horizontal_multiplier != 0)
-                {
-                    console.log(branch.name + ' merge @');
-                    while (branch_index < (branches.length - 1))
-                    {
-                        branch_index++;
-                        if (branch.end_date <= branches[branch_index].start_date)
-                        {
-                            console.log('        ' + branches[branch_index].name);
-                            branch.merge = branches[branch_index].vertical_multiplier;
-                            branch_index = branches.length;
-                        }
-                    }
-                    if(branch.merge == null)
-                    {
-                        // merge at the end
-                        console.log('  No merge was found, but has end date, so it merges after ' + branches[branch_index].name);
-                        branch.merge = branches[branch_index].vertical_multiplier + 1;
-                    }
-
-
-                }
-
-                // also lets set the colors
-                if(!colors.lines[branch.horizontal_multiplier])
-                {
-                    colors.lines[branch.horizontal_multiplier] = tinycolor.random().toHexString();
-                }
-
-                var end_x = default_x + (default_x * branch.horizontal_multiplier);
-
-                var start_y = default_y * branch.vertical_multiplier;
-                var end_y = default_y + (default_y * branch.vertical_multiplier);
-
-                // Draw most left line
-                draw_line(default_x, start_y, end_y, colors.lines[0]);
-
-                // Branch Line
-                draw_curve(default_x, start_y, end_x, end_y, colors.lines[branch.horizontal_multiplier]);
-
-                // Draw a circle
-                draw_circle(end_x, end_y, tinycolor(colors.lines[branch.horizontal_multiplier]).complement().toHexString());
-            });
-        }
-
-        function draw_curve(start_x, start_y, end_x, end_y, color)
-        {
-            var break_point = (start_y + end_y) / 2;
-
-            // Curved Lines to new path
-            projects.path("M"+start_x+","+start_y+" C"+start_x+","+break_point+" "+end_x+","+break_point+" "+end_x+","+end_y+"").attr({
-                stroke: color,
-                strokeWidth: 4,
-                fill: "none",
-                class: 'curves'
-            });
-        }
-
-        function draw_line(x, start_y, end_y, color)
-        {
-            projects.path("M" + x + "," + start_y + " L" + x + "," + end_y + "").attr({
-                stroke: color,
-                strokeWidth: 4,
-                class: 'lines'
-            });
-        }
-
-        function draw_circle(x, y, color)
-        {
-            //start Circle
-            circles.push({
-                x: x,
-                y: y,
-                r: default_r,
-                color: color,
-                class: 'circles'
-            });
-        }
-
-        function render_circles()
-        {
-            var color = tinycolor.random().toHexString();
-
-            $.each(circles, function()
-            {
-                projects.circle(this.x, this.y , this.r).attr({
-                    fill: this.color,
-                    stroke: this.color,
-                    strokeOpacity: .3,
-                    strokeWidth: 5
-                });
-            });
-        }
-
-        function merge()
-        {
-            var start_x;
-            var end_x;
-            var start_y;
-            var end_y;
-            var final_x;
-            var final_y;
-
-            $.each(branches, function(index, branch)
-            {
-                // Draw a line while they do not have a merge
-                while (index < branches.length - 1)
-                {
-                    if (branch.merge > branches[index + 1].vertical_multiplier || branch.merge == null)
-                    {
-                        start_x = default_x * (branch.horizontal_multiplier + 1);
-                        end_x = default_x + (default_x * branch.horizontal_multiplier);
-                        start_y = default_y * branches[index + 1].vertical_multiplier;
-                        end_y = default_y + (default_y * branches[index + 1].vertical_multiplier);
-                        draw_line(start_x, start_y, end_y, colors.lines[branch.horizontal_multiplier]);
-                    }
-                    index++;
-                }
-
-                // extend 1 more if they dont have an end date!
-                if(branch.end_date == null)
-                {
-                    start_x = default_x * (branch.horizontal_multiplier + 1);
-                    start_y = default_y * (branches.length + 1);
-                    end_y = default_y + (default_y * (branches.length + 1));
-                    draw_line(start_x, start_y, end_y, colors.lines[branch.horizontal_multiplier]);
-                }
-                // finally draw a inverse curve at their merge point
-                else if(branch.merge != null)
-                {
-                    final_x = end_x - default_x * (branch.horizontal_multiplier);
-                    final_y = (end_y + default_y);
-
-                    if(branch.name != 'LukePOLO' || branch.name != 'Blog Post 1')
-                    {
-                        draw_curve(start_x, start_y + default_y, final_x, final_y, colors.lines[branch.horizontal_multiplier]);
-                    }
-
-                }
-            });
-        }
     </script>
 @endsection
 

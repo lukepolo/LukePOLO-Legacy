@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    compass = require('gulp-compass'),
+    sass = require('gulp-sass');
     autoprefixer = require('gulp-autoprefixer'),
     gutil = require('gulp-util'),
     concat = require('gulp-concat'),
@@ -15,17 +15,17 @@ var gulp = require('gulp'),
 
 paths = {
     // App Paths
-    'css_public': './public/assets/css/',
-    'js_public' : './public/assets/js/',
-    'fonts_public' : './public/assets/fonts/',
-    'sass': resources_path+'assets/sass/',
+    'css_public': './public/css/',
+    'js_public' : './public/js/',
+    'fonts_public' : './public/fonts/',
+    'sass': resources_path+'/assets/sass/',
     'sass_partials': resources_path+'assets/sass/partials/',
-    'js' : resources_path+'assets/js/',
+    'js' : resources_path+'/assets/js/',
     'img': resources_path+'assets/img/',
     // Vendor Paths
     'jquery' : bower_path + 'jquery/dist/',
     'jquery_ui' : bower_path + 'jquery-ui/',
-    'bootstrap' : bower_path + 'bootstrap-sass-official/assets/',
+    'bootstrap' : bower_path + 'bootstrap-sass/assets/',
     'fontawesome' : bower_path + 'fontawesome/',
     'snap' : bower_path + 'snap.svg/dist/',
     'tinycolor' : bower_path + 'tinycolor/'
@@ -72,19 +72,26 @@ elixir.extend('minify_css', function()
     gulp.task('minify_css', function()
     {
         gulp.src([paths.sass+'*'])
-            .pipe(compass({
-                css: paths.css_public,
-                sass: paths.sass,
-                image: paths.img
-            }))
+        .pipe(
+            sass({
+                outputStyle: 'compressed',
+                includePaths: [
+                    paths.bootstrap+'stylesheets',
+                    paths.fontawesome+'scss'
+                ],
+                errLogToConsole: true
+            })
+        )
             .pipe(sourcemaps.init())
-            .pipe(autoprefixer({
+            .pipe(
+            autoprefixer({
                 browsers: [
                     'last 2 version'
                 ]
-            }))
-            .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest('public/assets/css'))
+            })
+        )
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest('public/css'))
     });
 
     if(command == 'watch')
@@ -109,7 +116,7 @@ elixir.extend('minify_img', function(command)
                 svgoPlugins: [{removeViewBox: false}],
                 use: [pngquant()]
             }))
-            .pipe(gulp.dest('public/assets/img'));
+            .pipe(gulp.dest('public/img'));
     });
 
     if(command == 'watch')
