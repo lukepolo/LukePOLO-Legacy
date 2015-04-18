@@ -6,11 +6,12 @@
             <div style="font-size:15px">
                 @foreach($blog->tags as $tag)
                     <span style="padding: .4em .6em .3em;" class="label label-primary">
-                                {{ $tag }}
-                            </span>
+                        {{ $tag }}
+                    </span>
                 @endforeach
             </div>
-            <small>{{ $blog->created_at->format('F jS Y g:i A') }}</small>
+            <small>{{ $blog->created_at->format('F jS Y g:i A') }}</small><br>
+            <small style="font-size:55%">( Updated At : {{ $blog->updated_at->format('F jS Y g:i A') }})</small>
             <hr>
             <div>
                 {!! $blog->html !!}

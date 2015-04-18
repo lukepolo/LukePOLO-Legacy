@@ -15,6 +15,8 @@
                         @endforeach
                     </div>
                     <small>{{ $blog->created_at->format('F jS Y g:i A') }}</small>
+                    <br>
+                    <small style="font-size:55%">( Updated At : {{ $blog->updated_at->format('F jS Y g:i A') }})</small>
                 </div>
                 <div class="row">
                     <a href="{{ action('\App\Http\Controllers\BlogController@getView', [$blog->link_name]) }}">
