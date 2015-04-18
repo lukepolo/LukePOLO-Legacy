@@ -29,11 +29,18 @@ class Registrar implements RegistrarContract {
 	 */
 	public function create(array $data)
 	{
-		return User::create([
-			'name' => $data['name'],
-			'email' => $data['email'],
-			'password' => bcrypt($data['password']),
-		]);
+        if(\Settings::get('registration'))
+        {
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+            ]);
+        }
+        else
+        {
+            throw new HttpResponseException(redirect()->back()->withInput()->withErrors('Registration is Disabled!'));
+        }
 	}
 
 }
