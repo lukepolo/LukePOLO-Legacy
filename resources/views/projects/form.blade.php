@@ -28,7 +28,7 @@
 
                 <h3>Technologies</h3>
                 <?php
-                    if(isset($projects))
+                    if(isset($project) === true)
                     {
                         $project_technologies = array_flip($project->technologies);
                     }
@@ -47,11 +47,13 @@
                             {{ $technology->name }}
                         </option>
                     @endforeach
-                    @foreach($project_technologies as $technology => $key)
-                        <option selected="selected" value="{{ $technology }}">
-                            {{ $technology }}
-                        </option>
-                    @endforeach
+                    @if(isset($project) === true)
+                        @foreach($project_technologies as $technology => $key)
+                            <option selected="selected" value="{{ $technology }}">
+                                {{ $technology }}
+                            </option>
+                        @endforeach
+                    @endif
                 </select>
             <br>
             {!! Form::submit(isset($project) === true ? 'Update' : 'Create') !!}

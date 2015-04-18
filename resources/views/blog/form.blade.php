@@ -26,11 +26,13 @@
 
             <h3>Tags</h3>
             <select id="tags" multiple name="tags[]">
-                @foreach($blog->tags as $tag)
-                    <option selected="selected" value="{{ $tag }}"}>
-                        {{ $tag }}
-                    </option>
-                @endforeach
+                @if(isset($blog) === true)
+                    @foreach($blog->tags as $tag)
+                        <option selected="selected" value="{{ $tag }}"}>
+                            {{ $tag }}
+                        </option>
+                    @endforeach
+                @endif
             </select>
 
             {!! Form::submit(isset($blog) === true ? 'Update' : 'Create') !!}
