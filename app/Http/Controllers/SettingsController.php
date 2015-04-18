@@ -13,7 +13,7 @@ class SettingsController extends Controller
 
     public function postIndex()
     {
-        foreach(\Request::except('_token') as $setting_id => $value)
+        foreach(\Request::except(['_token','/settings']) as $setting_id => $value)
         {
             $setting = Settings::find($setting_id);
 

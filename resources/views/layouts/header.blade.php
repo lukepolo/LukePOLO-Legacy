@@ -15,9 +15,6 @@
                     <a href="{{ action('\App\Http\Controllers\BlogController@getIndex') }}">BLOG</a>
                 </li>
                 <li>
-                    <a href="#">PROJECTS</a>
-                </li>
-                <li>
                     <a href="{{ action('\App\Http\Controllers\ResumeController@getIndex') }}">RESUME</a>
                 </li>
                 @if(Auth::check())

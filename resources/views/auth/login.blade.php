@@ -2,7 +2,7 @@
 
 @section('content')
     @if (count($errors) > 0)
-        <div class="alert alert-danger">
+        <div class="col-md-6 col-md-offset-3 alert alert-danger">
             <strong>Whoops!</strong> There were some problems with your input.<br><br>
             <ul>
                 @foreach ($errors->all() as $error)

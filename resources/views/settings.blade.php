@@ -6,9 +6,9 @@
                 <?php
                 switch($setting->type)
                 {
-                    case 'varchar':
-                    echo Form::label(ucwords(str_replace('_',' ', $setting->name), array('class' => 'col-sm-2')));
-                    echo Form::text($setting->name, $setting->data);
+                    case 'text':
+                        echo Form::label($setting->id, ucwords(str_replace('_',' ', $setting->name)), array('class' => 'col-sm-2'));
+                        echo Form::text($setting->id, $setting->data);
                     break;
                     case 'boolean':
                     ?>
@@ -19,7 +19,7 @@
                                 echo Form::hidden($setting->id, "0", array('class' => 'col-sm-10'));
                                 if($setting->data == 0)
                                 {
-                                $setting->data = false;
+                                    $setting->data = false;
                                 }
                                 echo Form::checkbox($setting->id, true, $setting->data);
                                 echo ucwords($setting->name);

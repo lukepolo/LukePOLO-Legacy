@@ -68,9 +68,9 @@
         <div class="panel panel-default">
             <div style="background-color:rgb(207, 226, 241)" class="panel-color"></div>
             <div class="panel-body">
-                Not Set Yet
+                    Settings
                     <span>
-                        <a class="pull-right" href="{{ action('\App\Http\Controllers\AdminController@getBlogs') }}">
+                        <a class="pull-right" href="{{ action('\App\Http\Controllers\SettingsController@getIndex') }}">
                             <i style="color:rgb(207, 226, 241)" class="fa fa-arrow-right"></i>
                         </a>
                     </span>

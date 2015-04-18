@@ -45,6 +45,14 @@
     @if(Auth::check())
         @include('layouts.adminmenu')
     @endif
+    @if (Session::has('success'))
+        <div class="col-md-6 col-md-offset-3  alert alert-success">
+            <strong>Success!</strong><br><br>
+            <ul>
+                {{ Session::get('success') }}
+            </ul>
+        </div>
+    @endif
     @yield('content')
 </div>
 <footer class="footer">
