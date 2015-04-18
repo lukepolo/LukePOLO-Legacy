@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mongo\Blogs;
+
 class AdminController extends Controller
 {
     public function getIndex()
@@ -16,6 +18,8 @@ class AdminController extends Controller
 
     public function getBlogs()
     {
-        return view('admin.blog');
+        return view('admin.blogs', [
+            'blogs' => Blogs::get()
+        ]);
     }
 }

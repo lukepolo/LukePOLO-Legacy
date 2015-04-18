@@ -13,6 +13,21 @@
 
 Route::get('/', 'HomeController@index');
 
+
+Route::get('blog/view/{blog}', function($blog)
+{
+    $blog = \App\Models\Mongo\Blogs::where('link_name', '=', $blog)->first();
+    if(empty($blog) === false)
+    {
+
+        return App::make('\App\Http\Controllers\BlogController')->getView($blog->id);
+    }
+    else
+    {
+        App::abort(404);
+    }
+});
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
@@ -36,3 +51,4 @@ Route::group(['middleware' => 'auth'], function()
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::get('register', 'Auth\AuthController@getLogin');
 Route::get('logout', 'Auth\AuthController@getLogout');
+

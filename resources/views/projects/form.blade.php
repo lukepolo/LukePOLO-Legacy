@@ -27,15 +27,29 @@
                 </select>
 
                 <h3>Technologies</h3>
-                <select id="test" name="technologies[]" multiple>
+                <?php
+                    if(isset($projects))
+                    {
+                        $project_technologies = array_flip($project->technologies);
+                    }
+                ?>
+                <select id="technologies" name="technologies[]" multiple>
                     @foreach($technologies as $technology)
-                        @if(isset($project) === true && in_array($technology->id, $project->technologies))
-                            <?php $selected = 'selected="selected"'; ?>
+                        @if(isset($project) === true && array_key_exists($technology->id, $project_technologies))
+                            <?php
+                                unset($project_technologies[$technology->id]);
+                                $selected = 'selected="selected"';
+                            ?>
                         @else
                             <?php $selected = ''; ?>
                         @endif
                         <option {{ $selected }} value="{{ $technology->id }}">
                             {{ $technology->name }}
+                        </option>
+                    @endforeach
+                    @foreach($project_technologies as $technology => $key)
+                        <option selected="selected" value="{{ $technology }}">
+                            {{ $technology }}
                         </option>
                     @endforeach
                 </select>
@@ -46,6 +60,14 @@
     <script type="text/javascript">
         $(document).ready(function()
         {
+            $('#technologies').select2({
+                tags: true,
+                tokenSeparators: [
+                    ',',
+                    ' '
+                ]
+            });
+
             $('#summernote').summernote({
                 height: $(window).height() - 250
             });

@@ -56,19 +56,23 @@
                     <div class="btn btn-info">
                         <i class="fa fa-arrow-left"></i>
                     </div>
+                    <h2>{{ $project->name }}</h2>
                 </div>
+                <hr>
                 <div class="row panel-links">
                  @foreach($project->technologies as $technology)
                         <div class="col-lg-3">
                             <div class="panel panel-default">
-                                <div style="background-color:#{{ $technologies[$technology]->color }}" class="panel-color"></div>
+                                <div style="background-color:#{{ isset($technologies[$technology]) ? $technologies[$technology]->color : '' }}" class="panel-color"></div>
                                 <div class="panel-body">
-                                    {{ $technologies[$technology]->name }}
-                                    <span>
-                                        <a class="pull-right" target="_blank" href="{{ $technologies[$technology]->url }}">
-                                            <i style="color:#{{ $technologies[$technology]->color }}" class="fa fa-arrow-right"></i>
-                                        </a>
-                                    </span>
+                                    {{ isset($technologies[$technology]) ? $technologies[$technology]->name : $technology}}
+                                    @if(isset($technologies[$technology]))
+                                        <span>
+                                            <a class="pull-right" target="_blank" href="{{ $technologies[$technology]->url }}">
+                                                <i style="color:#{{ $technologies[$technology]->color }}" class="fa fa-arrow-right"></i>
+                                            </a>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>

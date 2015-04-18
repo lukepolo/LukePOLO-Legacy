@@ -73,7 +73,7 @@
             if (!$(this).hasClass('phpdebugbar-datasets-switcher'))
             {
                 // Make sure the select hasn't been rendered yet
-                if (typeof($._data(this).data) == 'undefined')
+                if (typeof($._data(this).hasDataAttrs) == 'undefined')
                 {
                     var selected = '';
 
