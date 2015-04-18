@@ -150,8 +150,16 @@ return [
          */
         'Barryvdh\Debugbar\ServiceProvider',
         'Jenssegers\Mongodb\MongodbServiceProvider',
-        'Laravel\Socialite\SocialiteServiceProvider',
         'Collective\Html\HtmlServiceProvider',
+        'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+        'Irazasyed\LaravelGAMP\LaravelGAMPServiceProvider',
+        'Collective\Html\HtmlServiceProvider',
+
+        /*
+         * Custom Service Providers
+         */
+        'App\Providers\SettingsServiceProvider',
+
 
 	],
 
@@ -208,6 +216,14 @@ return [
         'Socialize' => 'Laravel\Socialite\Facades\Socialite',
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
+        'GAMP'  => 'Irazasyed\LaravelGAMP\Facades\GAMP',
+        'LaravelAnalytics' => 'Spatie\LaravelAnalytics\LaravelAnalyticsFacade',
+        'Agent'            => 'Jenssegers\Agent\Facades\Agent',
+
+        /*
+         * Custom Aliases
+         */
+        'Settings' => 'App\Facades\Settings',
 	],
 
 ];

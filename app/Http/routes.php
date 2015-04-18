@@ -11,13 +11,28 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-
-Route::get('home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
-    'admin' => 'AdminController',
-    'blog' => 'BlogController'
+    'blog' => 'BlogController',
+    'resume' => 'ResumeController',
+    'technologies' => 'TechnologiesController'
+
 ]);
+// Only Loggged IN - Redirects to Login Page if not logged in
+Route::group(['middleware' => 'auth'], function()
+{
+    // Controllers Go Here
+    Route::controllers([
+        'admin' => 'AdminController',
+        'settings' => 'SettingsController',
+        'timelines' => 'TimelinesController',
+        'projects' => 'ProjectsController',
+    ]);
+});
+
+Route::get('login', 'Auth\AuthController@getLogin');
+Route::get('register', 'Auth\AuthController@getLogin');
+Route::get('logout', 'Auth\AuthController@getLogout');

@@ -1,0 +1,23 @@
+@extends('layouts.admin')
+@section('content')
+    <h3>Technologies</h3>
+    @if($technologies->count() != 0)
+        <table class="table table-striped">
+            <thead>
+                <th>Name</th>
+                <th>URL</th>
+                <th>Color</th>
+            </thead>
+            <tbody>
+                @foreach($technologies as $technology)
+                    <tr>
+                        <td><a href="{{ action('\App\Http\Controllers\TechnologiesController@getEdit', [$technology->id]) }}">{{ $technology->name }}</a></td>
+                        <td>{{ $technology->url }}</td>
+                        <td>{{ $technology->color }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+    <a class="btn btn-info" href="{{ action('\App\Http\Controllers\TechnologiesController@getCreate') }}">Create</a>
+@endsection

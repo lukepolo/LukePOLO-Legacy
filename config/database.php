@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'default' => 'mongodb',
+	'default' => 'mysql',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -47,7 +47,7 @@ return [
 	'connections' => [
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => 'localhost',
+            'host'      => env('MYSQL_HOST'),
             'database'  => env('MYSQL_DB'),
             'username'  => env('DB_USER'),
             'password'  => env('MYSQL_PASS'),

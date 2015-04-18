@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.public')
 @section('content')
     <div class="container">
         <div class="col-md-12" style="margin-top:15px;">

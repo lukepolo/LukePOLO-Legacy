@@ -28,7 +28,8 @@ paths = {
     'bootstrap' : bower_path + 'bootstrap-sass/assets/',
     'fontawesome' : bower_path + 'fontawesome/',
     'snap' : bower_path + 'snap.svg/dist/',
-    'tinycolor' : bower_path + 'tinycolor/'
+    'tinycolor' : bower_path + 'tinycolor/',
+    'summernote' : bower_path + 'summernote/dist/'
 };
 
 // Minify JS
@@ -38,9 +39,10 @@ elixir.extend('minify_js', function()
     {
         gulp.src([
                 paths.jquery_ui + 'jquery-ui.min.js',
-                paths.bootstrap + 'javascripts/bootstrap.min.js',
+                paths.bootstrap + 'javascripts/bootstrap.js',
                 paths.snap + 'snap.svg.js',
                 paths.tinycolor + 'tinycolor.js',
+                paths.summernote + 'summernote.js',
                 paths.js+ '**',
             ],
             {
@@ -77,7 +79,7 @@ elixir.extend('minify_css', function()
                 outputStyle: 'compressed',
                 includePaths: [
                     paths.bootstrap+'stylesheets',
-                    paths.fontawesome+'scss'
+                    paths.fontawesome+'scss',
                 ],
                 errLogToConsole: true
             })
@@ -141,6 +143,7 @@ elixir(function (mix)
         .copy(paths.jquery_ui + 'themes/base/jquery-ui.min.css', paths.sass_partials+'_jquery-ui-min.scss')
         .copy(paths.jquery_ui + 'themes/base/images', paths.img+'jquery-ui')
         .copy(paths.fontawesome + 'fonts', paths.fonts_public)
+        .copy(paths.summernote + 'summernote.css', paths.sass_partials+'_summernote.scss')
         .minify_js(command)
         .minify_css(command)
         .minify_img(command);

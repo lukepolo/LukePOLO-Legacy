@@ -13,9 +13,12 @@
 
 .navbar-default .navbar-brand {
   color:#FFFFFF !important;
-  font-size:17px;
+  font-size:25px;
 }
 
+.navbar-nav>li>a {
+  border-bottom: 1px solid transparent;
+}
 .navbar-header a:hover,
 .navbar-nav>li>a:hover {
   border-bottom: 1px dotted #FFFFFF;
@@ -117,4 +120,11 @@ circle {
   20% { opacity: 0; -webkit-transform: translateY(30px); transform: translateY(30px); }
   80% { opacity: 0; }
   100% { opacity: 0; }
+}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:hover,
+.navbar-default .navbar-nav>.open>a:focus {
+  background-color:rgb(43,116,167);
+  color: #FFFFFF;
 }
