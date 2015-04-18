@@ -15,7 +15,9 @@ class BlogController extends Controller
 
     public function getView($blog_id)
     {
-        return view('blog.view');
+        return view('blog.view', [
+           'blog' => Blogs::find($blog_id)
+        ]);
     }
 
     public function getCreate()
@@ -28,7 +30,7 @@ class BlogController extends Controller
         Blogs::create([
             'name' => \Request::get('name'),
             'image' => \Request::get('image'),
-            'categories' => \Request::get('categories'),
+            'tags' => \Request::get('tags'),
             'html' => \Request::get('html'),
             'link_name' => \Request::get('link_name'),
             'preview_text' => \Request::get('preview_text')
@@ -50,7 +52,7 @@ class BlogController extends Controller
 
         $blog->name = \Request::get('name');
         $blog->image = \Request::get('image');
-        $blog->categories = \Request::get('categories');
+        $blog->tags = \Request::get('tags');
         $blog->html = \Request::get('html');
         $blog->link_name = \Request::get('link_name');
         $blog->preview_text = \Request::get('preview_text');

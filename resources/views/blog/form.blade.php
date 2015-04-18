@@ -25,10 +25,10 @@
             {!! Form::text('image', isset($blog) === true ? $blog->image : '') !!}
 
             <h3>Tags</h3>
-            <select id="tags" multiple name="categories[]">
-                @foreach($blog->categories as $category)
-                    <option selected="selected" value="{{ $category }}"}>
-                        {{ $category }}
+            <select id="tags" multiple name="tags[]">
+                @foreach($blog->tags as $tag)
+                    <option selected="selected" value="{{ $tag }}"}>
+                        {{ $tag }}
                     </option>
                 @endforeach
             </select>
