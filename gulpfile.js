@@ -32,7 +32,8 @@ paths = {
     'summernote' : bower_path + 'summernote/dist/',
     'datepicker' : bower_path + 'eonasdan-bootstrap-datetimepicker/build/',
     'moment' : bower_path + 'moment/min/',
-    'select2' : bower_path + 'select2/dist/'
+    'select2' : bower_path + 'select2/dist/',
+    'visible' : bower_path + 'jquery-visible/'
  };
 
 // Minify JS
@@ -49,6 +50,7 @@ elixir.extend('minify_js', function()
                 paths.moment + 'moment.min.js',
                 paths.datepicker + 'js/bootstrap-datetimepicker.min.js',
                 paths.select2 + 'js/select2.js',
+                paths.visible + 'jquery.visible.js',
                 paths.js+ '**',
             ],
             {

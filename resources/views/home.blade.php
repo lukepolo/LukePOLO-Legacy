@@ -23,42 +23,6 @@
 
     </style>
     <div class="col-lg-9">
-        <h1 style="margin-bottom:-5px;">{ Projects</h1>
-        <small>
-            <i class="fa fa-long-arrow-left"></i> You can navigate my site using my "git tree" just hover over them
-            <br>
-            .... or just look below
-        </small>
-        <hr>
-        <div id="project-lists">
-            <div class="col-md-6 img-holder" data-project-id="1">
-                <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/psg_robbert/Lp.png">
-            </div>
-            <div class="col-md-6 img-holder">
-                <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/boilerprojects.jpg">
-            </div>
-            <div class="col-md-6 img-holder">
-                <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/acv/acv_1.jpg">
-            </div>
-            <div class="col-md-6 img-holder">
-                <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/shortpolo/shortpolo_1.jpg">
-            </div>
-            <div class="col-md-6 img-holder">
-                <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/tipping-point.jpg">
-            </div>
-            <div class="col-md-6 img-holder">
-                <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/bsom.jpg">
-            </div>
-            <div class="col-md-6 img-holder">
-                <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/psg.jpg">
-            </div>
-            <div class="col-md-6 img-holder">
-                <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/trams.jpg">
-            </div>
-            <div class="col-md-6 img-holder">
-                <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/my-resnet.jpg">
-            </div>
-        </div>
         <style>
             .panel {
                 border-radius: 0;;
@@ -72,81 +36,53 @@
                 cursor: pointer;
             }
         </style>
-        <div class="hide" id="project-view">
-            <div class="row panel-links">
-                <div class="col-lg-3">
-                    <div class="panel panel-default">
-                        <div style="background-color:#A68BBA" class="panel-color"></div>
-                        <div class="panel-body">
-                            FuelPHP
-                            <span>
-                                <a class="pull-right" target="_blank" href="http://fuelphp.com">
-                                    <i style="color:#A68BBA" class="fa fa-arrow-right"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="panel panel-default">
-                        <div style="background-color:#0769AD" class="panel-color"></div>
-                        <div class="panel-body">
-                            Javascript/JQuery
-                            <span>
-                                <a class="pull-right" target="_blank" href="https://jquery.com/">
-                                    <i style="color:#0769AD" class="fa fa-arrow-right"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="panel panel-default">
-                        <div class="panel-color"></div>
-                        <div class="panel-body">
-                            AJAX Pages
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="panel panel-default">
-                        <div style="background-color:#563d7c" class="panel-color"></div>
-                        <div class="panel-body">
-                            Bootstrap
-                            <span>
-                                <a class="pull-right" target="_blank" href="http://getbootstrap.com/">
-                                    <i style="color:#563d7c" class="fa fa-arrow-right"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </div>
+        <div class="select-title">
+            <h1 style="margin-bottom:-5px;">{ Projects</h1>
+            <small>
+                <i class="fa fa-long-arrow-left"></i> You can navigate my site using my "git tree" just hover over them
+                <br>
+                .... or just look below
+            </small>
+            <hr>
+        </div>
+        @foreach($projects as $project)
+            <div class="projects">
+                <div class="col-md-6 img-holder" data-project_id="{{ $project->id }}">
+                    <img class="img-responsive" src="{{ $project->project_image }}">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <hr>
-                    <img class="img-responsive" src="http://lukepolo.com/assets/img/portfolio/psg_robbert/Lp.png">
-                    <p>
-                        This was a really fun project, I was recruited to build this team running for Purdue Student
-                        Government President and Vice President. Within a week I had a mock up and was ready to code!
-                        I decided to build a backbone like system where they could navigate without losing focus of
-                        content around them. Particiulary they wanted a video to be played and continued to play
-                        if they navigated to a new page.
-
-                        <br><br>
-                        <h2>{ Problems I ran into</h2>
-                        <p>
-                           The ajax pages worked like a charm, but I realized there was a problem if people where
-                            to share pages on facebook that directly poitned them to the correct page. There are a couple of solutions
-                            but I decided to go the "backbone.js like" functionality by changing the url while they
-                            continued throughout the site. I had to insert the urls into the history with javascript and that solved all the problems.
-                        </p>
-                    </p>
+            <div class="project-details" style="display: none;" id="{{ $project->id }}">
+                <div class="show_projects">
+                    <div class="btn btn-info">
+                        <i class="fa fa-arrow-left"></i>
+                    </div>
+                </div>
+                <div class="row panel-links">
+                 @foreach($project->technologies as $technology)
+                        <div class="col-lg-3">
+                            <div class="panel panel-default">
+                                <div style="background-color:#{{ $technologies[$technology]->color }}" class="panel-color"></div>
+                                <div class="panel-body">
+                                    {{ $technologies[$technology]->name }}
+                                    <span>
+                                        <a class="pull-right" target="_blank" href="{{ $technologies[$technology]->url }}">
+                                            <i style="color:#{{ $technologies[$technology]->color }}" class="fa fa-arrow-right"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div>
+                    {!! $project->html !!}
                 </div>
             </div>
+        @endforeach
         </div>
     </div>
     <script>
+        var small_bar = $('#small-bar');
         var projects;
         var circles = [];
         var branches = [];
@@ -165,14 +101,25 @@
 
         $(document).on('click', '.img-holder', function()
         {
-            $('#project-lists').hide();
-            $('#project-view').toggleClass('hide');
+            $('.select-title, .projects').hide();
+            $('#'+$(this).data('project_id')).show();
+
+            if(small_bar.visible() == false)
+            {
+                $('html, body').animate({
+                    scrollTop: small_bar.offset().top
+                }, 200);
+            }
+        });
+
+        $(document).on('click', '.show_projects', function()
+        {
+            $('.select-title, .projects').show();
+            $('.project-details').hide()
         });
 
         $(document).ready(function()
         {
-
-
             projects = Snap("#projects");
 
             // http://paletton.com/#uid=70f0u0ke9vf4TW49xJliLoCnugw

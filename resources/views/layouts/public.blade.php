@@ -38,8 +38,7 @@
                 </p>
             </div>
         @endif
-        <div class="col-md-12 text-center" style="color:#FFFFFF;min-height:12px;background-color: rgb(43,116,167);margin-bottom: 15px">
-        </div>
+        <div id="small-bar" class="col-md-12 text-center" style="color:#FFFFFF;min-height:12px;background-color: rgb(43,116,167);margin-bottom: 15px"></div>
         <div class="container">
             @yield('content')
         </div>

@@ -30,6 +30,19 @@ class TechnologiesController extends Controller
         return redirect(action('\App\Http\Controllers\TechnologiesController@getIndex'));
     }
 
+    public function postEdit($technology_id)
+    {
+        $technology = Technologies::find($technology_id);
+
+        $technology->name = \Request::get('name');
+        $technology->url = \Request::get('url');
+        $technology->color = \Request::get('color');
+
+        $technology->save();
+
+        return redirect(action('\App\Http\Controllers\TechnologiesController@getIndex'));
+    }
+
     public function getEdit($technology_id)
     {
         return view('technologies.form', [

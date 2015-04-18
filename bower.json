@@ -21,6 +21,7 @@
     "select2": "~4",
     "snap.svg": "~0.3.0",
     "summernote": "~0.6.4",
-    "tinycolor": "~1.1.2"
+    "tinycolor": "~1.1.2",
+    "jquery-visible": "~1.1.0"
   }
 }

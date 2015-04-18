@@ -1,8 +1,15 @@
 $(document).on('click', '.panel-links .panel-body', function(e)
 {
-    var href = $(this).find('a').attr('href');
-    if(href)
+    var link = $(this).find('a');
+    if(link.attr('href'))
     {
-        window.location = href;
+        if(link.attr('target'))
+        {
+            window.open(link.attr('href'), link.attr('target'));
+        }
+        else
+        {
+            window.location = link.attr('href');
+        }
     }
 });

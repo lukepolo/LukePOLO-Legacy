@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use \App\Models\Mongo\Timeline;
+use App\Models\Mongo\Timeline;
+use App\Models\Mongo\Projects;
+use App\Models\Mongo\Technologies;
 
 class HomeController extends Controller
 {
@@ -11,7 +13,9 @@ class HomeController extends Controller
         $timelines = Timeline::get();
 
         return view('home', [
-            'timelines' => $timelines
+            'projects' => Projects::get(),
+            'timelines' => $timelines,
+            'technologies' => Technologies::get()->keyBy('_id')
         ]);
     }
 }

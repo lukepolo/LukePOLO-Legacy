@@ -8,6 +8,6 @@
         {!! Form::text('url', isset($technology) ? $technology->url : '') !!}
         {!! Form::label('color', 'Color') !!}
         {!! Form::text('color', isset($technology) ? $technology->color : '') !!}
-        {!! Form::submit('create') !!}
+        {!! Form::submit(isset($technology) ? 'Update' : 'Create') !!}
     {!! Form::close() !!}
 @endsection
