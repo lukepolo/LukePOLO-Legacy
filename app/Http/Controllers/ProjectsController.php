@@ -9,8 +9,15 @@ class ProjectsController extends Controller
 {
     public function getIndex()
     {
+        $projects = Projects::orderBy('start_date', 'dsc')->get();
+
+        foreach($projects as $project)
+        {
+
+        }
+
         return view('projects',[
-            'projects' => Projects::get()
+            'projects' => Projects::orderBy('start_date', 'dsc')->get()
         ]);
     }
 
@@ -37,8 +44,8 @@ class ProjectsController extends Controller
         $project = Projects::find($project_id);
 
         $project->name = \Request::get('name');
-        $project->start_date = \Request::get('start_date');
-        $project->end_date = \Request::get('end_date');
+        $project->start_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date'));
+        $project->end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
         $project->technologies = \Request::get('technologies');
         $project->html = \Request::get('html');
         $project->project_image = \Request::get('project_image');
@@ -53,8 +60,8 @@ class ProjectsController extends Controller
     {
         Projects::create([
             'name' => \Request::get('name'),
-            'start_date' => \Request::get('start_date'),
-            'end_date' => \Request::get('end_date'),
+            'start_date' => strtotime(\Request::get('start_date')),
+            'end_date' => startotime(\Request::get('end_date')),
             'technologies' => \Request::get('technologies'),
             'html' => \Request::get('html'),
             'project_image' => \Request::get('project_image')

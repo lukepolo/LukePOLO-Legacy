@@ -13,7 +13,7 @@ class HomeController extends Controller
         $timelines = Timeline::get();
 
         return view('home', [
-            'projects' => Projects::get(),
+            'projects' => Projects::orderBy('start_date', 'desc')->get(),
             'timelines' => $timelines,
             'technologies' => Technologies::get()->keyBy('_id')
         ]);

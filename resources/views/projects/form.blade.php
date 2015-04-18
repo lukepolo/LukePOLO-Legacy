@@ -14,10 +14,10 @@
                 {!! Form::text('project_image', isset($project) === true ? $project->project_image : '') !!}
 
                 <h3>Start Date</h3>
-                {!! Form::text('start_date', isset($project) === true ? $project->start_date : '', ['id' => 'start_date']) !!}
+                {!! Form::text('start_date', isset($project) === true ? $project->start_date->format('m-d-Y') : '', ['id' => 'start_date']) !!}
 
                 <h3>End Date</h3>
-                {!! Form::text('end_date', isset($project) === true ? $project->end_date : '', ['id' => 'end_date']) !!}
+                {!! Form::text('end_date', isset($project) === true ? $project->end_date->format('m-d-Y') : '', ['id' => 'end_date']) !!}
 
                 <h3>Related To</h3>
                 <select name="related">

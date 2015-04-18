@@ -8,4 +8,8 @@ class Projects extends \Moloquent
 
     protected $guarded = ['_id'];
 
+    protected $dates = [
+        'start_date',
+        'end_date'
+    ];
 }

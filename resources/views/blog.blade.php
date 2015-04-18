@@ -7,6 +7,7 @@
                     <h1 style="margin-bottom:-5px;">
                         { {{ $blog->name  }}
                     </h1>
+                    <small>{{ $blog->created_at->format('F jS Y g:i A') }}</small>
                     <div style="font-size:15px">
                         @foreach($blog->tags as $tag)
                             <span style="padding: .4em .6em .3em;" class="label label-primary">
@@ -14,9 +15,6 @@
                             </span>
                         @endforeach
                     </div>
-                    <small>{{ $blog->created_at->format('F jS Y g:i A') }}</small>
-                    <br>
-                    <small style="font-size:55%">( Updated At : {{ $blog->updated_at->format('F jS Y g:i A') }})</small>
                 </div>
                 <div class="row">
                     <a href="{{ action('\App\Http\Controllers\BlogController@getView', [$blog->link_name]) }}">

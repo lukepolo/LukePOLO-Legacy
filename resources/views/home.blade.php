@@ -53,10 +53,10 @@
             </div>
             <div class="project-details" style="display: none;" id="{{ $project->id }}">
                 <div class="show_projects">
-                    <div class="btn btn-info">
+                    <span style="vertical-align: super" class="btn btn-info">
                         <i class="fa fa-arrow-left"></i>
-                    </div>
-                    <h2>{{ $project->name }}</h2>
+                    </span>
+                    <h2 style="display: inline;"> {{ $project->name }}</h2>
                 </div>
                 <hr>
                 <div class="row panel-links">
