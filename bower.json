@@ -1,0 +1,26 @@
+{
+  "name": "lukepolo",
+  "version": "0.0.0",
+  "authors": [
+    "LukePOLO <Luke@LukePOLO.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass-official": "~3.3.4",
+    "bootstrap-sass": "~3.3.4",
+    "eonasdan-bootstrap-datetimepicker": "~4.7.14",
+    "fontawesome": "~4.3.0",
+    "jquery-ui": "~1.11.4",
+    "select2": "~4",
+    "snap.svg": "~0.3.0",
+    "summernote": "~0.6.4",
+    "tinycolor": "~1.1.2"
+  }
+}

@@ -63,5 +63,31 @@
 </footer>
 <!-- Scripts -->
 <script src="/js/all.js"></script>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        // Render Selects with Select2
+        $('select').each(function()
+        {
+            // we don't want our debugbar to take this effect
+            if (!$(this).hasClass('phpdebugbar-datasets-switcher'))
+            {
+                // Make sure the select hasn't been rendered yet
+                if (typeof($._data(this).data) == 'undefined')
+                {
+                    var selected = '';
+
+                    // Since we are going to add an option to every select
+                    // we need to make sure nothing else was selected
+                    if (!$(this).attr('multiple') && $(this).find('option[selected]').length == 0)
+                    {
+                        selected = 'selected';
+                    }
+                    $(this).prepend($('<option ' + selected + '></option>')).select2({placeholder: "Please select an Option"});
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>

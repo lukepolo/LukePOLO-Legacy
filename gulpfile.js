@@ -29,8 +29,11 @@ paths = {
     'fontawesome' : bower_path + 'fontawesome/',
     'snap' : bower_path + 'snap.svg/dist/',
     'tinycolor' : bower_path + 'tinycolor/',
-    'summernote' : bower_path + 'summernote/dist/'
-};
+    'summernote' : bower_path + 'summernote/dist/',
+    'datepicker' : bower_path + 'eonasdan-bootstrap-datetimepicker/build/',
+    'moment' : bower_path + 'moment/min/',
+    'select2' : bower_path + 'select2/dist/'
+ };
 
 // Minify JS
 elixir.extend('minify_js', function()
@@ -43,6 +46,9 @@ elixir.extend('minify_js', function()
                 paths.snap + 'snap.svg.js',
                 paths.tinycolor + 'tinycolor.js',
                 paths.summernote + 'summernote.js',
+                paths.moment + 'moment.min.js',
+                paths.datepicker + 'js/bootstrap-datetimepicker.min.js',
+                paths.select2 + 'js/select2.js',
                 paths.js+ '**',
             ],
             {
@@ -143,7 +149,10 @@ elixir(function (mix)
         .copy(paths.jquery_ui + 'themes/base/jquery-ui.min.css', paths.sass_partials+'_jquery-ui-min.scss')
         .copy(paths.jquery_ui + 'themes/base/images', paths.img+'jquery-ui')
         .copy(paths.fontawesome + 'fonts', paths.fonts_public)
+        .copy(paths.bootstrap + 'fonts', paths.fonts_public)
         .copy(paths.summernote + 'summernote.css', paths.sass_partials+'_summernote.scss')
+        .copy(paths.select2 + 'css/select2.css', paths.sass_partials+'_select2.scss')
+        .copy(paths.datepicker + 'css/bootstrap-datetimepicker.css', paths.sass_partials+'_bootstrap-datetimepicker.scss')
         .minify_js(command)
         .minify_css(command)
         .minify_img(command);
