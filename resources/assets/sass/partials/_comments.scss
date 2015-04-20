@@ -38,4 +38,31 @@
   input {
     height:48px;
   }
+  .comments {
+    margin-top:15px;
+    font-size: 15px;
+
+    .comment-row {
+      clear: both;
+    }
+    .user-name {
+      font-weight: bolder;
+    }
+    .comment {
+      margin-top:5px;
+    }
+  }
+  .comment-footer {
+    margin-top:5px;
+  }
+  .comment-footer,
+  .timestamp {
+    color: #828282;
+  }
+  .comment-post {
+    height: initial;
+  }
+  hr {
+    margin: 10px;
+  }
 }

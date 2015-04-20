@@ -9,7 +9,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">0 Comments</a>
+                <a class="navbar-brand" href="#">{{ $blog->comments->count() }} Comments</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -29,34 +29,58 @@
             </div>
         </div>
     </nav>
-    <div class="comments">
-        @foreach($blog->comments as $comment)
-            {{ Dump($comment) }}
-        @endforeach
-    </div>
     {!! Form::open(['id' => 'comment', 'class' => 'form-horizontal']) !!}
         <div class="form-group">
             <div class="col-sm-1">
                 <img class="user-image img-responsive" src="{{ asset('/img/user.svg') }}">
             </div>
             <div class="col-sm-11">
-                {!! Form::text('Start_the_discussion . . .') !!}
+                {!! Form::text('comment', null, ['id'=> 'comment_text','placeholder' => 'Start the discussion . . .']) !!}
             </div>
         </div>
-        {!! Form::submit('Post') !!}
+        {!! Form::submit('Post', ['class' => 'pull-right comment-post btn btn-primary']) !!}
     {!! Form::close() !!}
+    <div class="comments">
+        @foreach($blog->comments->reverse() as $comment)
+            <div class="comment-row row">
+                <div class="col-sm-1">
+                    <img class="user-image img-responsive" src="{{ asset('/img/user.svg') }}">
+                </div>
+                <div class="col-sm-11">
+                    <div class="row">
+                        <span class="user-name">
+                            {{ $comment->user->name }}
+                        </span>
+                        <span class="timestamp">
+                            • {{ $comment->created_at->diffForHumans() }}
+                        </span>
+                    </div>
+                    <div class="row comment">
+                        {{ $comment->comment }}
+                    </div>
+                    <div class="row comment-footer">
+                        1000 <i fa="fa fa-chevron-up"></i> | <i fa="fa fa-chevron-down"></i> • <span>Reply</span> • <span>Share</span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        @endforeach
+    </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function()
     {
         $('#comment').submit(function(e)
         {
+            var comment = $('#comment_text');
+
             e.preventDefault();
             $.post("{{ action('\App\Http\Controllers\CommentsController@store') }}",
             {
-                comment: $('#comment').find('input').val(),
+                comment: comment.val(),
                 blog_id: "{{ $blog->id }}"
             });
+            comment.val('');
         });
     });
 </script>
