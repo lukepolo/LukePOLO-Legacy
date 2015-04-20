@@ -17,7 +17,7 @@
                 {!! Form::text('name', isset($blog) === true ? $blog->name : '') !!}
             </div>
             <div class="checkbox">
-                <label style="font-size:15px;">
+                <label>
                     {!! Form::hidden('draft', '0') !!}
                     {!! Form::checkbox('draft', '1', isset($blog) === true ? $blog->draft : '') !!}
                     Draft

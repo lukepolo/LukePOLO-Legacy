@@ -1,17 +1,19 @@
-var gulp = require('gulp'),
-    sass = require('gulp-sass');
-    autoprefixer = require('gulp-autoprefixer'),
-    gutil = require('gulp-util'),
-    concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
-    sourcemaps = require('gulp-sourcemaps'),
-    imagemin = require('gulp-imagemin'),
-    chalk = require('chalk'),
-    pngquant = require('imagemin-pngquant'),
-    elixir = require('laravel-elixir'),
+require('dotenv').config();
 
-    bower_path = './bower_components/',
-    resources_path = './resources/';
+var gulp = require('gulp'),
+sass = require('gulp-sass');
+autoprefixer = require('gulp-autoprefixer'),
+gutil = require('gulp-util'),
+concat = require('gulp-concat'),
+uglify = require('gulp-uglify'),
+sourcemaps = require('gulp-sourcemaps'),
+imagemin = require('gulp-imagemin'),
+chalk = require('chalk'),
+pngquant = require('imagemin-pngquant'),
+elixir = require('laravel-elixir'),
+
+bower_path = './bower_components/',
+resources_path = './resources/';
 
 paths = {
     // App Paths
@@ -42,30 +44,39 @@ elixir.extend('minify_js', function()
 {
     gulp.task('minify_js', function()
     {
-        gulp.src([
-                paths.jquery_ui + 'jquery-ui.min.js',
+        js_minify(
+            gulp.src([
                 paths.bootstrap + 'javascripts/bootstrap.js',
                 paths.snap + 'snap.svg.js',
                 paths.tinycolor + 'tinycolor.js',
-                paths.summernote + 'summernote.js',
-                paths.moment + 'moment.min.js',
-                paths.datepicker + 'js/bootstrap-datetimepicker.min.js',
-                paths.select2 + 'js/select2.js',
                 paths.visible + 'jquery.visible.js',
-                paths.bootbox + 'bootbox.js',
                 paths.js+ '**',
             ],
             {
                 base: './'
             })
             .pipe(concat('all.js'))
-            .pipe(sourcemaps.init())
-            .pipe(uglify())
-            .pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest(paths.js_public));
+        );
+
+        js_minify(
+            gulp.src([
+                    paths.bootstrap + 'javascripts/bootstrap.js',
+                    paths.snap + 'snap.svg.js',
+                    paths.tinycolor + 'tinycolor.js',
+                    paths.summernote + 'summernote.js',
+                    paths.moment + 'moment.min.js',
+                    paths.datepicker + 'js/bootstrap-datetimepicker.min.js',
+                    paths.select2 + 'js/select2.js',
+                    paths.visible + 'jquery.visible.js',
+                    paths.bootbox + 'bootbox.js',
+                    paths.js+ '**',
+                ],
+                {
+                    base: './'
+                })
+                .pipe(concat('admin.js'))
+        );
     });
-
-
 
     if(command == 'watch')
     {
@@ -84,26 +95,26 @@ elixir.extend('minify_css', function()
     gulp.task('minify_css', function()
     {
         gulp.src([paths.sass+'*'])
-        .pipe(
-            sass({
-                outputStyle: 'compressed',
-                includePaths: [
-                    paths.bootstrap+'stylesheets',
-                    paths.fontawesome+'scss',
-                ],
-                errLogToConsole: true
-            })
-        )
+            .pipe(
+                sass({
+                    outputStyle: 'compressed',
+                    includePaths: [
+                        paths.bootstrap+'stylesheets',
+                        paths.fontawesome+'scss'
+                    ],
+                    errLogToConsole: true
+                })
+            )
             .pipe(sourcemaps.init())
             .pipe(
-            autoprefixer({
-                browsers: [
-                    'last 2 version'
-                ]
-            })
-        )
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('public/css'))
+                autoprefixer({
+                    browsers: [
+                        'last 2 version'
+                    ]
+                })
+            )
+            .pipe(sourcemaps.write('.'))
+            .pipe(gulp.dest('public/css'))
     });
 
     if(command == 'watch')
@@ -113,7 +124,7 @@ elixir.extend('minify_css', function()
     }
     else
     {
-        return this.queueTask('minify_css');
+        return this.queueTask('minify_css')
     }
 });
 
@@ -161,3 +172,18 @@ elixir(function (mix)
         .minify_css(command)
         .minify_img(command);
 });
+
+function js_minify(src)
+{
+    if(process.env.MINIFY == 'true')
+    {
+        src.pipe(sourcemaps.init())
+            .pipe(uglify())
+            .pipe(sourcemaps.write('.'))
+            .pipe(gulp.dest(paths.js_public));
+    }
+    else
+    {
+        src.pipe(gulp.dest(paths.js_public));
+    }
+}

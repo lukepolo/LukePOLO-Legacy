@@ -14,7 +14,7 @@
                         case 'boolean':
                         ?>
                             <div class="checkbox">
-                                <label style="font-size:15px;">
+                                <label>
                                 <?php
                                     echo Form::hidden($setting->id, "0");
                                     if($setting->data == 0)

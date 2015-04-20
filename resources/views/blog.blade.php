@@ -1,16 +1,16 @@
 @extends('layouts.public')
 @section('content')
-    <div class="col-md-8 col-md-offset-2" style="margin-top:15px;">
+    <div class="blog-container col-md-8 col-md-offset-2">
         @foreach($blogs as $blog)
             <div class="blog">
                 <div class="row"></div>
-                    <h1 style="margin-bottom:-5px;">
+                    <h1 class="blog-name">
                         { {{ $blog->name  }}
                     </h1>
                     <small>{{ $blog->created_at->format('F jS Y g:i A') }}</small>
-                    <div style="font-size:15px">
+                    <div class="technologies">
                         @foreach($blog->tags as $tag)
-                            <span style="padding: .4em .6em .3em;" class="label label-primary">
+                            <span class="label label-primary">
                                 {{ $tag }}
                             </span>
                         @endforeach
@@ -18,7 +18,7 @@
                 </div>
                 <div class="row">
                     <a href="{{ action('\App\Http\Controllers\BlogController@getView', [$blog->link_name]) }}">
-                        <img style="cursor:pointer;max-height: 300px;" class="center-block" src="{{ $blog->image }}">
+                        <img class="blog-image center-block" src="{{ $blog->image }}">
                     </a>
                 </div>
                 <div class="row">
@@ -33,7 +33,6 @@
                 </div>
                 <hr>
             </div>
-
         @endforeach
     </div>
 @endsection

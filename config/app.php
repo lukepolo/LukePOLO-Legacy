@@ -156,7 +156,6 @@ return [
         'Barryvdh\Debugbar\ServiceProvider',
         'Jenssegers\Mongodb\MongodbServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-        'Irazasyed\LaravelGAMP\LaravelGAMPServiceProvider',
 
         /*
          * Custom Service Providers
@@ -220,7 +219,6 @@ return [
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'GAMP'  => 'Irazasyed\LaravelGAMP\Facades\GAMP',
-        'LaravelAnalytics' => 'Spatie\LaravelAnalytics\LaravelAnalyticsFacade',
         'Agent'            => 'Jenssegers\Agent\Facades\Agent',
 
         /*

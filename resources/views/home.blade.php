@@ -1,8 +1,6 @@
 @extends('layouts.public')
 @section('content')
     <style>
-        .mini-bar {
-        }
         #projects {
             height:{{ ($timelines->count() + 2 )* 100 }}px;
             width: 100%;
@@ -13,31 +11,9 @@
     <div class="col-lg-3">
         <svg id="projects"></svg>
     </div>
-    <style>
-        .img-holder {
-            height: 180px;
-            overflow:hidden;
-            margin-bottom: 40px;
-            cursor: pointer;
-        }
-
-    </style>
     <div class="col-lg-9">
-        <style>
-            .panel {
-                border-radius: 0;;
-            }
-            .panel .panel-color {
-                padding-top: 7px;
-                background-color: #777777;
-            }
-            .panel-body {
-                font-size: 15px;
-                cursor: pointer;
-            }
-        </style>
         <div class="select-title">
-            <h1 style="margin-bottom:-5px;">{ Projects</h1>
+            <h1>{ Projects</h1>
             <small>
                 <i class="fa fa-long-arrow-left"></i> You can navigate my site using my "git tree" just hover over them
                 <br>
@@ -51,12 +27,12 @@
                     <img class="img-responsive" src="{{ $project->project_image }}">
                 </div>
             </div>
-            <div class="project-details" style="display: none;" id="{{ $project->id }}">
+            <div class="project-details" id="{{ $project->id }}">
                 <div class="show_projects">
-                    <span style="vertical-align: super" class="btn btn-info">
+                    <span class="btn btn-info">
                         <i class="fa fa-arrow-left"></i>
                     </span>
-                    <h2 style="display: inline;"> {{ $project->name }}</h2>
+                    <h2> {{ $project->name }}</h2>
                 </div>
                 <hr>
                 <div class="row panel-links">

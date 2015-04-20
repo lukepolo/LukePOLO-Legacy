@@ -14,7 +14,6 @@
         "laravelcollective/html": "~5.0",
         "predis/predis": "~1.1@dev",
         "filp/whoops": "~1.0.",
-        "irazasyed/laravel-gamp": "~0.1",
         "jenssegers/agent": "~2.1",
         "wisembly/elephant.io": "~3.0"
 	},

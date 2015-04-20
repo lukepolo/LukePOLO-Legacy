@@ -23,22 +23,22 @@
         @include('layouts.header')
 
         @if(\Request::url() == url())
-            <div style="background-color: rgb(54, 134, 190)" class="col-md-12 text-center">
-                <p class="logo-text">{ Hi. I'm
-                    Luke
-                    <p class="logo-sub-text">
-                        a
-                        <span class="words">
-                            <span>web developer</span>
-                            <span>Boiler Maker</span>
-                            <span>learner</span>
-                            <span>teacher</span>
-                        </span>
-                    </p>
+            <div class="home-header" class="col-md-12 text-center">
+                <p class="logo-text">
+                    { Hi. I'm Luke
+                </p>
+                <p class="logo-sub-text">
+                    a
+                    <span class="words">
+                        <span>web developer</span>
+                        <span>Boiler Maker</span>
+                        <span>learner</span>
+                        <span>teacher</span>
+                    </span>
                 </p>
             </div>
         @endif
-        <div id="small-bar" class="col-md-12 text-center" style="color:#FFFFFF;min-height:12px;background-color: rgb(43,116,167);margin-bottom: 15px"></div>
+        <div class="col-md-12 text-center mini-bar"></div>
         <div class="container">
             @yield('content')
         </div>
