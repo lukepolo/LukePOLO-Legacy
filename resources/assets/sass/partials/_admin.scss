@@ -1,0 +1,72 @@
+.img-holder {
+  height: 180px;
+  overflow:hidden;
+  margin-bottom: 40px;
+  cursor: pointer;
+}
+
+.panel-links {
+  margin-top:15px;
+
+  > div:nth-child(1) {
+    i {
+      color: rgb(249, 170, 139);
+    }
+
+    .panel-color {
+      background-color: rgb(249, 170, 139);
+    }
+  }
+  > div:nth-child(2) {
+    i {
+      color: rgb(249, 202, 139);
+    }
+    .panel-color {
+      background-color: rgb(249, 202, 139);
+    }
+  }
+  > div:nth-child(3) {
+    i {
+      color: rgb(94, 131, 160);
+    }
+    .panel-color {
+      background-color: rgb(94, 131, 160);
+    }
+  }
+  > div:nth-child(4) {
+    i {
+      color: rgb(95, 171, 138);
+    }
+    .panel-color {
+      background-color: rgb(95, 171, 138);
+    }
+  }
+  > div:nth-child(5) {
+    i {
+      color: rgb(196, 114, 81);
+    }
+    .panel-color {
+      background-color: rgb(196, 114, 81);
+    }
+  }
+  > div:nth-child(6) {
+    i {
+      color: rgb(207, 226, 241);
+    }
+    .panel-color {
+      background-color: rgb(207, 226, 241);
+    }
+  }
+}
+
+.visitor-chart {
+  height: 315px;
+}
+.active-users {
+  height:150px;
+  font-size:125px;
+}
+
+.note-editable {
+  font-size: 20px;
+}

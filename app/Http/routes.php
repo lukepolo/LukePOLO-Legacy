@@ -21,7 +21,7 @@ Route::controllers([
 
 Route::get('blog/view/{blog}', function($blog)
 {
-    $blog = \App\Models\Mongo\Blogs::where('link_name', '=', $blog)->first();
+    $blog = \App\Models\Mongo\Blog::where('link_name', '=', $blog)->first();
     if(empty($blog) === false)
     {
 
@@ -46,12 +46,7 @@ Route::group(['middleware' => 'auth'], function()
         'blog' => 'BlogController',
     ]);
 });
-
-Route::resource('comments', 'CommentsController', [
-    'except' => [
-        'show'
-    ]
-]);
+Route::resource('comments', 'CommentsController');
 
 Route::get('blog', 'BlogController@getIndex');
 

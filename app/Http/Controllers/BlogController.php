@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mongo\Blogs;
+use App\Models\Mongo\Blog;
 
 class BlogController extends Controller
 {
     public function getIndex()
     {
         return view('blog', [
-            'blogs' => Blogs::where('draft', '=', '0')->get()
+            'blogs' => Blog::where('draft', '=', '0')->get()
         ]);
     }
 
     public function getView($blog_id)
     {
-        $blog = Blogs::find($blog_id);
+        $blog = Blog::with('comments')->find($blog_id);
+
         \View::share('title', '{ LukePOLO | Blog : '.$blog->name);
 
         return view('blog.view', [
@@ -30,7 +31,7 @@ class BlogController extends Controller
 
     public function postCreate()
     {
-        Blogs::create([
+        Blog::create([
             'name' => \Request::get('name'),
             'draft' => \Request::get('draft'),
             'image' => \Request::get('image'),
@@ -46,13 +47,13 @@ class BlogController extends Controller
     public function getEdit($blog_id)
     {
         return view('blog.form', [
-            'blog' => Blogs::find($blog_id)
+            'blog' => Blog::find($blog_id)
         ]);
     }
 
     public function postEdit($blog_id)
     {
-        $blog = Blogs::find($blog_id);
+        $blog = Blog::find($blog_id);
 
         $blog->name = \Request::get('name');
         $blog->draft = \Request::get('draft');
@@ -69,7 +70,7 @@ class BlogController extends Controller
 
     public function getDelete($blog_id)
     {
-        Blogs::find($blog_id)->delete();
+        Blog::find($blog_id)->delete();
 
         return redirect(action('\App\Http\Controllers\AdminController@getBlogs'));
     }

@@ -1,0 +1,19 @@
+#projects {
+  circle {
+    cursor: pointer;
+  }
+}
+
+.project-details {
+  display: none;
+
+  .show-projects {
+    span {
+      vertical-align: super;
+    }
+
+    h2 {
+      display: inline;
+    }
+  }
+}

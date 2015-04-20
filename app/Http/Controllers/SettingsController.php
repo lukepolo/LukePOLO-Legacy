@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mongo\Settings;
+use App\Models\Mongo\Setting;
 
 class SettingsController extends Controller
 {
     public function getIndex()
     {
-	    return view('settings', ['settings' => Settings::get()]);
+	    return view('settings', ['settings' => Setting::get()]);
     }
 
     public function postIndex()
     {
         foreach(\Request::except(['_token','/settings']) as $setting_id => $value)
         {
-            $setting = Settings::find($setting_id);
+            $setting = Setting::find($setting_id);
 
             if($setting->data != $value)
             {

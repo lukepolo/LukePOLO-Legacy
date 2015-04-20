@@ -2,7 +2,7 @@
 
 namespace App\Models\Mongo;
 
-class Projects extends \Moloquent
+class Project extends \Moloquent
 {
     protected $connection = 'mongodb';
 

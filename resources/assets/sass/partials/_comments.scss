@@ -1,0 +1,41 @@
+.comment-area {
+  .container-fluid {
+    padding-left:14px;
+    padding-right:0px;
+  }
+  .navbar {
+    border-radius: 0;
+    border:none;
+    border-bottom: 3px solid #F1F1F1;
+  }
+
+  .navbar-brand {
+    position: relative;
+    top: 6px;
+    border-bottom: 3px solid transparent;
+  }
+
+  .navbar-nav > li > a {
+    position: relative;
+    top: 3px;
+    border-bottom: 3px solid transparent;
+  }
+  .navbar-header a:hover,
+  .navbar-nav > li > a:hover {
+    border-bottom: 3px solid #F9AA8B;
+    background: none;
+  }
+  .nav .open > a,
+  .nav .open > a:hover,
+  .nav .open > a:focus {
+    background:none;
+  }
+
+  .user-image {
+    height:48px;
+  }
+
+  input {
+    height:48px;
+  }
+}

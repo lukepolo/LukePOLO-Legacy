@@ -3,14 +3,14 @@
 
 namespace App\Http\Controllers;
 
-use \App\Models\Mongo\Technologies;
+use \App\Models\Mongo\Technology;
 
 class TechnologiesController extends Controller
 {
     public function getIndex()
     {
         return view('technologies', [
-            'technologies' => Technologies::get()
+            'technologies' => Technology::get()
         ]);
     }
 
@@ -21,7 +21,7 @@ class TechnologiesController extends Controller
 
     public function postCreate()
     {
-        Technologies::create([
+        Technology::create([
             'name' => \Request::get('name'),
             'url' => \Request::get('url'),
             'color' => \Request::get('color')
@@ -32,7 +32,7 @@ class TechnologiesController extends Controller
 
     public function postEdit($technology_id)
     {
-        $technology = Technologies::find($technology_id);
+        $technology = Technology::find($technology_id);
 
         $technology->name = \Request::get('name');
         $technology->url = \Request::get('url');
@@ -46,13 +46,13 @@ class TechnologiesController extends Controller
     public function getEdit($technology_id)
     {
         return view('technologies.form', [
-            'technology' => Technologies::find($technology_id)
+            'technology' => Technology::find($technology_id)
         ]);
     }
 
     public function getDelete($technology_id)
     {
-        Technologies::find($technology_id)->delete();
+        Technology::find($technology_id)->delete();
 
         return redirect(action('\App\Http\Controllers\TechnologiesController@getIndex'));
     }

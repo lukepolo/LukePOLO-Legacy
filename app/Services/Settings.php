@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Mongo\Settings as modelSettings;
+use App\Models\Mongo\Setting as modelSettings;
 
 class Settings
 {

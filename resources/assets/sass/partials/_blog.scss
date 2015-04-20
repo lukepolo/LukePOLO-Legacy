@@ -1,0 +1,20 @@
+.blog-container {
+  margin-top:15px;
+
+  .blog-name {
+    margin-bottom:-5px;
+  }
+
+  .technologies {
+    font-size:15px;
+
+    .label {
+      padding: .4em .6em .3em;
+    }
+  }
+
+  .blog-image {
+    cursor:pointer;
+    max-height: 300px;
+  }
+}

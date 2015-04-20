@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mongo\Blogs;
-use App\Models\Mongo\Comments;
+use App\Models\Mongo\Blog;
 
 class AdminController extends Controller
 {
@@ -20,7 +19,7 @@ class AdminController extends Controller
     public function getBlogs()
     {
         return view('admin.blogs', [
-            'blogs' => Blogs::get()
+            'blogs' => Blog::get()
         ]);
     }
 

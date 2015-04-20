@@ -1,0 +1,34 @@
+#main-nav {
+  &.navbar {
+    margin-bottom: 0px;
+    border: none;
+    background-color: rgb(54, 134, 190);
+  }
+  &.navbar-default,
+  .navbar-nav > li > a {
+    color: #FFFFFF !important;
+    font-size: 17px;
+    border-radius: 0;
+  }
+
+  .navbar-brand {
+    color: #FFFFFF !important;
+    font-size: 25px;
+  }
+
+  .navbar-nav > li > a {
+    border-bottom: 1px solid transparent;
+  }
+  .navbar-header a:hover,
+  .navbar-nav > li > a:hover {
+    border-bottom: 1px dotted #FFFFFF;
+  }
+
+  .navbar-nav > .open > a,
+  .navbar-nav > .open > a:hover,
+  .navbar-nav > .open > a:focus {
+    background-color: rgb(43, 116, 167);
+    color: #FFFFFF;
+  }
+}
+

@@ -2,41 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use \App\Models\Mongo\Projects;
-use \App\Models\Mongo\Technologies;
+use \App\Models\Mongo\Project;
+use \App\Models\Mongo\Technology;
 
 class ProjectsController extends Controller
 {
     public function getIndex()
     {
-        $projects = Projects::orderBy('start_date', 'dsc')->get();
+        $projects = Project::orderBy('start_date', 'dsc')->get();
 
         return view('projects',[
-            'projects' => Projects::orderBy('start_date', 'dsc')->get()
+            'projects' => Project::orderBy('start_date', 'dsc')->get()
         ]);
     }
 
     public function getCreate()
     {
         return view('projects.form', [
-            'technologies' => Technologies::get()
+            'technologies' => Technology::get()
         ]);
     }
 
     public function getEdit($project_id)
     {
-        $project = Projects::find($project_id);
+        $project = Project::find($project_id);
 
         return view('projects.form', [
             'project' => $project,
-            'technologies' => Technologies::get()
+            'technologies' => Technology::get()
         ]);
 
     }
 
     public function postEdit($project_id)
     {
-        $project = Projects::find($project_id);
+        $project = Project::find($project_id);
 
         $project->name = \Request::get('name');
         $project->start_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date'));
@@ -53,7 +53,7 @@ class ProjectsController extends Controller
 
     public function postCreate()
     {
-        Projects::create([
+        Project::create([
             'name' => \Request::get('name'),
             'start_date' => strtotime(\Request::get('start_date')),
             'end_date' => strtotime(\Request::get('end_date')),
@@ -67,7 +67,7 @@ class ProjectsController extends Controller
 
     public function getDelete($project_id)
     {
-        Projects::find($project_id)->delete();
+        Project::find($project_id)->delete();
 
         return redirect(action('\App\Http\Controllers\ProjectsController@getIndex'));
     }
