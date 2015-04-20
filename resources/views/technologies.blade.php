@@ -7,6 +7,7 @@
                 <th>Name</th>
                 <th>URL</th>
                 <th>Color</th>
+                <th></th>
             </thead>
             <tbody>
                 @foreach($technologies as $technology)
@@ -14,6 +15,9 @@
                         <td><a href="{{ action('\App\Http\Controllers\TechnologiesController@getEdit', [$technology->id]) }}">{{ $technology->name }}</a></td>
                         <td>{{ $technology->url }}</td>
                         <td>{{ $technology->color }}</td>
+                        <td>
+                            <a class="confirm" href="{{ action('\App\Http\Controllers\TechnologiesController@getDelete', [$technology->id]) }}">Delete</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -12,30 +12,38 @@
             </div>
         </div>
         <div class="col-md-2">
-
-            <h3>Name</h3>
-            {!! Form::text('name', isset($blog) === true ? $blog->name : '') !!}
-
-            <h3>Link Name</h3>
-            {!! Form::text('link_name', isset($blog) === true ? $blog->link_name : '') !!}
-
-
-
-            <h3>Image</h3>
-            {!! Form::text('image', isset($blog) === true ? $blog->image : '') !!}
-
-            <h3>Tags</h3>
-            <select id="tags" multiple name="tags[]">
-                @if(isset($blog) === true)
-                    @foreach($blog->tags as $tag)
-                        <option selected="selected" value="{{ $tag }}"}>
-                            {{ $tag }}
-                        </option>
-                    @endforeach
-                @endif
-            </select>
-
-            {!! Form::submit(isset($blog) === true ? 'Update' : 'Create') !!}
+            <div class="form-group">
+                {!! Form::label('Name') !!}
+                {!! Form::text('name', isset($blog) === true ? $blog->name : '') !!}
+            </div>
+            <div class="checkbox">
+                <label style="font-size:15px;">
+                    {!! Form::hidden('draft', '0') !!}
+                    {!! Form::checkbox('draft', '1', isset($blog) === true ? $blog->draft : '') !!}
+                    Draft
+                </label>
+            </div>
+            <div class="form-group">
+                {!! Form::label('Link Name') !!}
+                {!! Form::text('link_name', isset($blog) === true ? $blog->link_name : '') !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('Image') !!}
+                {!! Form::text('image', isset($blog) === true ? $blog->image : '') !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('Tags') !!}
+                <select id="tags" multiple name="tags[]">
+                    @if(isset($blog) === true)
+                        @foreach($blog->tags as $tag)
+                            <option selected="selected" value="{{ $tag }}"}>
+                                {{ $tag }}
+                            </option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
+            {!! Form::submit(isset($blog) === true ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
         </div>
     {!! Form::close() !!}
     <script type="text/javascript">

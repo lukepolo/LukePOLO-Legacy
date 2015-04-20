@@ -11,6 +11,8 @@ class AuthController extends Controller
 
 	public function __construct(Guard $auth, Registrar $registrar)
 	{
+        parent::__construct();
+
 		$this->auth = $auth;
 		$this->registrar = $registrar;
         $this->redirectPath = action('\App\Http\Controllers\AdminController@getIndex');

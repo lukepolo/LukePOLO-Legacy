@@ -49,4 +49,11 @@ class TechnologiesController extends Controller
             'technology' => Technologies::find($technology_id)
         ]);
     }
+
+    public function getDelete($technology_id)
+    {
+        Technologies::find($technology_id)->delete();
+
+        return redirect(action('\App\Http\Controllers\TechnologiesController@getIndex'));
+    }
 }

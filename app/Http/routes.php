@@ -13,6 +13,11 @@
 
 Route::get('/', 'HomeController@index');
 
+Route::controllers([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
+    'resume' => 'ResumeController',
+]);
 
 Route::get('blog/view/{blog}', function($blog)
 {
@@ -28,14 +33,6 @@ Route::get('blog/view/{blog}', function($blog)
     }
 });
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-    'blog' => 'BlogController',
-    'resume' => 'ResumeController',
-    'technologies' => 'TechnologiesController'
-
-]);
 // Only Loggged IN - Redirects to Login Page if not logged in
 Route::group(['middleware' => 'auth'], function()
 {
@@ -44,10 +41,15 @@ Route::group(['middleware' => 'auth'], function()
         'admin' => 'AdminController',
         'settings' => 'SettingsController',
         'timelines' => 'TimelinesController',
+        'technologies' => 'TechnologiesController',
         'projects' => 'ProjectsController',
+        'blog' => 'BlogController',
     ]);
 });
 
+Route::get('blog', 'BlogController@getIndex');
+
+// Auth Traits
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::get('register', 'Auth\AuthController@getLogin');
 Route::get('logout', 'Auth\AuthController@getLogout');

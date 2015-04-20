@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{LukePOLO</title>
+    <title>{{ $title }}</title>
 
     <link href='http://fonts.googleapis.com/css?family=Josefin+Slab:100,400,700' rel='stylesheet' type='text/css'>
 
@@ -55,25 +55,25 @@
     @endif
     @yield('content')
 </div>
-<footer class="footer">
-    <div class="container">
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-4">
-            <p class="text-muted">
-
-            </p>
-        </div>
-        <div class="col-md-4">
-
-        </div>
-    </div>
-</footer>
+@include('layouts.footer')
 <!-- Scripts -->
 <script src="/js/all.js"></script>
 <script type="text/javascript">
     $(document).ready(function()
     {
+        $(document).on("click", ".confirm", function(e)
+        {
+            var link = $(this);
+            e.preventDefault();
+            bootbox.confirm("Are you sure?", function (response)
+            {
+                if (response)
+                {
+                    window.location = link.attr('href');
+                }
+            });
+        });
+
         // Render Selects with Select2
         $('select').each(function()
         {

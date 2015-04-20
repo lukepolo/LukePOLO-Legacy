@@ -146,14 +146,17 @@ return [
 		'App\Providers\RouteServiceProvider',
 
         /*
+         * Extending
+         */
+        'App\Providers\HtmlServiceProvider',
+
+        /*
          * Third Party Service Providers
          */
         'Barryvdh\Debugbar\ServiceProvider',
         'Jenssegers\Mongodb\MongodbServiceProvider',
-        'Collective\Html\HtmlServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Irazasyed\LaravelGAMP\LaravelGAMPServiceProvider',
-        'Collective\Html\HtmlServiceProvider',
 
         /*
          * Custom Service Providers

@@ -29,17 +29,19 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 150px;
+  margin-bottom: 135px;
 }
 footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 125px;
+  height: 100px;
   background-color: rgb(46,50,52);
   text-align: center;
-  padding-top:25px;
+  padding-top:35px;
+  color: #FFFFFF;
+  font-size: 15px;
 }
 html, body {
   font-family: 'Josefin Slab', serif;

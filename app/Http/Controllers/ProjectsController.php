@@ -11,11 +11,6 @@ class ProjectsController extends Controller
     {
         $projects = Projects::orderBy('start_date', 'dsc')->get();
 
-        foreach($projects as $project)
-        {
-
-        }
-
         return view('projects',[
             'projects' => Projects::orderBy('start_date', 'dsc')->get()
         ]);
@@ -61,11 +56,18 @@ class ProjectsController extends Controller
         Projects::create([
             'name' => \Request::get('name'),
             'start_date' => strtotime(\Request::get('start_date')),
-            'end_date' => startotime(\Request::get('end_date')),
+            'end_date' => strtotime(\Request::get('end_date')),
             'technologies' => \Request::get('technologies'),
             'html' => \Request::get('html'),
             'project_image' => \Request::get('project_image')
         ]);
+
+        return redirect(action('\App\Http\Controllers\ProjectsController@getIndex'));
+    }
+
+    public function getDelete($project_id)
+    {
+        Projects::find($project_id)->delete();
 
         return redirect(action('\App\Http\Controllers\ProjectsController@getIndex'));
     }
