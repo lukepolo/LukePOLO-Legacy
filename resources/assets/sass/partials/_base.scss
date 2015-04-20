@@ -247,7 +247,7 @@ html.admin {
 }
 
 .big-bottom-padding {
-  padding-bottom: 150px;
+  padding-bottom: 50px;
 }
 
 .panel-links {
@@ -302,4 +302,12 @@ html.admin {
       background-color: rgb(207, 226, 241);
     }
   }
+}
+
+.visitor-chart {
+  height: 315px;
+}
+.active-users {
+  height:150px;
+  font-size:125px;
 }

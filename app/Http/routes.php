@@ -47,6 +47,12 @@ Route::group(['middleware' => 'auth'], function()
     ]);
 });
 
+Route::resource('comments', 'CommentsController', [
+    'except' => [
+        'show'
+    ]
+]);
+
 Route::get('blog', 'BlogController@getIndex');
 
 // Auth Traits

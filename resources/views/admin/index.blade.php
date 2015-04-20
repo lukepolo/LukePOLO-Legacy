@@ -1,44 +1,97 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="col-md-6">
+    <div class="col-md-6 admin-comments">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Analytics</h3>
+                <h3 class="panel-title">
+                    User Comments
+                    <span class="pull-right unread label @if(0 == 0) label-default @else label-warning @endif">
+                         0 Messages
+                    </span>
+                </h3>
             </div>
             <div class="panel-body">
-                Panel content
+                @if(0 == 0)
+                    <div class="text-center">
+                        Go Enjoy Your Day!
+                    </div>
+                @else
+                    Messages
+                @endif
             </div>
         </div>
     </div>
     <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Tweet Feed</h3>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Active Users</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="active-users text-center">
+
+                    </div>
+                </div>
             </div>
-            <div class="panel-body">
-                Panel content
+        </div>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Visitors</h3>
+                </div>
+                <div class="visitor-chart" class="panel-body">
+                    <canvas id="chart"></canvas>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Other crap</h3>
-            </div>
-            <div class="panel-body">
-                Panel content
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">More Crap</h3>
-            </div>
-            <div class="panel-body">
-                Panel content
-            </div>
-        </div>
-    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $.get("{{ action('\App\Http\Controllers\AdminController@getActiveUsers') }}", function(active_users)
+            {
+                $('.active-users').html(active_users);
+            });
+
+            $.get("{{ action('\App\Http\Controllers\AdminController@getVisits') }}", function(visits)
+            {
+                var analytics = visits;
+                var data = {
+                    labels: analytics.labels,
+                    datasets: [
+                        {
+                            label: "Visitors",
+                            fillColor: "rgba(151,187,205,0.2)",
+                            strokeColor: "rgba(151,187,205,1)",
+                            pointColor: "rgba(151,187,205,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(151,187,205,1)",
+                            data: analytics.visitors
+                        },
+                        {
+                            label: "Views",
+                            fillColor: "rgba(220,220,220,0.2)",
+                            strokeColor: "rgba(220,220,220,1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: analytics.views
+                        }
+                    ]
+                };
+                var chart = new Chart($("#chart").get(0).getContext("2d")).Line(data,{
+                    bezierCurve : true,
+                    multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>",
+                    responsive: true,
+                    scaleShowVerticalLines: false
+                });
+            });
+
+
+        })
+    </script>
 @endsection

@@ -15,8 +15,11 @@ class BlogController extends Controller
 
     public function getView($blog_id)
     {
+        $blog = Blogs::find($blog_id);
+        \View::share('title', '{ LukePOLO | Blog : '.$blog->name);
+
         return view('blog.view', [
-           'blog' => Blogs::find($blog_id)
+           'blog' => $blog
         ]);
     }
 

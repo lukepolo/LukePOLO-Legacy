@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0bf1ef370d7d4b13022800110050e5a5",
+    "hash": "c5c1c72ebd2084df10408d748477ebb6",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1527,6 +1527,53 @@
                 "shell"
             ],
             "time": "2015-03-26 18:43:54"
+        },
+        {
+            "name": "roumen/disqus",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RoumenDamianoff/laravel-disqus.git",
+                "reference": "57e396277a372ceb21b0668342b70ef340e173b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RoumenDamianoff/laravel-disqus/zipball/57e396277a372ceb21b0668342b70ef340e173b2",
+                "reference": "57e396277a372ceb21b0668342b70ef340e173b2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~4|~5",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Roumen\\Disqus": "src/"
+                },
+                "files": [
+                    "src/Roumen/Disqus/disqusapi/disqusapi.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache"
+            ],
+            "authors": [
+                {
+                    "name": "Roumen Damianoff",
+                    "email": "roumen@dawebs.com",
+                    "homepage": "http://roumen.it",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Disqus API package for Laravel 5.",
+            "homepage": "http://roumen.it/projects/laravel-disqus",
+            "keywords": [
+                "disqus",
+                "laravel"
+            ],
+            "time": "2015-02-26 12:52:32"
         },
         {
             "name": "swiftmailer/swiftmailer",

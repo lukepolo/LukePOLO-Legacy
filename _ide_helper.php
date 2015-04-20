@@ -2157,11 +2157,11 @@ namespace {
          * @static 
          */
         public static function increment($key, $value = 1){
-            return \Illuminate\Cache\FileStore::increment($key, $value);
+            return \Illuminate\Cache\RedisStore::increment($key, $value);
         }
         
         /**
-         * Decrement the value of an item in the cache.
+         * Increment the value of an item in the cache.
          *
          * @param string $key
          * @param mixed $value
@@ -2169,7 +2169,7 @@ namespace {
          * @static 
          */
         public static function decrement($key, $value = 1){
-            return \Illuminate\Cache\FileStore::decrement($key, $value);
+            return \Illuminate\Cache\RedisStore::decrement($key, $value);
         }
         
         /**
@@ -2179,27 +2179,49 @@ namespace {
          * @static 
          */
         public static function flush(){
-            \Illuminate\Cache\FileStore::flush();
+            \Illuminate\Cache\RedisStore::flush();
         }
         
         /**
-         * Get the Filesystem instance.
+         * Begin executing a new tags operation.
          *
-         * @return \Illuminate\Filesystem\Filesystem 
+         * @param array|mixed $names
+         * @return \Illuminate\Cache\RedisTaggedCache 
          * @static 
          */
-        public static function getFilesystem(){
-            return \Illuminate\Cache\FileStore::getFilesystem();
+        public static function tags($names){
+            return \Illuminate\Cache\RedisStore::tags($names);
         }
         
         /**
-         * Get the working directory of the cache.
+         * Get the Redis connection instance.
          *
-         * @return string 
+         * @return \Predis\ClientInterface 
          * @static 
          */
-        public static function getDirectory(){
-            return \Illuminate\Cache\FileStore::getDirectory();
+        public static function connection(){
+            return \Illuminate\Cache\RedisStore::connection();
+        }
+        
+        /**
+         * Set the connection name to be used.
+         *
+         * @param string $connection
+         * @return void 
+         * @static 
+         */
+        public static function setConnection($connection){
+            \Illuminate\Cache\RedisStore::setConnection($connection);
+        }
+        
+        /**
+         * Get the Redis database instance.
+         *
+         * @return \Illuminate\Redis\Database 
+         * @static 
+         */
+        public static function getRedis(){
+            return \Illuminate\Cache\RedisStore::getRedis();
         }
         
         /**
@@ -2209,7 +2231,19 @@ namespace {
          * @static 
          */
         public static function getPrefix(){
-            return \Illuminate\Cache\FileStore::getPrefix();
+            return \Illuminate\Cache\RedisStore::getPrefix();
+        }
+        
+        /**
+         * Begin executing a new tags operation.
+         *
+         * @param string $name
+         * @return \Illuminate\Cache\TaggedCache 
+         * @static 
+         */
+        public static function section($name){
+            //Method inherited from \Illuminate\Cache\TaggableStore            
+            return \Illuminate\Cache\RedisStore::section($name);
         }
         
     }

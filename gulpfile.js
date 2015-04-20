@@ -36,7 +36,8 @@ paths = {
     'moment' : bower_path + 'moment/min/',
     'select2' : bower_path + 'select2/dist/',
     'visible' : bower_path + 'jquery-visible/',
-    'bootbox' : bower_path + 'bootbox/'
+    'bootbox' : bower_path + 'bootbox/',
+    'chartjs' : bower_path + 'Chart.js/'
  };
 
 // Minify JS
@@ -69,6 +70,7 @@ elixir.extend('minify_js', function()
                     paths.select2 + 'js/select2.js',
                     paths.visible + 'jquery.visible.js',
                     paths.bootbox + 'bootbox.js',
+                    paths.chartjs + 'Chart.js',
                     paths.js+ '**',
                 ],
                 {
