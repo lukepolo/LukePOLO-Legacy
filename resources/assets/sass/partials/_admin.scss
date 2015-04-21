@@ -5,13 +5,6 @@
   cursor: pointer;
 }
 
-$swb-orange:    rgb(249, 170, 139);
-$swb-yellow:    rgb(249, 202, 139);
-$swb-blue:      rgb(94, 131, 160);
-$swb-green:     rgb(95, 171, 138);
-$swb-red:       rgb(196, 114, 81);
-$swb-lightBlue: rgb(207, 226, 241);
-
 @mixin panelColor($color) {
   i { color: $color;  }
   .panel-color { background-color: $color; }

@@ -11,7 +11,8 @@
                     @if(\Auth::check())
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            LukePOLO
+                            {{ \Auth()->user()->first_name }}
+                            {{ \Auth()->user()->last_name }}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -62,13 +63,13 @@
         </div>
     </nav>
     @if(\Auth::check())
-        {!! Form::open(['id' => 'comment', 'class' => 'form-horizontal']) !!}
+        {!! Form::open(['class' => 'comment-form form-horizontal']) !!}
             <div class="form-group">
                 <div class="col-sm-1">
-                    <img class="user-image img-responsive" src="{{ asset('/img/user.svg') }}">
+                    <img class="pull-right user-image img-responsive" src="{{ empty(\Auth::user()->profile_img) === false ?  \Auth::user()->profile_img : asset('/img/user.svg') }}">
                 </div>
                 <div class="col-sm-11">
-                    {!! Form::text('comment', null, ['id'=> 'comment_text','placeholder' => 'Start the discussion . . .']) !!}
+                    {!! Form::text('comment', null, ['class'=> 'comment-text form-control','placeholder' => $blog->comments->count() == 0 ? 'Start the discussion . . .' : 'Join the discussion . . .' ]) !!}
                 </div>
             </div>
             {!! Form::submit('Post', ['class' => 'pull-right comment-post btn btn-primary']) !!}
@@ -76,27 +77,9 @@
     @endif
     <div class="comments">
         @foreach($blog->comments->reverse() as $comment)
-            <div class="comment-row row">
-                <div class="col-sm-1">
-                    <img class="user-image img-responsive" src="{{ asset('/img/user.svg') }}">
-                </div>
-                <div class="col-sm-11">
-                    <div class="row">
-                        <span class="user-name">
-                            {{ $comment->user->name }}
-                        </span>
-                        <span class="timestamp">
-                            • {{ $comment->created_at->diffForHumans() }}
-                        </span>
-                    </div>
-                    <div class="row comment">
-                        {{ $comment->comment }}
-                    </div>
-                    <div class="row comment-footer">
-                        1000 <i fa="fa fa-chevron-up"></i> | <i fa="fa fa-chevron-down"></i> • <span>Reply</span> • <span>Share</span>
-                    </div>
-                </div>
-            </div>
+            @include('blog.comment', [
+                'comment' => $comment
+            ])
             <hr>
         @endforeach
     </div>
@@ -104,17 +87,64 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
-        $('#comment').submit(function(e)
+        $(document).on('submit', '.comment-form', function(e)
         {
-            var comment = $('#comment_text');
-
             e.preventDefault();
+
+            var comment = $(this).find('.comment-text');
+
             $.post("{{ action('\App\Http\Controllers\CommentsController@store') }}",
             {
                 comment: comment.val(),
-                blog_id: "{{ $blog->id }}"
+                blog_id: "{{ $blog->id }}",
+                reply_to : $(this).data('reply-to')
             });
-            comment.val('');
+
+            if($(this).data('reply-to'))
+            {
+                $(this).remove();
+            }
+            else
+            {
+                comment.val('');
+            }
+
+        });
+
+        $(document).on('click', '.reply', function(e)
+        {
+            var comment_form = $('.comment-form').first().clone().attr('data-reply-to', $(this).data('id'));
+            comment_form.find('.comment-post').val('Reply');
+            $(this).parent().after(comment_form);
+        });
+
+        $(document).on('click', '.up-vote', function(e)
+        {
+            var span = this;
+            $.post("{{ action('\App\Http\Controllers\CommentVotesController@store') }}",
+            {
+                comment: $(this).data('id'),
+                vote : 1
+            }).success(function()
+            {
+                $(span).parent().find('.down-selected').removeClass('down-selected');
+                $(span).addClass('up-selected');
+            });
+
+        });
+
+        $(document).on('click', '.down-vote', function()
+        {
+            var span = this;
+            $.post("{{ action('\App\Http\Controllers\CommentVotesController@store') }}",
+            {
+                comment: $(this).data('id'),
+                vote: 0
+            }).success(function()
+            {
+                $(span).parent().find('.up-selected').removeClass('up-selected');
+                $(span).addClass('down-selected');
+            });
         });
     });
 </script>

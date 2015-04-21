@@ -54,6 +54,7 @@
   }
   .comment-footer {
     margin-top:5px;
+    margin-bottom:10px;
   }
   .comment-footer,
   .timestamp {
@@ -64,5 +65,20 @@
   }
   hr {
     margin: 10px;
+  }
+  .up-vote {
+    cursor: pointer;
+    &.up-selected {
+      color: $swb-green;
+    }
+  }
+  .down-vote {
+    cursor: pointer;
+    &.down-selected {
+      color: $swb-red;
+    }
+  }
+  .voting {
+    margin-left: 5px;
   }
 }

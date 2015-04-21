@@ -46,7 +46,14 @@ Route::group(['middleware' => 'admin'], function()
         'blog' => 'BlogController',
     ]);
 });
-Route::resource('comments', 'CommentsController');
+
+// Only Loggged IN - Redirects to Login Page if not logged in
+Route::group(['middleware' => 'auth'], function()
+{
+    Route::resource('comments', 'CommentsController');
+    Route::resource('comment-vote', 'CommentVotesController');
+});
+
 
 Route::get('blog', 'BlogController@getIndex');
 

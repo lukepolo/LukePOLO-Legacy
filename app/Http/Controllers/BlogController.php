@@ -15,7 +15,17 @@ class BlogController extends Controller
 
     public function getView($blog_id)
     {
-        $blog = Blog::with('comments.user')->find($blog_id);
+        $blog = Blog::with(['comments' => function($query)
+        {
+            $query->with(['replies', 'replies.user'])->whereNull('parent_id');
+        }, 'comments.user', 'comments.votes' => function($query)
+        {
+            if(\Auth::check())
+            {
+                $query->where('user_id', \Auth::user()->id);
+            }
+        }])
+        ->find($blog_id);
 
         \View::share('title', '{ LukePOLO | Blog : '.$blog->name);
 

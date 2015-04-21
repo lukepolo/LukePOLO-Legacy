@@ -1,16 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-    @if (count($errors) > 0)
-        <div class="col-md-6 col-md-offset-3 alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <div class="row login-buttons">
         <div class="col-sm-12">
             Login
