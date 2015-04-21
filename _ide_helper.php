@@ -1,7 +1,7 @@
 <?php
 /**
  * An helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.0.27 on 2015-04-20.
+ * Generated for Laravel 5.0.27 on 2015-04-21.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -12324,6 +12324,281 @@ namespace {
         public static function hasMacro($name){
             //Method inherited from \Illuminate\Html\HtmlBuilder            
             return \App\Extensions\HtmlBuilder::hasMacro($name);
+        }
+        
+    }
+
+
+    class LaravelAnalytics extends \Spatie\LaravelAnalytics\LaravelAnalyticsFacade{
+        
+        /**
+         * Get the amount of visitors and pageViews.
+         *
+         * @param int $numberOfDays
+         * @param string $groupBy Possible values: date, yearMonth
+         * @return \Spatie\LaravelAnalytics\Collection 
+         * @static 
+         */
+        public static function getVisitorsAndPageViews($numberOfDays = 365, $groupBy = 'date'){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::getVisitorsAndPageViews($numberOfDays, $groupBy);
+        }
+        
+        /**
+         * Get the amount of visitors and pageviews for the given period.
+         *
+         * @param \Spatie\LaravelAnalytics\DateTime $startDate
+         * @param \Spatie\LaravelAnalytics\DateTime $endDate
+         * @param string $groupBy Possible values: date, yearMonth
+         * @return \Spatie\LaravelAnalytics\Collection 
+         * @static 
+         */
+        public static function getVisitorsAndPageViewsForPeriod($startDate, $endDate, $groupBy = 'date'){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::getVisitorsAndPageViewsForPeriod($startDate, $endDate, $groupBy);
+        }
+        
+        /**
+         * Get the top keywords.
+         *
+         * @param int $numberOfDays
+         * @param int $maxResults
+         * @return \Spatie\LaravelAnalytics\Collection 
+         * @static 
+         */
+        public static function getTopKeywords($numberOfDays = 365, $maxResults = 30){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::getTopKeywords($numberOfDays, $maxResults);
+        }
+        
+        /**
+         * Get the top keywords for the given period.
+         *
+         * @param \Spatie\LaravelAnalytics\DateTime $startDate
+         * @param \Spatie\LaravelAnalytics\DateTime $endDate
+         * @param int $maxResults
+         * @return \Spatie\LaravelAnalytics\Collection 
+         * @static 
+         */
+        public static function getTopKeyWordsForPeriod($startDate, $endDate, $maxResults = 30){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::getTopKeyWordsForPeriod($startDate, $endDate, $maxResults);
+        }
+        
+        /**
+         * Get the top referrers.
+         *
+         * @param int $numberOfDays
+         * @param int $maxResults
+         * @return \Spatie\LaravelAnalytics\Collection 
+         * @static 
+         */
+        public static function getTopReferrers($numberOfDays = 365, $maxResults = 20){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::getTopReferrers($numberOfDays, $maxResults);
+        }
+        
+        /**
+         * Get the top referrers for the given period.
+         *
+         * @param \Spatie\LaravelAnalytics\DateTime $startDate
+         * @param \Spatie\LaravelAnalytics\DateTime $endDate
+         * @param int $maxResults
+         * @return \Spatie\LaravelAnalytics\Collection 
+         * @static 
+         */
+        public static function getTopReferrersForPeriod($startDate, $endDate, $maxResults){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::getTopReferrersForPeriod($startDate, $endDate, $maxResults);
+        }
+        
+        /**
+         * Get the top browsers.
+         *
+         * @param int $numberOfDays
+         * @param int $maxResults
+         * @return \Spatie\LaravelAnalytics\Collection 
+         * @static 
+         */
+        public static function getTopBrowsers($numberOfDays = 365, $maxResults = 6){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::getTopBrowsers($numberOfDays, $maxResults);
+        }
+        
+        /**
+         * Get the top browsers for the given period.
+         *
+         * @param \Spatie\LaravelAnalytics\DateTime $startDate
+         * @param \Spatie\LaravelAnalytics\DateTime $endDate
+         * @param int $maxResults
+         * @return \Spatie\LaravelAnalytics\Collection 
+         * @static 
+         */
+        public static function getTopBrowsersForPeriod($startDate, $endDate, $maxResults){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::getTopBrowsersForPeriod($startDate, $endDate, $maxResults);
+        }
+        
+        /**
+         * Get the most visited pages.
+         *
+         * @param int $numberOfDays
+         * @param int $maxResults
+         * @return \Spatie\LaravelAnalytics\Collection 
+         * @static 
+         */
+        public static function getMostVisitedPages($numberOfDays = 365, $maxResults = 20){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::getMostVisitedPages($numberOfDays, $maxResults);
+        }
+        
+        /**
+         * Get the number of active users currently on the site
+         *
+         * @param array $others
+         * @return int 
+         * @static 
+         */
+        public static function getActiveUsers($others = array()){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::getActiveUsers($others);
+        }
+        
+        /**
+         * Get the most visited pages for the given period.
+         *
+         * @param \Spatie\LaravelAnalytics\DateTime $startDate
+         * @param \Spatie\LaravelAnalytics\DateTime $endDate
+         * @param int $maxResults
+         * @return \Spatie\LaravelAnalytics\Collection 
+         * @static 
+         */
+        public static function getMostVisitedPagesForPeriod($startDate, $endDate, $maxResults = 20){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::getMostVisitedPagesForPeriod($startDate, $endDate, $maxResults);
+        }
+        
+        /**
+         * Returns the site id (ga:xxxxxxx) for the given url.
+         *
+         * @param string $url
+         * @throws \Exception
+         * @return string 
+         * @static 
+         */
+        public static function getSiteIdByUrl($url){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::getSiteIdByUrl($url);
+        }
+        
+        /**
+         * Call the query method on the authenticated client.
+         *
+         * @param \Spatie\LaravelAnalytics\DateTime $startDate
+         * @param \Spatie\LaravelAnalytics\DateTime $endDate
+         * @param string $metrics
+         * @param array $others
+         * @return mixed 
+         * @static 
+         */
+        public static function performQuery($startDate, $endDate, $metrics, $others = array()){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::performQuery($startDate, $endDate, $metrics, $others);
+        }
+        
+        /**
+         * Call the real time query method on the authenticated client.
+         *
+         * @param string $metrics
+         * @param array $others
+         * @return mixed 
+         * @static 
+         */
+        public static function performRealTimeQuery($metrics, $others = array()){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::performRealTimeQuery($metrics, $others);
+        }
+        
+        /**
+         * Return true if this site is configured to use Google Analytics.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isEnabled(){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::isEnabled();
+        }
+        
+    }
+
+
+    class Socialize extends \Laravel\Socialite\Facades\Socialite{
+        
+        /**
+         * Get a driver instance.
+         *
+         * @param string $driver
+         * @return mixed 
+         * @static 
+         */
+        public static function with($driver){
+            return \Laravel\Socialite\SocialiteManager::with($driver);
+        }
+        
+        /**
+         * Build an OAuth 2 provider instance.
+         *
+         * @param string $provider
+         * @param array $config
+         * @return \Laravel\Socialite\Two\AbstractProvider 
+         * @static 
+         */
+        public static function buildProvider($provider, $config){
+            return \Laravel\Socialite\SocialiteManager::buildProvider($provider, $config);
+        }
+        
+        /**
+         * Format the Twitter server configuration.
+         *
+         * @param array $config
+         * @return array 
+         * @static 
+         */
+        public static function formatConfig($config){
+            return \Laravel\Socialite\SocialiteManager::formatConfig($config);
+        }
+        
+        /**
+         * Get the default driver name.
+         *
+         * @throws \InvalidArgumentException
+         * @return string 
+         * @static 
+         */
+        public static function getDefaultDriver(){
+            return \Laravel\Socialite\SocialiteManager::getDefaultDriver();
+        }
+        
+        /**
+         * Get a driver instance.
+         *
+         * @param string $driver
+         * @return mixed 
+         * @static 
+         */
+        public static function driver($driver = null){
+            //Method inherited from \Illuminate\Support\Manager            
+            return \Laravel\Socialite\SocialiteManager::driver($driver);
+        }
+        
+        /**
+         * Register a custom driver creator Closure.
+         *
+         * @param string $driver
+         * @param \Closure $callback
+         * @return $this 
+         * @static 
+         */
+        public static function extend($driver, $callback){
+            //Method inherited from \Illuminate\Support\Manager            
+            return \Laravel\Socialite\SocialiteManager::extend($driver, $callback);
+        }
+        
+        /**
+         * Get all of the created "drivers".
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDrivers(){
+            //Method inherited from \Illuminate\Support\Manager            
+            return \Laravel\Socialite\SocialiteManager::getDrivers();
         }
         
     }

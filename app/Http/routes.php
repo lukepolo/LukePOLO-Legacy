@@ -34,7 +34,7 @@ Route::get('blog/view/{blog}', function($blog)
 });
 
 // Only Loggged IN - Redirects to Login Page if not logged in
-Route::group(['middleware' => 'auth'], function()
+Route::group(['middleware' => 'admin'], function()
 {
     // Controllers Go Here
     Route::controllers([

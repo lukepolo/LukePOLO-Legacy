@@ -16,7 +16,11 @@
         "filp/whoops": "~1.0.",
         "jenssegers/agent": "~2.1",
         "wisembly/elephant.io": "~3.0",
-        "spatie/laravel-analytics": "~1.0"
+        "spatie/laravel-analytics": "~1.0",
+        "laravel/socialite": "~2.0",
+		"socialiteproviders/manager": "0.1.*",
+		"socialiteproviders/linkedin": "~1.0",
+		"socialiteproviders/reddit": "~1.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

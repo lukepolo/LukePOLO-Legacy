@@ -5,58 +5,26 @@
   cursor: pointer;
 }
 
+$swb-orange:    rgb(249, 170, 139);
+$swb-yellow:    rgb(249, 202, 139);
+$swb-blue:      rgb(94, 131, 160);
+$swb-green:     rgb(95, 171, 138);
+$swb-red:       rgb(196, 114, 81);
+$swb-lightBlue: rgb(207, 226, 241);
+
+@mixin panelColor($color) {
+  i { color: $color;  }
+  .panel-color { background-color: $color; }
+}
+
 .panel-links {
-  margin-top:15px;
-
-  > div:nth-child(1) {
-    i {
-      color: rgb(249, 170, 139);
-    }
-
-    .panel-color {
-      background-color: rgb(249, 170, 139);
-    }
-  }
-  > div:nth-child(2) {
-    i {
-      color: rgb(249, 202, 139);
-    }
-    .panel-color {
-      background-color: rgb(249, 202, 139);
-    }
-  }
-  > div:nth-child(3) {
-    i {
-      color: rgb(94, 131, 160);
-    }
-    .panel-color {
-      background-color: rgb(94, 131, 160);
-    }
-  }
-  > div:nth-child(4) {
-    i {
-      color: rgb(95, 171, 138);
-    }
-    .panel-color {
-      background-color: rgb(95, 171, 138);
-    }
-  }
-  > div:nth-child(5) {
-    i {
-      color: rgb(196, 114, 81);
-    }
-    .panel-color {
-      background-color: rgb(196, 114, 81);
-    }
-  }
-  > div:nth-child(6) {
-    i {
-      color: rgb(207, 226, 241);
-    }
-    .panel-color {
-      background-color: rgb(207, 226, 241);
-    }
-  }
+  margin-top: 15px;
+  & > div:nth-child(1) { @include panelColor($swb-orange); }
+  & > div:nth-child(2) { @include panelColor($swb-yellow); }
+  & > div:nth-child(3) { @include panelColor($swb-blue); }
+  & > div:nth-child(4) { @include panelColor($swb-green); }
+  & > div:nth-child(5) { @include panelColor($swb-red); }
+  & > div:nth-child(6) { @include panelColor($swb-lightBlue); }
 }
 
 .visitor-chart {

@@ -157,6 +157,7 @@ return [
         'Jenssegers\Mongodb\MongodbServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Spatie\LaravelAnalytics\LaravelAnalyticsServiceProvider',
+        'SocialiteProviders\Manager\ServiceProvider',
 
         /*
          * Custom Service Providers
@@ -216,12 +217,12 @@ return [
          * Third Party Aliases
          */
         'Moloquent' => 'Jenssegers\Mongodb\Model',
-        'Socialize' => 'Laravel\Socialite\Facades\Socialite',
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'GAMP'  => 'Irazasyed\LaravelGAMP\Facades\GAMP',
         'Agent'            => 'Jenssegers\Agent\Facades\Agent',
         'LaravelAnalytics' => 'Spatie\LaravelAnalytics\LaravelAnalyticsFacade',
+        'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 
         /*
          * Custom Aliases

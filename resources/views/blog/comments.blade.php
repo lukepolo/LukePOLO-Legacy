@@ -3,17 +3,12 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <a class="navbar-brand" href="#">{{ $blog->comments->count() }} Comments</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+                    @if(\Auth::check())
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             LukePOLO
@@ -22,24 +17,63 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Your Profile</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a></li>
                         </ul>
                     </li>
+                    @else
+                        <li>
+                            <div class="navbar-text">
+                                Login to comment :
+                            </div>
+                        </li>
+                        <li>
+                            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['google']) }}">
+                                <i class="fa fa-google"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['github']) }}">
+                                <i class="fa fa-github"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['facebook']) }}">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['linkedin']) }}">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['twitter']) }}">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['reddit']) }}">
+                                <i class="fa fa-reddit"></i>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
     </nav>
-    {!! Form::open(['id' => 'comment', 'class' => 'form-horizontal']) !!}
-        <div class="form-group">
-            <div class="col-sm-1">
-                <img class="user-image img-responsive" src="{{ asset('/img/user.svg') }}">
+    @if(\Auth::check())
+        {!! Form::open(['id' => 'comment', 'class' => 'form-horizontal']) !!}
+            <div class="form-group">
+                <div class="col-sm-1">
+                    <img class="user-image img-responsive" src="{{ asset('/img/user.svg') }}">
+                </div>
+                <div class="col-sm-11">
+                    {!! Form::text('comment', null, ['id'=> 'comment_text','placeholder' => 'Start the discussion . . .']) !!}
+                </div>
             </div>
-            <div class="col-sm-11">
-                {!! Form::text('comment', null, ['id'=> 'comment_text','placeholder' => 'Start the discussion . . .']) !!}
-            </div>
-        </div>
-        {!! Form::submit('Post', ['class' => 'pull-right comment-post btn btn-primary']) !!}
-    {!! Form::close() !!}
+            {!! Form::submit('Post', ['class' => 'pull-right comment-post btn btn-primary']) !!}
+        {!! Form::close() !!}
+    @endif
     <div class="comments">
         @foreach($blog->comments->reverse() as $comment)
             <div class="comment-row row">

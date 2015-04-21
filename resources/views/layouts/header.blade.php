@@ -18,6 +18,7 @@
                     <a href="{{ action('\App\Http\Controllers\ResumeController@getIndex') }}">RESUME</a>
                 </li>
                 @if(Auth::check())
+                    @if(Auth::user()->role == 'admin')
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             ADMIN
@@ -29,6 +30,11 @@
                             <li><a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a></li>
                         </ul>
                     </li>
+                    @else
+                    <li>
+                        <li><a href="{{ action('Auth\AuthController@getLogout') }}">LOGOUT</a></li>
+                    </li>
+                    @endif
                 @endif
             </ul>
         </div>
