@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-    // TODO  - TODO Area :-)
-    // TODO  - GIT HUB API (Issues and stats?)
     // TODO  - Admin Moderation Area
+    // TOD   - Socket.IO for comments :-( big job
+    // TODO  - Profile Area
     // TODO  - GIT Tree Finish UP
     // TODO  - Mobile
     // TODO  - Cleanup

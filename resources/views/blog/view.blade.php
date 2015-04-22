@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    @include('blog.comments')
+    @include('blog.comments.area')
 @endsection
 
 

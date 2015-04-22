@@ -57,7 +57,7 @@
             @endif
         </div>
         @foreach($comment->replies as $reply)
-            @include('blog.comment', [
+            @include('blog.comments.comment', [
                'comment' => $reply,
                'reply_to' => $comment->user->first_name.' '.$comment->user->last_name
            ])

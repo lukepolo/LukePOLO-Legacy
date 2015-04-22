@@ -77,7 +77,7 @@
     @endif
     <div class="comments">
         @foreach($blog->comments->reverse() as $comment)
-            @include('blog.comment', [
+            @include('blog.comments.comment', [
                 'comment' => $comment
             ])
             <hr>
