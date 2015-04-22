@@ -57,16 +57,19 @@ io.on('connection', function (socket)
 
     socket.on('create_comment', function(data)
     {
-
+        console.log('Trying to create comment');
+        io.to(data.room).emit('create_comment', data.html, data.parent_id);
     });
 
     socket.on('update_comment', function(data)
     {
-
+        console.log('Trying to update comment');
+        io.to(data.room).emit('update_comment', data.comment_id, data.comment);
     });
 
     socket.on('delete_comment', function(data)
     {
-
+        console.log('Trying to delete comment');
+        io.to(data.room).emit('delete_comment', data.comment_id);
     });
 });

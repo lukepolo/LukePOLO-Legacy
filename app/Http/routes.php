@@ -19,7 +19,7 @@ Route::controllers([
     'resume' => 'ResumeController',
 ]);
 
-Route::get('blog/view/{blog}', function($blog)
+Route::get('blog/view/{blog}', ['as' => 'blog/view', function($blog)
 {
     $blog = \App\Models\Mongo\Blog::where('link_name', '=', $blog)->first();
     if(empty($blog) === false)
@@ -31,7 +31,7 @@ Route::get('blog/view/{blog}', function($blog)
     {
         App::abort(404);
     }
-});
+}]);
 
 // Only Loggged IN - Redirects to Login Page if not logged in
 Route::group(['middleware' => 'admin'], function()

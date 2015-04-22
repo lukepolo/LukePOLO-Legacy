@@ -2,30 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\Emitter;
 use App\Models\Mongo\Comment;
+use App\Models\Mongo\Blog;
 
 class CommentsController extends Controller
 {
     public function store()
     {
-        Comment::create([
-            'user_id' => \Auth::user()->id,
-            'blog_id' => \Request::get('blog_id'),
-            'comment' => \Request::get('comment'),
-            'been_moderated' => \Auth::user()->role == 'admin' ? true : null,
-            'parent_id' => \Request::get('reply_to'),
-            'vote' => 0
-        ]);
+        $blog = Blog::find(\Request::get('blog_id'));
+        if(empty($blog)  === false)
+        {
+            $comment = Comment::create([
+                'user_id' => \Auth::user()->id,
+                'blog_id' => \Request::get('blog_id'),
+                'comment' => \Request::get('comment'),
+                'been_moderated' => \Auth::user()->role == 'admin' ? true : null,
+                'parent_id' => \Request::get('reply_to'),
+                'vote' => 0
+            ]);
 
-        return;
+            \Emitter::emit('create_comment', route('blog/view', $blog->link_name), [
+                'html' => view('blog.comments.comment', ['comment' => $comment])->render(),
+                'parent_id' => \Request::get('reply_to')
+            ]);
+
+            return response('Success');
+        }
     }
 
     public function destroy($comment_id)
     {
-        $comment = Comment::find($comment_id);
+        $comment = Comment::with('blog')->find($comment_id);
+
         if(\Auth::user()->role == 'admin' || \Auth::user()->id == $comment->user_id)
         {
+            \Emitter::emit('delete_comment', route('blog/view', $comment->blog->link_name), [
+                'comment_id' => $comment->id
+            ]);
+
             $comment->delete();
+
             return response('Success');
         }
         else
@@ -36,10 +53,17 @@ class CommentsController extends Controller
 
     public function update($comment_id)
     {
-        $comment = Comment::find($comment_id);
+        $comment = Comment::with('blog')->find($comment_id);
+
         if(\Auth::user()->id == $comment->user_id)
         {
             $comment->comment = \Request::get('comment');
+
+            \Emitter::emit('update_comment', route('blog/view', $comment->blog->link_name), [
+                'comment_id' => $comment->id,
+                'comment' => $comment->comment
+            ]);
+
             $comment->save();
             return response('Success');
         }

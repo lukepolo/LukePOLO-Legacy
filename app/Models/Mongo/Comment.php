@@ -28,6 +28,11 @@ class Comment extends \Moloquent
         return $this->hasMany('\App\Models\Mongo\CommentVote');
     }
 
+    public function blog()
+    {
+        return $this->belongsTo('\App\Models\Mongo\Blog');
+    }
+
     public function delete()
     {
         $this->replies()->delete();

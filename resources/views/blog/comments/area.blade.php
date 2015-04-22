@@ -87,35 +87,59 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
+        socket.on('create_comment', function(html, parent_id)
+        {
+            if(parent_id)
+            {
+                $('.comment-row[data-id="' + parent_id + '"]').find('.comment-footer').after(html);
+            }
+            else
+            {
+                $('.comments').prepend(html);
+            }
+        });
+
+        socket.on('update_comment', function(comment_id, comment)
+        {
+            $('.comment-row[data-id="' + comment_id + '"]').find('.comment').first().html(comment);
+        });
+
+        socket.on('delete_comment', function(comment_id)
+        {
+            $('.comment-row[data-id="' + comment_id + '"]').remove();
+        });
+
         $(document).on('submit', '.comment-form', function(e)
         {
             e.preventDefault();
 
+            var form = $(this);
             var comment = $(this).find('.comment-text');
 
             $.post("{{ action('\App\Http\Controllers\CommentsController@store') }}",
             {
                 comment: comment.val(),
                 blog_id: "{{ $blog->id }}",
-                reply_to : $(this).data('reply-to')
+                reply_to : $(form).data('reply-to')
+            }).success(function()
+            {
+                if($(form).data('reply-to'))
+                {
+                    $(form).remove();
+                }
+                else
+                {
+                    comment.val('');
+                }
             });
-
-            if($(this).data('reply-to'))
-            {
-                $(this).remove();
-            }
-            else
-            {
-                comment.val('');
-            }
-
         });
 
         $(document).on('submit', '.comment-edit-form', function(e)
         {
             e.preventDefault();
 
-            var comment = $(this).find('.comment-text');
+            var form = $(this);
+            var comment = form.find('.comment-text');
 
             $.ajax({
                 url: "{{ action('\App\Http\Controllers\CommentsController@update', null) }}/" + $(this).data('id'),
@@ -123,9 +147,47 @@
                 data: {
                     comment : comment.val()
                 }
+            }).success(function()
+            {
+                $(form).remove();
             });
+        });
 
-            $(this).remove();
+        $(document).on('click', '.delete', function(e)
+        {
+            $.ajax({
+                url: "{{ action('\App\Http\Controllers\CommentsController@destroy', null) }}/" + $(this).data('id'),
+                type: 'DELETE'
+            });
+        });
+
+        $(document).on('click', '.up-vote', function()
+        {
+            var span = this;
+            $.post("{{ action('\App\Http\Controllers\CommentVotesController@store') }}",
+                    {
+                        comment: $(this).data('id'),
+                        vote : 1
+                    }).success(function()
+                    {
+                        $(span).parent().find('.down-selected').removeClass('down-selected');
+                        $(span).addClass('up-selected');
+                    });
+
+        });
+
+        $(document).on('click', '.down-vote', function()
+        {
+            var span = this;
+            $.post("{{ action('\App\Http\Controllers\CommentVotesController@store') }}",
+                    {
+                        comment: $(this).data('id'),
+                        vote: 0
+                    }).success(function()
+                    {
+                        $(span).parent().find('.up-selected').removeClass('up-selected');
+                        $(span).addClass('down-selected');
+                    });
         });
 
         $(document).on('click', '.reply', function()
@@ -158,43 +220,6 @@
         $(document).on('click', '.cancel', function()
         {
             $(this).closest('form').remove();
-        });
-
-        $(document).on('click', '.up-vote', function()
-        {
-            var span = this;
-            $.post("{{ action('\App\Http\Controllers\CommentVotesController@store') }}",
-            {
-                comment: $(this).data('id'),
-                vote : 1
-            }).success(function()
-            {
-                $(span).parent().find('.down-selected').removeClass('down-selected');
-                $(span).addClass('up-selected');
-            });
-
-        });
-
-        $(document).on('click', '.down-vote', function()
-        {
-            var span = this;
-            $.post("{{ action('\App\Http\Controllers\CommentVotesController@store') }}",
-            {
-                comment: $(this).data('id'),
-                vote: 0
-            }).success(function()
-            {
-                $(span).parent().find('.up-selected').removeClass('up-selected');
-                $(span).addClass('down-selected');
-            });
-        });
-
-        $(document).on('click', '.delete', function(e)
-        {
-            $.ajax({
-                url: "{{ action('\App\Http\Controllers\CommentsController@destroy', null) }}/" + $(this).data('id'),
-                type: 'DELETE'
-            });
         });
     });
 </script>

@@ -2,7 +2,7 @@
 
 @section('content')
     // TODO  - Admin Moderation Area
-    // TOD   - Socket.IO for comments :-( big job
+    // TODO  - Socket.IO for comments :-( big job
     // TODO  - Profile Area
     // TODO  - GIT Tree Finish UP
     // TODO  - Mobile

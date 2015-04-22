@@ -10,7 +10,7 @@ abstract class Controller extends BaseController {
 
     function __construct()
     {
-        // Sets the Title, based on the controller
+         // Sets the Title, based on the controller
         $name = preg_replace('/Controller@.*/', '', str_replace(\Route::getCurrentRoute()->getAction()["namespace"].'\\', '', \Route::currentRouteAction()));
         \View::share('title', '{ LukePOLO | '.$name);
     }

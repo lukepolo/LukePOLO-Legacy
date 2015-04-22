@@ -163,6 +163,7 @@ return [
          * Custom Service Providers
          */
         'App\Providers\SettingsServiceProvider',
+        'App\Providers\EmitterServiceProvider',
 
 
 	],
@@ -224,10 +225,12 @@ return [
         'LaravelAnalytics' => 'Spatie\LaravelAnalytics\LaravelAnalyticsFacade',
         'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 
+
         /*
          * Custom Aliases
          */
         'Settings' => 'App\Facades\Settings',
+        'Emitter' => 'App\Facades\Emitter',
 	],
 
 ];
