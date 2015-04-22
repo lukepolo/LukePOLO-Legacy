@@ -43,7 +43,7 @@ Route::group(['middleware' => 'admin'], function()
         'timelines' => 'TimelinesController',
         'technologies' => 'TechnologiesController',
         'projects' => 'ProjectsController',
-        'blog' => 'BlogController',
+        'blog' => 'BlogController'
     ]);
 });
 

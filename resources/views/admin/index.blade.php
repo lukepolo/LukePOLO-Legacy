@@ -2,11 +2,8 @@
 
 @section('content')
     // TODO  - Admin Moderation Area
-    // TODO  - Socket.IO for comments :-( big job
-    // TODO  - Profile Area
     // TODO  - GIT Tree Finish UP
     // TODO  - Mobile
-    // TODO  - Cleanup
     <div class="col-md-6 admin-comments">
         <div class="panel panel-default">
             <div class="panel-heading">
