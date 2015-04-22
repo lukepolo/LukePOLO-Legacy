@@ -9,8 +9,6 @@ class ProjectsController extends Controller
 {
     public function getIndex()
     {
-        $projects = Project::orderBy('start_date', 'dsc')->get();
-
         return view('projects',[
             'projects' => Project::orderBy('start_date', 'dsc')->get()
         ]);
@@ -55,8 +53,8 @@ class ProjectsController extends Controller
     {
         Project::create([
             'name' => \Request::get('name'),
-            'start_date' => strtotime(\Request::get('start_date')),
-            'end_date' => strtotime(\Request::get('end_date')),
+            'start_date' => \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date')),
+            'end_date' => \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date')),
             'technologies' => \Request::get('technologies'),
             'html' => \Request::get('html'),
             'project_image' => \Request::get('project_image')
