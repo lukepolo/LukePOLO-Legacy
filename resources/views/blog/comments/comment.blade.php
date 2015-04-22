@@ -50,9 +50,9 @@
                     • <span data-id="{{ $comment->id }}" class="btn-link reply">Reply</span>
                 @else
                     • <span data-id="{{ $comment->id }}" class="btn-link edit">Edit</span>
-                    @if(\Auth::user()->role == 'admin' || $comment->user_id == \Auth::user()->id)
-                        • <span data-id="{{ $comment->id }}" class="btn-link delete">Delete</span>
-                    @endif
+                @endif
+                @if(\Auth::user()->role == 'admin' || $comment->user_id == \Auth::user()->id)
+                    • <span data-id="{{ $comment->id }}" class="btn-link delete">Delete</span>
                 @endif
             @endif
         </div>
