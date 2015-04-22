@@ -109,7 +109,8 @@
 
         socket.on('update_votes', function(comment_id, votes)
         {
-            $('.comment-row[data-id="' + comment_id + '"]').find('.comment-footer .up-votes').html(votes);
+            console.log(comment_id);
+            $('.comment-row[data-id="' + comment_id + '"]').find('.comment-footer .up-votes').first().html(votes);
         });
 
         $(document).on('submit', '.comment-form', function(e)

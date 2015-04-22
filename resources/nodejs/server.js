@@ -5,6 +5,9 @@ require('dotenv').config({
 
 server = require('http').createServer();
 io = require('socket.io')(server);
+
+console.log = function() {};
+
 server.listen(process.env.NODE_SERVER_PORT, function()
 {
     console.log('listening on '+ process.env.NODE_SERVER_PORT);
@@ -15,7 +18,6 @@ offline_timeout = {};
 
 io.on('connection', function (socket)
 {
-
     socket.on('get_users', function()
     {
         console.log('Get Users : ' + socket.user);
@@ -75,7 +77,9 @@ io.on('connection', function (socket)
 
     socket.on('update_votes', function(data)
     {
-        console.log('Trying to update votes on a comment');
-        io.to(data.room).emit('update_votes', data.comment_id, data.votes);
+        console.log('Trying to delete comment');
+        io.to(data.room).emit('delete_comment', data.comment_id);
     });
+
+
 });
