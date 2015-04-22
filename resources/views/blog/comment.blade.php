@@ -48,9 +48,11 @@
                         <i data-id="{{ $comment->id }}" class="fa fa-chevron-down down-vote {{ $vote_class }}"></i>
                     </span>
                     • <span data-id="{{ $comment->id }}" class="btn-link reply">Reply</span>
-                @endif
-                @if(\Auth::user()->role == 'admin' || $comment->user_id == \Auth::user()->id)
-                    • <span data-id="{{ $comment->id }}" class="btn-link delete">Delete</span>
+                @else
+                    • <span data-id="{{ $comment->id }}" class="btn-link edit">Edit</span>
+                    @if(\Auth::user()->role == 'admin' || $comment->user_id == \Auth::user()->id)
+                        • <span data-id="{{ $comment->id }}" class="btn-link delete">Delete</span>
+                    @endif
                 @endif
             @endif
         </div>

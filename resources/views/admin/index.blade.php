@@ -3,7 +3,7 @@
 @section('content')
     // TODO  - TODO Area :-)
     // TODO  - GIT HUB API (Issues and stats?)
-    // TODO  - Removal of Comments on Blog and moderation area
+    // TODO  - Admin Moderation Area
     // TODO  - GIT Tree Finish UP
     // TODO  - Mobile
     // TODO  - Cleanup
@@ -23,7 +23,6 @@
                         Go Enjoy Your Day!
                     </div>
                 @else
-                    Need to finish preview<br>
                     @foreach($comments as $comment)
                         <span>
                             {{ $comment->comment }}<Br>

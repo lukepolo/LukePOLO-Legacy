@@ -111,14 +111,56 @@
 
         });
 
-        $(document).on('click', '.reply', function(e)
+        $(document).on('submit', '.comment-edit-form', function(e)
         {
-            var comment_form = $('.comment-form').first().clone().attr('data-reply-to', $(this).data('id'));
-            comment_form.find('.comment-post').val('Reply');
-            $(this).parent().after(comment_form);
+            e.preventDefault();
+
+            var comment = $(this).find('.comment-text');
+
+            $.ajax({
+                url: "{{ action('\App\Http\Controllers\CommentsController@update', null) }}/" + $(this).data('id'),
+                type: 'PUT',
+                data: {
+                    comment : comment.val()
+                }
+            });
+
+            $(this).remove();
         });
 
-        $(document).on('click', '.up-vote', function(e)
+        $(document).on('click', '.reply', function()
+        {
+            if(!$(this).parent().after().next().is('form'))
+            {
+                var comment_form = $('.comment-form').first().clone().attr('data-reply-to', $(this).data('id'));
+
+                comment_form.find('.comment-post').val('Reply').after('<div class="pull-right btn btn-danger cancel">Cancel</div>');
+
+                $(this).parent().after(comment_form);
+            }
+        });
+
+        $(document).on('click', '.edit', function()
+        {
+            if(!$(this).parent().after().next().is('form'))
+            {
+                var comment_form = $('.comment-form').first().clone().attr('data-reply-to', $(this).data('id'));
+
+                comment_form.data('id', $(this).data('id'))
+                comment_form.addClass('comment-edit-form').removeClass('comment-form');
+                comment_form.find('.comment-text').val($(this).parent().prev().text().trim());
+                comment_form.find('.comment-post').val('Update').after('<div class="pull-right btn btn-danger cancel">Cancel</div>');
+
+                $(this).parent().after(comment_form);
+            }
+        });
+
+        $(document).on('click', '.cancel', function()
+        {
+            $(this).closest('form').remove();
+        });
+
+        $(document).on('click', '.up-vote', function()
         {
             var span = this;
             $.post("{{ action('\App\Http\Controllers\CommentVotesController@store') }}",
