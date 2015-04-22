@@ -72,7 +72,7 @@
             socket.on('users', function(users)
             {
                 // Minus one because we know thats me!
-                var user_count = Object.keys(users).length;
+                var user_count = Object.keys(users).length - 1;
                 $('.active-users').html(user_count);
 
                 if(user_count > 0)
