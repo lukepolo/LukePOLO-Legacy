@@ -9,7 +9,7 @@ class CommentVotesController extends Controller
 {
     public function store()
     {
-        $comment = Comment::with(['votes' => function($query)
+        $comment = Comment::with(['blog', 'votes' => function($query)
         {
             $query->where('user_id', \Auth::user()->id);
         }])
@@ -43,7 +43,6 @@ class CommentVotesController extends Controller
 
                         $comment->vote = $comment->vote + ($vote * 2);
                         $comment->push();
-                        return response('Success');
                     }
                     else
                     {
@@ -59,9 +58,17 @@ class CommentVotesController extends Controller
                     ]);
                     $comment->vote = $comment->vote + $vote;
                     $comment->save();
-                    return response('Success');
                 }
+
+                \Emitter::emit('update_votes', route('blog/view', $comment->blog->link_name), [
+                    'comment_id' => $comment->id,
+                    'votes' => $comment->vote
+                ]);
+
+                return response('Success');
             }
+
+
         }
         return response('Unauthorized.', 401);
     }

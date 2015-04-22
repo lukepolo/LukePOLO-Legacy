@@ -109,6 +109,11 @@
             $('.comment-row[data-id="' + comment_id + '"]').remove();
         });
 
+        socket.on('update_votes', function(comment_id, votes)
+        {
+            $('.comment-row[data-id="' + comment_id + '"]').find('.comment-footer .up-votes').html(votes);
+        });
+
         $(document).on('submit', '.comment-form', function(e)
         {
             e.preventDefault();

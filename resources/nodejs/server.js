@@ -72,4 +72,10 @@ io.on('connection', function (socket)
         console.log('Trying to delete comment');
         io.to(data.room).emit('delete_comment', data.comment_id);
     });
+
+    socket.on('update_votes', function(data)
+    {
+        console.log('Trying to update votes on a comment');
+        io.to(data.room).emit('update_votes', data.comment_id, data.votes);
+    });
 });
