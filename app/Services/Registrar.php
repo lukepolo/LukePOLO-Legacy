@@ -35,7 +35,7 @@ class Registrar implements RegistrarContract {
         {
             \Session::flash('success', 'You successfully connected your ' . ucwords($data['provider']) . ' account!');
             $user = User::create([
-                'first_name' => $data['first_name'],
+                'first_name' => empty($data['first_name']) === false ? $data['first_name'] : $data['nickname'] . '@' . $data['provider'] . '.com',
                 'last_name' => $data['last_name'],
                 'profile_img' => $data['profile_img'],
                 'email' => empty($data['email']) === false ? $data['email'] : $data['nickname'] . '@' . $data['provider'] . '.com',

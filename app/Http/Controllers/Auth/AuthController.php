@@ -68,7 +68,6 @@ class AuthController extends Controller
                 $url = \Session::get('login_redirect');
                 \Session::forget('login_redirect');
                 return redirect($url);
-
             }
             else
             {
