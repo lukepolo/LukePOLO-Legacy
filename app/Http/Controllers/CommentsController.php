@@ -8,22 +8,24 @@ class CommentsController extends Controller
 {
     public function store()
     {
-        $comment = Comment::create([
+        Comment::create([
             'user_id' => \Auth::user()->id,
             'blog_id' => \Request::get('blog_id'),
             'comment' => \Request::get('comment'),
-            'been_moderated' => false,
-            'parent_id' => \Request::get('reply_to')
+            'been_moderated' => \Auth::user()->role == 'admin' ? true : null,
+            'parent_id' => \Request::get('reply_to'),
+            'vote' => 0
         ]);
 
         return;
     }
 
-    public function destroy()
+    public function destroy($comment_id)
     {
-        if(\Auth::user()->role == 'admin')
+        $comment = Comment::find($comment_id);
+        if(\Auth::user()->role == 'admin' || \Auth::user()->id == $comment->user_id)
         {
-            Comment::find(\Request::get('comment'))->delete();
+            $comment->delete();
             return;
         }
         else

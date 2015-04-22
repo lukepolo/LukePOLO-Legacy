@@ -18,13 +18,7 @@ class BlogController extends Controller
         $blog = Blog::with(['comments' => function($query)
         {
             $query->with(['replies', 'replies.user'])->whereNull('parent_id');
-        }, 'comments.user', 'comments.votes' => function($query)
-        {
-            if(\Auth::check())
-            {
-                $query->where('user_id', \Auth::user()->id);
-            }
-        }])
+        }, 'comments.user', 'comments.votes'])
         ->find($blog_id);
 
         \View::share('title', '{ LukePOLO | Blog : '.$blog->name);

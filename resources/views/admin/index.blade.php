@@ -1,23 +1,34 @@
 @extends('layouts.admin')
 
 @section('content')
+    // TODO  - TODO Area :-)
+    // TODO  - GIT HUB API (Issues and stats?)
+    // TODO  - Removal of Comments on Blog and moderation area
+    // TODO  - GIT Tree Finish UP
+    // TODO  - Mobile
+    // TODO  - Cleanup
     <div class="col-md-6 admin-comments">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     User Comments
-                    <span class="pull-right unread label @if(0 == 0) label-default @else label-warning @endif">
-                         0 Messages
+                    <span class="pull-right unread label @if($comments->count() == 0) label-default @else label-warning @endif">
+                         {{ $comments->count() }} Messages
                     </span>
                 </h3>
             </div>
             <div class="panel-body">
-                @if(0 == 0)
+                @if($comments->count()  == 0)
                     <div class="text-center">
                         Go Enjoy Your Day!
                     </div>
                 @else
-                    Messages
+                    Need to finish preview<br>
+                    @foreach($comments as $comment)
+                        <span>
+                            {{ $comment->comment }}<Br>
+                        </span>
+                    @endforeach
                 @endif
             </div>
         </div>

@@ -25,21 +25,33 @@
         </div>
         <div class="row comment-footer">
             <span class="up-votes">{{ $comment->vote }}</span>
-            @if(\Auth::check() && $comment->user_id != \Auth::user()->id)
-            <span class="voting">
-                @if($comment->votes->count() == 1)
-                    @if($comment->votes[0]->vote == 1)
-                        <?php $vote_class = 'up-selected'; ?>
-                    @else
-                        <?php $vote_class = 'down-selected'; ?>
-                    @endif
-                    @else
-                        <?php $vote_class = ''; ?>
+            @if(\Auth::check())
+                @if($comment->user_id != \Auth::user()->id)
+                    <span class="voting">
+                        @if($comment->votes->count() == 1)
+                            <?php
+                                $votes = $comment->votes->keyBy('user_id')->toArray();
+                            ?>
+                            @if(array_key_exists(\Auth::user()->id, $votes))
+                                @if($votes[\Auth::user()->id]['vote'] == 1)
+                                    <?php $vote_class = 'up-selected'; ?>
+                                @else
+                                    <?php $vote_class = 'down-selected'; ?>
+                                @endif
+                            @else
+                                <?php $vote_class = ''; ?>
+                            @endif
+                        @else
+                            <?php $vote_class = ''; ?>
+                        @endif
+                        <i data-id="{{ $comment->id }}" class="fa fa-chevron-up up-vote {{ $vote_class }}"></i> |
+                        <i data-id="{{ $comment->id }}" class="fa fa-chevron-down down-vote {{ $vote_class }}"></i>
+                    </span>
+                    • <span data-id="{{ $comment->id }}" class="btn-link reply">Reply</span>
                 @endif
-                <i data-id="{{ $comment->id }}" class="fa fa-chevron-up up-vote {{ $vote_class }}"></i> |
-                <i data-id="{{ $comment->id }}" class="fa fa-chevron-down down-vote {{ $vote_class }}"></i>
-            </span>
-                • <span data-id="{{ $comment->id }}" class="btn-link reply">Reply</span>
+                @if(\Auth::user()->role == 'admin' || $comment->user_id == \Auth::user()->id)
+                    • <span data-id="{{ $comment->id }}" class="btn-link delete">Delete</span>
+                @endif
             @endif
         </div>
         @foreach($comment->replies as $reply)

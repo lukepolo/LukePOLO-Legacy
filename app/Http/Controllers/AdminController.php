@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mongo\Blog;
+use App\Models\Mongo\Comment;
 
 class AdminController extends Controller
 {
     public function getIndex()
     {
-        return view('admin.index');
+        return view('admin.index', [
+            'comments' => Comment::whereNull('been_moderated')->get()
+        ]);
     }
 
     public function getCreate()

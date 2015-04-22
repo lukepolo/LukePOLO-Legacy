@@ -146,5 +146,13 @@
                 $(span).addClass('down-selected');
             });
         });
+
+        $(document).on('click', '.delete', function(e)
+        {
+            $.ajax({
+                url: "{{ action('\App\Http\Controllers\CommentsController@destroy', null) }}/" + $(this).data('id'),
+                type: 'DELETE'
+            });
+        });
     });
 </script>
