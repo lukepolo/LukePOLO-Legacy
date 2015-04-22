@@ -41,17 +41,14 @@ io.on('connection', function (socket)
         {
             socket.leave(users[socket.user]);
 
-            if(!offline_timeout[socket.user])
-            {
-                // Make them offline after a certain point
-                offline_timeout[socket.user] = setTimeout(
-                    function ()
-                    {
-                        delete users[socket.user];
-                        io.emit('users', users);
-                    }, 10000
-                );
-            }
+            // Make them offline after a certain point
+            offline_timeout[socket.user] = setTimeout(
+                function ()
+                {
+                    delete users[socket.user];
+                    io.emit('users', users);
+                }, 10000
+            );
         }
     });
 
