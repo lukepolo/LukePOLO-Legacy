@@ -42,6 +42,16 @@
                     <div class="active-users text-center">
 
                     </div>
+                    <div class="active-user-locations">
+                        <table class="table table-striped">
+                            <thead>
+                                <th>Location</th>
+                                <th>User Count</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,9 +70,45 @@
     <script type="text/javascript">
         $(document).ready(function()
         {
-            $.get("{{ action('\App\Http\Controllers\AdminController@getActiveUsers') }}", function(active_users)
+            socket.emit('get_users');
+
+            socket.on('users', function(users)
             {
-                $('.active-users').html(active_users);
+                // Minus one because we know thats me!
+                var user_count = Object.keys(users).length - 1;
+                $('.active-users').html(user_count);
+                if(user_count > 0)
+                {
+                    var locations = {};
+                    $.each(users, function (session_id, location)
+                    {
+                        if ('{{ \Session::getId() }}' != session_id)
+                        {
+                            if (locations[location])
+                            {
+                                locations[location]++;
+                            }
+                            else
+                            {
+                                locations[location] = 1;
+                            }
+                        }
+                    });
+
+                    console.log(locations);
+                    $('.active-user-locations table tbody').children().remove();
+                    $.each(locations, function (location, user_count)
+                    {
+                        $('.active-user-locations table tbody').append('<tr>' +
+                        '<td>' + location + '</td>' +
+                        '<td>' + user_count + '</td>' +
+                        '</tr>');
+                    });
+                }
+                else
+                {
+                    $('.active-user-locations table tbody').html('<td colspan="2" class="text-center"><h3>No users currently online!<h3></td>');
+                }
             });
 
             $.get("{{ action('\App\Http\Controllers\AdminController@getVisits') }}", function(visits)

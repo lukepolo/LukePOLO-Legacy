@@ -26,11 +26,6 @@ class AdminController extends Controller
         ]);
     }
 
-    public function getActiveUsers()
-    {
-        return response()->json(\LaravelAnalytics::getActiveUsers());
-    }
-
     public function getVisits()
     {
         $visitors =  \LaravelAnalytics::getVisitorsAndPageViews(7);
