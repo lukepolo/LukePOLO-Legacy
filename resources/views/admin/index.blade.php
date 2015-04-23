@@ -34,7 +34,7 @@
                         {!! Form::submit('Post', ['class' => 'pull-right comment-post btn btn-primary']) !!}
                         <div class="pull-right btn btn-danger cancel">Cancel</div>
                     {!! Form::close() !!}
-                    @foreach($comments as $comment)
+                    @foreach($comments->reverse() as $comment)
                         @include('admin.comment', ['comment' => $comment])
                     @endforeach
                 @endif
@@ -83,8 +83,28 @@
             {
                 $.get('{{ action('\App\Http\Controllers\AdminController@getComment', [null]) }}/' + comment_id, function(html)
                 {
-                    $('.admin-comments .panel-body').append(html);
+                    $('.admin-comments .panel-body').prepend(html);
                 });
+            });
+
+            socket.on('update_comment', function(comment_id, comment)
+            {
+                if($('div[data-id="'+comment_id+'"]').length != 0)
+                {
+                    $('div[data-id="'+comment_id+'"]').find('.comment').html(comment);
+                }
+                else
+                {
+                    $.get('{{ action('\App\Http\Controllers\AdminController@getComment', [null]) }}/' + comment_id, function(html)
+                    {
+                        $('.admin-comments .panel-body').prepend(html);
+                    });
+                }
+            });
+
+            socket.on('delete_comment', function(comment_id)
+            {
+                $('div[data-id="'+comment_id+'"]').remove();
             });
 
             socket.on('users', function(users)
@@ -138,7 +158,10 @@
                     var comment_form = $('.comment-form').first().clone().attr('data-reply-to', $(this).data('id')).attr('data-blog-id', $(this).data('blog-id'));
 
                     comment_form.removeClass('hide');
+
                     $(this).parent().after(comment_form);
+
+                    comment_form.find('.comment-text').first().focus();
                 }
             });
 
@@ -216,6 +239,14 @@
                     responsive: true,
                     scaleShowVerticalLines: false
                 });
+            });
+
+            $(document).keyup(function(e) {
+
+                if (e.keyCode == 27)
+                {
+                    $('input:focus').closest('form').find('.cancel').click();
+                }
             });
         });
 

@@ -52,13 +52,15 @@ class CommentsController extends Controller
 
     public function destroy($comment_id)
     {
-        $comment = Comment::with('blog')->find($comment_id);
+        $comment = Comment::with('replies')->with('blog')->find($comment_id);
 
         if(\Auth::user()->role == 'admin' || \Auth::user()->id == $comment->user_id)
         {
             \Emitter::emit('delete_comment', route('blog/view', $comment->blog->link_name), [
                 'comment_id' => $comment->id
             ]);
+
+            $this->recursive_delete($comment);
 
             $comment->delete();
 
@@ -80,7 +82,7 @@ class CommentsController extends Controller
         {
             $comment->comment = $comment_text;
 
-            $comment->been_moderated = false;
+            $comment->been_moderated = null;
 
             \Emitter::emit('update_comment', route('blog/view', $comment->blog->link_name), [
                 'comment_id' => $comment->id,
@@ -93,6 +95,20 @@ class CommentsController extends Controller
         else
         {
             return response('Unauthorized.', 401);
+        }
+    }
+
+    public function recursive_delete($comment)
+    {
+        foreach($comment->replies as $reply)
+        {
+            \Emitter::emit('delete_comment', null, [
+                'comment_id' => $reply->id
+            ]);
+
+            $this->recursive_delete(Comment::with('replies')->with('blog')->find($reply->id));
+
+            $reply->delete();
         }
     }
 }

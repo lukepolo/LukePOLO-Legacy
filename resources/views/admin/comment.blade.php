@@ -1,37 +1,37 @@
-<div data-id="{{ $comment->id }}" class="comment-row">
-    <div class="row">
-        <div class="col-sm-2">
-            <img class="pull-right img-responsive" src="{{ empty($comment->user->profile_img) === false ? $comment->user->profile_img : asset('/img/user.svg') }}">
-        </div>
-        <div class="col-sm-10">
-            <div class="row">
-                <span class="user-name">
-                    {{ $comment->user->first_name }}
-                    {{ $comment->user->last_name }}
-                </span>
-                <span class="timestamp">
-                    • {{ $comment->created_at->diffForHumans() }}
-                </span>
-                <span data-id="{{ $comment->id }}" class="mark-read pull-right btn btn-xs btn-primary">
-                    Mark As Read
-                </span>
+@if(\Auth::user()->id != $comment->user_id)
+    <div data-id="{{ $comment->id }}" class="comment-row">
+        <div class="row">
+            <div class="col-sm-2">
+                <img class="pull-right img-responsive" src="{{ empty($comment->user->profile_img) === false ? $comment->user->profile_img : asset('/img/user.svg') }}">
             </div>
-            <div class="row comment">
-                {{ $comment->comment }}
-            </div>
-            <div class="row comment-footer">
-                <span class="up-votes">{{ $comment->vote }}</span>
-                @if(\Auth::check())
+            <div class="col-sm-10">
+                <div class="row">
+                    <span class="user-name">
+                        {{ $comment->user->first_name }}
+                        {{ $comment->user->last_name }}
                     </span>
-                    • <span data-blog-id="{{ $comment->blog->id }}" data-id="{{ $comment->id }}" class="btn-link reply">Reply</span>
-                    • <span data-id="{{ $comment->id }}" class="btn-link delete">Delete</span>
-                @endif
+                    <span class="timestamp">
+                        • {{ $comment->created_at->diffForHumans() }}
+                    </span>
+                    <span data-id="{{ $comment->id }}" class="mark-read pull-right btn btn-xs btn-primary">
+                        Mark As Read
+                    </span>
+                </div>
+                <div class="row comment">
+                    {{ $comment->comment }}
+                </div>
+                <div class="row comment-footer">
+                    <span class="up-votes">{{ $comment->vote }}</span>
+                    @if(\Auth::check())
+                        </span>
+                        • <span data-blog-id="{{ $comment->blog->id }}" data-id="{{ $comment->id }}" class="btn-link reply">Reply</span>
+                        • <span data-id="{{ $comment->id }}" class="btn-link delete">Delete</span>
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
-    @if($comments->count() != 1)
         <div class="row">
             <hr>
         </div>
-    @endif
-</div>
+    </div>
+@endif

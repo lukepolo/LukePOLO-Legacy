@@ -26,6 +26,5 @@ class Emitter
     public function __destruct()
     {
         $this->client->close();
-        echo 'yay'; die;
     }
 }

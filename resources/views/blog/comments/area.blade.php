@@ -228,10 +228,6 @@
             });
         });
 
-        function close_all()
-        {
-            $('.cancel:visible').click();
-        }
         $(document).on('click', '.reply', function()
         {
             if(!$(this).parent().after().next().is('form'))
@@ -279,6 +275,11 @@
             }
         });
     });
+
+    function close_all()
+    {
+        $('.cancel:visible').click();
+    }
 
     function update_comment_number()
     {
