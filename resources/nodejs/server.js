@@ -11,6 +11,7 @@ server.listen(process.env.NODE_SERVER_PORT, function()
     console.log('listening on '+ process.env.NODE_SERVER_PORT);
 });
 
+var admin_room =  process.env.ADMIN_ROOM;
 var users = {};
 offline_timeout = {};
 
@@ -18,11 +19,12 @@ io.on('connection', function (socket)
 {
     socket.on('get_users', function()
     {
-        io.to(socket.id).emit('users', users);
+        io.to(admin_room).emit('users', users);
     });
 
     socket.on('change_location', function (location, user)
     {
+
 
         clearTimeout(offline_timeout[user.session]);
 
@@ -32,7 +34,10 @@ io.on('connection', function (socket)
         // From node join the location
         socket.join(location);
 
-        io.emit('users', users);
+        if(io.sockets.adapter.rooms.hasOwnProperty(admin_room))
+        {
+            io.to(admin_room).emit('users', users);
+        }
     });
 
     socket.on('disconnect', function ()
@@ -46,7 +51,10 @@ io.on('connection', function (socket)
                 function ()
                 {
                     delete users[socket.user];
-                    io.emit('users', users);
+                    if(io.sockets.adapter.rooms.hasOwnProperty(admin_room))
+                    {
+                        io.to(admin_room).emit('users', users);
+                    }
                 }, 10000
             );
         }
@@ -54,16 +62,22 @@ io.on('connection', function (socket)
 
     socket.on('create_comment', function(data)
     {
+        io.to('admin').emit('create_comment', data.comment_id, data.parent_id);
+
         io.to(data.room).emit('create_comment', data.comment_id, data.parent_id);
     });
 
     socket.on('update_comment', function(data)
     {
+        io.to('admin').emit('update_comment', data.comment_id, data.parent_id);
+
         io.to(data.room).emit('update_comment', data.comment_id, data.comment);
     });
 
     socket.on('delete_comment', function(data)
     {
+        io.to('admin').emit('delete_comment', data.comment_id, data.parent_id);
+
         io.to(data.room).emit('delete_comment', data.comment_id);
     });
 
