@@ -3,6 +3,7 @@
 @section('content')
     // TODO  - Admin Moderation Area
     // TODO  - GIT Tree Finish UP
+    // TODO  - Add links to the css rotations to acutal proof of what i put up there
     // TODO  - Mobile
     <div class="col-md-6 admin-comments">
         <div class="panel panel-default">

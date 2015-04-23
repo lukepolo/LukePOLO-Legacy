@@ -8,6 +8,19 @@ use App\Models\Mongo\Blog;
 
 class CommentsController extends Controller
 {
+    public function show($comment_id)
+    {
+        $comment = Comment::find($comment_id);
+        if(empty($comment) === false)
+        {
+            return view('blog.comments.comment', ['comment' => $comment])->render();
+        }
+        else
+        {
+            return response('Unauthorized.', 401);
+        }
+    }
+
     public function store()
     {
         $blog = Blog::find(\Request::get('blog_id'));
@@ -23,7 +36,7 @@ class CommentsController extends Controller
             ]);
 
             \Emitter::emit('create_comment', route('blog/view', $blog->link_name), [
-                'html' => view('blog.comments.comment', ['comment' => $comment])->render(),
+                'comment_id' => $comment->id,
                 'parent_id' => \Request::get('reply_to')
             ]);
 

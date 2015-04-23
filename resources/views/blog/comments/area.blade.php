@@ -85,16 +85,19 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
-        socket.on('create_comment', function(html, parent_id)
+        socket.on('create_comment', function(comment_id, parent_id)
         {
-            if(parent_id)
+            $.get('{{ action('\App\Http\Controllers\CommentsController@show', [null]) }}/' + comment_id, function(html)
             {
-                $('.comment-row[data-id="' + parent_id + '"]').find('.comment-footer').after(html);
-            }
-            else
-            {
-                $('.comments').prepend(html);
-            }
+                if(parent_id)
+                {
+                    $('.comment-row[data-id="' + parent_id + '"]').find('.comment-footer').after(html);
+                }
+                else
+                {
+                    $('.comments').prepend(html);
+                }
+            });
         });
 
         socket.on('update_comment', function(comment_id, comment)
@@ -169,29 +172,28 @@
         {
             var span = this;
             $.post("{{ action('\App\Http\Controllers\CommentVotesController@store') }}",
-                    {
-                        comment: $(this).data('id'),
-                        vote : 1
-                    }).success(function()
-                    {
-                        $(span).parent().find('.down-selected').removeClass('down-selected');
-                        $(span).addClass('up-selected');
-                    });
-
+            {
+                comment: $(this).data('id'),
+                vote : 1
+            }).success(function()
+            {
+                $(span).parent().find('.down-selected').removeClass('down-selected');
+                $(span).addClass('up-selected');
+            });
         });
 
         $(document).on('click', '.down-vote', function()
         {
             var span = this;
             $.post("{{ action('\App\Http\Controllers\CommentVotesController@store') }}",
-                    {
-                        comment: $(this).data('id'),
-                        vote: 0
-                    }).success(function()
-                    {
-                        $(span).parent().find('.up-selected').removeClass('up-selected');
-                        $(span).addClass('down-selected');
-                    });
+            {
+                comment: $(this).data('id'),
+                vote: 0
+            }).success(function()
+            {
+                $(span).parent().find('.up-selected').removeClass('up-selected');
+                $(span).addClass('down-selected');
+            });
         });
 
         $(document).on('click', '.reply', function()

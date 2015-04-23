@@ -54,7 +54,7 @@ io.on('connection', function (socket)
 
     socket.on('create_comment', function(data)
     {
-        io.to(data.room).emit('create_comment', data.html, data.parent_id);
+        io.to(data.room).emit('create_comment', data.comment_id, data.parent_id);
     });
 
     socket.on('update_comment', function(data)
