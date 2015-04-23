@@ -46,7 +46,9 @@ class CommentVotesController extends Controller
                     }
                     else
                     {
-                        return response('Unauthorized.', 401);
+                        $comment->votes[0]->delete();
+                        $comment->vote = $comment->vote - $vote;
+                        $comment->save();
                     }
                 }
                 else
@@ -56,7 +58,9 @@ class CommentVotesController extends Controller
                         'comment_id' => \Request::get('comment'),
                         'vote' => $vote
                     ]);
+
                     $comment->vote = $comment->vote + $vote;
+
                     $comment->save();
                 }
 

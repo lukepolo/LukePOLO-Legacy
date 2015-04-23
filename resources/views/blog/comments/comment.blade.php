@@ -22,11 +22,11 @@
             {{ $comment->comment }}
         </div>
         <div class="row comment-footer">
-            <span class="up-votes">{{ $comment->vote }}</span> votes
+            <span class="up-votes">{{ $comment->vote }}</span>
             @if(\Auth::check())
                 @if($comment->user_id != \Auth::user()->id)
                     <span class="voting">
-                        @if($comment->votes->count() == 1)
+                        @if($comment->votes->count() > 0)
                             <?php
                                 $votes = $comment->votes->keyBy('user_id')->toArray();
                             ?>

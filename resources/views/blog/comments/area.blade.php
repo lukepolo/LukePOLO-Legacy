@@ -198,7 +198,7 @@
             }).success(function()
             {
                 $(span).parent().find('.down-selected').removeClass('down-selected');
-                $(span).addClass('up-selected');
+                $(span).toggleClass('up-selected');
             });
         });
 
@@ -212,7 +212,7 @@
             }).success(function()
             {
                 $(span).parent().find('.up-selected').removeClass('up-selected');
-                $(span).addClass('down-selected');
+                $(span).toggleClass('down-selected');
             });
         });
 
