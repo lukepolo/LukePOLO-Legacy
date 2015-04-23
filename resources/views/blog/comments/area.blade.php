@@ -91,7 +91,7 @@
             {
                 if(parent_id)
                 {
-                    $('.comment-row[data-id="' + parent_id + '"]').find('.comment-footer').after(html);
+                    $('.comment-row[data-id="' + parent_id + '"]').find('.comment-footer').last().after(html);
                 }
                 else
                 {

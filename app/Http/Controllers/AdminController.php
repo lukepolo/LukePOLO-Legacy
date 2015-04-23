@@ -10,7 +10,7 @@ class AdminController extends Controller
     public function getIndex()
     {
         return view('admin.index', [
-            'comments' => Comment::whereNull('been_moderated')->get()
+            'comments' => Comment::with('blog')->whereNull('been_moderated')->get()
         ]);
     }
 
@@ -39,5 +39,25 @@ class AdminController extends Controller
         }
 
         return response()->json($analytics);
+    }
+
+    public function postMarkRead()
+    {
+        $comment = Comment::find(\Request::get('comment_id'));
+
+        $comment->been_moderated = true;
+
+        $comment->save();
+
+        return response('Success');
+    }
+
+    public function getComment($comment_id)
+    {
+        $comment = Comment::find($comment_id);
+        if(empty($comment) === false)
+        {
+            return view('admin.comment', ['comment' => $comment])->render();
+        }
     }
 }

@@ -42,6 +42,15 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
+        // Passes the XSRF-TOKEN to PHP
+        $(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-XSRF-TOKEN': "{{ isset($_COOKIE['XSRF-TOKEN']) ? $_COOKIE['XSRF-TOKEN'] : '' }}"
+                }
+            });
+        });
+
         $(document).on("click", ".confirm", function(e)
         {
             var link = $(this);

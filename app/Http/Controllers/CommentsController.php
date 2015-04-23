@@ -23,13 +23,15 @@ class CommentsController extends Controller
 
     public function store()
     {
+        $comment_text = trim(\Request::get('comment'));
+
         $blog = Blog::find(\Request::get('blog_id'));
-        if(empty($blog)  === false)
+        if(empty($comment_text) === false && empty($blog)  === false)
         {
             $comment = Comment::create([
                 'user_id' => \Auth::user()->id,
                 'blog_id' => \Request::get('blog_id'),
-                'comment' => \Request::get('comment'),
+                'comment' => $comment_text,
                 'been_moderated' => \Auth::user()->role == 'admin' ? true : null,
                 'parent_id' => \Request::get('reply_to'),
                 'vote' => 0
@@ -41,6 +43,10 @@ class CommentsController extends Controller
             ]);
 
             return response('Success');
+        }
+        else
+        {
+            return response('Unauthorized.', 401);
         }
     }
 
@@ -66,11 +72,13 @@ class CommentsController extends Controller
 
     public function update($comment_id)
     {
+        $comment_text = trim(\Request::get('comment'));
+
         $comment = Comment::with('blog')->find($comment_id);
 
-        if(\Auth::user()->id == $comment->user_id)
+        if(empty($comment_text) === false && \Auth::user()->id == $comment->user_id)
         {
-            $comment->comment = \Request::get('comment');
+            $comment->comment = $comment_text;
 
             \Emitter::emit('update_comment', route('blog/view', $comment->blog->link_name), [
                 'comment_id' => $comment->id,
