@@ -34,7 +34,14 @@ class AuthController extends Controller
     }
     public function getCallback($provider)
     {
-        $user = \Socialize::with($provider)->user();
+        try
+        {
+            $user = \Socialize::with($provider)->user();
+        }
+        catch(\Exception $e)
+        {
+           // they pressed cancel
+        }
 
         if(empty($user) === false)
         {
@@ -62,18 +69,17 @@ class AuthController extends Controller
                     'nickname' => $user->getNickname()
                 ]);
             }
+        }
 
-            if(\Session::has('login_redirect'))
-            {
-                $url = \Session::get('login_redirect');
-                \Session::forget('login_redirect');
-                return redirect($url);
-            }
-            else
-            {
-                return \Redirect::back();
-            }
-
+        if(\Session::has('login_redirect'))
+        {
+            $url = \Session::get('login_redirect');
+            \Session::forget('login_redirect');
+            return redirect($url);
+        }
+        else
+        {
+            return \Redirect::back();
         }
     }
 

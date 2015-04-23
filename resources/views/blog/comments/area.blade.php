@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">{{ $blog->comments->count() }} Comments</a>
+                <a class="navbar-brand" href="#"><span class="total_count"></span> Comments</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="" id="bs-example-navbar-collapse-1">
@@ -85,6 +85,7 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
+        update_comment_number();
         $('.timestamp').timeago();
 
         window.setInterval(function(){
@@ -103,6 +104,7 @@
                 {
                     $('.comments').prepend(html);
                 }
+                update_comment_number();
             });
         });
 
@@ -114,11 +116,11 @@
         socket.on('delete_comment', function(comment_id)
         {
             $('.comment-row[data-id="' + comment_id + '"]').remove();
+            update_comment_number();
         });
 
         socket.on('update_votes', function(comment_id, votes)
         {
-            console.log(comment_id);
             $('.comment-row[data-id="' + comment_id + '"]').find('.comment-footer .up-votes').first().html(votes);
         });
 
@@ -222,7 +224,7 @@
 
                 comment_form.find('.comment-post').val('Reply').after('<div class="pull-right btn btn-danger cancel">Cancel</div>');
 
-                $(this).parent().after(comment_form);
+                $(this).closest('.comment-row').find('> .reply-area').append(comment_form);
 
                 comment_form.find('.comment-text').first().focus();
             }
@@ -257,4 +259,9 @@
             }
         });
     });
+
+    function update_comment_number()
+    {
+        $('.total_count').html($('.comment-row').length);
+    }
 </script>

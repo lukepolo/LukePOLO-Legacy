@@ -22,7 +22,7 @@
             {{ $comment->comment }}
         </div>
         <div class="row comment-footer">
-            <span class="up-votes">{{ $comment->vote }}</span>
+            <span class="up-votes">{{ $comment->vote }}</span> votes
             @if(\Auth::check())
                 @if($comment->user_id != \Auth::user()->id)
                     <span class="voting">
@@ -42,8 +42,8 @@
                         @else
                             <?php $vote_class = ''; ?>
                         @endif
-                        <i data-id="{{ $comment->id }}" class="fa fa-chevron-up up-vote {{ $vote_class }}"></i> |
-                        <i data-id="{{ $comment->id }}" class="fa fa-chevron-down down-vote {{ $vote_class }}"></i>
+                        <i data-id="{{ $comment->id }}" class="fa fa-thumbs-o-up up-vote {{ $vote_class }}"></i> |
+                        <i data-id="{{ $comment->id }}" class="fa fa-thumbs-o-down down-vote {{ $vote_class }}"></i>
                     </span>
                     &bull; <span data-id="{{ $comment->id }}" class="btn-link reply">Reply</span>
                 @else

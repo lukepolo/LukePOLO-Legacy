@@ -69,6 +69,6 @@ io.on('connection', function (socket)
 
     socket.on('update_votes', function(data)
     {
-        io.to(data.room).emit('update_votes', data.comment_id);
+        io.to(data.room).emit('update_votes', data.comment_id, data.votes);
     });
 });
