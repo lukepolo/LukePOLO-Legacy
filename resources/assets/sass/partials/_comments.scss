@@ -56,6 +56,11 @@
   .timestamp {
     color: #828282;
   }
+
+  .timestamp:before {
+    content: '\2022 \00a0';
+  }
+
   .comment-post {
     height: initial;
   }

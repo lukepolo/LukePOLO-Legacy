@@ -37,7 +37,8 @@ paths = {
     'select2' : bower_path + 'select2/dist/',
     'visible' : bower_path + 'jquery-visible/',
     'bootbox' : bower_path + 'bootbox/',
-    'chartjs' : bower_path + 'Chart.js/'
+    'chartjs' : bower_path + 'Chart.js/',
+    'timeago' : bower_path + 'jquery-timeago/'
  };
 
 // Minify JS
@@ -51,6 +52,7 @@ elixir.extend('minify_js', function()
                 paths.snap + 'snap.svg.js',
                 paths.tinycolor + 'tinycolor.js',
                 paths.visible + 'jquery.visible.js',
+                paths.timeago + 'jquery.timeago.js',
                 paths.js+ '**',
             ],
             {

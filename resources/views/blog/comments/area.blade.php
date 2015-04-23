@@ -63,10 +63,10 @@
     @if(\Auth::check())
         {!! Form::open(['class' => 'comment-form form-horizontal']) !!}
             <div class="form-group">
-                <div class="col-sm-1">
+                <div class="col-xs-1">
                     <img class="pull-right user-image img-responsive" src="{{ empty(\Auth::user()->profile_img) === false ?  \Auth::user()->profile_img : asset('/img/user.svg') }}">
                 </div>
-                <div class="col-sm-11">
+                <div class="col-xs-11">
                     {!! Form::text('comment', null, ['class'=> 'comment-text form-control','placeholder' => $blog->comments->count() == 0 ? 'Start the discussion . . .' : 'Join the discussion . . .' ]) !!}
                 </div>
             </div>
@@ -85,13 +85,19 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
+        $('.timestamp').timeago();
+
+        window.setInterval(function(){
+            $('.timestamp').timeago();
+        }, 1000);
+
         socket.on('create_comment', function(comment_id, parent_id)
         {
             $.get('{{ action('\App\Http\Controllers\CommentsController@show', [null]) }}/' + comment_id, function(html)
             {
                 if(parent_id)
                 {
-                    $('.comment-row[data-id="' + parent_id + '"]').find('.comment-footer').last().after(html);
+                    $('.comment-row[data-id="' + parent_id + '"]').find('> .reply-area').append(html);
                 }
                 else
                 {
@@ -118,9 +124,12 @@
 
         $(document).on('submit', '.comment-form', function(e)
         {
-            e.preventDefault();
 
+            e.preventDefault();
             var form = $(this);
+
+            form.find('.comment-post').prop('disabled', true);
+
             var comment = $(this).find('.comment-text');
 
             $.post("{{ action('\App\Http\Controllers\CommentsController@store') }}",
@@ -138,6 +147,9 @@
                 {
                     comment.val('');
                 }
+            }).error(function()
+            {
+                form.find('.comment-post').prop('disabled', false);
             });
         });
 
@@ -146,6 +158,9 @@
             e.preventDefault();
 
             var form = $(this);
+
+            form.find('.comment-post').prop('disabled', true);
+
             var comment = form.find('.comment-text');
 
             $.ajax({
@@ -157,6 +172,9 @@
             }).success(function()
             {
                 $(form).remove();
+            }).error(function()
+            {
+                form.find('.comment-post').prop('disabled', false);
             });
         });
 
@@ -205,6 +223,8 @@
                 comment_form.find('.comment-post').val('Reply').after('<div class="pull-right btn btn-danger cancel">Cancel</div>');
 
                 $(this).parent().after(comment_form);
+
+                comment_form.find('.comment-text').first().focus();
             }
         });
 
@@ -220,12 +240,21 @@
                 comment_form.find('.comment-post').val('Update').after('<div class="pull-right btn btn-danger cancel">Cancel</div>');
 
                 $(this).parent().after(comment_form);
+                comment_form.find('.comment-text').first().focus();
             }
         });
 
         $(document).on('click', '.cancel', function()
         {
             $(this).closest('form').remove();
+        });
+
+        $(document).keyup(function(e) {
+
+            if (e.keyCode == 27)
+            {
+                $('input:focus').closest('form').find('.cancel').click();
+            }
         });
     });
 </script>

@@ -20,9 +20,13 @@ class Comment extends \Moloquent
 
     public function replies()
     {
-        return $this->hasMany('\App\Models\Mongo\Comment', 'parent_id', '_id');
+        return $this->hasMany('\App\Models\Mongo\Comment', 'parent_id', '_id')->orderBy('created_at', 'asc');
     }
 
+    public function comment()
+    {
+        return $this->belongsTo('\App\Models\Mongo\Comment', 'parent_id', '_id');
+    }
     public function votes()
     {
         return $this->hasMany('\App\Models\Mongo\CommentVote');

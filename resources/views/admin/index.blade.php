@@ -228,13 +228,13 @@
             {
                 $('.comment-row[data-id="' + comment_id + '"]').remove();
 
-                var number_of_comments = $('.comment-row').length;
-
                 update_count();
             });
         }
         function update_count()
         {
+            var number_of_comments = $('.comment-row').length;
+
             $('.unread .count').html(number_of_comments);
             if(number_of_comments == 0)
             {

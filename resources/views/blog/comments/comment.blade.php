@@ -1,16 +1,14 @@
 <div data-id="{{ $comment->id }}" class="comment-row row">
-    <div class="col-sm-1">
+    <div class="col-xs-1">
         <img class="pull-right img-responsive" src="{{ empty($comment->user->profile_img) === false ? $comment->user->profile_img : asset('/img/user.svg') }}">
     </div>
-    <div class="col-sm-11">
+    <div class="col-xs-11 reply-area">
         <div class="row">
             <span class="user-name">
                 {{ $comment->user->first_name }}
                 {{ $comment->user->last_name }}
             </span>
-            <span class="timestamp">
-                • {{ $comment->created_at->diffForHumans() }}
-            </span>
+            <span class="timestamp" title="{{ $comment->created_at->toW3cString() }}"> </span>
             <span class="reply_to">
                 @if(isset($reply_to) === true)
                     <small>
@@ -47,12 +45,12 @@
                         <i data-id="{{ $comment->id }}" class="fa fa-chevron-up up-vote {{ $vote_class }}"></i> |
                         <i data-id="{{ $comment->id }}" class="fa fa-chevron-down down-vote {{ $vote_class }}"></i>
                     </span>
-                    • <span data-id="{{ $comment->id }}" class="btn-link reply">Reply</span>
+                    &bull; <span data-id="{{ $comment->id }}" class="btn-link reply">Reply</span>
                 @else
-                    • <span data-id="{{ $comment->id }}" class="btn-link edit">Edit</span>
+                    &bull; <span data-id="{{ $comment->id }}" class="btn-link edit">Edit</span>
                 @endif
                 @if(\Auth::user()->role == 'admin' || $comment->user_id == \Auth::user()->id)
-                    • <span data-id="{{ $comment->id }}" class="btn-link delete">Delete</span>
+                    &bull; <span data-id="{{ $comment->id }}" class="btn-link delete">Delete</span>
                 @endif
             @endif
         </div>
