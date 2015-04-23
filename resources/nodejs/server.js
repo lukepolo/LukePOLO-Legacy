@@ -62,21 +62,30 @@ io.on('connection', function (socket)
 
     socket.on('create_comment', function(data)
     {
-        io.to('admin').emit('create_comment', data.comment_id, data.parent_id);
+        if(io.sockets.adapter.rooms.hasOwnProperty(admin_room))
+        {
+            io.to(admin_room).emit('create_comment', data.comment_id, data.parent_id);
+        }
 
         io.to(data.room).emit('create_comment', data.comment_id, data.parent_id);
     });
 
     socket.on('update_comment', function(data)
     {
-        io.to('admin').emit('update_comment', data.comment_id, data.parent_id);
+        if(io.sockets.adapter.rooms.hasOwnProperty(admin_room))
+        {
+            io.to(admin_room).emit('update_comment', data.comment_id, data.parent_id);
+        }
 
         io.to(data.room).emit('update_comment', data.comment_id, data.comment);
     });
 
     socket.on('delete_comment', function(data)
     {
-        io.to('admin').emit('delete_comment', data.comment_id, data.parent_id);
+        if(io.sockets.adapter.rooms.hasOwnProperty(admin_room))
+        {
+            io.to(admin_room).emit('delete_comment', data.comment_id, data.parent_id);
+        }
 
         io.to(data.room).emit('delete_comment', data.comment_id);
     });
