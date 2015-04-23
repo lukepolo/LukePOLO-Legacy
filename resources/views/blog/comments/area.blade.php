@@ -72,6 +72,16 @@
             </div>
             {!! Form::submit('Post', ['class' => 'pull-right comment-post btn btn-primary']) !!}
         {!! Form::close() !!}
+
+        {!! Form::open(['class' => 'hide comment-edit-form row']) !!}
+        <div class="form-group">
+            {!! Form::text('comment', null, ['class' => 'comment-text form-control']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::submit('Post', ['class' => 'pull-right comment-post btn btn-primary']) !!}
+            <div class="cancel pull-right comment-post btn btn-danger">Cancel</div>
+        </div>
+        {!! Form::close() !!}
     @endif
     <div class="comments">
         @foreach($blog->comments->reverse() as $comment)
@@ -173,9 +183,11 @@
                 }
             }).success(function()
             {
+                form.prev().removeClass('hide');
                 $(form).remove();
             }).error(function()
             {
+
                 form.find('.comment-post').prop('disabled', false);
             });
         });
@@ -232,22 +244,24 @@
 
         $(document).on('click', '.edit', function()
         {
-            if(!$(this).parent().after().next().is('form'))
+            if(!$(this).closest('.reply-area').find('.comment').next().is('form'))
             {
-                var comment_form = $('.comment-form').first().clone().attr('data-reply-to', $(this).data('id'));
+                var comment_form = $('.comment-edit-form').first().clone().attr('data-reply-to', $(this).data('id'));
 
-                comment_form.data('id', $(this).data('id'))
-                comment_form.addClass('comment-edit-form').removeClass('comment-form');
+                comment_form.data('id', $(this).data('id'));
+                comment_form.toggleClass('hide');
                 comment_form.find('.comment-text').val($(this).parent().prev().text().trim());
-                comment_form.find('.comment-post').val('Update').after('<div class="pull-right btn btn-danger cancel">Cancel</div>');
 
-                $(this).parent().after(comment_form);
+                $(this).closest('.reply-area').find('.comment').first().after(comment_form);
+
+                $(this).closest('.reply-area').find('.comment').addClass('hide');
                 comment_form.find('.comment-text').first().focus();
             }
         });
 
         $(document).on('click', '.cancel', function()
         {
+            $(this).closest('.reply-area').find('.comment').removeClass('hide');
             $(this).closest('form').remove();
         });
 

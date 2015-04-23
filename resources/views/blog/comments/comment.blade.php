@@ -1,4 +1,4 @@
-<div data-id="{{ $comment->id }}" class="comment-row row">
+<div data-id="{{ $comment->id }}" class="row comment-row">
     <div class="col-xs-1">
         <img class="pull-right img-responsive" src="{{ empty($comment->user->profile_img) === false ? $comment->user->profile_img : asset('/img/user.svg') }}">
     </div>
@@ -9,20 +9,12 @@
                 {{ $comment->user->last_name }}
             </span>
             <span class="timestamp" title="{{ $comment->created_at->toW3cString() }}"> </span>
-            <span class="reply_to">
-                @if(isset($reply_to) === true)
-                    <small>
-                        <i class="fa fa-reply"></i>
-                        {{ $reply_to }}
-                    </small>
-                @endif
-            </span>
         </div>
         <div class="row comment">
             {{ $comment->comment }}
         </div>
         <div class="row comment-footer">
-            <span class="up-votes">{{ $comment->vote }}</span>
+            <span class="up-votes">{{ $comment->vote }}</span> votes
             @if(\Auth::check())
                 @if($comment->user_id != \Auth::user()->id)
                     <span class="voting">
@@ -56,8 +48,7 @@
         </div>
         @foreach($comment->replies as $reply)
             @include('blog.comments.comment', [
-               'comment' => $reply,
-               'reply_to' => $comment->user->first_name.' '.$comment->user->last_name
+               'comment' => $reply
            ])
         @endforeach
     </div>
