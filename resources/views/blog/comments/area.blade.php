@@ -84,7 +84,7 @@
         {!! Form::close() !!}
     @endif
     <div class="comments">
-        @foreach($blog->comments->reverse() as $comment)
+        @foreach($blog->comments as $comment)
             @include('blog.comments.comment', [
                 'comment' => $comment
             ])
@@ -228,10 +228,15 @@
             });
         });
 
+        function close_all()
+        {
+            $('.cancel:visible').click();
+        }
         $(document).on('click', '.reply', function()
         {
             if(!$(this).parent().after().next().is('form'))
             {
+                close_all();
                 var comment_form = $('.comment-form').first().clone().attr('data-reply-to', $(this).data('id'));
 
                 comment_form.find('.comment-post').val('Reply').after('<div class="pull-right btn btn-danger cancel">Cancel</div>');
@@ -246,6 +251,7 @@
         {
             if(!$(this).closest('.reply-area').find('.comment').next().is('form'))
             {
+                close_all();
                 var comment_form = $('.comment-edit-form').first().clone().attr('data-reply-to', $(this).data('id'));
 
                 comment_form.data('id', $(this).data('id'));

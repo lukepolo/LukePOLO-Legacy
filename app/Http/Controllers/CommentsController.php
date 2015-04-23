@@ -80,6 +80,8 @@ class CommentsController extends Controller
         {
             $comment->comment = $comment_text;
 
+            $comment->been_moderated = false;
+
             \Emitter::emit('update_comment', route('blog/view', $comment->blog->link_name), [
                 'comment_id' => $comment->id,
                 'comment' => $comment->comment

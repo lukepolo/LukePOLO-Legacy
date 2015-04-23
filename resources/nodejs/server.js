@@ -64,7 +64,7 @@ io.on('connection', function (socket)
     {
         if(io.sockets.adapter.rooms.hasOwnProperty(admin_room))
         {
-            io.to(admin_room).emit('create_comment', data.comment_id, data.parent_id);
+            io.to(admin_room).emit('create_comment', data.comment_id);
         }
 
         io.to(data.room).emit('create_comment', data.comment_id, data.parent_id);
@@ -74,7 +74,7 @@ io.on('connection', function (socket)
     {
         if(io.sockets.adapter.rooms.hasOwnProperty(admin_room))
         {
-            io.to(admin_room).emit('update_comment', data.comment_id, data.parent_id);
+            io.to(admin_room).emit('update_comment', data.comment_id);
         }
 
         io.to(data.room).emit('update_comment', data.comment_id, data.comment);
@@ -84,7 +84,7 @@ io.on('connection', function (socket)
     {
         if(io.sockets.adapter.rooms.hasOwnProperty(admin_room))
         {
-            io.to(admin_room).emit('delete_comment', data.comment_id, data.parent_id);
+            io.to(admin_room).emit('delete_comment', data.comment_id);
         }
 
         io.to(data.room).emit('delete_comment', data.comment_id);

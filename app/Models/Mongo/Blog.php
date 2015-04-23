@@ -10,7 +10,7 @@ class Blog extends \Moloquent
 
     public function comments()
     {
-        return $this->hasMany('\App\Models\Mongo\Comment');
+        return $this->hasMany('\App\Models\Mongo\Comment')->orderBy('created_at', 'desc');
     }
 
 }
