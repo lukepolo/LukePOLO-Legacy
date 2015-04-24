@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-    // TODO  - Admin Moderation Area
     // TODO  - GIT Tree Finish UP
     // TODO  - Mobile
     <div class="col-md-6 admin-comments">
@@ -84,6 +83,7 @@
                 $.get('{{ action('\App\Http\Controllers\AdminController@getComment', [null]) }}/' + comment_id, function(html)
                 {
                     $('.admin-comments .panel-body').prepend(html);
+                    update_count();
                 });
             });
 
@@ -100,11 +100,13 @@
                         $('.admin-comments .panel-body').prepend(html);
                     });
                 }
+                update_count();
             });
 
             socket.on('delete_comment', function(comment_id)
             {
                 $('div[data-id="'+comment_id+'"]').remove();
+                update_count();
             });
 
             socket.on('users', function(users)

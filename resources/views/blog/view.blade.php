@@ -6,8 +6,8 @@
             <small>{{ $blog->created_at->format('F jS Y g:i A') }}</small><br>
             <div class="technologies">
                 @foreach($blog->tags as $tag)
-                    <span class="label label-primary">
-                        {{ $tag }}
+                    <span class="label" style="background-color:#{{ $tag->color }}">
+                        {{ $tag->name }}
                     </span>
                 @endforeach
             </div>

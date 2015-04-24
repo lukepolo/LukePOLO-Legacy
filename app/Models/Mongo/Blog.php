@@ -13,4 +13,8 @@ class Blog extends \Moloquent
         return $this->hasMany('\App\Models\Mongo\Comment')->orderBy('created_at', 'desc');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('\App\Models\Mongo\Tag');
+    }
 }

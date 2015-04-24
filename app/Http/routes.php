@@ -42,6 +42,7 @@ Route::group(['middleware' => 'admin'], function()
         'settings' => 'SettingsController',
         'timelines' => 'TimelinesController',
         'technologies' => 'TechnologiesController',
+        'tags' => 'TagsController',
         'projects' => 'ProjectsController',
         'blog' => 'BlogController'
     ]);

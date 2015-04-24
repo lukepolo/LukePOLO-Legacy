@@ -18,6 +18,7 @@
   & > div:nth-child(4) { @include panelColor($swb-green); }
   & > div:nth-child(5) { @include panelColor($swb-red); }
   & > div:nth-child(6) { @include panelColor($swb-lightBlue); }
+  & > div:nth-child(7) { @include panelColor($swb-lightGrey); }
 }
 
 .visitor-chart {

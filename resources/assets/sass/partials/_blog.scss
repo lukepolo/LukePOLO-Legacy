@@ -10,11 +10,19 @@
 
     .label {
       padding: .4em .6em .3em;
+      margin-right:5px;
     }
   }
 
   .blog-image {
     cursor:pointer;
     max-height: 300px;
+  }
+}
+.tags-area {
+  .label {
+    padding: .4em .6em .3em;
+    margin: 2px;
+    cursor: pointer;
   }
 }

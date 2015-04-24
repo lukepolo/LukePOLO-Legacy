@@ -11,7 +11,7 @@
                         {{ $comment->user->last_name }}
                     </span>
                     <span class="timestamp">
-                        • {{ $comment->created_at->diffForHumans() }}
+                        &bull; {{ $comment->created_at->diffForHumans() }}
                     </span>
                     <span data-id="{{ $comment->id }}" class="mark-read pull-right btn btn-xs btn-primary">
                         Mark As Read
@@ -22,11 +22,9 @@
                 </div>
                 <div class="row comment-footer">
                     <span class="up-votes">{{ $comment->vote }}</span>
-                    @if(\Auth::check())
-                        </span>
-                        • <span data-blog-id="{{ $comment->blog->id }}" data-id="{{ $comment->id }}" class="btn-link reply">Reply</span>
-                        • <span data-id="{{ $comment->id }}" class="btn-link delete">Delete</span>
-                    @endif
+                    &bull; <span data-blog-id="{{ $comment->blog->id }}" data-id="{{ $comment->id }}" class="btn-link reply">Reply</span>
+                    &bull; <span data-id="{{ $comment->id }}" class="btn-link delete">Delete</span>
+                    &bull; <a href="{{ route('blog/view', $comment->blog->link_name)  }}"> Vew @ {{ $comment->blog->link_name }}</a>
                 </div>
             </div>
         </div>

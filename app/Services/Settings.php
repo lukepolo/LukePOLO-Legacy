@@ -21,14 +21,14 @@ class Settings
     }
     public function get($setting)
     {
-	if(isset(static::$settings[$setting]))
-	{
-	    return static::$settings[$setting];
-	}
-	else
-	{
-	    // THROW ERROR;
-	    throw new \Exception('Missing "'.$setting.'" Setting');
-	}
+        if(isset(static::$settings[$setting]))
+        {
+            return static::$settings[$setting];
+        }
+        else
+        {
+            // THROW ERROR;
+            throw new \Exception('Missing "'.$setting.'" Setting');
+        }
     }
 }

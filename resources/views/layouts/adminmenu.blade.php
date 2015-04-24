@@ -68,6 +68,19 @@
         <div class="panel panel-default">
             <div class="panel-color"></div>
             <div class="panel-body">
+                Tags
+                <span>
+                    <a class="pull-right" href="{{ action('\App\Http\Controllers\TagsController@getIndex') }}">
+                        <i class="fa fa-arrow-right"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="panel panel-default">
+            <div class="panel-color"></div>
+            <div class="panel-body">
                 Settings
                 <span>
                     <a class="pull-right" href="{{ action('\App\Http\Controllers\SettingsController@getIndex') }}">

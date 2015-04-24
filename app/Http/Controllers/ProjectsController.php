@@ -29,7 +29,6 @@ class ProjectsController extends Controller
             'project' => $project,
             'technologies' => Technology::get()
         ]);
-
     }
 
     public function postEdit($project_id)

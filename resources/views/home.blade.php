@@ -13,7 +13,7 @@
     </div>
     <div class="col-lg-9">
         <div class="select-title">
-            <h1>{ Projects</h1>
+            <h1>Projects</h1>
             <small>
                 <i class="fa fa-long-arrow-left"></i> You can navigate my site using my "git tree" just hover over them
                 <br>
