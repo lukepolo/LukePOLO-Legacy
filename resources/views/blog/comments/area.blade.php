@@ -1,12 +1,12 @@
 <div class="comment-area">
     <nav class="navbar">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#"><span class="total_count"></span> Comments</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="" id="bs-example-navbar-collapse-1">
+            <div>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <p class="navbar-text"><span class="total_count"></span> Comments</p>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if(\Auth::check())
                     <li class="dropdown">
