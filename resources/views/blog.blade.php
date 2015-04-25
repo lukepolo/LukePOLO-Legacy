@@ -48,9 +48,7 @@
     </div>
     <div class="col-md-2">
         <div class="row text-center">
-            <select id="blog-search">
-                <option></option>
-            </select>
+            <select id="blog-search" multiple></select>
         </div>
         <div class="row">
             <hr>

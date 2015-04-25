@@ -38,5 +38,6 @@ $('#blog-search').select2({
         {
             window.location = data.action;
         }
+        die;
     }
 });
