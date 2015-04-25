@@ -53,6 +53,7 @@ elixir.extend('minify_js', function()
                 paths.tinycolor + 'tinycolor.js',
                 paths.visible + 'jquery.visible.js',
                 paths.timeago + 'jquery.timeago.js',
+                paths.select2 + 'js/select2.js',
                 paths.js+ '**',
             ],
             {

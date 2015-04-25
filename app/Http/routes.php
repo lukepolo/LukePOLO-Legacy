@@ -44,7 +44,8 @@ Route::group(['middleware' => 'admin'], function()
         'technologies' => 'TechnologiesController',
         'tags' => 'TagsController',
         'projects' => 'ProjectsController',
-        'blog' => 'BlogController'
+        'blog' => 'BlogController',
+        'search' => 'SearchController'
     ]);
 });
 

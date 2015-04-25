@@ -19,10 +19,24 @@
     max-height: 300px;
   }
 }
+
 .tags-area {
   .label {
     padding: .4em .6em .3em;
     margin: 2px;
     cursor: pointer;
+    font-weight: normal;
   }
+}
+.select2 ,
+.select2-results__options {
+  font-size: 12px !important;
+}
+.clear-filter {
+  padding: .4em .6em .3em;
+  margin: 2px;
+  cursor: pointer;
+  font-weight: normal;
+  background-color: $swb-lightGrey;
+  font-weight: normal;
 }

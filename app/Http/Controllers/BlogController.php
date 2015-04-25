@@ -9,12 +9,34 @@ class BlogController extends Controller
 {
     public function getIndex()
     {
+        $tag = null;
+        if(\Request::has('filter'))
+        {
+            $filters = null;
+
+            $tag = Tag::where('name', '=', \Request::get('filter'))->first();
+
+            if(empty($tag) === false)
+            {
+                $blogs = Blog::with('tags')->where('draft', '=', '0')->whereIn('tag_ids', [$tag->id])->get();
+            }
+            else
+            {
+                $blogs = Blog::with('tags')->where('draft', '=', '0')->get();
+            }
+        }
+        else
+        {
+            $blogs = Blog::with('tags')->where('draft', '=', '0')->get();
+        }
+
         return view('blog', [
-            'blogs' => Blog::with('tags')->where('draft', '=', '0')->get(),
+            'blogs' => $blogs,
             'tags' => \Cache::rememberForever('tags', function()
             {
                 return Tag::get();
-            })
+            }),
+            'tag' => $tag
         ]);
     }
 

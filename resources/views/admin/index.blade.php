@@ -3,6 +3,9 @@
 @section('content')
     // TODO  - GIT Tree Finish UP
     // TODO  - Mobile
+    // Fix technologies
+    // Finish projects text
+    // Fix up selects
     <div class="col-md-6 admin-comments">
         <div class="panel panel-default">
             <div class="panel-heading">
