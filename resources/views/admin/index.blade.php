@@ -4,7 +4,6 @@
     // TODO  - GIT Tree Finish UP
     // TODO  - Mobile
     // Finish projects text
-    // Fix up selects
     <div class="col-md-6 admin-comments">
         <div class="panel panel-default">
             <div class="panel-heading">

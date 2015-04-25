@@ -31,7 +31,7 @@
                     a
                     <span class="words">
                         <span>web developer</span>
-                        <span>Boiler Maker</span>
+                        <span>boiler maker</span>
                         <span>learner</span>
                         <span>teacher</span>
                     </span>
