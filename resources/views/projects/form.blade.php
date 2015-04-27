@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('End Date') !!}
-                    {!! Form::text('end_date', isset($project) === true ? $project->end_date->format('m-d-Y') : '', ['id' => 'end_date']) !!}
+                    {!! Form::text('end_date', isset($project) === true && empty($project->end_date) === false ? $project->end_date->format('m-d-Y') : '', ['id' => 'end_date']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('Timeline') !!}

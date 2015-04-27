@@ -35,9 +35,18 @@ class ProjectsController extends Controller
     {
         $project = Project::find($project_id);
 
+        if(\Request::get('end_date') != '')
+        {
+            $end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
+        }
+        else
+        {
+            $end_date = null;
+        }
+
         $project->name = \Request::get('name');
         $project->start_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date'));
-        $project->end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
+        $project->end_date = $end_date;
         $project->technologies = \Request::get('technologies');
         $project->html = \Request::get('html');
         $project->project_image = \Request::get('project_image');
@@ -50,10 +59,19 @@ class ProjectsController extends Controller
 
     public function postCreate()
     {
+        if(\Request::get('end_date') != '')
+        {
+            $end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
+        }
+        else
+        {
+            $end_date = null;
+        }
+
         Project::create([
             'name' => \Request::get('name'),
             'start_date' => \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date')),
-            'end_date' => \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date')),
+            'end_date' => $end_date,
             'technologies' => \Request::get('technologies'),
             'html' => \Request::get('html'),
             'project_image' => \Request::get('project_image')
