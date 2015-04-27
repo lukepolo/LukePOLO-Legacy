@@ -17,6 +17,7 @@ Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
     'resume' => 'ResumeController',
+    'search' => 'SearchController'
 ]);
 
 Route::get('blog/view/{blog}', ['as' => 'blog/view', function($blog)
@@ -45,7 +46,6 @@ Route::group(['middleware' => 'admin'], function()
         'tags' => 'TagsController',
         'projects' => 'ProjectsController',
         'blog' => 'BlogController',
-        'search' => 'SearchController'
     ]);
 });
 
