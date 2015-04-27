@@ -3,6 +3,7 @@
 @section('content')
     // TODO  - GIT Tree Finish UP
     // TODO  - Mobile
+    // Projects Owl coursel
     // Finish projects text
     <div class="col-md-6 admin-comments">
         <div class="panel panel-default">

@@ -38,7 +38,8 @@ paths = {
     'visible' : bower_path + 'jquery-visible/',
     'bootbox' : bower_path + 'bootbox/',
     'chartjs' : bower_path + 'Chart.js/',
-    'timeago' : bower_path + 'jquery-timeago/'
+    'timeago' : bower_path + 'jquery-timeago/',
+    'owl' : bower_path + 'owl.carousel/dist/'
  };
 
 // Minify JS
@@ -54,6 +55,7 @@ elixir.extend('minify_js', function()
                 paths.visible + 'jquery.visible.js',
                 paths.timeago + 'jquery.timeago.js',
                 paths.select2 + 'js/select2.js',
+                paths.owl + 'owl.carousel.js',
                 paths.js+ '**',
             ],
             {
@@ -172,6 +174,10 @@ elixir(function (mix)
         .copy(paths.bootstrap + 'fonts', paths.fonts_public)
         .copy(paths.summernote + 'summernote.css', paths.sass_partials+'_summernote.scss')
         .copy(paths.select2 + 'css/select2.css', paths.sass_partials+'_select2.scss')
+        .copy(paths.owl + 'assets/owl.carousel.css', paths.sass_partials+'_owl.scss')
+        .copy(paths.owl + 'assets/owl.theme.default.css', paths.sass_partials+'_owl_theme.scss')
+        .copy(paths.owl + 'assets/ajax-loader.gif', paths.img)
+        .copy(paths.owl + 'assets/owl.video.play.png', paths.img)
         .copy(paths.datepicker + 'css/bootstrap-datetimepicker.css', paths.sass_partials+'_bootstrap-datetimepicker.scss')
         .minify_js(command)
         .minify_css(command)

@@ -54,9 +54,10 @@
                         </div>
                     @endforeach
                 </div>
-                <div>
+                <div class="project-html">
                     {!! $project->html !!}
                 </div>
+
             </div>
         @endforeach
         </div>

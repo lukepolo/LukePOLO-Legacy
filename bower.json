@@ -24,6 +24,7 @@
     "jquery-visible": "~1.1.0",
     "bootbox": "~4.4.0",
     "moment": "~2.10.2",
-    "Chart.js": "~1.0.2"
+    "Chart.js": "~1.0.2",
+    "owl.carousel": "*"
   }
 }

@@ -48,6 +48,17 @@
         <script>
             $(document).ready(function()
             {
+
+                $('.owl-carousel').owlCarousel({
+                    items: 1,
+                    nav: false,
+                    dots: true,
+                    loop: true,
+                    lazyLoad: true,
+                    autoplay: true,
+                    autoplayTimeout: 2000,
+                    autoplayHoverPause: true
+                });
                 // Passes the XSRF-TOKEN to PHP
                 $(function() {
                     $.ajaxSetup({

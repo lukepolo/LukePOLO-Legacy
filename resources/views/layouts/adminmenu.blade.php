@@ -29,9 +29,9 @@
         <div class="panel panel-default">
             <div class="panel-color"></div>
             <div class="panel-body">
-                Timelines
+                Blogs
                 <span>
-                    <a class="pull-right" href="{{ action('\App\Http\Controllers\TimelinesController@getIndex') }}">
+                    <a class="pull-right" href="{{ action('\App\Http\Controllers\AdminController@getBlogs') }}">
                         <i class="fa fa-arrow-right"></i>
                     </a>
                 </span>
@@ -42,9 +42,9 @@
         <div class="panel panel-default">
             <div class="panel-color"></div>
             <div class="panel-body">
-                Blogs
+                Timelines
                 <span>
-                    <a class="pull-right" href="{{ action('\App\Http\Controllers\AdminController@getBlogs') }}">
+                    <a class="pull-right" href="{{ action('\App\Http\Controllers\TimelinesController@getIndex') }}">
                         <i class="fa fa-arrow-right"></i>
                     </a>
                 </span>
