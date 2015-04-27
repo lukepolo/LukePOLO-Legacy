@@ -25,9 +25,13 @@
                 <div class="form-group">
                     {!! Form::label('Timeline') !!}
                     <select name="timeline">
-                        <option>Work</option>
-                        <option>Purdue</option>
-                        <option>Personal</option>
+                        @foreach($timelines as $timeline)
+                            @if(empty($project->timeline) === false && $timeline->id == $project->timeline->id)
+                                <option selected="selected" value="{{ $timeline->id }}">{{ $timeline->name }}</option>
+                            @else
+                                <option value="{{ $timeline->id }}">{{ $timeline->name }}</option>
+                            @endif
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">

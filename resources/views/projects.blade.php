@@ -18,7 +18,6 @@
                         </a>
                     </td>
                     <td></td>
-                    <td>{{ $project->created_at->format('F jS Y g:i A') }}</td>
                     <td>{{ $project->updated_at->format('F jS Y g:i A') }}</td>
                     <td>
                         <a class="confirm" href="{{ action('\App\Http\Controllers\ProjectsController@getDelete', [$project->id]) }}">Delete</a>

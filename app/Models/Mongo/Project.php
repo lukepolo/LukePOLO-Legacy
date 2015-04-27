@@ -12,4 +12,9 @@ class Project extends \Moloquent
         'start_date',
         'end_date'
     ];
+
+    public function timeline()
+    {
+        return $this->belongsTo('\App\Models\Mongo\Timeline');
+    }
 }

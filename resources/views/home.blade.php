@@ -2,7 +2,8 @@
 @section('content')
     <style>
         #projects {
-            height:{{ ($timelines->count() + 2 )* 100 }}px;
+            /*TODO - height variable*/
+            height:{{ (10 + 2 )* 100 }}px;
             width: 100%;
             opacity: 0.9;
             margin-top:-27px;

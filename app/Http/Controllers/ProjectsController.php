@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use \App\Models\Mongo\Project;
 use \App\Models\Mongo\Technology;
+use \App\Models\Mongo\Timeline;
 
 class ProjectsController extends Controller
 {
@@ -17,17 +18,19 @@ class ProjectsController extends Controller
     public function getCreate()
     {
         return view('projects.form', [
-            'technologies' => Technology::get()
+            'technologies' => Technology::get(),
+            'timelines' => Timeline::get()
         ]);
     }
 
     public function getEdit($project_id)
     {
-        $project = Project::find($project_id);
+        $project = Project::with('timeline')->find($project_id);
 
         return view('projects.form', [
             'project' => $project,
-            'technologies' => Technology::get()
+            'technologies' => Technology::get(),
+            'timelines' => Timeline::get()
         ]);
     }
 
@@ -48,6 +51,7 @@ class ProjectsController extends Controller
         $project->start_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date'));
         $project->end_date = $end_date;
         $project->technologies = \Request::get('technologies');
+        $project->timeline_id = \Request::get('timeline');
         $project->html = \Request::get('html');
         $project->project_image = \Request::get('project_image');
 
@@ -73,6 +77,7 @@ class ProjectsController extends Controller
             'start_date' => \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date')),
             'end_date' => $end_date,
             'technologies' => \Request::get('technologies'),
+            'timeline_id' => \Request::get('timeline'),
             'html' => \Request::get('html'),
             'project_image' => \Request::get('project_image')
         ]);
