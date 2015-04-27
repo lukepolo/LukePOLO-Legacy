@@ -9,23 +9,72 @@ class TimelinesController extends Controller
 {
     public function getIndex()
     {
-        $timelines = Timeline::get();
-
-        return view('admin.timeline', [
-            'timelines' => $timelines
+        return view('timeline', [
+            'timelines' => Timeline::get()
         ]);
+    }
+
+    public function getCreate()
+    {
+        return view('timelines.form');
     }
 
     public function postCreate()
     {
-        $timeline = Timeline::create([
-            'type' => \Request::get('type'),
+        if(\Request::get('end_date') != '')
+        {
+            $end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
+        }
+        else
+        {
+            $end_date = null;
+        }
+
+        Timeline::create([
             'name' => \Request::get('name'),
-            'start_date' => \Request::get('start_date'),
-            'end_date' => \Request::get('end_date'),
-            'description' => \Request::get('description')
+            'color' => \Request::get('color'),
+            'start_date' => \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date')),
+            'end_date' => $end_date
         ]);
 
+        return redirect(action('\App\Http\Controllers\TimelinesController@getIndex'));
+    }
+
+    public function postEdit($timeline_id)
+    {
+        $timeline = Timeline::find($timeline_id);
+
+        if(\Request::get('end_date') != '')
+        {
+            $end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
+        }
+        else
+        {
+            $end_date = null;
+        }
+
+
+        $timeline->name = \Request::get('name');
+        $timeline->color = \Request::get('color');
+        $timeline->start_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date'));
+        $timeline->end_date = $end_date;
+
         $timeline->save();
+
+        return redirect(action('\App\Http\Controllers\TimelinesController@getIndex'));
+    }
+
+    public function getEdit($timeline_id)
+    {
+        return view('timelines.form', [
+            'timeline' => Timeline::find($timeline_id)
+        ]);
+    }
+
+    public function getDelete($timeline_id)
+    {
+        Timeline::find($timeline_id)->delete();
+
+        return redirect(action('\App\Http\Controllers\TimelinesController@getIndex'));
     }
 }
