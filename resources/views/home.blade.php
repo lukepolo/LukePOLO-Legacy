@@ -260,9 +260,9 @@
 
         function get_merges()
         {
+            // Get the proper merge levels
             $.each(branches, function(branch_index, branch)
             {
-                console.log(branch.name);
                 branch_index = 0;
                 while(branch_index < branches.length)
                 {
@@ -273,7 +273,49 @@
                     }
                     branch_index++;
                 }
+                {{--console.log(branch.name  + ' merges @ ' + branch.merge)--}}
             });
+
+
+            $.each(branches, function()
+            {
+                find_merge_conflicts(this);
+            });
+        }
+
+        function find_merge_conflicts(branch)
+        {
+            var found = false;
+            console.log('Finding conflicts with ' + branch.name);
+
+            branch_index = 0;
+            while (branch_index < branches.length)
+            {
+                if(branch.name != branches[branch_index].name && branch.merge == branches[branch_index].merge)
+                {
+                    found = true;
+                    branches[branch_index].merge++;
+
+                    console.log('Conflicts with' + branches[branch_index].name);
+
+                    find_merge_conflicts(branches[branch_index]);
+                }
+
+                branch_index++;
+            }
+
+            if(found)
+            {
+                // anything with a higher start date than the end date must move up
+                $.each(branches, function ()
+                {
+                    if (this.start_date > branch.end_date)
+                    {
+                        this.vertical_multiplier++;
+                        this.merge++;
+                    }
+                });
+            }
         }
 
         function draw()
