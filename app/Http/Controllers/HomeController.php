@@ -7,6 +7,7 @@ use App\Models\Mongo\Timeline;
 use App\Models\Mongo\Project;
 use App\Models\Mongo\Technology;
 
+
 class HomeController extends Controller
 {
     public function index()
@@ -16,6 +17,7 @@ class HomeController extends Controller
         return view('home', [
             'projects' => Project::with('timeline')->orderBy('start_date', 'desc')->get(),
             'technologies' => Technology::get()->keyBy('_id'),
+            'timelines' => Timeline::get()
         ]);
     }
 }

@@ -157,6 +157,7 @@
                 }
                 else
                 {
+                    form.find('.comment-post').prop('disabled', false);
                     comment.val('');
                 }
             }).error(function()

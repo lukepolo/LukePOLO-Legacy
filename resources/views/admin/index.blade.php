@@ -3,8 +3,9 @@
 @section('content')
     // TODO  - GIT Tree Finish UP
     // TODO  - Mobile
-    // Projects Owl coursel
     // Finish projects text
+    // re-enable post after blog comment
+    // border-raidus 3px on profile-img
     <div class="col-md-6 admin-comments">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -273,8 +274,12 @@
             $('.unread .count').html(number_of_comments);
             if(number_of_comments == 0)
             {
-                $('.unread').toggleClass('label-warning label-default');
+                $('.unread').addClass('label-default').removeClass('label-warning');
                 $('.admin-comments .panel-body').html('<div class="text-center">Go Enjoy Your Day! </div>');
+            }
+            else
+            {
+                $('.unread').removeClass('label-default').addClass('label-warning');
             }
         }
     </script>

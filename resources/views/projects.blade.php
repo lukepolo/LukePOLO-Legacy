@@ -5,8 +5,8 @@
             <thead>
             <th>Name</th>
             <th>Timeline</th>
-            <th>Created At</th>
-            <th>Updated At</th>
+            <th>Start Date</th>
+            <th>End Date</th>
             <th></th>
             </thead>
             <tbody>
@@ -17,8 +17,9 @@
                             {{ $project->name }}
                         </a>
                     </td>
-                    <td></td>
-                    <td>{{ $project->updated_at->format('F jS Y g:i A') }}</td>
+                    <td>{{ empty($project->timeline) === false ? $project->timeline->name : ''}}</td>
+                    <td>{{ $project->start_date->format('F jS Y g:i A') }}</td>
+                    <td>{{ $project->end_date->format('F jS Y g:i A') }}</td>
                     <td>
                         <a class="confirm" href="{{ action('\App\Http\Controllers\ProjectsController@getDelete', [$project->id]) }}">Delete</a>
                     </td>

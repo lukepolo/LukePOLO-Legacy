@@ -3,7 +3,7 @@
     <style>
         #projects {
             /*TODO - height variable*/
-            height:{{ (10 + 2 )* 100 }}px;
+            height:{{ (40) * 50 }}px;
             width: 100%;
             opacity: 0.9;
             margin-top:-27px;
@@ -67,14 +67,18 @@
         var small_bar = $('#small-bar');
         var projects;
         var circles = [];
+
+        var timelines = {};
+        var merges= {};
+
         var branches = [];
 
-        var default_x = 35;
-        var default_y = 100;
+        var default_x = 43;
+        var default_y = 50;
         var default_r = 15;
         var big_r = 32;
 
-        var vertical_multiplier = 1;
+        var vertical_multiplier = 0;
 
         var colors;
         var ag_colors = {};
@@ -113,20 +117,26 @@
             colors.lines['4'] = 'rgb(196, 114, 81)';
             colors.lines['5'] = 'rgb(255, 223, 179)';
 
-            draw_circle(default_x, default_y, tinycolor(colors.lines['0']).complement().toHexString());
-
-            @foreach($timelines as $timeline)
-                new_branch("{{ $timeline->name }}", "{{ $timeline->start_date }}", "{{ $timeline->end_date }}", {{ $timeline->horizontal_multiplier }});
+            @foreach($projects->reverse() as $project)
+                @if(empty($project->timeline) === false)
+                    new_branch("{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "{{ $project->timeline->id }}");
+                    timelines["{{ $project->timeline->id }}"] = {
+                        timeline_id: "{{ $project->timeline->id }}",
+                        name: "{{ $project->timeline->name }}",
+                        start_date: "{{ $project->timeline->start_date->timestamp }}",
+                        end_date: "{{ empty($project->timeline->end_date) === false ? $project->timeline->end_date->timestamp : '' }}",
+                        horizontal_multiplier: 1,
+                        vertical_multiplier: 0,
+                        timeline: true
+                    };
+                @else
+                    new_branch("{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "");
+                @endif
             @endforeach
 
+            get_timelines();
+
             draw();
-            merge();
-
-            // Line along side
-            var start_y = default_y * vertical_multiplier;
-            draw_line(default_x, start_y, start_y + default_y, colors.lines[0]);
-
-            render_circles();
 
             var curves = projects.paper.g(projects.paper.selectAll('.curves'));
             var lines = projects.paper.g(projects.paper.selectAll('.lines'));
@@ -165,6 +175,233 @@
                 });
             });
         });
+
+
+        function new_branch(name, start_date, end_date, timeline)
+        {
+            branches.push({
+                name: name,
+                horizontal_multiplier: 1,
+                vertical_multiplier: 0,
+                timeline_id : timeline,
+                timeline: false,
+                start_date: start_date,
+                end_date: end_date,
+                merge: null
+            });
+        }
+
+        // Put timelines into branches
+        function get_timelines()
+        {
+            $.each(timelines, function(timeline_name, timeline)
+            {
+                $.each(branches, function(branch_index, branch)
+                {
+                    if(branch.start_date > timeline.start_date)
+                    {
+                        branches.splice(branch_index, 0, timeline);
+                        return false;
+                    }
+                });
+            });
+        }
+
+        function get_hm_multipliers()
+        {
+            $.each(branches, function(branch_index, branch)
+            {
+                // TODO - come back to may be wrong
+                branch.vertical_multiplier = vertical_multiplier++;
+                branch.vertical_multiplier = vertical_multiplier++;
+
+                branch_index = 0;
+//                console.log(branch.name);
+                while(branch_index < branches.length)
+                {
+                    if(branch.name != branches[branch_index].name)
+                    {
+                        if (
+                                (
+                                    branch.start_date >= branches[branch_index].start_date &&
+                                    branch.start_date <= branches[branch_index].end_date
+                                ) ||
+                                (
+                                    branch.end_date >= branches[branch_index].start_date &&
+                                    branch.end_date <= branches[branch_index].end_date
+                                )
+                        )
+                        {
+                            // Makes sure its not a timeline
+                            if(!branch.timeline_id && !branch.timeline)
+                            {
+//                                console.log(' HM+1 by case 1: ' + branches[branch_index].name);
+                                branch.horizontal_multiplier++;
+                            }
+                            // Makes sure both have a timeline id but not an actual timeline
+                            else if(branch.timeline_id && branches[branch_index].timeline_id && !branch.timeline)
+                            {
+//                                console.log(' HM+1 by case 2: ' + branches[branch_index].name);
+                                branch.horizontal_multiplier++;
+                            }
+                            // Makes sure both are timelines
+                            else if(branch.timeline && branches[branch_index].timeline)
+                            {
+//                                console.log(' HM+1 by case 3: ' + branches[branch_index].name);
+                                branch.horizontal_multiplier++;
+                            }
+                        }
+                    }
+                    branch_index++;
+                }
+                {{--console.log('HM @ '+ branch.horizontal_multiplier);--}}
+            });
+        }
+
+        function get_merges()
+        {
+            $.each(branches, function(branch_index, branch)
+            {
+                console.log(branch.name);
+                branch_index = 0;
+                while(branch_index < branches.length)
+                {
+                    if(branch.end_date > branches[branch_index].start_date)
+                    {
+                        branch.merge = branches[branch_index].vertical_multiplier;
+                        merges[branch.name] = branch.merge;
+                    }
+                    branch_index++;
+                }
+            });
+        }
+
+        function draw()
+        {
+            get_hm_multipliers();
+            get_merges();
+
+            var start_x;
+            var final_x;
+
+            var start_y;
+            var end_y;
+
+            // Draw most left line
+            draw_line(default_x, 0, (branches[branches.length - 1].vertical_multiplier + 4) * default_y, colors.lines[0]);
+
+            // draw line up till they merge
+            $.each(branches, function(branch_index, branch)
+            {
+                // also lets set the colors
+                if(!colors.lines[branch.horizontal_multiplier])
+                {
+                    colors.lines[branch.horizontal_multiplier] = tinycolor.random().toHexString();
+                }
+
+                // If its not a timeline shift it outwards by the multiplier
+                start_x = default_x + (default_x * branch.horizontal_multiplier);
+                // If its not based off a timline merge it all the way back in!
+                if(!branch.timeline_id || branch.timeline)
+                {
+                    final_x = default_x;
+                }
+                // Since its based off a timeline we need to adjust the final location by the timelines multiplier
+                else
+                {
+                    // The branch can end afterwards of the timeline! so lets make sure of that
+                    if(branch.end_date <= timelines[branch.timeline_id].end_date)
+                    {
+                        final_x = default_x + (default_x * timelines[branch.timeline_id].horizontal_multiplier);
+                    }
+                    else
+                    {
+                        final_x = default_x;
+                    }
+                }
+
+                // find out where its vertical multiplier should be
+                start_y = default_y + (default_y * branch.vertical_multiplier);
+                end_y = default_y + (default_y * branch.merge);
+
+                // Draw the Branch Starting Circle
+                draw_circle(start_x, start_y, get_analogous(colors.lines[branch.horizontal_multiplier]));
+
+                // Draw the Branch Curve
+                draw_curve(final_x, start_y - default_y, start_x, start_y, colors.lines[branch.horizontal_multiplier]);
+
+                // Draw the long line up to the merge point
+                draw_line(start_x, start_y, end_y, colors.lines[branch.horizontal_multiplier]);
+
+                // Draw Merge Curve
+                draw_curve(start_x, end_y, final_x, end_y + default_y, colors.lines[branch.horizontal_multiplier]);
+
+            });
+
+            render_circles();
+        }
+
+        function draw_curve(start_x, start_y, end_x, end_y, color)
+        {
+            var break_point = (start_y + end_y) / 2;
+
+            // Curved Lines to new path
+            projects.path("M"+start_x+","+start_y+" C"+start_x+","+break_point+" "+end_x+","+break_point+" "+end_x+","+end_y+"").attr({
+                stroke: color,
+                strokeWidth: 4,
+                fill: "none",
+                class: 'curves'
+            });
+        }
+
+        function draw_line(x, start_y, end_y, color)
+        {
+            projects.path("M" + x + "," + start_y + " L" + x + "," + end_y + "").attr({
+                stroke: color,
+                strokeWidth: 4,
+                class: 'lines'
+            });
+        }
+
+        function draw_circle(x, y, color)
+        {
+            //start Circle
+            circles.push({
+                x: x,
+                y: y,
+                r: default_r,
+                color: color,
+                class: 'circles'
+            });
+        }
+
+        function render_circles()
+        {
+            var color = tinycolor.random().toHexString();
+
+            $.each(circles, function()
+            {
+                projects.circle(this.x, this.y , this.r).attr({
+                    fill: this.color,
+                    stroke: this.color,
+                    strokeOpacity: .3,
+                    strokeWidth: 5
+                });
+            });
+        }
+
+        function get_analogous(color)
+        {
+            if(!ag_colors[color])
+            {
+                ag_colors[color] = tinycolor(color).analogous(15).map(function(t)
+                {
+                    return t.toHexString();
+                });
+            }
+            ag_colors[color].shift();
+            return ag_colors[color].shift();
+        }
     </script>
 @endsection
 
