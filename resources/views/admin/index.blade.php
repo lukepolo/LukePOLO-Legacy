@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-    // TODO  - Mobile
-    // Finish projects text
     <div class="col-md-6 admin-comments">
         <div class="panel panel-default">
             <div class="panel-heading">

@@ -18,16 +18,16 @@ class BlogController extends Controller
 
             if(empty($tag) === false)
             {
-                $blogs = Blog::with('tags')->where('draft', '=', '0')->whereIn('tag_ids', [$tag->id])->get();
+                $blogs = Blog::with('tags')->where('draft', '=', '0')->whereIn('tag_ids', [$tag->id])->orderBy('created_at', 'desc')->get();
             }
             else
             {
-                $blogs = Blog::with('tags')->where('draft', '=', '0')->get();
+                $blogs = Blog::with('tags')->where('draft', '=', '0')->orderBy('created_at', 'desc')->get();
             }
         }
         else
         {
-            $blogs = Blog::with('tags')->where('draft', '=', '0')->get();
+            $blogs = Blog::with('tags')->where('draft', '=', '0')->orderBy('created_at', 'desc')->get();
         }
 
         return view('blog', [

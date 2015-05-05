@@ -22,7 +22,8 @@ class AdminController extends Controller
     public function getBlogs()
     {
         return view('admin.blogs', [
-            'blogs' => Blog::get()
+            'blogs' => Blog::orderBy('created_at', 'desc')->get()
+
         ]);
     }
 
