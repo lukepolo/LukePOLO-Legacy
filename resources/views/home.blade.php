@@ -61,7 +61,6 @@
 
             </div>
         @endforeach
-        </div>
     </div>
     <script>
         var small_bar = $('#small-bar');
@@ -81,7 +80,6 @@
 
         var vertical_multiplier = 0;
 
-        var colors;
         var ag_colors = {};
 
         var colors = {};
@@ -212,28 +210,27 @@
         {
             $.each(branches, function(branch_index, branch)
             {
-                branch.vertical_multiplier = vertical_multiplier++;
-                branch.vertical_multiplier = vertical_multiplier++;
+                // we want to give some space between the lines
+                vertical_multiplier = vertical_multiplier + 2;
+                branch.vertical_multiplier = vertical_multiplier;
 
                 branch_index = 0;
 //                console.log(branch.name);
-                while(branch_index < branches.length)
+                $.each(branches, function()
                 {
-                    if(branch.name != branches[branch_index].name)
+                    if(branch.name != this.name)
                     {
                         if (
                                 (
-                                    branch.start_date >= branches[branch_index].start_date &&
-                                    branch.start_date <= branches[branch_index].end_date
+                                branch.start_date >= this.start_date &&
+                                branch.start_date <= this.end_date
                                 ) ||
                                 (
-                                    branch.end_date >= branches[branch_index].start_date &&
-                                    branch.end_date <= branches[branch_index].end_date
+                                branch.end_date >= this.start_date &&
+                                branch.end_date <= this.end_date
                                 )
                         )
                         {
-
-
                             // Makes sure its not a timeline
                             if (!branch.timeline_id && !branch.timeline)
                             {
@@ -241,17 +238,17 @@
                                 branch.horizontal_multiplier++;
                             }
                             // Makes sure both have a timeline id but not an actual timeline
-                            else if (branch.timeline_id && branches[branch_index].timeline_id && !branch.timeline)
+                            else if (branch.timeline_id && this.timeline_id && !branch.timeline)
                             {
 //                                console.log(' HM+1 by case 2: ' + branches[branch_index].name);
                                 branch.horizontal_multiplier++;
                             }
                             // Makes sure both are timelines
-                            else if (branch.timeline && branches[branch_index].timeline)
+                            else if (branch.timeline && this.timeline)
                             {
                                 if(
-                                    branch.start_date >= branches[branch_index].start_date &&
-                                    branch.start_date <= branches[branch_index].end_date
+                                        branch.start_date >= this.start_date &&
+                                        branch.start_date <= this.end_date
                                 )
                                 {
 //                                    console.log(' HM+1 by case 3: ' + branches[branch_index].name);
@@ -260,8 +257,7 @@
                             }
                         }
                     }
-                    branch_index++;
-                }
+                });
                 {{--console.log('HM @ '+ branch.horizontal_multiplier);--}}
             });
         }
@@ -272,15 +268,14 @@
             $.each(branches, function(branch_index, branch)
             {
                 branch_index = 0;
-                while(branch_index < branches.length)
+                $.each(branches, function()
                 {
-                    if(branch.end_date > branches[branch_index].start_date)
+                    if(branch.end_date > this.start_date)
                     {
-                        branch.merge = branches[branch_index].vertical_multiplier;
+                        branch.merge = this.vertical_multiplier;
                         merges[branch.name] = branch.merge;
                     }
-                    branch_index++;
-                }
+                });
                 {{--console.log(branch.name  + ' merges @ ' + branch.merge)--}}
             });
 
