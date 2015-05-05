@@ -72,7 +72,7 @@
         var branches = [];
 
         var default_x = 35;
-        var default_y = 50;
+        var default_y = 25;
         var default_r = 14;
         var big_r = 27;
 
@@ -213,8 +213,9 @@
                 // we want to give some space between the lines
                 if(branch_index != 0)
                 {
-                    vertical_multiplier++;
+                    vertical_multiplier += 2;
                 }
+
                 branch.vertical_multiplier = ++vertical_multiplier;
 
                 branch_index = 0;
@@ -287,7 +288,6 @@
                 find_merge_conflicts(this);
                 merge_levels.push(this.merge);
             });
-
         }
 
         function find_merge_conflicts(branch)
@@ -312,12 +312,12 @@
                     if (branch.end_date > this.end_date)
                     {
                         move_up(branch);
-                        branch.merge++;
+                        branch.merge+= 2;
                     }
                     else
                     {
                         move_up(this);
-                        this.merge = branch.merge + 1;
+                        this.merge = branch.merge + 2;
                     }
                 }
             });
@@ -332,12 +332,12 @@
                 if(this.vertical_multiplier > branch.merge)
                 {
 //                    console.log('       ' + this.name);
-                    this.vertical_multiplier++;
-                    this.merge++;
+                    this.vertical_multiplier += 2;
+                    this.merge+=2;
                 }
                 else if(this.end_date > branch.end_date)
                 {
-                    this.merge++;
+                    this.merge+= 2;
                 }
             });
         }
