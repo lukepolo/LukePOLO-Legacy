@@ -285,6 +285,13 @@
                 {{--console.log(branch.name  + ' merges @ ' + branch.merge)--}}
             });
 
+
+            find_merge_conflicts(branches[2]);
+
+            find_merge_conflicts(branches[0]);
+            find_merge_conflicts(branches[5]);
+            find_merge_conflicts(branches[6]);
+
             $.each(branches, function()
             {
                 find_merge_conflicts(this);
@@ -331,10 +338,15 @@
             console.log(branch.name + ' merge ++ and moving up branches : ');
             $.each(branches, function()
             {
-                if(this.vertical_multiplier > branch.merge && branch.timeline_id != this.timeline_id)
+                if(this.vertical_multiplier > branch.merge)
                 {
                     console.log('       ' + this.name);
                     this.vertical_multiplier++;
+                    this.merge++;
+                }
+                else if(this.end_date > branch.end_date)
+                {
+                    console.log(this.name + " MOVE IT FORWARD MORE?");
                     this.merge++;
                 }
             });
