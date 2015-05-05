@@ -2,17 +2,15 @@
 @section('content')
     <style>
         #projects {
-            /*TODO - height variable*/
-            height:{{ (50) * 50 }}px;
             width: 100%;
             opacity: 0.9;
             margin-top:-27px;
         }
     </style>
-    <div class="col-lg-3">
+    <div class="col-md-3">
         <svg id="projects"></svg>
     </div>
-    <div class="col-lg-9">
+    <div class="col-md-9">
         <div class="select-title">
             <h1>Projects</h1>
             <small>
@@ -73,10 +71,10 @@
 
         var branches = [];
 
-        var default_x = 43;
+        var default_x = 35;
         var default_y = 50;
-        var default_r = 15;
-        var big_r = 32;
+        var default_r = 14;
+        var big_r = 27;
 
         var vertical_multiplier = 0;
 
@@ -118,8 +116,9 @@
 
             @foreach($projects->reverse() as $project)
                 @if(empty($project->timeline) === false)
-                    new_branch("{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "{{ $project->timeline->id }}");
+                    new_branch("{{ $project->id }}", "{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "{{ $project->timeline->id }}");
                     timelines["{{ $project->timeline->id }}"] = {
+                        id : "{{ $project->timeline->id }}",
                         timeline_id: "{{ $project->timeline->id }}",
                         name: "{{ $project->timeline->name }}",
                         start_date: "{{ $project->timeline->start_date->timestamp }}",
@@ -129,7 +128,7 @@
                         timeline: true
                     };
                 @else
-                    new_branch("{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "");
+                    new_branch("{{ $project->id }}", "{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "");
                 @endif
             @endforeach
 
@@ -176,9 +175,10 @@
         });
 
 
-        function new_branch(name, start_date, end_date, timeline)
+        function new_branch(id, name, start_date, end_date, timeline)
         {
             branches.push({
+                id: id,
                 name: name,
                 horizontal_multiplier: 1,
                 vertical_multiplier: 0,
@@ -211,14 +211,17 @@
             $.each(branches, function(branch_index, branch)
             {
                 // we want to give some space between the lines
-                vertical_multiplier = vertical_multiplier + 2;
-                branch.vertical_multiplier = vertical_multiplier;
+                if(branch_index != 0)
+                {
+                    vertical_multiplier++;
+                }
+                branch.vertical_multiplier = ++vertical_multiplier;
 
                 branch_index = 0;
 //                console.log(branch.name);
                 $.each(branches, function()
                 {
-                    if(branch.name != this.name)
+                    if(branch.id != this.id)
                     {
                         if (
                                 (
@@ -289,13 +292,13 @@
 
         function find_merge_conflicts(branch)
         {
-            console.log('Finding conflicts with ' + branch.name);
+//            console.log('Finding conflicts with ' + branch.name);
 
             var conflicts = new Array();
 
             $.each(branches, function()
             {
-                if(branch.name != this.name && branch.merge == this.merge)
+                if(branch.id != this.id && branch.merge == this.merge)
                 {
 //                    console.log('Conflicts with ' + this.name);
                     conflicts.push(this);
@@ -304,7 +307,7 @@
 
             $.each(conflicts, function()
             {
-                if(branch.name != this.name)
+                if(branch.id != this.id)
                 {
                     if (branch.end_date > this.end_date)
                     {
@@ -320,9 +323,10 @@
             });
         }
 
+        // TODO - fix spacing
         function move_up(branch)
         {
-            console.log(branch.name + ' merge ++ and moving up branches : ');
+//            console.log(branch.name + ' merge ++ and moving up branches : ');
             $.each(branches, function()
             {
                 if(this.vertical_multiplier > branch.merge)
@@ -333,7 +337,6 @@
                 }
                 else if(this.end_date > branch.end_date)
                 {
-                    console.log(this.name + " MOVE IT FORWARD MORE bec of "+ branch.name);
                     this.merge++;
                 }
             });
@@ -353,6 +356,7 @@
             // Draw most left line
             draw_line(default_x, 0, (Math.max.apply(null, merge_levels) + 3) * default_y, colors.lines[0]);
 
+            $('#projects').css('height', (Math.max.apply(null, merge_levels) + 3) * default_y);
             // draw line up till they merge
             $.each(branches, function(branch_index, branch)
             {
