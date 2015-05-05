@@ -3,7 +3,7 @@
     <style>
         #projects {
             /*TODO - height variable*/
-            height:{{ (40) * 50 }}px;
+            height:{{ (50) * 50 }}px;
             width: 100%;
             opacity: 0.9;
             margin-top:-27px;
@@ -69,6 +69,7 @@
         var circles = [];
 
         var timelines = {};
+        var merge_levels = new Array();
         var merges= {};
 
         var branches = [];
@@ -232,23 +233,31 @@
                                 )
                         )
                         {
+
+
                             // Makes sure its not a timeline
-                            if(!branch.timeline_id && !branch.timeline)
+                            if (!branch.timeline_id && !branch.timeline)
                             {
 //                                console.log(' HM+1 by case 1: ' + branches[branch_index].name);
                                 branch.horizontal_multiplier++;
                             }
                             // Makes sure both have a timeline id but not an actual timeline
-                            else if(branch.timeline_id && branches[branch_index].timeline_id && !branch.timeline)
+                            else if (branch.timeline_id && branches[branch_index].timeline_id && !branch.timeline)
                             {
 //                                console.log(' HM+1 by case 2: ' + branches[branch_index].name);
                                 branch.horizontal_multiplier++;
                             }
                             // Makes sure both are timelines
-                            else if(branch.timeline && branches[branch_index].timeline)
+                            else if (branch.timeline && branches[branch_index].timeline)
                             {
-//                                console.log(' HM+1 by case 3: ' + branches[branch_index].name);
-                                branch.horizontal_multiplier++;
+                                if(
+                                    branch.start_date >= branches[branch_index].start_date &&
+                                    branch.start_date <= branches[branch_index].end_date
+                                )
+                                {
+//                                    console.log(' HM+1 by case 3: ' + branches[branch_index].name);
+                                    branch.horizontal_multiplier++;
+                                }
                             }
                         }
                     }
@@ -276,46 +285,59 @@
                 {{--console.log(branch.name  + ' merges @ ' + branch.merge)--}}
             });
 
-
             $.each(branches, function()
             {
                 find_merge_conflicts(this);
+                merge_levels.push(this.merge);
             });
+
         }
 
         function find_merge_conflicts(branch)
         {
-            var found = false;
             console.log('Finding conflicts with ' + branch.name);
 
-            branch_index = 0;
-            while (branch_index < branches.length)
+            var conflicts = new Array();
+
+            $.each(branches, function()
             {
-                if(branch.name != branches[branch_index].name && branch.merge == branches[branch_index].merge)
+                if(branch.name != this.name && branch.merge == this.merge)
                 {
-                    found = true;
-                    branches[branch_index].merge++;
-
-                    console.log('Conflicts with' + branches[branch_index].name);
-
-                    find_merge_conflicts(branches[branch_index]);
+//                    console.log('Conflicts with ' + this.name);
+                    conflicts.push(this);
                 }
+            });
 
-                branch_index++;
-            }
-
-            if(found)
+            $.each(conflicts, function()
             {
-                // anything with a higher start date than the end date must move up
-                $.each(branches, function ()
+                if(branch.name != this.name)
                 {
-                    if (this.start_date > branch.end_date)
+                    if (branch.end_date > this.end_date)
                     {
-                        this.vertical_multiplier++;
-                        this.merge++;
+                        move_up(branch);
+                        branch.merge++;
                     }
-                });
-            }
+                    else
+                    {
+                        move_up(this);
+                        this.merge = branch.merge + 1;
+                    }
+                }
+            });
+        }
+
+        function move_up(branch)
+        {
+            console.log(branch.name + ' merge ++ and moving up branches : ');
+            $.each(branches, function()
+            {
+                if(this.vertical_multiplier > branch.merge && branch.timeline_id != this.timeline_id)
+                {
+                    console.log('       ' + this.name);
+                    this.vertical_multiplier++;
+                    this.merge++;
+                }
+            });
         }
 
         function draw()
@@ -330,7 +352,7 @@
             var end_y;
 
             // Draw most left line
-            draw_line(default_x, 0, (branches[branches.length - 1].vertical_multiplier + 4) * default_y, colors.lines[0]);
+            draw_line(default_x, 0, (Math.max.apply(null, merge_levels) + 3) * default_y, colors.lines[0]);
 
             // draw line up till they merge
             $.each(branches, function(branch_index, branch)
@@ -366,18 +388,17 @@
                 start_y = default_y + (default_y * branch.vertical_multiplier);
                 end_y = default_y + (default_y * branch.merge);
 
-                // Draw the Branch Starting Circle
-                draw_circle(start_x, start_y, get_analogous(colors.lines[branch.horizontal_multiplier]));
+                // Draw the long line up to the merge point
+                draw_line(start_x, start_y, end_y, colors.lines[branch.horizontal_multiplier]);
 
                 // Draw the Branch Curve
                 draw_curve(final_x, start_y - default_y, start_x, start_y, colors.lines[branch.horizontal_multiplier]);
 
-                // Draw the long line up to the merge point
-                draw_line(start_x, start_y, end_y, colors.lines[branch.horizontal_multiplier]);
-
                 // Draw Merge Curve
                 draw_curve(start_x, end_y, final_x, end_y + default_y, colors.lines[branch.horizontal_multiplier]);
 
+                // Draw the Branch Starting Circle
+                draw_circle(start_x, start_y, get_analogous(colors.lines[branch.horizontal_multiplier]));
             });
 
             render_circles();

@@ -1,11 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-    // TODO  - GIT Tree Finish UP
     // TODO  - Mobile
     // Finish projects text
-    // re-enable post after blog comment
-    // border-raidus 3px on profile-img
     <div class="col-md-6 admin-comments">
         <div class="panel panel-default">
             <div class="panel-heading">
