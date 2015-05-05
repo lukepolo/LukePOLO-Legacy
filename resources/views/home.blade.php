@@ -218,7 +218,6 @@
 
                 branch.vertical_multiplier = ++vertical_multiplier;
 
-                branch_index = 0;
 //                console.log(branch.name);
                 $.each(branches, function()
                 {
@@ -238,13 +237,13 @@
                             // Makes sure its not a timeline
                             if (!branch.timeline_id && !branch.timeline)
                             {
-//                                console.log(' HM+1 by case 1: ' + branches[branch_index].name);
+//                                console.log(' HM+1 by case 1: ' + this.name);
                                 branch.horizontal_multiplier++;
                             }
                             // Makes sure both have a timeline id but not an actual timeline
                             else if (branch.timeline_id && this.timeline_id && !branch.timeline)
                             {
-//                                console.log(' HM+1 by case 2: ' + branches[branch_index].name);
+//                                console.log(' HM+1 by case 2: ' + this.name);
                                 branch.horizontal_multiplier++;
                             }
                             // Makes sure both are timelines
@@ -255,7 +254,7 @@
                                         branch.start_date <= this.end_date
                                 )
                                 {
-//                                    console.log(' HM+1 by case 3: ' + branches[branch_index].name);
+//                                    console.log(' HM+1 by case 3: ' + this.name);
                                     branch.horizontal_multiplier++;
                                 }
                             }
@@ -276,7 +275,9 @@
                 {
                     if(branch.end_date > this.start_date)
                     {
+
                         branch.merge = this.vertical_multiplier;
+
                         merges[branch.name] = branch.merge;
                     }
                 });
