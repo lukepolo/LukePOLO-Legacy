@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TimelineFormRequest;
 use \App\Models\Mongo\Timeline;
 
 class TimelinesController extends Controller
@@ -19,7 +20,7 @@ class TimelinesController extends Controller
         return view('timelines.form');
     }
 
-    public function postCreate()
+    public function postCreate(TimelineFormRequest $request)
     {
         if(\Request::get('end_date') != '')
         {
@@ -40,7 +41,7 @@ class TimelinesController extends Controller
         return redirect(action('\App\Http\Controllers\TimelinesController@getIndex'));
     }
 
-    public function postEdit($timeline_id)
+    public function postEdit($timeline_id, TimelineFormRequest $request)
     {
         $timeline = Timeline::find($timeline_id);
 

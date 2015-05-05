@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TechnologiesFormRequest;
 use \App\Models\Mongo\Technology;
 
 class TechnologiesController extends Controller
@@ -19,7 +20,7 @@ class TechnologiesController extends Controller
         return view('technologies.form');
     }
 
-    public function postCreate()
+    public function postCreate(TechnologiesFormRequest $request)
     {
         Technology::create([
             'name' => \Request::get('name'),
@@ -30,7 +31,14 @@ class TechnologiesController extends Controller
         return redirect(action('\App\Http\Controllers\TechnologiesController@getIndex'));
     }
 
-    public function postEdit($technology_id)
+    public function getEdit($technology_id)
+    {
+        return view('technologies.form', [
+            'technology' => Technology::find($technology_id)
+        ]);
+    }
+
+    public function postEdit($technology_id, TechnologiesFormRequest $request)
     {
         $technology = Technology::find($technology_id);
 
@@ -41,13 +49,6 @@ class TechnologiesController extends Controller
         $technology->save();
 
         return redirect(action('\App\Http\Controllers\TechnologiesController@getIndex'));
-    }
-
-    public function getEdit($technology_id)
-    {
-        return view('technologies.form', [
-            'technology' => Technology::find($technology_id)
-        ]);
     }
 
     public function getDelete($technology_id)

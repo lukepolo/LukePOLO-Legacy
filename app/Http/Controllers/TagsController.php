@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TagFormRequest;
 use \App\Models\Mongo\Tag;
 
 class TagsController extends Controller
@@ -19,7 +20,7 @@ class TagsController extends Controller
         return view('tags.form');
     }
 
-    public function postCreate()
+    public function postCreate(TagFormRequest $request)
     {
         Tag::create([
             'name' => \Request::get('name'),
@@ -31,7 +32,14 @@ class TagsController extends Controller
         return redirect(action('\App\Http\Controllers\TagsController@getIndex'));
     }
 
-    public function postEdit($tag_id)
+    public function getEdit($technology_id)
+    {
+        return view('tags.form', [
+            'tag' => Tag::find($technology_id)
+        ]);
+    }
+
+    public function postEdit($tag_id, TagFormRequest $request)
     {
         $tag_id = Tag::find($tag_id);
 
@@ -43,13 +51,6 @@ class TagsController extends Controller
         \Cache::forget('tags');
 
         return redirect(action('\App\Http\Controllers\TagsController@getIndex'));
-    }
-
-    public function getEdit($technology_id)
-    {
-        return view('tags.form', [
-            'tag' => Tag::find($technology_id)
-        ]);
     }
 
     public function getDelete($technology_id)

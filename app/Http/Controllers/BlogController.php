@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlogFormRequest;
 use App\Models\Mongo\Blog;
 use App\Models\Mongo\Tag;
 
@@ -62,7 +63,7 @@ class BlogController extends Controller
         ]);
     }
 
-    public function postCreate()
+    public function postCreate(BlogFormRequest $request)
     {
         $blog = Blog::create([
             'name' => \Request::get('name'),
@@ -73,7 +74,10 @@ class BlogController extends Controller
             'preview_text' => \Request::get('preview_text')
         ]);
 
-        $blog->tags()->attach(\Request::get('tags'));
+        if(empty(\Request::get('tags')) === false)
+        {
+            $blog->tags()->attach(\Request::get('tags'));
+        }
 
         return redirect(action('\App\Http\Controllers\AdminController@getBlogs'));
     }
@@ -86,7 +90,7 @@ class BlogController extends Controller
         ]);
     }
 
-    public function postEdit($blog_id)
+    public function postEdit($blog_id, BlogFormRequest $request)
     {
         $blog = Blog::with('tags')->find($blog_id);
 
@@ -97,7 +101,14 @@ class BlogController extends Controller
         $blog->link_name = \Request::get('link_name');
         $blog->preview_text = \Request::get('preview_text');
 
-        $blog->tags()->sync(\Request::get('tags'));
+        if(empty(\Request::get('tags')) === false)
+        {
+            $blog->tags()->sync(\Request::get('tags'));
+        }
+        else
+        {
+            $blog->tags()->sync([]);
+        }
 
         $blog->save();
 
