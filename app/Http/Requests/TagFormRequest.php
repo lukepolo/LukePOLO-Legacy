@@ -6,8 +6,14 @@ class TagFormRequest extends FormRequest
 {
     public function rules()
     {
+        $id = null;
+        if($this->one)
+        {
+            $id = ','.$this->one;
+        }
+
         return [
-            'name' => 'required|unique:tags',
+            'name' => 'required|unique:tags'.$id,
             'color' => 'required',
         ];
     }

@@ -6,8 +6,14 @@ class TechnologiesFormRequest extends FormRequest
 {
     public function rules()
     {
+        $id = null;
+        if($this->one)
+        {
+            $id = ','.$this->one;
+        }
+
         return [
-            'name' => 'required|unique:technologies',
+            'name' => 'required|unique:technologies'.$id,
             'color' => 'required',
             'start_date' => 'required',
             'end_date' => 'required'

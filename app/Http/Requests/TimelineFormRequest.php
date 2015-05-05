@@ -6,8 +6,14 @@ class TimelineFormRequest extends FormRequest
 {
     public function rules()
     {
+        $id = null;
+        if($this->one)
+        {
+            $id = ','.$this->one;
+        }
+
         return [
-            'name' => 'required|unique:timelines',
+            'name' => 'required|unique:timelines'.$id,
             'color' => 'required',
             'start_date' => 'required',
             'end_date' => 'required'

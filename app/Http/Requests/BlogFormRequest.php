@@ -6,10 +6,16 @@ class BlogFormRequest extends FormRequest
 {
     public function rules()
     {
+        $id = null;
+        if($this->one)
+        {
+            $id = ','.$this->one;
+        }
+
         return [
             'name' => 'required',
             'draft' => 'required',
-            'link_name' => 'required|unique:blogs'
+            'link_name' => 'required|unique:blogs'.$id
         ];
     }
 

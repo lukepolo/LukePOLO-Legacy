@@ -90,7 +90,7 @@ class BlogController extends Controller
         ]);
     }
 
-    public function postEdit($blog_id, BlogFormRequest $request)
+    public function postEdit( BlogFormRequest $request, $blog_id)
     {
         $blog = Blog::with('tags')->find($blog_id);
 
