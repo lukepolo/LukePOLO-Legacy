@@ -212,7 +212,6 @@
         {
             $.each(branches, function(branch_index, branch)
             {
-                // TODO - come back to may be wrong
                 branch.vertical_multiplier = vertical_multiplier++;
                 branch.vertical_multiplier = vertical_multiplier++;
 
@@ -285,13 +284,6 @@
                 {{--console.log(branch.name  + ' merges @ ' + branch.merge)--}}
             });
 
-
-            find_merge_conflicts(branches[2]);
-
-            find_merge_conflicts(branches[0]);
-            find_merge_conflicts(branches[5]);
-            find_merge_conflicts(branches[6]);
-
             $.each(branches, function()
             {
                 find_merge_conflicts(this);
@@ -340,13 +332,13 @@
             {
                 if(this.vertical_multiplier > branch.merge)
                 {
-                    console.log('       ' + this.name);
+//                    console.log('       ' + this.name);
                     this.vertical_multiplier++;
                     this.merge++;
                 }
                 else if(this.end_date > branch.end_date)
                 {
-                    console.log(this.name + " MOVE IT FORWARD MORE?");
+                    console.log(this.name + " MOVE IT FORWARD MORE bec of "+ branch.name);
                     this.merge++;
                 }
             });
