@@ -1,6 +1,6 @@
 <footer class="footer">
     <div class="container">
-        <div class="col-md-2 col-md-offset-2">
+        <div class="col-md-2 col-md-offset-3">
         </div>
         <div class="col-md-2">
             <a target="_blank" href="https://www.digitalocean.com/">
