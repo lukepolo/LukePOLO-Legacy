@@ -24,7 +24,7 @@
                     </div>
                     <div class="row">
                         <a href="{{ action('\App\Http\Controllers\BlogController@getView', [$blog->link_name]) }}">
-                            <img class="blog-image center-block" src="{{ $blog->image }}">
+                            <img class="img-responsive blog-image center-block" src="{{ $blog->image }}">
                         </a>
                     </div>
                     <div class="row">

@@ -49,10 +49,19 @@
             </div>
             {!! Form::submit(isset($blog) === true ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
         </div>
+
     {!! Form::close() !!}
     <script type="text/javascript">
         $(document).ready(function()
         {
+            // save text
+            $("form").each(function()
+            {
+                $(this).sisyphus({
+                    locationBased: true
+                });
+            });
+
             $('#tags').select2({
                tags: true
             });
@@ -61,11 +70,20 @@
                 height: 150
             });
 
-
             $('#blog').summernote({
                 height: $(window).height() - 150
             });
+
+            $(document).on('keyup', '.note-editable', function()
+            {
+                var textarea = $(this).parent().prev('textarea');
+                textarea.val($(this).html());
+                textarea.trigger('change');
+            });
+
         });
+
+
     </script>
 @endsection
 

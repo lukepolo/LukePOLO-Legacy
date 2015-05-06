@@ -48,6 +48,7 @@
         <script>
             $(document).ready(function()
             {
+                $('iframe[src*="youtube.com"]').wrap('<div class="youtubeWrapper" />');
 
                 $('.owl-carousel').owlCarousel({
                     items: 1,

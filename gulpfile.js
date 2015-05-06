@@ -39,7 +39,8 @@ paths = {
     'bootbox' : bower_path + 'bootbox/',
     'chartjs' : bower_path + 'Chart.js/',
     'timeago' : bower_path + 'jquery-timeago/',
-    'owl' : bower_path + 'owl.carousel/dist/'
+    'owl' : bower_path + 'owl.carousel/dist/',
+    'sisyphus' : bower_path + 'sisyphus/'
  };
 
 // Minify JS
@@ -77,6 +78,7 @@ elixir.extend('minify_js', function()
                     paths.bootbox + 'bootbox.js',
                     paths.chartjs + 'Chart.js',
                     paths.owl + 'owl.carousel.js',
+                    paths.sisyphus + 'sisyphus.js',
                     paths.js+ '**',
                 ],
                 {

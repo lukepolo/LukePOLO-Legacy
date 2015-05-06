@@ -119,3 +119,22 @@ html.admin {
 .user-image {
   border-radius: 4px;
 }
+
+@media (max-width: 767px)
+{
+  .youtubeWrapper {
+    position: relative;
+    padding-top: 30px; height: 0; overflow: hidden;
+    padding-bottom: 56.25%;
+  }
+
+  .youtubeWrapper iframe,
+  .youtubeWrapper object,
+  .youtubeWrapper embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height:100%;
+  }
+}
