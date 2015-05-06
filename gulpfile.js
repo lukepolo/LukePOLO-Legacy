@@ -40,7 +40,8 @@ paths = {
     'chartjs' : bower_path + 'Chart.js/',
     'timeago' : bower_path + 'jquery-timeago/',
     'owl' : bower_path + 'owl.carousel/dist/',
-    'sisyphus' : bower_path + 'sisyphus/'
+    'sisyphus' : bower_path + 'sisyphus/',
+    'lazyload' : bower_path + 'jquery.lazyload/'
  };
 
 // Minify JS
@@ -57,6 +58,7 @@ elixir.extend('minify_js', function()
                 paths.timeago + 'jquery.timeago.js',
                 paths.select2 + 'js/select2.js',
                 paths.owl + 'owl.carousel.js',
+                paths.lazyload + 'jquery.lazyload.js',
                 paths.js+ '**',
             ],
             {

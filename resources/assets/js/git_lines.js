@@ -181,7 +181,7 @@ function draw()
     // Draw most left line
     draw_line(default_x, 0, (Math.max.apply(null, merge_levels) + 3) * default_y, colors.lines[0]);
 
-    $('#projects').css('height', (Math.max.apply(null, merge_levels) + 3) * default_y);
+    $('#git_tree').css('height', (Math.max.apply(null, merge_levels) + 3) * default_y);
     // draw line up till they merge
     $.each(branches, function(branch_index, branch)
     {
@@ -226,7 +226,7 @@ function draw()
         draw_curve(start_x, end_y, final_x, end_y + default_y, colors.lines[branch.horizontal_multiplier]);
 
         // Draw the Branch Starting Circle
-        draw_circle(start_x, start_y, get_analogous(colors.lines[branch.horizontal_multiplier]));
+        draw_circle(start_x, start_y, get_analogous(colors.lines[branch.horizontal_multiplier]), branch.id);
     });
 
     render_circles();
@@ -254,7 +254,7 @@ function draw_line(x, start_y, end_y, color)
     });
 }
 
-function draw_circle(x, y, color)
+function draw_circle(x, y, color, id)
 {
     //start Circle
     circles.push({
@@ -262,7 +262,7 @@ function draw_circle(x, y, color)
         y: y,
         r: default_r,
         color: color,
-        class: 'circles'
+        id : id
     });
 }
 
@@ -276,7 +276,8 @@ function render_circles()
             fill: this.color,
             stroke: this.color,
             strokeOpacity: .3,
-            strokeWidth: 5
+            strokeWidth: 5,
+            'data-project_id': this.id
         });
     });
 }

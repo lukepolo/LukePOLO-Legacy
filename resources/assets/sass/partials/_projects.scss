@@ -1,4 +1,7 @@
-#projects {
+#git_tree {
+  width: 100%;
+  opacity: 0.9;
+  margin-top:-27px;
   circle {
     cursor: pointer;
   }
@@ -23,5 +26,13 @@
       max-width: 100% !important;
       height: auto !important;
     }
+  }
+}
+
+.project {
+  opacity: .4;
+  transition: opacity .25s ease-in-out;
+  &:hover {
+    opacity: 1;
   }
 }

@@ -1,29 +1,21 @@
 @extends('layouts.public')
 @section('content')
-    <style>
-        #projects {
-            width: 100%;
-            opacity: 0.9;
-            margin-top:-27px;
-        }
-    </style>
-    <div class="col-md-3">
-        <svg id="projects"></svg>
+    <div class="col-md-3 visible-md visible-lg">
+        <svg id="git_tree"></svg>
+
     </div>
     <div class="col-md-9">
         <div class="select-title">
             <h1>Projects</h1>
             <small>
                 <i class="fa fa-long-arrow-left"></i> You can navigate my site using my "git tree" just hover over them
-                <br>
-                .... or just look below
             </small>
             <hr>
         </div>
         @foreach($projects as $project)
-            <div class="projects">
+            <div class="project">
                 <div class="col-md-6 img-holder" data-project_id="{{ $project->id }}">
-                    <img class="img-responsive" src="{{ $project->project_image }}">
+                    <img class="img-responsive " src="{{ $project->project_image }}">
                 </div>
             </div>
             <div class="project-details" id="{{ $project->id }}">
@@ -61,7 +53,31 @@
         @endforeach
     </div>
     <script>
-        var small_bar = $('.mini-bar');
+
+
+
+        $(document).on('click', 'circle', function()
+        {
+            if($('#'+$(this).data('project_id')).length != 0)
+            {
+                hide_details();
+                show_project($(this).data('project_id'));
+            }
+        });
+
+
+        $(document).on('mouseover', 'circle', function()
+        {
+            var project = $('div[data-project_id="'+ $(this).data('project_id') +'"]').closest('.project');
+            project.css('opacity', 1);
+        });
+
+        $(document).on('mouseout', 'circle', function()
+        {
+            var project = $('div[data-project_id="'+ $(this).data('project_id') +'"]').closest('.project');
+            project.css('opacity', '');
+        });
+
         var projects;
         var circles = [];
 
@@ -84,26 +100,47 @@
 
         $(document).on('click', '.img-holder', function()
         {
-            $('.select-title, .projects').hide();
-            $('#'+$(this).data('project_id')).show();
+            show_project($(this).data('project_id'));
+        });
 
+        function show_project(id)
+        {
+            $('.select-title, .project').hide();
+            $('#'+id).show();
+            scroll_to_mini_bar();
+        }
+
+        var small_bar = $('.mini-bar');
+        function scroll_to_mini_bar()
+        {
             if(small_bar.visible() == false)
             {
                 $('html, body').animate({
                     scrollTop: small_bar.offset().top
                 }, 200);
             }
-        });
+        }
 
+        function hide_details()
+        {
+            $('.project-details').hide()
+        }
+
+        function show_projects()
+        {
+            $('.projects').css('opacity', '');
+            $('.select-title, .project').show();
+        }
         $(document).on('click', '.show_projects', function()
         {
-            $('.select-title, .projects').show();
-            $('.project-details').hide()
+            show_projects();
+            hide_details();
         });
 
         $(document).ready(function()
         {
-            projects = Snap("#projects");
+            $("img.lazy").lazyload();
+            projects = Snap("#git_tree");
 
             // http://paletton.com/#uid=70f0u0ke9vf4TW49xJliLoCnugw
             colors['lines'] = {};
@@ -139,7 +176,7 @@
             var curves = projects.paper.g(projects.paper.selectAll('.curves'));
             var lines = projects.paper.g(projects.paper.selectAll('.lines'));
             var circles = projects.paper.g(projects.paper.selectAll('circle'));
-            var flip_matrix = new Snap.Matrix().scale(1, -1).translate(0, -$('#projects').height());
+            var flip_matrix = new Snap.Matrix().scale(1, -1).translate(0, -$('#git_tree').height());
 
             curves.transform(flip_matrix);
             lines.transform(flip_matrix);

@@ -2,7 +2,14 @@
 @section('content')
     <div class="container blog-container">
         <div class="col-md-12 big-bottom-padding">
-            <h1 class="blog-name">{ {{ $blog->name }}</h1>
+            <h1 class="blog-name">
+                { {{ $blog->name }}
+                @if(\Auth::check() && \Auth::user()->role == 'admin')
+                    <a href="{{ action('\App\Http\Controllers\BlogController@getEdit', [$blog->id]) }}" class="pull-right btn btn-sm btn-primary">
+                        Edit
+                    </a>
+                @endif
+            </h1>
             <small>{{ $blog->created_at->format('F jS Y g:i A') }}</small><br>
             <div class="technologies">
                 @foreach($blog->tags as $tag)

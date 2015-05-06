@@ -19,7 +19,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href="{{ $project->url }}">
+                        <a target="_blank" href="{{ $project->url }}">
                             {{ $project->url }}
                         </a>
                     </td>
