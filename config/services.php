@@ -37,31 +37,31 @@ return [
     'google' => [
         'client_id' => '772661298760-helk6dlad48v95ldh2k3fghkh51foe13.apps.googleusercontent.com',
         'client_secret' => 'pdEIKIbmTfoFPSlmpBFnSjQJ',
-        'redirect' => 'http://dev.lukepolo.com/auth/callback/google'
+        'redirect' => 'http://lukepolo.com/auth/callback/google'
     ],
     'twitter' => [
         'client_id' => 'lpgywM1w7ncTHUEXVkVRb2DFX',
         'client_secret' => 'essOKLJR26Kx0PI5UNA9PEJ91cKO3Ep6r06eg5iL1fhc2ukjDq',
-        'redirect' => 'http://dev.lukepolo.com/auth/callback/twitter'
+        'redirect' => 'http://lukepolo.com/auth/callback/twitter'
     ],
     'github' => [
         'client_id' => '6072f5c4775aacd8445e',
         'client_secret' => 'f50d00daa7e0b4aafb554a9a9ee35da197debb9f',
-        'redirect' => 'http://dev.lukepolo.com/auth/callback/github'
+        'redirect' => 'http://lukepolo.com/auth/callback/github'
     ],
     'linkedin' => [
         'client_id' => '759xb8vfxo4lie',
         'client_secret' => 'JoIP0eNFNNmjCrnq',
-        'redirect' => 'http://dev.lukepolo.com/auth/callback/linkedin'
+        'redirect' => 'http://lukepolo.com/auth/callback/linkedin'
     ],
     'facebook' => [
         'client_id' => '895876067125328',
         'client_secret' => '8f984f54cd785725127b513b3075b905',
-        'redirect' => 'http://dev.lukepolo.com/auth/callback/facebook'
+        'redirect' => 'http://lukepolo.com/auth/callback/facebook'
     ],
     'reddit' => [
         'client_id' => 'rXVCgPea5w5OtA',
         'client_secret' =>'rsVpR7_iv5vJM6PpG6qZhReyWsc',
-        'redirect' => 'http://dev.lukepolo.com/auth/callback/reddit'
+        'redirect' => 'http://lukepolo.com/auth/callback/reddit'
     ],
 ];
