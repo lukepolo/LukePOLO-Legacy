@@ -76,13 +76,7 @@
     <script type="text/javascript">
         $(document).ready(function()
         {
-            $('#technologies').select2({
-                tags: true,
-                tokenSeparators: [
-                    ',',
-                    ' '
-                ]
-            });
+            $('#technologies').select2();
 
             $('#summernote').summernote({
                 height: $(window).height() - 250

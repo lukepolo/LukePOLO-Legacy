@@ -62,9 +62,7 @@
                 });
             });
 
-            $('#tags').select2({
-               tags: true
-            });
+            $('#tags').select2();
 
             $('#preview_blog').summernote({
                 height: 150
