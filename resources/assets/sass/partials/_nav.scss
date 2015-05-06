@@ -5,7 +5,7 @@
     background-color: rgb(54, 134, 190);
   }
   &.navbar-default,
-  .navbar-nav > li > a {
+  li > a {
     color: #FFFFFF !important;
     font-size: 17px;
     border-radius: 0;
@@ -16,11 +16,11 @@
     font-size: 25px;
   }
 
-  .navbar-nav > li > a {
+  li > a {
     border-bottom: 1px solid transparent;
   }
   .navbar-header a:hover,
-  .navbar-nav > li > a:hover {
+  li > a:hover {
     border-bottom: 1px dotted #FFFFFF;
   }
 
@@ -32,3 +32,20 @@
   }
 }
 
+
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #FFFFFF;
+}
+
+.navbar-default .navbar-toggle {
+
+  background-color: transparent;
+  border-color: transparent;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
