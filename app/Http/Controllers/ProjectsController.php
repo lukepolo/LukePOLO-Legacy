@@ -37,6 +37,7 @@ class ProjectsController extends Controller
 
         Project::create([
             'name' => \Request::get('name'),
+            'url' => \Request::get('URL'),
             'start_date' => \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date')),
             'end_date' => $end_date,
             'technologies' => \Request::get('technologies'),
@@ -73,6 +74,7 @@ class ProjectsController extends Controller
         }
 
         $project->name = \Request::get('name');
+        $project->url = \Request::get('URL');
         $project->start_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date'));
         $project->end_date = $end_date;
         $project->technologies = \Request::get('technologies');

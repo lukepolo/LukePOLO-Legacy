@@ -76,6 +76,7 @@ elixir.extend('minify_js', function()
                     paths.visible + 'jquery.visible.js',
                     paths.bootbox + 'bootbox.js',
                     paths.chartjs + 'Chart.js',
+                    paths.owl + 'owl.carousel.js',
                     paths.js+ '**',
                 ],
                 {

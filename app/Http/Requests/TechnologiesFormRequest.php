@@ -15,8 +15,7 @@ class TechnologiesFormRequest extends FormRequest
         return [
             'name' => 'required|unique:technologies'.$id,
             'color' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required'
+            'url' => 'required'
         ];
     }
 

@@ -4,6 +4,7 @@
         <table class="table table-striped">
             <thead>
             <th>Name</th>
+            <th>URL</th>
             <th>Timeline</th>
             <th>Start Date</th>
             <th>End Date</th>
@@ -15,6 +16,11 @@
                     <td>
                         <a href="{{ action('\App\Http\Controllers\ProjectsController@getEdit', [$project->id]) }}">
                             {{ $project->name }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ $project->url }}">
+                            {{ $project->url }}
                         </a>
                     </td>
                     <td>{{ empty($project->timeline) === false ? $project->timeline->name : ''}}</td>

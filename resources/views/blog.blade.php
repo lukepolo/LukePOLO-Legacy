@@ -29,7 +29,7 @@
                     </div>
                     <div class="row">
                         <p>
-                            {{ $blog->preview_text }}
+                            {!! $blog->preview_text !!}
                         </p>
                     </div>
                     <div class="row">

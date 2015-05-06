@@ -11,6 +11,10 @@
                     {!! Form::text('name', isset($project) === true ? $project->name : '') !!}
                 </div>
                 <div class="form-group">
+                    {!! Form::label('URL') !!}
+                    {!! Form::text('URL', isset($project) === true ? $project->url : '') !!}
+                </div>
+                <div class="form-group">
                     {!! Form::label('Project Image') !!}
                     {!! Form::text('project_image', isset($project) === true ? $project->project_image : '') !!}
                 </div>

@@ -31,7 +31,7 @@
                     <span class="btn btn-info">
                         <i class="fa fa-arrow-left"></i>
                     </span>
-                    <h2> {{ $project->name }}</h2>
+                    <h2> {{ $project->name }} <small><a target="_blank" href="{{ $project->url }}">{{ $project->url }}</a></small></h2>
                 </div>
                 <hr>
                 <div class="row panel-links">
@@ -61,7 +61,7 @@
         @endforeach
     </div>
     <script>
-        var small_bar = $('#small-bar');
+        var small_bar = $('.mini-bar');
         var projects;
         var circles = [];
 
