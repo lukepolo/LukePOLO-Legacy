@@ -8,7 +8,7 @@
         <div class="select-title">
             <h1>Projects</h1>
             <small>
-                <i class="fa fa-long-arrow-left"></i> You can navigate my site using my "git tree" just hover over them
+                <i class="fa fa-long-arrow-left"></i> You can navigate my site using my "git tree" just click / hover over them
             </small>
             <hr>
         </div>
