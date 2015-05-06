@@ -26,7 +26,6 @@ $('#blog-search').select2({
     },
     templateResult: function(data)
     {
-        console.log(data);
         if(data.text)
         {
             return '<span data-url="' + data.action + '">' + data.text + '</span>';
