@@ -9,7 +9,7 @@ return array(
 		'connection'  => array(
 			'hostname'   => 'localhost',
                         'database'   => 'LukePOLO',
-			'username'   => 'lpolicin',
+			'username'   => 'lukepolo',
 			'password'   => '09xba94!mnza%',
 		),
 	),

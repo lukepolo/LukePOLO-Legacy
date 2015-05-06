@@ -93,12 +93,12 @@ return array(
 	/**
 	 * Whether to minify files.
 	 */
-	'min' => true,
+	'min' => false,
 
 	/**
 	 * Whether to combine files
 	 */
-	'combine' => true,
+	'combine' => false,
 
 	/**
 	 * When minifying, whether to show the files names in each combined

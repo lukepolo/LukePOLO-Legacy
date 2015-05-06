@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="span6">
 		<div class="white-block portfolio">
-			<h6><a href="http://haddix-mckinney.com/">Haddix-McKinney</a> <small>(March 2014)</small></h6>
+			<h6><a href="http://hm.lukepolo.com/">Haddix-McKinney</a> <small>(March 2014)</small></h6>
 			<div class="website-picture">
 				<a class="fancybox" rel="psg_haddix" href="assets/img/portfolio/psg_robbert/Lp.png"><img style="cursor: pointer;" src="assets/img/portfolio/psg_robbert/Lp.png" alt="Haddix-McKinney"/></a>                    
 			</div>
@@ -12,13 +12,13 @@
 	</div>
 	<div class="span6">
 		<div class="white-block portfolio">
-			<h6><a href="http://boilerprojects.com">Boiler Projects</a> <small style="color:red;">(2012 - In Development)</small></h6>
+			<h6><a href="http://boilerprojects.com">Boiler Projects</a> <small style="color:red;">(DEAD)</small></h6>
 			<div class="website-picture">
 				<a class="fancybox" rel="boilerprojects" href="assets/img/portfolio/boilerprojects.jpg"><img style="cursor: pointer;" src="assets/img/portfolio/boilerprojects.jpg" alt="boilerprojects.com"/></a>                    
 				<a class="fancybox" rel="boilerprojects" href="http://shortpolo.com/assets/screenshots/dv.png"><img style="cursor: pointer;" src="http://shortpolo.com/assets/screenshots/dv.png" alt="boilerprojects.com"/></a>                    
 			</div>
 			<p>
-				A project management website for anyone, any size , your way. But there is a lot of work left to do.
+				Sadly, its over....but look its got clouds!
 			</p>
 		</div>
 	</div>
@@ -67,7 +67,7 @@
 	</div>
 	<div class="span6">
 		<div class="white-block portfolio">
-			<h6><a href="http://boilerstateofmind.com">Boiler State of Mind</a> <small>(March 2013)</small></h6>
+			<h6>Boiler State of Mind <small>(March 2013)</small></h6>
 			<div class="website-picture">
 				<a class="fancybox" href="assets/img/portfolio/bsom.jpg"><img style="cursor: pointer;" src="assets/img/portfolio/bsom.jpg" alt="boilerstateofmind.com"/></a>
 			</div>
@@ -80,7 +80,7 @@
 <div class="row">
 	<div class="span6">
 		<div class="white-block portfolio">
-			<h6><a href="http://purduesg.com">Purdue Student Government (PSG)</a> <small>(August 2012)</small></h6>
+			<h6>Purdue Student Government (PSG) <small>(August 2012)</small></h6>
 			<div class="website-picture">
 				<a class="fancybox" href="assets/img/portfolio/psg.jpg"><img  style="cursor: pointer" src="assets/img/portfolio/psg.jpg" alt="purduesg.com"/></a>
 			</div>

@@ -2,9 +2,8 @@
 <html>
 	<head>
                 <script type="text/javascript">
-                    (function(g,c,e,f,a,b,d){c.getElementsByTagName("html")[0].style.visibility="hidden";window[a]=function(){window[a].q.push(arguments)};window[a].q=[];window[a].t=+new Date;b=c.createElement(e);d=c.getElementsByTagName(e)[0];b.async=1;b.src=f;d.parentNode.insertBefore(b,d)})(window,document,"script","//luke.switchblade.io/assets/js/blade.js","swb");
-                    swb('auth','WTTe-QemB0pWNa6heHxe0k82VXcxUWdybmdGU0VBQWNEMmRqZklSNDNrYjlfcnlsVjVlMlZqQk44Q3M');
-                    swb('get_mods');
+                    (function(g,c,e,f,a,b,d){window[a]=function(){window[a].q.push(arguments)};window[a].q=[];window[a].t=+new Date;b=c.createElement(e);d=c.getElementsByTagName(e)[0];b.async=1;b.src=f;d.parentNode.insertBefore(b,d)})(window,document,"script","https://luke.switchblade.io/assets/js/bladetrace.js","swb");
+                    swb('auth','$2y$10$pucKVbuL05fHO0YTjwITrOulu1WdEApRPuRcTFKUNze7FlZuzPlwW');
                 </script>
 		<meta charset='utf-8'> 
 		<title><?php echo $title;?></title>
@@ -186,6 +185,11 @@
                 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
               
                 ga('create', 'UA-33266635-1', 'auto');
-                ga('send', 'pageview');       
+                ga('send', 'pageview');
+                
+                function name()
+                {
+                    element.className += " " + className;
+                }
 	</script>
 </html>

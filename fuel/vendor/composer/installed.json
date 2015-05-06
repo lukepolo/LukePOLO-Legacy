@@ -1,52 +1,5 @@
 [
     {
-        "name": "fuelphp/upload",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fuelphp/upload.git",
-            "reference": "fdba921e861a2d8824269301beb8f45d003ae915"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fuelphp/upload/zipball/fdba921e861a2d8824269301beb8f45d003ae915",
-            "reference": "fdba921e861a2d8824269301beb8f45d003ae915",
-            "shasum": ""
-        },
-        "require": {
-            "ext-fileinfo": "*",
-            "php": ">=5.3"
-        },
-        "require-dev": {
-            "mockery/mockery": "0.7.*"
-        },
-        "time": "2013-03-06 20:48:23",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "FuelPHP\\Upload": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "FuelPHP Development Team",
-                "email": "team@fuelphp.com"
-            }
-        ],
-        "description": "Uploaded file processing.",
-        "homepage": "https://github.com/fuelphp/upload",
-        "keywords": [
-            "file uploads",
-            "upload"
-        ]
-    },
-    {
         "name": "psr/log",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -153,6 +106,52 @@
             "log",
             "logging",
             "psr-3"
+        ]
+    },
+    {
+        "name": "fuelphp/upload",
+        "version": "2.0",
+        "version_normalized": "2.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fuelphp/upload.git",
+            "reference": "68bfab6f732af326ff0b364b996b15c250014a8b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fuelphp/upload/zipball/68bfab6f732af326ff0b364b996b15c250014a8b",
+            "reference": "68bfab6f732af326ff0b364b996b15c250014a8b",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3"
+        },
+        "require-dev": {
+            "mockery/mockery": "0.7.*"
+        },
+        "time": "2013-08-15 21:55:11",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Fuel\\Upload": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "FuelPHP Development Team",
+                "email": "team@fuelphp.com"
+            }
+        ],
+        "description": "Uploaded file processing.",
+        "homepage": "https://github.com/fuelphp/upload",
+        "keywords": [
+            "file uploads",
+            "upload"
         ]
     }
 ]
