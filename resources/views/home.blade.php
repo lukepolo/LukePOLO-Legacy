@@ -6,9 +6,11 @@
     <div class="col-md-9">
         <div class="select-title">
             <h1>Projects</h1>
-            <small>
-                <i class="fa fa-long-arrow-left"></i> You can navigate my site using my "git tree" just click / hover over them
-            </small>
+            <div class="visible-md visible-lg">
+                <small>
+                    <i class="fa fa-long-arrow-left"></i> You can navigate my site using my "git tree" just click / hover over them
+                </small>
+            </div>
             <hr>
         </div>
         @foreach($projects as $project)
