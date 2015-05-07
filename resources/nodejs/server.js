@@ -13,7 +13,7 @@ server.listen(process.env.NODE_SERVER_PORT, function()
 
 var admin_room =  process.env.ADMIN_ROOM;
 var users = {};
-offline_timeout = {};
+var offline_timeout = {};
 
 io.on('connection', function (socket)
 {
@@ -24,7 +24,6 @@ io.on('connection', function (socket)
 
     socket.on('change_location', function (location, user)
     {
-
 
         clearTimeout(offline_timeout[user.session]);
 
@@ -42,10 +41,9 @@ io.on('connection', function (socket)
 
     socket.on('disconnect', function ()
     {
+        socket.leave(users[socket.user]);
         if (socket.user)
         {
-            socket.leave(users[socket.user]);
-
             // Make them offline after a certain point
             offline_timeout[socket.user] = setTimeout(
                 function ()
