@@ -97,12 +97,12 @@ function get_merges()
         {
             if(branch.end_date > this.start_date)
             {
-
                 branch.merge = this.vertical_multiplier;
 
                 merges[branch.name] = branch.merge;
             }
         });
+
         console.log(branch.name  + ' merges @ ' + branch.merge);
     });
 
@@ -117,7 +117,7 @@ function find_merge_conflicts(branch)
 {
 //            console.log('Finding conflicts with ' + branch.name);
 
-    var conflicts = new Array();
+    var conflicts = [];
 
     $.each(branches, function()
     {

@@ -29,6 +29,7 @@
                 <div class="form-group">
                     {!! Form::label('Timeline') !!}
                     <select name="timeline">
+                        <option value="null">None</option>
                         @foreach($timelines as $timeline)
                             @if(empty($project->timeline) === false && $timeline->id == $project->timeline->id)
                                 <option selected="selected" value="{{ $timeline->id }}">{{ $timeline->name }}</option>

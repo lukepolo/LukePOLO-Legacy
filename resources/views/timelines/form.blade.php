@@ -8,10 +8,6 @@
                 {!! Form::text('name', isset($timeline) ? $timeline->name : '' ) !!}
             </div>
             <div class="form-group">
-                {!! Form::label('color', 'Color') !!}
-                {!! Form::text('color', isset($timeline) ? $timeline->color : '') !!}
-            </div>
-            <div class="form-group">
                 {!! Form::label('Start Date') !!}
                 {!! Form::text('start_date', isset($timeline) === true ? $timeline->start_date->format('m-d-Y') : '', ['id' => 'start_date']) !!}
             </div>

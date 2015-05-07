@@ -7,7 +7,6 @@
             <th>Name</th>
             <th>Start Date</th>
             <th>End Date</th>
-            <th>Color</th>
             <th></th>
             </thead>
             <tbody>
@@ -16,7 +15,6 @@
                     <td><a href="{{ action('\App\Http\Controllers\TimelinesController@getEdit', [$timeline->id]) }}">{{ $timeline->name }}</a></td>
                     <td>{{ $timeline->start_date->format('F jS Y g:i A') }}</td>
                     <td>{{ empty($timeline->end_date) === false ? $timeline->end_date->format('F jS Y g:i A') : '' }}</td>
-                    <td>{{ $timeline->color }}</td>
                     <td>
                         <a class="confirm" href="{{ action('\App\Http\Controllers\TimelinesController@getDelete', [$timeline->id]) }}">Delete</a>
                     </td>

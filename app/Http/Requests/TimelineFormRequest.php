@@ -14,7 +14,6 @@ class TimelineFormRequest extends FormRequest
 
         return [
             'name' => 'required|unique:timelines'.$id,
-            'color' => 'required',
             'start_date' => 'required',
             'end_date' => 'required'
         ];
