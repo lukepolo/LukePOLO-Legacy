@@ -224,7 +224,10 @@ function draw()
         draw_curve(start_x, end_y, final_x, end_y + default_y, colors.lines[branch.horizontal_multiplier]);
 
         // Draw the Branch Starting Circle
-        draw_circle(start_x, start_y, get_analogous(colors.lines[branch.horizontal_multiplier]), branch.id);
+        if(!branch.timeline)
+        {
+            draw_circle(start_x, start_y, get_analogous(colors.lines[branch.horizontal_multiplier]), branch.id);
+        }
     });
 
     render_circles();
