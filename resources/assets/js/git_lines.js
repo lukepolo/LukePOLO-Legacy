@@ -13,7 +13,6 @@ function new_branch(id, name, start_date, end_date, timeline)
     });
 }
 
-
 // Put timelines into branches
 function get_timelines()
 {
@@ -94,7 +93,6 @@ function get_merges()
     // Get the proper merge levels
     $.each(branches, function(branch_index, branch)
     {
-        branch_index = 0;
         $.each(branches, function()
         {
             if(branch.end_date > this.start_date)
@@ -105,7 +103,7 @@ function get_merges()
                 merges[branch.name] = branch.merge;
             }
         });
-        //console.log(branch.name  + ' merges @ ' + branch.merge);
+        console.log(branch.name  + ' merges @ ' + branch.merge);
     });
 
     $.each(branches, function()
@@ -268,8 +266,6 @@ function draw_circle(x, y, color, id)
 
 function render_circles()
 {
-    var color = tinycolor.random().toHexString();
-
     $.each(circles, function()
     {
         projects.circle(this.x, this.y , this.r).attr({
