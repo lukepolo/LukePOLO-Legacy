@@ -103,7 +103,7 @@ function get_merges()
             }
         });
 
-        console.log(branch.name  + ' merges @ ' + branch.merge);
+        //console.log(branch.name  + ' merges @ ' + branch.merge);
     });
 
     $.each(branches, function()
