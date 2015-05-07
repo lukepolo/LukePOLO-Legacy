@@ -2,7 +2,6 @@
 @section('content')
     <div class="col-md-3 visible-md visible-lg">
         <svg id="git_tree"></svg>
-
     </div>
     <div class="col-md-9">
         <div class="select-title">
@@ -48,95 +47,29 @@
                 <div class="project-html">
                     {!! $project->html !!}
                 </div>
-
             </div>
         @endforeach
     </div>
-    <script>
-
-
-
-        $(document).on('click', 'circle', function()
-        {
-            if($('#'+$(this).data('project_id')).length != 0)
-            {
-                hide_details();
-                show_project($(this).data('project_id'));
-            }
-        });
-
-
-        $(document).on('mouseover', 'circle', function()
-        {
-            var project = $('div[data-project_id="'+ $(this).data('project_id') +'"]').closest('.project');
-            project.css('opacity', 1);
-        });
-
-        $(document).on('mouseout', 'circle', function()
-        {
-            var project = $('div[data-project_id="'+ $(this).data('project_id') +'"]').closest('.project');
-            project.css('opacity', '');
-        });
-
+    <script type="text/javascript">
         var projects;
+
+        // INIT Arrays
         var circles = [];
-
-        var timelines = {};
-        var merge_levels = new Array();
-        var merges= {};
-
+        var merge_levels = [];
         var branches = [];
 
+        // INIT Objects
+        var timelines = {};
+        var merges= {};
+        var ag_colors = {};
+        var colors = {};
+
+        // Set default Variables
         var default_x = 35;
         var default_y = 25;
         var default_r = 14;
         var big_r = 27;
-
         var vertical_multiplier = 0;
-
-        var ag_colors = {};
-
-        var colors = {};
-
-        $(document).on('click', '.img-holder', function()
-        {
-            show_project($(this).data('project_id'));
-        });
-
-        function show_project(id)
-        {
-            $('.select-title, .project').hide();
-            $('#'+id).show();
-            $('body,html').scroll();
-            scroll_to_mini_bar();
-        }
-
-        var small_bar = $('.mini-bar');
-        function scroll_to_mini_bar()
-        {
-            if(small_bar.visible() == false)
-            {
-                $('html, body').animate({
-                    scrollTop: small_bar.offset().top
-                }, 200);
-            }
-        }
-
-        function hide_details()
-        {
-            $('.project-details').hide()
-        }
-
-        function show_projects()
-        {
-            $('.projects').css('opacity', '');
-            $('.select-title, .project').show();
-        }
-        $(document).on('click', '.show_projects', function()
-        {
-            show_projects();
-            hide_details();
-        });
 
         $(document).ready(function()
         {
@@ -190,7 +123,6 @@
                 elem.mouseover(function()
                 {
                     this.animate({
-                        //fill: tinycolor($(this.node).attr('fill')).darken(10).toHexString(),
                         fill: '#FFFFFF',
                         r: big_r,
                         strokeOpacity: 1
