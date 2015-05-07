@@ -107,6 +107,7 @@
         {
             $('.select-title, .project').hide();
             $('#'+id).show();
+            $('body,html').scroll();
             scroll_to_mini_bar();
         }
 
