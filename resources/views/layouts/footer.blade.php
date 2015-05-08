@@ -21,8 +21,4 @@
         }
     @endif
     var socket = io.connect('{{ url("/") }}:{{ env("NODE_SERVER_PORT") }}');
-    socket.on('user-join', function(data)
-    {
-        console.log(data);
-    });
 </script>
