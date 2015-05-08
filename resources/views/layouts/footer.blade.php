@@ -21,19 +21,6 @@
         }
     @endif
     var socket = io.connect('{{ url("/") }}:{{ env("NODE_SERVER_PORT") }}');
-
-    @if(\Auth::check()  && \Auth::user()->role == 'admin')
-        socket.emit('change_location', '{{ \Request::url() }}', {
-            session : '{{ \Session::getId() }}',
-            admin : true
-        });
-    @else
-        socket.emit('change_location', '{{ \Request::url() }}', {
-            session : '{{ \Session::getId() }}'
-        });
-    @endif
-
-
     socket.on('user-join', function(data)
     {
         console.log(data);
