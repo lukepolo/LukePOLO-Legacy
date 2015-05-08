@@ -25,20 +25,23 @@ var offline_timeout = {};
 
 io.on('connection', function (client)
 {
-    var session_id = decryptCookie(cookie.parse(client.request.headers.cookie).lukepolo_session);
-    clearTimeout(offline_timeout[session_id]);
-
-    var url = client.request.headers.referer;
-
-    client.join(url);
-
-    users[session_id] = url;
-
-    if(io.sockets.adapter.rooms.hasOwnProperty(admin_room))
+    if(client.request.connection.remoteAddress)
     {
-        io.to(admin_room).emit('users', users);
-    }
+        console.log();
+        var session_id = decryptCookie(cookie.parse(client.request.headers.cookie).lukepolo_session);
+        clearTimeout(offline_timeout[session_id]);
 
+        var url = client.request.headers.referer;
+
+        client.join(url);
+
+        users[session_id] = url;
+
+        if (io.sockets.adapter.rooms.hasOwnProperty(admin_room))
+        {
+            io.to(admin_room).emit('users', users);
+        }
+    }
     client.on('get_users', function()
     {
         io.to(admin_room).emit('users', users);
