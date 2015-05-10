@@ -42,6 +42,13 @@ class AdminController extends Controller
         return response()->json($analytics);
     }
 
+    public function getPopularPages()
+    {
+        $visitors =  \LaravelAnalytics::getMostVisitedPagesForPeriod(new \DateTime('2015-05-06 00:00:00'), new \DateTime());
+
+        return response()->json($visitors);
+    }
+
     public function postMarkRead()
     {
         $comment = Comment::find(\Request::get('comment_id'));
