@@ -25,7 +25,7 @@ paths = {
     'js' : resources_path+'/assets/js/',
     'img': resources_path+'assets/img/',
     // Vendor Paths
-    'jquery' : bower_path + 'jquery/dist/',
+    'jquery' : bower_path + 'jquery/',
     'jquery_ui' : bower_path + 'jquery-ui/',
     'bootstrap' : bower_path + 'bootstrap-sass/assets/',
     'fontawesome' : bower_path + 'fontawesome/',
