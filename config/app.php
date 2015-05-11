@@ -164,8 +164,6 @@ return [
          */
         'App\Providers\SettingsServiceProvider',
         'App\Providers\EmitterServiceProvider',
-
-
 	],
 
 	/*
@@ -180,7 +178,6 @@ return [
 	*/
 
 	'aliases' => [
-
 		'App'       => 'Illuminate\Support\Facades\App',
 		'Artisan'   => 'Illuminate\Support\Facades\Artisan',
 		'Auth'      => 'Illuminate\Support\Facades\Auth',
@@ -221,10 +218,8 @@ return [
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'GAMP'  => 'Irazasyed\LaravelGAMP\Facades\GAMP',
-        'Agent'            => 'Jenssegers\Agent\Facades\Agent',
         'LaravelAnalytics' => 'Spatie\LaravelAnalytics\LaravelAnalyticsFacade',
         'Socialize' => 'Laravel\Socialite\Facades\Socialite',
-
 
         /*
          * Custom Aliases
