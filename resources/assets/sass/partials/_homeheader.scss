@@ -1,12 +1,37 @@
 .home-header {
+
   text-align: center;
   background-color: rgb(54, 134, 190);
+
+  .logo-text {
+    padding-top: 20px;
+    font-size: 120px;
+    @media(max-width:768px) {
+      font-size: 60px;
+    }
+    color: #FFFFFF;
+    line-height: 1em;
+    margin:0;
+  }
+
+  .logo-sub-text {
+    font-size:60px;
+    @media(max-width:768px) {
+      font-size: 30px;
+    }
+    font-weight: 100;
+    font-style:normal;
+    color: #FFFFFF;
+    margin:0;
+    line-height: 1em;
+  }
+
   .words {
     display: inline;
     font-weight: bolder;
 
     span {
-      margin-top: 7px;
+      margin-top: 3px;
       position: absolute;
       opacity: 0;
       overflow: hidden;
@@ -24,14 +49,6 @@
     span:nth-child(4) {
       animation-delay: 9s;
     }
-  }
-
-  .logo-sub-text {
-    font-size:60px;
-    font-weight: 100;
-    font-style:normal;
-    color: #FFFFFF;
-    margin:0;
   }
 }
 
