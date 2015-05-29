@@ -13,7 +13,6 @@ function new_branch(id, name, start_date, end_date, timeline)
     });
 }
 
-
 // Put timelines into branches
 function get_timelines()
 {
@@ -94,17 +93,16 @@ function get_merges()
     // Get the proper merge levels
     $.each(branches, function(branch_index, branch)
     {
-        branch_index = 0;
         $.each(branches, function()
         {
             if(branch.end_date > this.start_date)
             {
-
                 branch.merge = this.vertical_multiplier;
 
                 merges[branch.name] = branch.merge;
             }
         });
+
         //console.log(branch.name  + ' merges @ ' + branch.merge);
     });
 
@@ -119,7 +117,7 @@ function find_merge_conflicts(branch)
 {
 //            console.log('Finding conflicts with ' + branch.name);
 
-    var conflicts = new Array();
+    var conflicts = [];
 
     $.each(branches, function()
     {
@@ -226,7 +224,10 @@ function draw()
         draw_curve(start_x, end_y, final_x, end_y + default_y, colors.lines[branch.horizontal_multiplier]);
 
         // Draw the Branch Starting Circle
-        draw_circle(start_x, start_y, get_analogous(colors.lines[branch.horizontal_multiplier]), branch.id);
+        if(!branch.timeline)
+        {
+            draw_circle(start_x, start_y, get_analogous(colors.lines[branch.horizontal_multiplier]), branch.id);
+        }
     });
 
     render_circles();
@@ -268,8 +269,6 @@ function draw_circle(x, y, color, id)
 
 function render_circles()
 {
-    var color = tinycolor.random().toHexString();
-
     $.each(circles, function()
     {
         projects.circle(this.x, this.y , this.r).attr({

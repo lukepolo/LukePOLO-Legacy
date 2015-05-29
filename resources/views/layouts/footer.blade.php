@@ -1,10 +1,10 @@
 <footer class="footer">
     <div class="container">
-        <div class="col-md-2 col-md-offset-2">
+        <div class="col-md-2 col-md-offset-3">
         </div>
         <div class="col-md-2">
             <a target="_blank" href="https://www.digitalocean.com/">
-                <img src="http://lukepolo.com/assets/img/digital_ocean/digitalocean-badge-white.png?1424209025">
+                <img src="/img/digitalocean-badge-white.png">
             </a>
         </div>
         <div class="col-md-2">
@@ -21,21 +21,4 @@
         }
     @endif
     var socket = io.connect('{{ url("/") }}:{{ env("NODE_SERVER_PORT") }}');
-
-    @if(\Auth::check()  && \Auth::user()->role == 'admin')
-        socket.emit('change_location', '{{ \Request::url() }}', {
-            session : '{{ \Session::getId() }}',
-            admin : true
-        });
-    @else
-        socket.emit('change_location', '{{ \Request::url() }}', {
-            session : '{{ \Session::getId() }}'
-        });
-    @endif
-
-
-    socket.on('user-join', function(data)
-    {
-        console.log(data);
-    });
 </script>

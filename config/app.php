@@ -39,7 +39,7 @@ return [
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'America/Indianapolis',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,9 +78,9 @@ return [
 	|
 	*/
 
-	'key' => env('APP_KEY', 'SomeRandomString'),
+	'key' => 'Hm#s.yLK3@rT3z89>^4XX)$Rsqwp,+=z',
 
-	'cipher' => MCRYPT_RIJNDAEL_128,
+	'cipher' => MCRYPT_RIJNDAEL_256,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -164,8 +164,6 @@ return [
          */
         'App\Providers\SettingsServiceProvider',
         'App\Providers\EmitterServiceProvider',
-
-
 	],
 
 	/*
@@ -180,7 +178,6 @@ return [
 	*/
 
 	'aliases' => [
-
 		'App'       => 'Illuminate\Support\Facades\App',
 		'Artisan'   => 'Illuminate\Support\Facades\Artisan',
 		'Auth'      => 'Illuminate\Support\Facades\Auth',
@@ -221,10 +218,8 @@ return [
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'GAMP'  => 'Irazasyed\LaravelGAMP\Facades\GAMP',
-        'Agent'            => 'Jenssegers\Agent\Facades\Agent',
         'LaravelAnalytics' => 'Spatie\LaravelAnalytics\LaravelAnalyticsFacade',
         'Socialize' => 'Laravel\Socialite\Facades\Socialite',
-
 
         /*
          * Custom Aliases

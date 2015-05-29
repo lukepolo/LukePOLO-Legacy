@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    @if(env('APP_ENV') == 'production')
+        <script type="text/javascript">
+            (function(g,c,e,f,a){window[a]=function(){window[a].q.push(arguments)};window[a].q=[];b=c.createElement(e);d=c.getElementsByTagName(e)[0];b.async=1;b.src=f;d.parentNode.insertBefore(b,d)})(window,document,"script","//luke.switchblade.io/assets/js/blade.js","swb");
+            swb('auth','$2y$10$pucKVbuL05fHO0YTjwITrOulu1WdEApRPuRcTFKUNze7FlZuzPlwW');
+        </script>
+    @endif
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">

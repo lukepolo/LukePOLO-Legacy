@@ -32,3 +32,20 @@
   }
 }
 
+
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #FFFFFF;
+}
+
+.navbar-default .navbar-toggle {
+
+  background-color: transparent;
+  border-color: transparent;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}

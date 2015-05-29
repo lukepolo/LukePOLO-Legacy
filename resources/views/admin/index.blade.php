@@ -67,6 +67,16 @@
                 <div class="visitor-chart" class="panel-body">
                     <canvas id="chart"></canvas>
                 </div>
+                <div class="popular-pages">
+                    <table class="table table-striped">
+                        <thead>
+                        <th>URL</th>
+                        <th>Views</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -203,6 +213,13 @@
             {
                 mark_read($(this).data('id'));
                 update_count();
+            });
+            $.get("{{ action('\App\Http\Controllers\AdminController@getPopularPages') }}", function(popular_pages)
+            {
+                $.each(popular_pages, function()
+                {
+                    $('.popular-pages table tbody').append('<tr><td><a target="_blank" href="'+ this.url +'">' + this.url + '</a></td><td>' + this.pageViews + '</td></tr>');
+                });
             });
 
             $.get("{{ action('\App\Http\Controllers\AdminController@getVisits') }}", function(visits)

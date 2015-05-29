@@ -7,7 +7,7 @@
                 <th>Draft</th>
                 <th>Created At</th>
                 <th>Updated At</th>
-                <th>Link</th>
+                <th>Preview</th>
                 <th></th>
             </thead>
             <tbody>
@@ -32,7 +32,9 @@
                         {{ $blog->updated_at }}
                     </td>
                     <td>
-                        {{ $blog->link_name }}
+                        <a href="{{ action('\App\Http\Controllers\BlogController@getView', [$blog->link_name]) }}">
+                            {{ $blog->link_name }}
+                        </a>
                     </td>
                     <td>
                         <a class="confirm" href="{{ action('\App\Http\Controllers\BlogController@getDelete', [$blog->id]) }}">Delete</a>

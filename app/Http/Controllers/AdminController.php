@@ -10,7 +10,7 @@ class AdminController extends Controller
     public function getIndex()
     {
         return view('admin.index', [
-            'comments' => Comment::with('blog')->whereNull('been_moderated')->get()
+            'comments' => Comment::with('blog')->where('user_id', '!=', \Auth::user()->id)->whereNull('been_moderated')->get()
         ]);
     }
 
@@ -40,6 +40,13 @@ class AdminController extends Controller
         }
 
         return response()->json($analytics);
+    }
+
+    public function getPopularPages()
+    {
+        $visitors =  \LaravelAnalytics::getMostVisitedPagesForPeriod(new \DateTime('2015-05-06 00:00:00'), new \DateTime(), 10);
+
+        return response()->json($visitors);
     }
 
     public function postMarkRead()

@@ -11,7 +11,7 @@
                 <div class="blog">
                     <div class="row">
                         <h1 class="blog-name">
-                            { {{ $blog->name  }}
+                            <a href="{{ action('\App\Http\Controllers\BlogController@getView', [$blog->link_name]) }}">{ {{ $blog->name  }}</a>
                         </h1>
                         <small>{{ $blog->created_at->format('F jS Y g:i A') }}</small>
                         <div class="technologies">
