@@ -6,17 +6,22 @@
     <div class="col-md-9">
         <div class="select-title">
             <h1>Projects</h1>
-            <div class="visible-md visible-lg">
+            <div>
                 <small>
-                    <i class="fa fa-long-arrow-left"></i> You can navigate my site using my "git tree" just click / hover over them
+                    <span class="visible-md visible-lg">
+                        <i class="fa fa-long-arrow-left"></i> You can navigate my site using my "git tree" just click / hover over them
+                    </span>
+                    <span class="visible-sm visible-xs">
+                       Click on the images to find out more
                 </small>
             </div>
             <hr>
         </div>
+
         @foreach($projects as $project)
             <div class="project">
                 <div class="col-md-6 img-holder" data-project_id="{{ $project->id }}">
-                    <img class="img-responsive " src="{{ $project->project_image }}">
+                    <img class="img-responsive" src="{{ GlideImage::load(str_replace('/img/screenshots/', '', $project->project_image), ['w' => 390, 'blah' => '']) }}">
                 </div>
             </div>
             <div class="project-details" id="{{ $project->id }}">
@@ -52,100 +57,101 @@
             </div>
         @endforeach
     </div>
-    <script type="text/javascript">
-        var projects;
+    @if(!Agent::isMobile())
+        <script type="text/javascript">
+            var projects;
 
-        // INIT Arrays
-        var circles = [];
-        var merge_levels = [];
-        var branches = [];
+            // INIT Arrays
+            var circles = [];
+            var merge_levels = [];
+            var branches = [];
 
-        // INIT Objects
-        var timelines = {};
-        var merges= {};
-        var ag_colors = {};
-        var colors = {};
+            // INIT Objects
+            var timelines = {};
+            var merges= {};
+            var ag_colors = {};
+            var colors = {};
 
-        // Set default Variables
-        var default_x = 35;
-        var default_y = 25;
-        var default_r = 14;
-        var big_r = 27;
-        var vertical_multiplier = 0;
+            // Set default Variables
+            var default_x = 35;
+            var default_y = 25;
+            var default_r = 14;
+            var big_r = 27;
+            var vertical_multiplier = 0;
 
-        $(document).ready(function()
-        {
-            $("img.lazy").lazyload();
-            projects = Snap("#git_tree");
-
-            // http://paletton.com/#uid=70f0u0ke9vf4TW49xJliLoCnugw
-            colors['lines'] = {};
-            colors.lines['0'] = 'rgb(249, 170, 139)';
-            colors.lines['1'] = 'rgb(249, 202, 139)';
-            colors.lines['2'] = 'rgb(94, 131, 160)';
-            colors.lines['3'] = 'rgb(95, 171, 138)';
-            colors.lines['4'] = 'rgb(196, 114, 81)';
-            colors.lines['5'] = 'rgb(255, 223, 179)';
-
-            @foreach($projects->reverse() as $project)
-                @if(empty($project->timeline) === false)
-                    new_branch("{{ $project->id }}", "{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "{{ $project->timeline->id }}");
-                    timelines["{{ $project->timeline->id }}"] = {
-                        id : "{{ $project->timeline->id }}",
-                        timeline_id: "{{ $project->timeline->id }}",
-                        name: "{{ $project->timeline->name }}",
-                        start_date: "{{ $project->timeline->start_date->timestamp }}",
-                        end_date: "{{ empty($project->timeline->end_date) === false ? $project->timeline->end_date->timestamp : '' }}",
-                        horizontal_multiplier: 1,
-                        vertical_multiplier: 0,
-                        timeline: true
-                    };
-                @else
-                    new_branch("{{ $project->id }}", "{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "");
-                @endif
-            @endforeach
-
-            get_timelines();
-
-            draw();
-
-            var curves = projects.paper.g(projects.paper.selectAll('.curves'));
-            var lines = projects.paper.g(projects.paper.selectAll('.lines'));
-            var circles = projects.paper.g(projects.paper.selectAll('circle'));
-            var flip_matrix = new Snap.Matrix().scale(1, -1).translate(0, -$('#git_tree').height());
-
-            curves.transform(flip_matrix);
-            lines.transform(flip_matrix);
-            circles.transform(flip_matrix);
-
-            projects.paper.selectAll('circle').forEach(function(elem)
+            $(document).ready(function()
             {
-                $(elem.node).attr('old_color', $(elem.node).attr('fill'));
+                projects = Snap("#git_tree");
 
-                elem.mouseover(function()
-                {
-                    this.animate({
-                        fill: '#FFFFFF',
-                        r: big_r,
-                        strokeOpacity: 1
-                    },
-                    200,
-                    mina.easeinout);
-                });
+                // http://paletton.com/#uid=70f0u0ke9vf4TW49xJliLoCnugw
+                colors['lines'] = {};
+                colors.lines['0'] = 'rgb(249, 170, 139)';
+                colors.lines['1'] = 'rgb(249, 202, 139)';
+                colors.lines['2'] = 'rgb(94, 131, 160)';
+                colors.lines['3'] = 'rgb(95, 171, 138)';
+                colors.lines['4'] = 'rgb(196, 114, 81)';
+                colors.lines['5'] = 'rgb(255, 223, 179)';
 
-                elem.mouseout(function()
+                @foreach($projects->reverse() as $project)
+                    @if(empty($project->timeline) === false)
+                        new_branch("{{ $project->id }}", "{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "{{ $project->timeline->id }}");
+                        timelines["{{ $project->timeline->id }}"] = {
+                            id : "{{ $project->timeline->id }}",
+                            timeline_id: "{{ $project->timeline->id }}",
+                            name: "{{ $project->timeline->name }}",
+                            start_date: "{{ $project->timeline->start_date->timestamp }}",
+                            end_date: "{{ empty($project->timeline->end_date) === false ? $project->timeline->end_date->timestamp : '' }}",
+                            horizontal_multiplier: 1,
+                            vertical_multiplier: 0,
+                            timeline: true
+                        };
+                    @else
+                        new_branch("{{ $project->id }}", "{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "");
+                    @endif
+                @endforeach
+
+                get_timelines();
+
+                draw();
+
+                var curves = projects.paper.g(projects.paper.selectAll('.curves'));
+                var lines = projects.paper.g(projects.paper.selectAll('.lines'));
+                var circles = projects.paper.g(projects.paper.selectAll('circle'));
+                var flip_matrix = new Snap.Matrix().scale(1, -1).translate(0, -$('#git_tree').height());
+
+                curves.transform(flip_matrix);
+                lines.transform(flip_matrix);
+                circles.transform(flip_matrix);
+
+                projects.paper.selectAll('circle').forEach(function(elem)
                 {
-                    this.animate({
-                        fill: $(this.node).attr('old_color'),
-                        r: default_r,
-                        strokeOpacity: .3
-                    },
-                    200,
-                    mina.easeinout);
+                    $(elem.node).attr('old_color', $(elem.node).attr('fill'));
+
+                    elem.mouseover(function()
+                    {
+                        this.animate({
+                            fill: '#FFFFFF',
+                            r: big_r,
+                            strokeOpacity: 1
+                        },
+                        200,
+                        mina.easeinout);
+                    });
+
+                    elem.mouseout(function()
+                    {
+                        this.animate({
+                            fill: $(this.node).attr('old_color'),
+                            r: default_r,
+                            strokeOpacity: .3
+                        },
+                        200,
+                        mina.easeinout);
+                    });
                 });
             });
-        });
-    </script>
+        </script>
+    @endif
 @endsection
 
 

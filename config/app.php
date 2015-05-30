@@ -158,6 +158,8 @@ return [
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Spatie\LaravelAnalytics\LaravelAnalyticsServiceProvider',
         'SocialiteProviders\Manager\ServiceProvider',
+        'Jenssegers\Agent\AgentServiceProvider',
+        'Spatie\Glide\GlideServiceProvider',
 
         /*
          * Custom Service Providers
@@ -220,6 +222,8 @@ return [
         'GAMP'  => 'Irazasyed\LaravelGAMP\Facades\GAMP',
         'LaravelAnalytics' => 'Spatie\LaravelAnalytics\LaravelAnalyticsFacade',
         'Socialize' => 'Laravel\Socialite\Facades\Socialite',
+        'Agent' => 'Jenssegers\Agent\Facades\Agent',
+        'GlideImage' => 'Spatie\Glide\GlideImageFacade',
 
         /*
          * Custom Aliases

@@ -41,7 +41,8 @@ paths = {
     'timeago' : bower_path + 'jquery-timeago/',
     'owl' : bower_path + 'owl.carousel/dist/',
     'sisyphus' : bower_path + 'sisyphus/',
-    'lazyload' : bower_path + 'jquery.lazyload/'
+    'lazyload' : bower_path + 'jquery.lazyload/',
+    'fastclick' : bower_path + 'fastclick/lib/'
  };
 
 // Minify JS
@@ -59,6 +60,7 @@ elixir.extend('minify_js', function()
                 paths.select2 + 'js/select2.js',
                 paths.owl + 'owl.carousel.js',
                 paths.lazyload + 'jquery.lazyload.js',
+                paths.fastclick + 'fastclick.js',
                 paths.js+ '**',
             ],
             {
@@ -81,6 +83,7 @@ elixir.extend('minify_js', function()
                     paths.chartjs + 'Chart.js',
                     paths.owl + 'owl.carousel.js',
                     paths.sisyphus + 'sisyphus.js',
+                    paths.fastclick + 'fastclick.js',
                     paths.js+ '**',
                 ],
                 {

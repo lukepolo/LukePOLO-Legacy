@@ -14,8 +14,6 @@ class VerifyCsrfToken extends BaseVerifier {
 	 */
 	public function handle($request, Closure $next)
 	{
-        \DB::connection('mongodb')->enableQueryLog();
-
 		return parent::handle($request, $next);
 	}
 
