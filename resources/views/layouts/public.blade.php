@@ -54,6 +54,9 @@
         <script>
             $(document).ready(function()
             {
+                $("img.lazy").lazyload();
+                FastClick.attach(document.body);
+
                 $('iframe[src*="youtube.com"]').wrap('<div class="youtubeWrapper" />');
 
                 $('.owl-carousel').owlCarousel({

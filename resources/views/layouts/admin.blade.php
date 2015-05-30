@@ -42,6 +42,8 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
+        FastClick.attach(document.body);
+
         // Passes the XSRF-TOKEN to PHP
         $(function() {
             $.ajaxSetup({
