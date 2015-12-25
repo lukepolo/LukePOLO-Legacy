@@ -17,4 +17,9 @@ class Project extends \Moloquent
     {
         return $this->belongsTo('\App\Models\Mongo\Timeline');
     }
+    
+    public function technologies()
+    {
+        return $this->hasMany(\App\Models\Mongo\Technology::class);
+    }
 }
