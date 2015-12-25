@@ -121,10 +121,11 @@
             {
                 // Minus one because we know that is me!
                 var user_count = Object.keys(users).length - 1;
-                $('.active-users').html(user_count);
 
                 if(user_count > 0)
                 {
+                    $('.active-users').html(user_count);
+                    
                     var locations = {};
                     $.each(users, function (session_id, location)
                     {
@@ -142,6 +143,7 @@
                     });
 
                     $('.active-user-locations table tbody').children().remove();
+                    
                     $.each(locations, function (location, user_count)
                     {
                         $('.active-user-locations table tbody').append('<tr>' +

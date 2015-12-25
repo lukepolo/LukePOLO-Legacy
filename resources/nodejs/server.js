@@ -8,9 +8,14 @@ var port = process.env.NODE_SERVER_PORT,
 redis = require('redis'),
 cookie = require('cookie'),
 MCrypt = require('mcrypt').MCrypt,
-PHPUnserialize = require('php-unserialize');
+PHPUnserialize = require('php-unserialize'),
+fs = require('fs');
 
-server = require('http').createServer();
+server = require('https').createServer({
+    key:    fs.readFileSync('/etc/letsencrypt/live/lukepolo.com/privkey.pem'),
+    cert:   fs.readFileSync('/etc/letsencrypt/live/lukepolo.com/cert.pem'),
+});
+
 io = require('socket.io')(server);
 
 server.listen(port, function()
@@ -27,7 +32,6 @@ io.on('connection', function (client)
 {
     if(client.request.connection.remoteAddress)
     {
-        console.log();
         var session_id = decryptCookie(cookie.parse(client.request.headers.cookie).lukepolo_session);
         clearTimeout(offline_timeout[session_id]);
 
@@ -42,6 +46,7 @@ io.on('connection', function (client)
             io.to(admin_room).emit('users', users);
         }
     }
+    
     client.on('get_users', function()
     {
         io.to(admin_room).emit('users', users);

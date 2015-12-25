@@ -7,7 +7,7 @@
 
     <title>{{ @isset($title) === true ? $title : '{ LukePOLO' }}</title>
 
-    <link href='http://fonts.googleapis.com/css?family=Josefin+Slab:100,400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Josefin+Slab:100,400,700' rel='stylesheet' type='text/css'>
 
     <link href="/css/app.css" rel="stylesheet">
 
