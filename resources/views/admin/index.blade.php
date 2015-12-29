@@ -154,6 +154,7 @@
                 }
                 else
                 {
+                $('.active-users').html(0);
                     $('.active-user-locations table tbody').html('<td colspan="2" class="text-center"><h3>No users currently online!<h3></td>');
                 }
             });
