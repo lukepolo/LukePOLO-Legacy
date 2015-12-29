@@ -12,7 +12,7 @@ class Emitter
 
     public function __construct()
     {
-        $this->client = new Client(new Version1X(url().':'.env('NODE_SERVER_PORT')));
+        $this->client = new Client(new Version1X(env('NODE_SERVER_URL', url()).':'.env('NODE_SERVER_PORT')));
         $this->client->initialize();
     }
 

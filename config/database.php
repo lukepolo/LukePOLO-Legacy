@@ -47,7 +47,7 @@ return [
 	'connections' => [
         'mongodb' => [
             'driver'   => 'mongodb',
-            'host'     => '127.0.0.1',
+            'host'     => env('MONGO_SERVER', '127.0.0.1'),
             'port'     => 27017,
             'database' => env('MONGO_DB'),
             'username' => env('DB_USER'),

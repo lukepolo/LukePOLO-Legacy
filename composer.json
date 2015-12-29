@@ -13,7 +13,6 @@
 		"barryvdh/laravel-ide-helper": "~2.0",
         "laravelcollective/html": "~5.0",
         "predis/predis": "~1.1@dev",
-        "filp/whoops": "~1.0.",
         "jenssegers/agent": "~2.1",
         "wisembly/elephant.io": "~3.0",
         "spatie/laravel-analytics": "~1.0",

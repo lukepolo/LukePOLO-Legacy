@@ -1,7 +1,7 @@
 <?php
 /**
- * An helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.0.32 on 2015-05-29.
+ * A helper file for Laravel 5, to provide autocomplete information to your IDE
+ * Generated for Laravel 5.0.34 on 2015-12-29.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -5817,7 +5817,7 @@ namespace {
          * @param array $cookies The COOKIE parameters
          * @param array $files The FILES parameters
          * @param array $server The SERVER parameters
-         * @param string $content The raw body data
+         * @param string|resource $content The raw body data
          * @api 
          * @static 
          */
@@ -8476,7 +8476,7 @@ namespace {
          * @param array $cookies The COOKIE parameters
          * @param array $files The FILES parameters
          * @param array $server The SERVER parameters
-         * @param string $content The raw body data
+         * @param string|resource $content The raw body data
          * @api 
          * @static 
          */
@@ -10172,6 +10172,30 @@ namespace {
     class Schema extends \Illuminate\Support\Facades\Schema{
         
         /**
+         * Determine if the given table has a given column.
+         *
+         * @param string $table
+         * @param string $column
+         * @return bool 
+         * @static 
+         */
+        public static function hasColumn($table, $column){
+            return \Jenssegers\Mongodb\Schema\Builder::hasColumn($table, $column);
+        }
+        
+        /**
+         * Determine if the given table has given columns.
+         *
+         * @param string $table
+         * @param array $columns
+         * @return bool 
+         * @static 
+         */
+        public static function hasColumns($table, $columns){
+            return \Jenssegers\Mongodb\Schema\Builder::hasColumns($table, $columns);
+        }
+        
+        /**
          * Determine if the given collection exists.
          *
          * @param string $collection
@@ -10238,32 +10262,6 @@ namespace {
          */
         public static function drop($collection){
             return \Jenssegers\Mongodb\Schema\Builder::drop($collection);
-        }
-        
-        /**
-         * Determine if the given table has a given column.
-         *
-         * @param string $table
-         * @param string $column
-         * @return bool 
-         * @static 
-         */
-        public static function hasColumn($table, $column){
-            //Method inherited from \Illuminate\Database\Schema\Builder            
-            return \Jenssegers\Mongodb\Schema\Builder::hasColumn($table, $column);
-        }
-        
-        /**
-         * Determine if the given table has given columns.
-         *
-         * @param string $table
-         * @param array $columns
-         * @return bool 
-         * @static 
-         */
-        public static function hasColumns($table, $columns){
-            //Method inherited from \Illuminate\Database\Schema\Builder            
-            return \Jenssegers\Mongodb\Schema\Builder::hasColumns($table, $columns);
         }
         
         /**
@@ -12464,6 +12462,17 @@ namespace {
     class LaravelAnalytics extends \Spatie\LaravelAnalytics\LaravelAnalyticsFacade{
         
         /**
+         * Set the siteId.
+         *
+         * @param string $siteId
+         * @return $this 
+         * @static 
+         */
+        public static function setSiteId($siteId){
+            return \Spatie\LaravelAnalytics\LaravelAnalytics::setSiteId($siteId);
+        }
+        
+        /**
          * Get the amount of visitors and pageViews.
          *
          * @param int $numberOfDays
@@ -12576,7 +12585,7 @@ namespace {
         }
         
         /**
-         * Get the number of active users currently on the site
+         * Get the number of active users currently on the site.
          *
          * @param array $others
          * @return int 
@@ -12676,7 +12685,7 @@ namespace {
         }
         
         /**
-         * Format the Twitter server configuration.
+         * Format the server configuration.
          *
          * @param array $config
          * @return array 
@@ -12814,10 +12823,33 @@ namespace {
         }
         
         /**
+         * Check if the device is a mobile phone.
+         *
+         * @param string $userAgent deprecated
+         * @param array $httpHeaders deprecated
+         * @return bool 
+         * @static 
+         */
+        public static function isPhone($userAgent = null, $httpHeaders = null){
+            return \Jenssegers\Agent\Agent::isPhone($userAgent, $httpHeaders);
+        }
+        
+        /**
+         * Get the robot name.
+         *
+         * @param string $userAgent
+         * @return string 
+         * @static 
+         */
+        public static function robot($userAgent = null){
+            return \Jenssegers\Agent\Agent::robot($userAgent);
+        }
+        
+        /**
          * Check if device is a robot.
          *
          * @param string $userAgent
-         * @return boolean 
+         * @return bool 
          * @static 
          */
         public static function isRobot($userAgent = null){
@@ -12908,6 +12940,30 @@ namespace {
         public static function getUaHttpHeaders(){
             //Method inherited from \Mobile_Detect            
             return \Jenssegers\Agent\Agent::getUaHttpHeaders();
+        }
+        
+        /**
+         * Set CloudFront headers
+         * http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/header-caching.html#header-caching-web-device
+         *
+         * @param array $cfHeaders List of HTTP headers
+         * @return boolean If there were CloudFront headers to be set
+         * @static 
+         */
+        public static function setCfHeaders($cfHeaders = null){
+            //Method inherited from \Mobile_Detect            
+            return \Jenssegers\Agent\Agent::setCfHeaders($cfHeaders);
+        }
+        
+        /**
+         * Retrieves the cloudfront headers.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getCfHeaders(){
+            //Method inherited from \Mobile_Detect            
+            return \Jenssegers\Agent\Agent::getCfHeaders();
         }
         
         /**
@@ -13266,34 +13322,6 @@ namespace {
          */
         public static function useAbsoluteSourceFilePath(){
             return \Spatie\Glide\GlideImage::useAbsoluteSourceFilePath();
-        }
-        
-    }
-
-
-    class Settings extends \App\Facades\Settings{
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function get($setting){
-            return \App\Services\Settings::get($setting);
-        }
-        
-    }
-
-
-    class Emitter extends \App\Facades\Emitter{
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function emit($function, $room, $data){
-            return \App\Services\Emitter::emit($function, $room, $data);
         }
         
     }

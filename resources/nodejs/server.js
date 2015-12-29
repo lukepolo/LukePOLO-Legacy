@@ -11,10 +11,15 @@ MCrypt = require('mcrypt').MCrypt,
 PHPUnserialize = require('php-unserialize'),
 fs = require('fs');
 
-server = require('https').createServer({
-    key:    fs.readFileSync('/etc/letsencrypt/live/lukepolo.com/privkey.pem'),
-    cert:   fs.readFileSync('/etc/letsencrypt/live/lukepolo.com/cert.pem'),
-});
+if(process.env.NODE_HTTPS == 'true') {
+    server = require('https').createServer({
+        key:    fs.readFileSync(process.env.SSL_KEY),
+        cert:   fs.readFileSync(process.env.SSL_CERT),
+    });
+} else {
+    server = require('http').createServer();
+}
+
 
 io = require('socket.io')(server);
 
@@ -30,9 +35,10 @@ var offline_timeout = {};
 
 io.on('connection', function (client)
 {
-    if(client.request.connection.remoteAddress)
+    if(client.request.headers.cookie)
     {
         var session_id = decryptCookie(cookie.parse(client.request.headers.cookie).lukepolo_session);
+
         clearTimeout(offline_timeout[session_id]);
 
         var url = client.request.headers.referer;
