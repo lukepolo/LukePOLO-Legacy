@@ -12,12 +12,13 @@ PHPUnserialize = require('php-unserialize'),
 fs = require('fs');
 
 if(process.env.NODE_HTTPS == 'true') {
-    server = require('https').createServer({
+    console.log('https');
+    var server = require('https').createServer({
         key:    fs.readFileSync(process.env.SSL_KEY),
         cert:   fs.readFileSync(process.env.SSL_CERT),
     });
 } else {
-    server = require('http').createServer();
+    var server = require('http').createServer();
 }
 
 
