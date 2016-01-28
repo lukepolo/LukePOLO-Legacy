@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -19,6 +20,9 @@ Route::controllers([
     'resume' => 'ResumeController',
     'search' => 'SearchController'
 ]);
+
+
+
 
 Route::get('blog/view/{blog}', ['as' => 'blog/view', function($blog)
 {
@@ -64,5 +68,3 @@ Route::get('blog', 'BlogController@getIndex');
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::get('register', 'Auth\AuthController@getLogin');
 Route::get('logout', 'Auth\AuthController@getLogout');
-
-
