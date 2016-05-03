@@ -13,6 +13,8 @@
 */
 
 Route::group(['middleware' => 'admin'], function () {
+    Route::get('admin', 'AdminController@getIndex');
+    
     Route::resource('comments', 'CommentsController');
     Route::resource('comment-vote', 'CommentVotesController');
 });
@@ -37,4 +39,4 @@ Route::get('blog/view/{blog}', [
     }
 ]);
 
-Route::get('/resume', 'ResumeController@getIndex');
+Route::get('resume', 'ResumeController@getIndex');

@@ -3,8 +3,10 @@
 
 use App\Http\Controllers\Controller;
 use App\Models\Mongo\UserProvider;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Http\Exception\HttpResponseException;
 
 /**
  * Class AuthController
@@ -21,7 +23,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->redirectTo = action('\App\Http\Controllers\AdminController@getIndex');
+        $this->redirectTo = action('AdminController@getIndex');
 
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
@@ -58,13 +60,12 @@ class AuthController extends Controller
                 ->first();
 
             if (empty($user_provider) === false) {
-                // force login with the user
                 \Auth::login($user_provider->user);
             } else {
                 $name_parts = explode(' ', $user->getName());
                 $first_name = array_shift($name_parts);
                 $last_name = array_pop($name_parts);
-                $this->registrar->create([
+                $this->create([
                     'first_name' => $first_name,
                     'last_name' => $last_name,
                     'profile_img' => $user->getAvatar(),
@@ -85,10 +86,14 @@ class AuthController extends Controller
         }
     }
 
-    public function create()
+    /**
+     * Creates a user with the provider if supplied with one
+     * @param $data
+     */
+    public function create($data)
     {
         if (\Settings::get('registration')) {
-            \Session::flash('success', 'You successfully connected your ' . ucwords($data['provider']) . ' account!');
+
             $user = User::create([
                 'first_name' => empty($data['first_name']) === false ? $data['first_name'] : $data['nickname'] . '@' . $data['provider'] . '.com',
                 'last_name' => $data['last_name'],
@@ -98,7 +103,6 @@ class AuthController extends Controller
                 'role' => 'guest'
             ]);
 
-            // create a new service profider for the user
             UserProvider::create([
                 'user_id' => $user->id,
                 'provider_id' => $data['provider_id'],
@@ -106,6 +110,9 @@ class AuthController extends Controller
             ]);
 
             \Auth::login($user);
+
+            \Session::flash('success', 'You successfully connected your ' . ucwords($data['provider']) . ' account!');
+
         } else {
             throw new HttpResponseException(redirect()->back()->withInput()->withErrors('Registration is Disabled!'));
         }
