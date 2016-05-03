@@ -1,82 +1,115 @@
-var base_path = __dirname.replace('resources/nodejs', '');
+var base_path = __dirname.replace('resources/node', '');
 
 require('dotenv').config({
-    path: base_path+'.env'
+    path: base_path +'.env'
 });
 
-var port = process.env.NODE_SERVER_PORT,
-redis = require('redis'),
-cookie = require('cookie'),
-MCrypt = require('mcrypt').MCrypt,
-PHPUnserialize = require('php-unserialize'),
-fs = require('fs');
+var
+    env = process.env,
+    port = env.NODE_SERVER_PORT,
+    redis = require('ioredis'),
+    redis_client = new redis(),
+    redis_broadcast = new redis(),
+    cookie = require('cookie'),
+    crypto = require('crypto'),
+    PHPUnserialize = require('php-unserialize'),
+    fs = require('fs'),
+    server = null,
+    offline_timeout = {},
+    users = {};
 
-if(process.env.NODE_HTTPS == 'true') {
-    console.log('https');
-    var server = require('https').createServer({
-        key:    fs.readFileSync(process.env.SSL_KEY),
-        cert:   fs.readFileSync(process.env.SSL_CERT),
-    });
-} else {
-    var server = require('http').createServer();
+
+if(env.APP_ENV == 'production') {
+    console.log = function(){};
 }
 
+redis_broadcast.psubscribe('*', function(err, count) {
 
-io = require('socket.io')(server);
-
-server.listen(port, function()
-{
-    console.log('listening on '+ port);
 });
 
-var admin_room =  process.env.ADMIN_ROOM;
+redis_broadcast.on('pmessage', function(subscribed, channel, message) {
+    message = JSON.parse(message);
 
-var users = {};
-var offline_timeout = {};
+    console.log(message);
+    io.emit(channel, message.data);
+});
 
+if(env.NODE_HTTPS == 'yes') {
+    console.log("HTTPS");
+    server = require('https').createServer({
+        key: fs.readFileSync(env.SSL_KEY),
+        cert: fs.readFileSync(env.SSL_CERT)
+    });
+} else {
+    server = require('http').createServer();
+}
+console.log('Server on Port : ' + port);
+server.listen(port);
+var io = require('socket.io')(server);
+
+io.use(function(socket, next) {
+
+    if(typeof socket.request.headers.cookie != 'undefined') {
+        redis_client.get('forcebook:' + decryptCookie(
+                cookie.parse(
+                    socket.request.headers.cookie
+                ).forcebook_rid
+            ), function(error, result) {
+            if (error) {
+                console.log('ERROR');
+                next(new Error(error));
+            }
+            else if (result) {
+                console.log('Logged In');
+                next();
+            }
+            else {
+                console.log('Not Authorized');
+                next(new Error('Not Authorized'));
+            }
+        });
+    } else {
+        console.log('Not Authorized');
+        next(new Error('Not Authorized'));
+    }
+})
 io.on('connection', function (client)
 {
-    if(client.request.headers.cookie)
-    {
-        var session_id = decryptCookie(cookie.parse(client.request.headers.cookie).lukepolo_session);
+    socket.on('user_info', function (user_info) {
 
-        clearTimeout(offline_timeout[session_id]);
+        clearTimeout(offline_timeout[user_info.id]);
 
-        var url = client.request.headers.referer;
-
-        client.join(url);
-
-        users[session_id] = url;
-
-        if (io.sockets.adapter.rooms.hasOwnProperty(admin_room))
-        {
-            io.to(admin_room).emit('users', users);
+        if(!users[user_info.id]) {
+            socket.user_id = user_info.id;
         }
-    }
-    
-    client.on('get_users', function()
-    {
-        io.to(admin_room).emit('users', users);
+        else {
+            socket.leave(users[user_info.id].location);
+            users[user_info.id].location = user_info.location;
+        }
+
+        console.log('user joined '+user_info.location);
+
+        socket.join(user_info.location);
     });
 
-    client.on('disconnect', function ()
-    {
-        client.leave(url);
-        if(users[session_id])
-        {
-            // Make them offline after a certain point
-            offline_timeout[session_id] = setTimeout(
-                function ()
-                {
-                    delete users[session_id];
+    socket.on('disconnect', function () {
+        if (socket.user_id) {
+            offline_timeout[socket.user_id] = setTimeout(
+                function() {
+                    console.log('user ' + socket.user_id + ' disconnected');
+                    delete users[socket.user_id]
                     if (io.sockets.adapter.rooms.hasOwnProperty(admin_room))
                     {
                         io.to(admin_room).emit('users', users);
                     }
-                }, 10000
+                }, 15000
             );
         }
+    });
 
+    client.on('get_users', function()
+    {
+        io.to(admin_room).emit('users', users);
     });
 
     client.on('create_comment', function(data)
@@ -117,19 +150,19 @@ io.on('connection', function (client)
 
 function decryptCookie(cookie)
 {
-    var parsed_cookie = JSON.parse(new Buffer(cookie, 'base64'));
+    if(cookie) {
+        var parsedCookie = JSON.parse(new Buffer(cookie, 'base64'));
 
-    var iv = new Buffer(parsed_cookie.iv, 'base64');
-    var value = new Buffer(parsed_cookie.value, 'base64');
-    var key = "Hm#s.yLK3@rT3z89>^4XX)$Rsqwp,+=z";
+        var iv = new Buffer(parsedCookie.iv, 'base64');
+        var value = new Buffer(parsedCookie.value, 'base64');
 
-    var rijCbc = new MCrypt('rijndael-256', 'cbc');
-    rijCbc.open(key, iv);
+        var decipher = crypto.createDecipheriv('aes-256-cbc', env.APP_KEY, iv);
 
-    var decrypted = rijCbc.decrypt(value).toString();
+        var resultSerialized = Buffer.concat([
+            decipher.update(value),
+            decipher.final()
+        ]);
 
-    var len = decrypted.length - 1;
-    var pad = decrypted.charAt(len).charCodeAt(0);
-
-    return PHPUnserialize.unserialize(decrypted.substr(0, decrypted.length - pad));
+        return PHPUnserialize.unserialize(resultSerialized);
+    }
 }
