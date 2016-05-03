@@ -7,13 +7,12 @@ class TechnologiesFormRequest extends FormRequest
     public function rules()
     {
         $id = null;
-        if($this->one)
-        {
-            $id = ','.$this->one;
+        if ($this->one) {
+            $id = ',' . $this->one;
         }
 
         return [
-            'name' => 'required|unique:technologies'.$id,
+            'name' => 'required|unique:technologies' . $id,
             'color' => 'required',
             'url' => 'required'
         ];

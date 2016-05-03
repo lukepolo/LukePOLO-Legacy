@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProjectFormRequest;
-use \App\Models\Mongo\Project;
-use \App\Models\Mongo\Technology;
-use \App\Models\Mongo\Timeline;
+use App\Models\Mongo\Project;
+use App\Models\Mongo\Technology;
+use App\Models\Mongo\Timeline;
 
 class ProjectsController extends Controller
 {
     public function getIndex()
     {
-        return view('projects',[
+        return view('projects', [
             'projects' => Project::with('timeline')->orderBy('start_date', 'dsc')->get()
         ]);
     }
@@ -26,12 +26,9 @@ class ProjectsController extends Controller
 
     public function postCreate(ProjectFormRequest $request)
     {
-        if(\Request::get('end_date') != '')
-        {
+        if (\Request::get('end_date') != '') {
             $end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
-        }
-        else
-        {
+        } else {
             $end_date = null;
         }
 
@@ -64,12 +61,9 @@ class ProjectsController extends Controller
     {
         $project = Project::find($project_id);
 
-        if(\Request::get('end_date') != '')
-        {
+        if (\Request::get('end_date') != '') {
             $end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
-        }
-        else
-        {
+        } else {
             $end_date = null;
         }
 

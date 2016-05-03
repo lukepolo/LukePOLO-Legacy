@@ -20,8 +20,7 @@ class SettingsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('settings', function()
-        {
+        $this->app->bind('settings', function () {
             return new \App\Services\Settings;
         });
     }
@@ -33,6 +32,6 @@ class SettingsServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-	return array('settings');
+        return array('settings');
     }
 }

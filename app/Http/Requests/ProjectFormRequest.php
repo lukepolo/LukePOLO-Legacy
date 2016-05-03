@@ -7,13 +7,12 @@ class ProjectFormRequest extends FormRequest
     public function rules()
     {
         $id = null;
-        if($this->one)
-        {
-            $id = ','.$this->one;
+        if ($this->one) {
+            $id = ',' . $this->one;
         }
 
         return [
-            'name' => 'required|unique:projects'.$id,
+            'name' => 'required|unique:projects' . $id,
             'start_date' => 'required',
             'end_date' => 'required',
             'project_image' => 'required',

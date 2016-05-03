@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TimelineFormRequest;
-use \App\Models\Mongo\Timeline;
+use App\Models\Mongo\Timeline;
 
 class TimelinesController extends Controller
 {
@@ -22,12 +22,9 @@ class TimelinesController extends Controller
 
     public function postCreate(TimelineFormRequest $request)
     {
-        if(\Request::get('end_date') != '')
-        {
+        if (\Request::get('end_date') != '') {
             $end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
-        }
-        else
-        {
+        } else {
             $end_date = null;
         }
 
@@ -45,12 +42,9 @@ class TimelinesController extends Controller
     {
         $timeline = Timeline::find($timeline_id);
 
-        if(\Request::get('end_date') != '')
-        {
+        if (\Request::get('end_date') != '') {
             $end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
-        }
-        else
-        {
+        } else {
             $end_date = null;
         }
 

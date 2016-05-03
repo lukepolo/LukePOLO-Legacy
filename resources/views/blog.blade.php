@@ -3,7 +3,7 @@
     <div class="blog-container col-md-10">
         @if(\Request::has('filter'))
             <div class="row">
-                <a class="label clear-filter" href="{{ action('\App\Http\Controllers\BlogController@getIndex') }}">Clear Filters</a>
+                <a class="label clear-filter" href="{{ action('BlogController@getIndex') }}">Clear Filters</a>
             </div>
         @endif
         @if($blogs->count() != 0)
@@ -11,7 +11,7 @@
                 <div class="blog">
                     <div class="row">
                         <h1 class="blog-name">
-                            <a href="{{ action('\App\Http\Controllers\BlogController@getView', [$blog->link_name]) }}">{ {{ $blog->name  }}</a>
+                            <a href="{{ route('blog/view', [$blog->link_name]) }}">{ {{ $blog->name  }}</a>
                         </h1>
                         <small>{{ $blog->created_at->format('F jS Y g:i A') }}</small>
                         <div class="technologies">
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <a href="{{ action('\App\Http\Controllers\BlogController@getView', [$blog->link_name]) }}">
+                        <a href="{{ route('blog/view', [$blog->link_name]) }}">
                             <img class="img-responsive blog-image center-block" src="{{ $blog->image }}">
                         </a>
                     </div>
@@ -33,7 +33,7 @@
                         </p>
                     </div>
                     <div class="row">
-                        <a class="pull-right continue-reading" href="{{ action('\App\Http\Controllers\BlogController@getView', [$blog->link_name]) }}">
+                        <a class="pull-right continue-reading" href="{{ route('blog/view', [$blog->link_name]) }}">
                             Continue Reading ...
                         </a>
                     </div>
@@ -55,7 +55,7 @@
             <div class="col-sm-12 tags-area">
                 @foreach($tags as $tag)
                     @if(\Request::get('filter') != $tag->name)
-                        <a style="background-color:#{{ $tag->color }}" class="label pull-right" href="{{ action('\App\Http\Controllers\BlogController@getIndex', ['filter' => $tag->name]) }}">{{ $tag->name }}</a>
+                        <a style="background-color:#{{ $tag->color }}" class="label pull-right" href="{{ action('BlogController@getIndex', ['filter' => $tag->name]) }}">{{ $tag->name }}</a>
                     @endif
                 @endforeach
             </div>

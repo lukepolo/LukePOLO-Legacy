@@ -4,6 +4,10 @@ namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * Class Settings
+ * @package App\Facades
+ */
 class Settings extends Facade
 {
     /**
@@ -13,6 +17,6 @@ class Settings extends Facade
      */
     protected static function getFacadeAccessor()
     {
-	    return 'settings';
+        return 'settings';
     }
 }

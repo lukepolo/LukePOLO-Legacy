@@ -10,7 +10,8 @@ class AdminController extends Controller
     public function getIndex()
     {
         return view('admin.index', [
-            'comments' => Comment::with('blog')->where('user_id', '!=', \Auth::user()->id)->whereNull('been_moderated')->get()
+            'comments' => Comment::with('blog')->where('user_id', '!=',
+                \Auth::user()->id)->whereNull('been_moderated')->get()
         ]);
     }
 
@@ -29,11 +30,10 @@ class AdminController extends Controller
 
     public function getVisits()
     {
-        $visitors =  \LaravelAnalytics::getVisitorsAndPageViews(7);
+        $visitors = \LaravelAnalytics::getVisitorsAndPageViews(7);
 
         $analytics = null;
-        foreach($visitors as $visitor)
-        {
+        foreach ($visitors as $visitor) {
             $analytics['labels'][] = $visitor['date']->toDateString();
             $analytics['visitors'][] = $visitor['visitors'];
             $analytics['views'][] = $visitor['pageViews'];
@@ -44,7 +44,8 @@ class AdminController extends Controller
 
     public function getPopularPages()
     {
-        $visitors =  \LaravelAnalytics::getMostVisitedPagesForPeriod(new \DateTime('2015-05-06 00:00:00'), new \DateTime(), 10);
+        $visitors = \LaravelAnalytics::getMostVisitedPagesForPeriod(new \DateTime('2015-05-06 00:00:00'),
+            new \DateTime(), 10);
 
         return response()->json($visitors);
     }
@@ -63,8 +64,7 @@ class AdminController extends Controller
     public function getComment($comment_id)
     {
         $comment = Comment::find($comment_id);
-        if(empty($comment) === false)
-        {
+        if (empty($comment) === false) {
             return view('admin.comment', ['comment' => $comment])->render();
         }
     }

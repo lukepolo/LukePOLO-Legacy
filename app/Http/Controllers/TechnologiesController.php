@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TechnologiesFormRequest;
-use \App\Models\Mongo\Technology;
+use App\Models\Mongo\Technology;
 
 class TechnologiesController extends Controller
 {

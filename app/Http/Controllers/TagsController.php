@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TagFormRequest;
-use \App\Models\Mongo\Tag;
+use App\Models\Mongo\Tag;
 
 class TagsController extends Controller
 {

@@ -12,16 +12,18 @@
 |
 */
 
+Route::group(['middleware' => 'admin'], function () {
+    Route::resource('comments', 'CommentsController');
+    Route::resource('comment-vote', 'CommentVotesController');
+});
+
 Route::get('/', 'HomeController@index');
+Route::get('login', 'Auth\AuthController@getLogin');
+Route::get('auth/service/{provider}', 'Auth\AuthController@getService');
+Route::get('register', 'Auth\AuthController@getLogin');
+Route::get('logout', 'Auth\AuthController@getLogout');
 
-Route::controllers([
-    'auth' => 'Auth\AuthController',
-    'password' => 'Auth\PasswordController',
-    'resume' => 'ResumeController',
-    'search' => 'SearchController'
-]);
-
-
+Route::get('blog', 'BlogController@getIndex');
 Route::get('blog/view/{blog}', [
     'as' => 'blog/view',
     function ($blog) {
@@ -35,25 +37,4 @@ Route::get('blog/view/{blog}', [
     }
 ]);
 
-
-// Only Loggged IN - Redirects to Login Page if not logged in
-Route::group(['middleware' => 'admin'], function () {
-    // Controllers Go Here
-    Route::controllers([
-
-    ]);
-});
-
-// Only Loggged IN - Redirects to Login Page if not logged in
-Route::group(['middleware' => 'auth'], function () {
-    Route::resource('comments', 'CommentsController');
-    Route::resource('comment-vote', 'CommentVotesController');
-});
-
-
-Route::get('blog', 'BlogController@getIndex');
-
-// Auth Traits
-Route::get('login', 'Auth\AuthController@getLogin');
-Route::get('register', 'Auth\AuthController@getLogin');
-Route::get('logout', 'Auth\AuthController@getLogout');
+Route::get('/resume', 'ResumeController@getIndex');

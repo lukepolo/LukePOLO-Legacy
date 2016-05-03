@@ -4,6 +4,10 @@ namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * Class Emitter
+ * @package App\Facades
+ */
 class Emitter extends Facade
 {
     /**

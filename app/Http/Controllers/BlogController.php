@@ -11,30 +11,24 @@ class BlogController extends Controller
     public function getIndex()
     {
         $tag = null;
-        if(\Request::has('filter'))
-        {
+        if (\Request::has('filter')) {
             $filters = null;
 
             $tag = Tag::where('name', '=', \Request::get('filter'))->first();
 
-            if(empty($tag) === false)
-            {
-                $blogs = Blog::with('tags')->where('draft', '=', '0')->whereIn('tag_ids', [$tag->id])->orderBy('created_at', 'desc')->get();
-            }
-            else
-            {
+            if (empty($tag) === false) {
+                $blogs = Blog::with('tags')->where('draft', '=', '0')->whereIn('tag_ids',
+                    [$tag->id])->orderBy('created_at', 'desc')->get();
+            } else {
                 $blogs = Blog::with('tags')->where('draft', '=', '0')->orderBy('created_at', 'desc')->get();
             }
-        }
-        else
-        {
+        } else {
             $blogs = Blog::with('tags')->where('draft', '=', '0')->orderBy('created_at', 'desc')->get();
         }
 
         return view('blog', [
             'blogs' => $blogs,
-            'tags' => \Cache::rememberForever('tags', function()
-            {
+            'tags' => \Cache::rememberForever('tags', function () {
                 return Tag::get();
             }),
             'tag' => $tag
@@ -43,16 +37,20 @@ class BlogController extends Controller
 
     public function getView($blog_id)
     {
-        $blog = Blog::with(['tags','comments' => function($query)
-        {
-            $query->with(['replies', 'replies.user'])->whereNull('parent_id');
-        }, 'comments.user', 'comments.votes'])
-        ->find($blog_id);
+        $blog = Blog::with([
+            'tags',
+            'comments' => function ($query) {
+                $query->with(['replies', 'replies.user'])->whereNull('parent_id');
+            },
+            'comments.user',
+            'comments.votes'
+        ])
+            ->find($blog_id);
 
-        \View::share('title', '{ LukePOLO | Blog : '.$blog->name);
+        \View::share('title', '{ LukePOLO | Blog : ' . $blog->name);
 
         return view('blog.view', [
-           'blog' => $blog
+            'blog' => $blog
         ]);
     }
 
@@ -74,8 +72,7 @@ class BlogController extends Controller
             'preview_text' => \Request::get('preview_text')
         ]);
 
-        if(empty(\Request::get('tags')) === false)
-        {
+        if (empty(\Request::get('tags')) === false) {
             $blog->tags()->attach(\Request::get('tags'));
         }
 
@@ -90,7 +87,7 @@ class BlogController extends Controller
         ]);
     }
 
-    public function postEdit( BlogFormRequest $request, $blog_id)
+    public function postEdit(BlogFormRequest $request, $blog_id)
     {
         $blog = Blog::with('tags')->find($blog_id);
 
@@ -101,12 +98,9 @@ class BlogController extends Controller
         $blog->link_name = \Request::get('link_name');
         $blog->preview_text = \Request::get('preview_text');
 
-        if(empty(\Request::get('tags')) === false)
-        {
+        if (empty(\Request::get('tags')) === false) {
             $blog->tags()->sync(\Request::get('tags'));
-        }
-        else
-        {
+        } else {
             $blog->tags()->sync([]);
         }
 

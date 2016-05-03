@@ -1,62 +1,67 @@
 <?php namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\Registrar;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use App\Models\Mongo\UserProvider;
 
+use App\Http\Controllers\Controller;
+use App\Models\Mongo\UserProvider;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+
+/**
+ * Class AuthController
+ * @package App\Http\Controllers\Auth
+ */
 class AuthController extends Controller
 {
-	use AuthenticatesAndRegistersUsers;
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
-	public function __construct(Guard $auth, Registrar $registrar)
-	{
-        parent::__construct();
+    /**
+     * Create a new authentication controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->redirectTo = action('\App\Http\Controllers\AdminController@getIndex');
 
-		$this->auth = $auth;
-		$this->registrar = $registrar;
+        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+    }
 
-        $this->redirectPath = action('\App\Http\Controllers\AdminController@getIndex');
-
-        $this->auth->logout();
-
-		$this->middleware('guest', ['except' => 'getLogout']);
-	}
-
+    /**
+     * Starts the login process
+     * @param $provider
+     * @return mixed
+     */
     public function getService($provider)
     {
-        if(!\Session::has('login_redirect'))
-        {
+        if (!\Session::has('login_redirect')) {
             \Session::set('login_redirect', \URL::previous());
         }
         return \Socialize::with($provider)->redirect();
     }
+
+    /**
+     * Processes the callback
+     * @param $provider
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getCallback($provider)
     {
-        try
-        {
+        try {
             $user = \Socialize::with($provider)->user();
-        }
-        catch(\Exception $e)
-        {
-           // they pressed cancel
+        } catch (\Exception $e) {
+            // they pressed cancel
         }
 
-        if(empty($user) === false)
-        {
+        if (empty($user) === false) {
             $user_provider = UserProvider::with('user')->where('provider_id', '=', $user->id)
-                ->where('provider', '=' , $provider)
+                ->where('provider', '=', $provider)
                 ->first();
 
-            if(empty($user_provider) === false)
-            {
+            if (empty($user_provider) === false) {
                 // force login with the user
                 \Auth::login($user_provider->user);
-            }
-            else
-            {
-                $name_parts = explode(' ',  $user->getName());
+            } else {
+                $name_parts = explode(' ', $user->getName());
                 $first_name = array_shift($name_parts);
                 $last_name = array_pop($name_parts);
                 $this->registrar->create([
@@ -71,22 +76,38 @@ class AuthController extends Controller
             }
         }
 
-        if(\Session::has('login_redirect'))
-        {
+        if (\Session::has('login_redirect')) {
             $url = \Session::get('login_redirect');
             \Session::forget('login_redirect');
             return redirect($url);
-        }
-        else
-        {
+        } else {
             return \Redirect::back();
         }
     }
 
-    public function getLogout()
+    public function create()
     {
-        $this->auth->logout();
+        if (\Settings::get('registration')) {
+            \Session::flash('success', 'You successfully connected your ' . ucwords($data['provider']) . ' account!');
+            $user = User::create([
+                'first_name' => empty($data['first_name']) === false ? $data['first_name'] : $data['nickname'] . '@' . $data['provider'] . '.com',
+                'last_name' => $data['last_name'],
+                'profile_img' => $data['profile_img'],
+                'email' => empty($data['email']) === false ? $data['email'] : $data['nickname'] . '@' . $data['provider'] . '.com',
+                'password' => bcrypt((string)$data['provider_id']),
+                'role' => 'guest'
+            ]);
 
-        return redirect()->back();
+            // create a new service profider for the user
+            UserProvider::create([
+                'user_id' => $user->id,
+                'provider_id' => $data['provider_id'],
+                'provider' => $data['provider'],
+            ]);
+
+            \Auth::login($user);
+        } else {
+            throw new HttpResponseException(redirect()->back()->withInput()->withErrors('Registration is Disabled!'));
+        }
     }
 }

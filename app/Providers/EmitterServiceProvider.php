@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class EmitterServiceProvider
+ * @package App\Providers
+ */
 class EmitterServiceProvider extends ServiceProvider
 {
     /**
@@ -20,8 +24,7 @@ class EmitterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('emitter', function()
-        {
+        $this->app->bind('emitter', function () {
             return new \App\Services\Emitter;
         });
     }

@@ -17,11 +17,9 @@
             </div>
             <hr>
         </div>
-
         @foreach($projects as $project)
             <div class="project">
                 <div class="col-md-6 img-holder" data-project_id="{{ $project->id }}">
-
                     @if(!File::exists($modifiedIMG = public_path('img/cache/').$project->project_image))
                         <?php
                             $pathInfo = pathinfo($project->project_image);

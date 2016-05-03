@@ -1,28 +1,34 @@
 <?php
+
 namespace App\Extensions;
 
-class FormBuilder extends \Illuminate\Html\FormBuilder
+/**
+ * Class FormBuilder
+ * @package App\Extensions
+ */
+class FormBuilder extends \Collective\Html\FormBuilder
 {
     /**
      * Create a form input field.
      *
-     * @param  string  $type
-     * @param  string  $name
-     * @param  string  $value
-     * @param  array   $options
+     * @param  string $type
+     * @param  string $name
+     * @param  string $value
+     * @param  array $options
      * @return string
      */
     public function input($type, $name, $value = null, $options = array())
     {
-        if ( ! isset($options['name'])) $options['name'] = $name;
+        if (!isset($options['name'])) {
+            $options['name'] = $name;
+        }
 
         // We will get the appropriate value for the given field. We will look for the
         // value in the session for the value in the old input data then we'll look
         // in the model instance if one is set. Otherwise we will just use empty.
         $id = $this->getIdAttribute($name, $options);
 
-        if ( ! in_array($type, $this->skipValueTypes))
-        {
+        if (!in_array($type, $this->skipValueTypes)) {
             $value = $this->getValueAttribute($name, $value);
         }
 
@@ -32,32 +38,32 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
         $merge = compact('type', 'value', 'id');
 
         // DIFFERS FROM ORGINAL
-        if($type != 'checkbox' && $type != 'radio' && isset($options['class']) === false)
-        {
+        if ($type != 'checkbox' && $type != 'radio' && isset($options['class']) === false) {
             $options['class'] = 'form-control';
         }
 
-        if(isset($options['placeholder']) === false)
-        {
+        if (isset($options['placeholder']) === false) {
             $options['placeholder'] = ucwords(str_replace('_', ' ', $options['name']));
         }
 
         $options = array_merge($options, $merge);
 
-        return '<input'.$this->html->attributes($options).'>';
+        return '<input' . $this->html->attributes($options) . '>';
     }
 
     /**
      * Create a textarea input field.
      *
-     * @param  string  $name
-     * @param  string  $value
-     * @param  array   $options
+     * @param  string $name
+     * @param  string $value
+     * @param  array $options
      * @return string
      */
     public function textarea($name, $value = null, $options = array())
     {
-        if ( ! isset($options['name'])) $options['name'] = $name;
+        if (!isset($options['name'])) {
+            $options['name'] = $name;
+        }
 
         // Next we will look for the rows and cols attributes, as each of these are put
         // on the textarea element definition. If they are not present, we will just
@@ -66,13 +72,12 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
 
         $options['id'] = $this->getIdAttribute($name, $options);
 
-        $value = (string) $this->getValueAttribute($name, $value);
+        $value = (string)$this->getValueAttribute($name, $value);
 
         unset($options['size']);
 
         // DIFFERS FROM ORGINAL
-        if(isset($options['class']) === false)
-        {
+        if (isset($options['class']) === false) {
             $options['class'] = 'form-control';
         }
 
@@ -81,6 +86,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
         // the element. Then we'll create the final textarea elements HTML for us.
         $options = $this->html->attributes($options);
 
-        return '<textarea'.$options.'>'.e($value).'</textarea>';
+        return '<textarea' . $options . '>' . e($value) . '</textarea>';
     }
 }

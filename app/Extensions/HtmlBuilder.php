@@ -1,7 +1,12 @@
 <?php
+
 namespace App\Extensions;
 
-class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
+/**
+ * Class HtmlBuilder
+ * @package App\Extensions
+ */
+class HtmlBuilder extends \Collective\Html\HtmlBuilder
 {
 
 }

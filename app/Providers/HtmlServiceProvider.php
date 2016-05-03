@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class HtmlServiceProvider
+ * @package App\Providers
+ */
 class HtmlServiceProvider extends ServiceProvider
 {
     /**
@@ -31,8 +35,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerHtmlBuilder()
     {
-        $this->app->bind('html', function($app)
-        {
+        $this->app->bind('html', function ($app) {
             return new \App\Extensions\HtmlBuilder($app['url']);
         });
     }
@@ -44,8 +47,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerFormBuilder()
     {
-        $this->app->bind('form', function($app)
-        {
+        $this->app->bind('form', function ($app) {
             $form = new \App\Extensions\FormBuilder($app['html'], $app['url'], $app['session.store']->getToken());
 
             return $form->setSessionStore($app['session.store']);

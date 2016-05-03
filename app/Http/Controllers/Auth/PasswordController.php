@@ -9,16 +9,16 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller
 {
-	use ResetsPasswords;
+    use ResetsPasswords;
 
-	public function __construct(Guard $auth, PasswordBroker $passwords)
-	{
+    public function __construct(Guard $auth, PasswordBroker $passwords)
+    {
         parent::__construct();
 
-		$this->auth = $auth;
-		$this->passwords = $passwords;
+        $this->auth = $auth;
+        $this->passwords = $passwords;
 
-		$this->middleware('guest');
-	}
+        $this->middleware('guest');
+    }
 
 }
