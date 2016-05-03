@@ -20,7 +20,7 @@ class EmitterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bindShared('emitter', function()
+        $this->app->bind('emitter', function()
         {
             return new \App\Services\Emitter;
         });

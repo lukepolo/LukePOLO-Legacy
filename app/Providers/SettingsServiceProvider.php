@@ -20,7 +20,7 @@ class SettingsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bindShared('settings', function()
+        $this->app->bind('settings', function()
         {
             return new \App\Services\Settings;
         });
