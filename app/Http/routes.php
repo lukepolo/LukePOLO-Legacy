@@ -22,41 +22,30 @@ Route::controllers([
 ]);
 
 
+Route::get('blog/view/{blog}', [
+    'as' => 'blog/view',
+    function ($blog) {
+        $blog = \App\Models\Mongo\Blog::where('link_name', '=', $blog)->first();
+        if (empty($blog) === false) {
 
-
-Route::get('blog/view/{blog}', ['as' => 'blog/view', function($blog)
-{
-    $blog = \App\Models\Mongo\Blog::where('link_name', '=', $blog)->first();
-    if(empty($blog) === false)
-    {
-
-        return App::make('\App\Http\Controllers\BlogController')->getView($blog->id);
+            return App::make('\App\Http\Controllers\BlogController')->getView($blog->id);
+        } else {
+            App::abort(404);
+        }
     }
-    else
-    {
-        App::abort(404);
-    }
-}]);
+]);
 
 
 // Only Loggged IN - Redirects to Login Page if not logged in
-Route::group(['middleware' => 'admin'], function()
-{
+Route::group(['middleware' => 'admin'], function () {
     // Controllers Go Here
     Route::controllers([
-        'admin' => 'AdminController',
-        'settings' => 'SettingsController',
-        'timelines' => 'TimelinesController',
-        'technologies' => 'TechnologiesController',
-        'tags' => 'TagsController',
-        'projects' => 'ProjectsController',
-        'blog' => 'BlogController',
+
     ]);
 });
 
 // Only Loggged IN - Redirects to Login Page if not logged in
-Route::group(['middleware' => 'auth'], function()
-{
+Route::group(['middleware' => 'auth'], function () {
     Route::resource('comments', 'CommentsController');
     Route::resource('comment-vote', 'CommentVotesController');
 });
