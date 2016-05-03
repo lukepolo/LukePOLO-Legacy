@@ -6,8 +6,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TimelineFormRequest;
 use App\Models\Mongo\Timeline;
 
+/**
+ * Class TimelinesController
+ * @package App\Http\Controllers
+ */
 class TimelinesController extends Controller
 {
+    /**
+     * @return mixed
+     */
     public function getIndex()
     {
         return view('timeline', [
@@ -15,11 +22,18 @@ class TimelinesController extends Controller
         ]);
     }
 
+    /**
+     * @return mixed
+     */
     public function getCreate()
     {
         return view('timelines.form');
     }
 
+    /**
+     * @param TimelineFormRequest $request
+     * @return mixed
+     */
     public function postCreate(TimelineFormRequest $request)
     {
         if (\Request::get('end_date') != '') {
@@ -38,6 +52,11 @@ class TimelinesController extends Controller
         return redirect(action('\App\Http\Controllers\TimelinesController@getIndex'));
     }
 
+    /**
+     * @param $timeline_id
+     * @param TimelineFormRequest $request
+     * @return mixed
+     */
     public function postEdit($timeline_id, TimelineFormRequest $request)
     {
         $timeline = Timeline::find($timeline_id);
@@ -59,6 +78,10 @@ class TimelinesController extends Controller
         return redirect(action('\App\Http\Controllers\TimelinesController@getIndex'));
     }
 
+    /**
+     * @param $timeline_id
+     * @return mixed
+     */
     public function getEdit($timeline_id)
     {
         return view('timelines.form', [
@@ -66,6 +89,10 @@ class TimelinesController extends Controller
         ]);
     }
 
+    /**
+     * @param $timeline_id
+     * @return mixed
+     */
     public function getDelete($timeline_id)
     {
         Timeline::find($timeline_id)->delete();

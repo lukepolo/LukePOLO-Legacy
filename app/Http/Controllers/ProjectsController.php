@@ -7,8 +7,16 @@ use App\Models\Mongo\Project;
 use App\Models\Mongo\Technology;
 use App\Models\Mongo\Timeline;
 
+/**
+ * Class ProjectsController
+ * @package App\Http\Controllers
+ */
 class ProjectsController extends Controller
 {
+    /**
+     * Main projects page
+     * @return mixed
+     */
     public function getIndex()
     {
         return view('projects', [
@@ -16,6 +24,10 @@ class ProjectsController extends Controller
         ]);
     }
 
+    /**
+     * Create form
+     * @return mixed
+     */
     public function getCreate()
     {
         return view('projects.form', [
@@ -24,9 +36,14 @@ class ProjectsController extends Controller
         ]);
     }
 
+    /**
+     * Creating a project
+     * @param ProjectFormRequest $request
+     * @return mixed
+     */
     public function postCreate(ProjectFormRequest $request)
     {
-        if (\Request::get('end_date') != '') {
+        if (\Request::has('end_date')) {
             $end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
         } else {
             $end_date = null;
@@ -46,9 +63,14 @@ class ProjectsController extends Controller
         return redirect(action('\App\Http\Controllers\ProjectsController@getIndex'));
     }
 
-    public function getEdit($project_id)
+    /**
+     * Edit form
+     * @param $projectID
+     * @return mixed
+     */
+    public function getEdit($projectID)
     {
-        $project = Project::with('timeline')->find($project_id);
+        $project = Project::with('timeline')->find($projectID);
 
         return view('projects.form', [
             'project' => $project,
@@ -57,11 +79,17 @@ class ProjectsController extends Controller
         ]);
     }
 
-    public function postEdit($project_id, ProjectFormRequest $request)
+    /**
+     * Saves a project
+     * @param $projectID
+     * @param ProjectFormRequest $request
+     * @return mixed
+     */
+    public function postEdit($projectID, ProjectFormRequest $request)
     {
-        $project = Project::find($project_id);
+        $project = Project::find($projectID);
 
-        if (\Request::get('end_date') != '') {
+        if (\Request::has('end_date')) {
             $end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
         } else {
             $end_date = null;
@@ -81,9 +109,14 @@ class ProjectsController extends Controller
         return redirect(action('\App\Http\Controllers\ProjectsController@getIndex'));
     }
 
-    public function getDelete($project_id)
+    /**
+     * Deletes a project
+     * @param $projectID
+     * @return mixed
+     */
+    public function getDelete($projectID)
     {
-        Project::find($project_id)->delete();
+        Project::find($projectID)->delete();
 
         return redirect(action('\App\Http\Controllers\ProjectsController@getIndex'));
     }

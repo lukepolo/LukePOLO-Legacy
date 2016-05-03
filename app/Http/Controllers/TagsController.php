@@ -6,8 +6,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TagFormRequest;
 use App\Models\Mongo\Tag;
 
+/**
+ * Class TagsController
+ * @package App\Http\Controllers
+ */
 class TagsController extends Controller
 {
+    /**
+     * The main tag view
+     * @return mixed
+     */
     public function getIndex()
     {
         return view('tags', [
@@ -15,23 +23,34 @@ class TagsController extends Controller
         ]);
     }
 
+    /**
+     * The create form
+     * @return mixed
+     */
     public function getCreate()
     {
         return view('tags.form');
     }
 
+    /**
+     * Creates a new tag
+     * @param TagFormRequest $request
+     * @return mixed
+     */
     public function postCreate(TagFormRequest $request)
     {
-        Tag::create([
-            'name' => \Request::get('name'),
-            'color' => \Request::get('color')
-        ]);
+        Tag::create(\Request::except('_token'));
 
         \Cache::forget('tags');
 
         return redirect(action('\App\Http\Controllers\TagsController@getIndex'));
     }
 
+    /**
+     * The update form
+     * @param $technology_id
+     * @return mixed
+     */
     public function getEdit($technology_id)
     {
         return view('tags.form', [
@@ -39,23 +58,30 @@ class TagsController extends Controller
         ]);
     }
 
-    public function postEdit($tag_id, TagFormRequest $request)
+    /**
+     * Update a tag
+     * @param $tagID
+     * @param TagFormRequest $request
+     * @return mixed
+     */
+    public function postEdit($tagID, TagFormRequest $request)
     {
-        $tag_id = Tag::find($tag_id);
-
-        $tag_id->name = \Request::get('name');
-        $tag_id->color = \Request::get('color');
-
-        $tag_id->save();
+        $tag = Tag::find($tagID);
+        $tag->fill(\Request::except('_token'));
 
         \Cache::forget('tags');
 
         return redirect(action('\App\Http\Controllers\TagsController@getIndex'));
     }
 
-    public function getDelete($technology_id)
+    /**
+     * Deletes a tag
+     * @param $tagID
+     * @return mixed
+     */
+    public function getDelete($tagID)
     {
-        Technology::find($technology_id)->delete();
+        Tag::find($tagID)->delete();
 
         return redirect(action('\App\Http\Controllers\TagsController@getIndex'));
     }

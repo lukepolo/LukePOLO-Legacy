@@ -6,32 +6,32 @@
             Login
         </div>
         <div class="col-sm-4">
-            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['google']) }}">
+            <a href="{{ action('Auth\AuthController@getService', ['google']) }}">
                 <i class="fa fa-google"></i>
             </a>
         </div>
         <div class="col-sm-4">
-            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['github']) }}">
+            <a href="{{ action('Auth\AuthController@getService', ['github']) }}">
                 <i class="fa fa-github"></i>
             </a>
         </div>
         <div class="col-sm-4">
-            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['facebook']) }}">
+            <a href="{{ action('Auth\AuthController@getService', ['facebook']) }}">
                 <i class="fa fa-facebook"></i>
             </a>
         </div>
         <div class="col-sm-4">
-            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['linkedin']) }}">
+            <a href="{{ action('Auth\AuthController@getService', ['linkedin']) }}">
                 <i class="fa fa-linkedin"></i>
             </a>
         </div>
         <div class="col-sm-4">
-            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['twitter']) }}">
+            <a href="{{ action('Auth\AuthController@getService', ['twitter']) }}">
                 <i class="fa fa-twitter"></i>
             </a>
         </div>
         <div class="col-sm-4">
-            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['reddit']) }}">
+            <a href="{{ action('Auth\AuthController@getService', ['reddit']) }}">
                 <i class="fa fa-reddit"></i>
             </a>
         </div>

@@ -88,7 +88,7 @@
 
             socket.on('create_comment', function(comment_id)
             {
-                $.get('{{ action('\App\Http\Controllers\AdminController@getComment', [null]) }}/' + comment_id, function(html)
+                $.get('{{ action('AdminController@getComment', [null]) }}/' + comment_id, function(html)
                 {
                     $('.admin-comments .panel-body').prepend(html);
                     update_count();
@@ -103,7 +103,7 @@
                 }
                 else
                 {
-                    $.get('{{ action('\App\Http\Controllers\AdminController@getComment', [null]) }}/' + comment_id, function(html)
+                    $.get('{{ action('AdminController@getComment', [null]) }}/' + comment_id, function(html)
                     {
                         $('.admin-comments .panel-body').prepend(html);
                     });
@@ -181,7 +181,7 @@
             $(document).on('click', '.delete', function(e)
             {
                 $.ajax({
-                    url: "{{ action('\App\Http\Controllers\CommentsController@destroy', null) }}/" + $(this).data('id'),
+                    url: "{{ action('CommentsController@destroy', null) }}/" + $(this).data('id'),
                     type: 'DELETE'
                 });
 
@@ -196,7 +196,7 @@
 
                 var form = $(this);
                 var comment = $(this).find('.comment-text');
-                $.post("{{ action('\App\Http\Controllers\CommentsController@store') }}",
+                $.post("{{ action('CommentsController@store') }}",
                 {
                     comment: comment.val(),
                     blog_id: $(form).data('blog-id'),
@@ -217,7 +217,7 @@
                 mark_read($(this).data('id'));
                 update_count();
             });
-            $.get("{{ action('\App\Http\Controllers\AdminController@getPopularPages') }}", function(popular_pages)
+            $.get("{{ action('AdminController@getPopularPages') }}", function(popular_pages)
             {
                 $.each(popular_pages, function()
                 {
@@ -225,7 +225,7 @@
                 });
             });
 
-            $.get("{{ action('\App\Http\Controllers\AdminController@getVisits') }}", function(visits)
+            $.get("{{ action('AdminController@getVisits') }}", function(visits)
             {
                 var analytics = visits;
                 var data = {
@@ -272,7 +272,7 @@
 
         function mark_read(comment_id)
         {
-            $.post("{{ action('\App\Http\Controllers\AdminController@postMarkRead') }}",
+            $.post("{{ action('AdminController@postMarkRead') }}",
             {
                 comment_id: comment_id
             }).success(function()

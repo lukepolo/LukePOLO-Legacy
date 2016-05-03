@@ -3,7 +3,7 @@
     <div class="blog-container col-md-10">
         @if(\Request::has('filter'))
             <div class="row">
-                <a class="label clear-filter" href="{{ action('BlogController@getIndex') }}">Clear Filters</a>
+                <a class="label clear-filter" href="{{ action('BlogController@getPublicIndex') }}">Clear Filters</a>
             </div>
         @endif
         @if($blogs->count() != 0)
@@ -55,7 +55,7 @@
             <div class="col-sm-12 tags-area">
                 @foreach($tags as $tag)
                     @if(\Request::get('filter') != $tag->name)
-                        <a style="background-color:#{{ $tag->color }}" class="label pull-right" href="{{ action('BlogController@getIndex', ['filter' => $tag->name]) }}">{{ $tag->name }}</a>
+                        <a style="background-color:#{{ $tag->color }}" class="label pull-right" href="{{ action('BlogController@getPublicIndex', ['filter' => $tag->name]) }}">{{ $tag->name }}</a>
                     @endif
                 @endforeach
             </div>

@@ -14,7 +14,7 @@
             @foreach($projects as $project)
                 <tr>
                     <td>
-                        <a href="{{ action('\App\Http\Controllers\ProjectsController@getEdit', [$project->id]) }}">
+                        <a href="{{ action('ProjectsController@getEdit', [$project->id]) }}">
                             {{ $project->name }}
                         </a>
                     </td>
@@ -27,7 +27,7 @@
                     <td>{{ $project->start_date->format('F jS Y g:i A') }}</td>
                     <td>{{ $project->end_date->format('F jS Y g:i A') }}</td>
                     <td>
-                        <a class="confirm" href="{{ action('\App\Http\Controllers\ProjectsController@getDelete', [$project->id]) }}">Delete</a>
+                        <a class="confirm" href="{{ action('ProjectsController@getDelete', [$project->id]) }}">Delete</a>
                     </td>
                 </tr>
             @endforeach
@@ -36,5 +36,5 @@
     @else
         <h3>No Projects</h3>
     @endif
-    <a href="{{ action('\App\Http\Controllers\ProjectsController@getCreate') }}" class="btn btn-info">Create</a>
+    <a href="{{ action('ProjectsController@getCreate') }}" class="btn btn-info">Create</a>
 @endsection

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-suse App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 /**

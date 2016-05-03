@@ -6,28 +6,43 @@ use App\Http\Requests\BlogFormRequest;
 use App\Models\Mongo\Blog;
 use App\Models\Mongo\Tag;
 
+/**
+ * Class BlogController
+ * @package App\Http\Controllers
+ */
 class BlogController extends Controller
 {
-    public function getIndex()
+    /**
+     * Gets all the blogs for the admin view
+     * @return mixed
+     */
+    public function getAdminIdex()
     {
+        return view('admin.blogs', [
+            'blogs' => Blog::orderBy('created_at', 'desc')->get()
+        ]);
+    }
+
+    /**
+     * Gets the blog page for the public
+     * @return mixed
+     */
+    public function getPublicIndex()
+    {
+        $blogs = Blog::with('tags')->where('draft', '0')->orderBy('created_at', 'desc');
+
         $tag = null;
         if (\Request::has('filter')) {
-            $filters = null;
 
-            $tag = Tag::where('name', '=', \Request::get('filter'))->first();
+            $tag = Tag::where('name', \Request::get('filter'))->first();
 
-            if (empty($tag) === false) {
-                $blogs = Blog::with('tags')->where('draft', '=', '0')->whereIn('tag_ids',
-                    [$tag->id])->orderBy('created_at', 'desc')->get();
-            } else {
-                $blogs = Blog::with('tags')->where('draft', '=', '0')->orderBy('created_at', 'desc')->get();
+            if (!empty($tag)) {
+                $blogs->whereIn('tag_ids', [$tag->id]);
             }
-        } else {
-            $blogs = Blog::with('tags')->where('draft', '=', '0')->orderBy('created_at', 'desc')->get();
         }
 
         return view('blog', [
-            'blogs' => $blogs,
+            'blogs' => $blogs->get(),
             'tags' => \Cache::rememberForever('tags', function () {
                 return Tag::get();
             }),
@@ -35,7 +50,12 @@ class BlogController extends Controller
         ]);
     }
 
-    public function getView($blog_id)
+    /**
+     * Views the blogs content
+     * @param $blogID
+     * @return mixed
+     */
+    public function getView($blogID)
     {
         $blog = Blog::with([
             'tags',
@@ -44,8 +64,7 @@ class BlogController extends Controller
             },
             'comments.user',
             'comments.votes'
-        ])
-            ->find($blog_id);
+        ])->find($blogID);
 
         \View::share('title', '{ LukePOLO | Blog : ' . $blog->name);
 
@@ -54,6 +73,10 @@ class BlogController extends Controller
         ]);
     }
 
+    /**
+     * Gets the create form
+     * @return mixed
+     */
     public function getCreate()
     {
         return view('blog.form', [
@@ -61,16 +84,14 @@ class BlogController extends Controller
         ]);
     }
 
+    /**
+     * Creates a blog
+     * @param BlogFormRequest $request
+     * @return mixed
+     */
     public function postCreate(BlogFormRequest $request)
     {
-        $blog = Blog::create([
-            'name' => \Request::get('name'),
-            'draft' => \Request::get('draft'),
-            'image' => \Request::get('image'),
-            'html' => \Request::get('html'),
-            'link_name' => \Request::get('link_name'),
-            'preview_text' => \Request::get('preview_text')
-        ]);
+        $blog = Blog::create(\Request::except(['_token', 'tags']));
 
         if (empty(\Request::get('tags')) === false) {
             $blog->tags()->attach(\Request::get('tags'));
@@ -79,24 +100,34 @@ class BlogController extends Controller
         return redirect(action('\App\Http\Controllers\AdminController@getBlogs'));
     }
 
-    public function getEdit($blog_id)
+    /**
+     * Gets the edit form
+     * @param $blogID
+     * @return mixed
+     */
+    public function getEdit($blogID)
     {
         return view('blog.form', [
-            'blog' => Blog::with('tags')->find($blog_id),
+            'blog' => Blog::with('tags')->find($blogID),
             'tags' => Tag::get()
         ]);
     }
 
-    public function postEdit(BlogFormRequest $request, $blog_id)
+    /**
+     * Saves the updates to the blog
+     * @param BlogFormRequest $request
+     * @param $blogID
+     * @return mixed
+     */
+    public function postEdit(BlogFormRequest $request, $blogID)
     {
-        $blog = Blog::with('tags')->find($blog_id);
+        dd('ttest');
+        $blog = Blog::with('tags')->find($blogID);
 
-        $blog->name = \Request::get('name');
-        $blog->draft = \Request::get('draft');
-        $blog->image = \Request::get('image');
-        $blog->html = \Request::get('html');
-        $blog->link_name = \Request::get('link_name');
-        $blog->preview_text = \Request::get('preview_text');
+        dd(\Request::all());
+        $blog->fill([
+            \Request::except(\Request::except(['_token', 'tags']))
+        ]);
 
         if (empty(\Request::get('tags')) === false) {
             $blog->tags()->sync(\Request::get('tags'));
@@ -109,9 +140,14 @@ class BlogController extends Controller
         return redirect(action('\App\Http\Controllers\AdminController@getBlogs'));
     }
 
-    public function getDelete($blog_id)
+    /**
+     * Deletes a blog
+     * @param $blogID
+     * @return mixed
+     */
+    public function getDelete($blogID)
     {
-        Blog::find($blog_id)->delete();
+        Blog::find($blogID)->delete();
 
         return redirect(action('\App\Http\Controllers\AdminController@getBlogs'));
     }

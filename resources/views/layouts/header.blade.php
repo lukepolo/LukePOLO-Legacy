@@ -7,15 +7,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ action('\App\Http\Controllers\HomeController@index') }}">LukePOLO</a>
+            <a class="navbar-brand" href="{{ action('HomeController@index') }}">LukePOLO</a>
         </div>
         <div id="main-menu" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="{{ action('\App\Http\Controllers\BlogController@getIndex') }}">BLOG</a>
+                    <a href="{{ action('BlogController@getPublicIndex') }}">BLOG</a>
                 </li>
                 <li>
-                    <a href="{{ action('\App\Http\Controllers\ResumeController@getIndex') }}">RESUME</a>
+                    <a href="{{ action('ResumeController@getIndex') }}">RESUME</a>
                 </li>
                 @if(Auth::check())
                     @if(Auth::user()->role == 'admin')
@@ -25,8 +25,8 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ action('\App\Http\Controllers\AdminController@getIndex') }}">Dashboard</a></li>
-                            <li><a href="{{ action('\App\Http\Controllers\SettingsController@getIndex') }}">Settings</a></li>
+                            <li><a href="{{ action('AdminController@getIndex') }}">Dashboard</a></li>
+                            <li><a href="{{ action('SettingsController@getIndex') }}">Settings</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a></li>
                         </ul>

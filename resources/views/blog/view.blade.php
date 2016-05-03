@@ -5,7 +5,7 @@
             <h1 class="blog-name">
                 { {{ $blog->name }}
                 @if(\Auth::check() && \Auth::user()->role == 'admin')
-                    <a href="{{ action('\App\Http\Controllers\BlogController@getEdit', [$blog->id]) }}" class="pull-right btn btn-sm btn-primary">
+                    <a href="{{ action('BlogController@getEdit', [$blog->id]) }}" class="pull-right btn btn-sm btn-primary">
                         Edit
                     </a>
                 @endif
@@ -13,7 +13,7 @@
             <small>{{ $blog->created_at->format('F jS Y g:i A') }}</small><br>
             <div class="technologies">
                 @foreach($blog->tags as $tag)
-                    <a href="{{ action('\App\Http\Controllers\BlogController@getIndex', ['filter' => $tag->name]) }}" class="label" style="background-color:#{{ $tag->color }}">
+                    <a href="{{ action('BlogController@getPublicIndex', ['filter' => $tag->name]) }}" class="label" style="background-color:#{{ $tag->color }}">
                         {{ $tag->name }}
                     </a>
                 @endforeach

@@ -6,8 +6,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TechnologiesFormRequest;
 use App\Models\Mongo\Technology;
 
+/**
+ * Class TechnologiesController
+ * @package App\Http\Controllers
+ */
 class TechnologiesController extends Controller
 {
+    /**
+     * Main technologies page
+     * @return mixed
+     */
     public function getIndex()
     {
         return view('technologies', [
@@ -15,45 +23,62 @@ class TechnologiesController extends Controller
         ]);
     }
 
+    /**
+     * The create form
+     * @return mixed
+     */
     public function getCreate()
     {
         return view('technologies.form');
     }
 
+    /**
+     * Creates a technology
+     * @param TechnologiesFormRequest $request
+     * @return mixed
+     */
     public function postCreate(TechnologiesFormRequest $request)
     {
-        Technology::create([
-            'name' => \Request::get('name'),
-            'url' => \Request::get('url'),
-            'color' => \Request::get('color')
-        ]);
+        Technology::create(\Request::except('_token'));
 
         return redirect(action('\App\Http\Controllers\TechnologiesController@getIndex'));
     }
 
-    public function getEdit($technology_id)
+    /**
+     * The edit form
+     * @param $technologyID
+     * @return mixed
+     */
+    public function getEdit($technologyID)
     {
         return view('technologies.form', [
-            'technology' => Technology::find($technology_id)
+            'technology' => Technology::find($technologyID)
         ]);
     }
 
-    public function postEdit($technology_id, TechnologiesFormRequest $request)
+    /**
+     * Updates a technology
+     * @param $technologyID
+     * @param TechnologiesFormRequest $request
+     * @return mixed
+     */
+    public function postEdit($technologyID, TechnologiesFormRequest $request)
     {
-        $technology = Technology::find($technology_id);
-
-        $technology->name = \Request::get('name');
-        $technology->url = \Request::get('url');
-        $technology->color = \Request::get('color');
-
+        $technology = Technology::find($technologyID);
+        $technology->fill(\Request::except('_token'));
         $technology->save();
 
         return redirect(action('\App\Http\Controllers\TechnologiesController@getIndex'));
     }
 
-    public function getDelete($technology_id)
+    /**
+     * Deletes a technology
+     * @param $technologyID
+     * @return mixed
+     */
+    public function getDelete($technologyID)
     {
-        Technology::find($technology_id)->delete();
+        Technology::find($technologyID)->delete();
 
         return redirect(action('\App\Http\Controllers\TechnologiesController@getIndex'));
     }

@@ -11,15 +11,15 @@
             <tbody>
             @foreach($tags as $tag)
                 <tr>
-                    <td><a href="{{ action('\App\Http\Controllers\TagsController@getEdit', [$tag->id]) }}">{{ $tag->name }}</a></td>
+                    <td><a href="{{ action('TagsController@getEdit', [$tag->id]) }}">{{ $tag->name }}</a></td>
                     <td>{{ $tag->color }}</td>
                     <td>
-                        <a class="confirm" href="{{ action('\App\Http\Controllers\TagsController@getDelete', [$tag->id]) }}">Delete</a>
+                        <a class="confirm" href="{{ action('TagsController@getDelete', [$tag->id]) }}">Delete</a>
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     @endif
-    <a class="btn btn-info" href="{{ action('\App\Http\Controllers\TagsController@getCreate') }}">Create</a>
+    <a class="btn btn-info" href="{{ action('TagsController@getCreate') }}">Create</a>
 @endsection

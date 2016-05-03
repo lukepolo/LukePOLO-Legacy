@@ -26,32 +26,32 @@
                             </div>
                         </li>
                         <li>
-                            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['google']) }}">
+                            <a href="{{ action('Auth\AuthController@getService', ['google']) }}">
                                 <i class="fa fa-google"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['github']) }}">
+                            <a href="{{ action('Auth\AuthController@getService', ['github']) }}">
                                 <i class="fa fa-github"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['facebook']) }}">
+                            <a href="{{ action('Auth\AuthController@getService', ['facebook']) }}">
                                 <i class="fa fa-facebook"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['linkedin']) }}">
+                            <a href="{{ action('Auth\AuthController@getService', ['linkedin']) }}">
                                 <i class="fa fa-linkedin"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['twitter']) }}">
+                            <a href="{{ action('Auth\AuthController@getService', ['twitter']) }}">
                                 <i class="fa fa-twitter"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ action('\App\Http\Controllers\Auth\AuthController@getService', ['reddit']) }}">
+                            <a href="{{ action('Auth\AuthController@getService', ['reddit']) }}">
                                 <i class="fa fa-reddit"></i>
                             </a>
                         </li>
@@ -104,7 +104,7 @@
 
         socket.on('create_comment', function(comment_id, parent_id)
         {
-            $.get('{{ action('\App\Http\Controllers\CommentsController@show', [null]) }}/' + comment_id, function(html)
+            $.get('{{ action('CommentsController@show', [null]) }}/' + comment_id, function(html)
             {
                 if(parent_id)
                 {
@@ -144,7 +144,7 @@
 
             var comment = $(this).find('.comment-text');
 
-            $.post("{{ action('\App\Http\Controllers\CommentsController@store') }}",
+            $.post("{{ action('CommentsController@store') }}",
             {
                 comment: comment.val(),
                 blog_id: "{{ $blog->id }}",
@@ -177,7 +177,7 @@
             var comment = form.find('.comment-text');
 
             $.ajax({
-                url: "{{ action('\App\Http\Controllers\CommentsController@update', null) }}/" + $(this).data('id'),
+                url: "{{ action('CommentsController@update', null) }}/" + $(this).data('id'),
                 type: 'PUT',
                 data: {
                     comment : comment.val()
@@ -196,7 +196,7 @@
         $(document).on('click', '.delete', function(e)
         {
             $.ajax({
-                url: "{{ action('\App\Http\Controllers\CommentsController@destroy', null) }}/" + $(this).data('id'),
+                url: "{{ action('CommentsController@destroy', null) }}/" + $(this).data('id'),
                 type: 'DELETE'
             });
         });
@@ -204,7 +204,7 @@
         $(document).on('click', '.up-vote', function()
         {
             var span = this;
-            $.post("{{ action('\App\Http\Controllers\CommentVotesController@store') }}",
+            $.post("{{ action('CommentVotesController@store') }}",
             {
                 comment: $(this).data('id'),
                 vote : 1
@@ -218,7 +218,7 @@
         $(document).on('click', '.down-vote', function()
         {
             var span = this;
-            $.post("{{ action('\App\Http\Controllers\CommentVotesController@store') }}",
+            $.post("{{ action('CommentVotesController@store') }}",
             {
                 comment: $(this).data('id'),
                 vote: 0

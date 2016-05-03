@@ -55,8 +55,8 @@ class AuthController extends Controller
         }
 
         if (empty($user) === false) {
-            $user_provider = UserProvider::with('user')->where('provider_id', '=', $user->id)
-                ->where('provider', '=', $provider)
+            $user_provider = UserProvider::with('user')->where('provider_id', $user->id)
+                ->where('provider', $provider)
                 ->first();
 
             if (empty($user_provider) === false) {
