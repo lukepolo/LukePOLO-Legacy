@@ -140,7 +140,6 @@ return [
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
-//        App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
@@ -218,7 +217,6 @@ return [
         'Moloquent' => Jenssegers\Mongodb\Eloquent\Model::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-//        'GAMP'  => Irazasyed\LaravelGAMP\Facades\GAMP::class,
         'LaravelAnalytics' => Spatie\LaravelAnalytics\LaravelAnalyticsFacade::class,
         'Socialize' => Laravel\Socialite\Facades\Socialite::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
