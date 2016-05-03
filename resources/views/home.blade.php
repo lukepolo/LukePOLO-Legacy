@@ -21,7 +21,18 @@
         @foreach($projects as $project)
             <div class="project">
                 <div class="col-md-6 img-holder" data-project_id="{{ $project->id }}">
-                    <img class="img-responsive" src="{{ GlideImage::create($project->project_image, ['w' => 390]) }}">
+
+                    @if(!File::exists($modifiedIMG = public_path('img/cache/').$project->project_image))
+                        <?php
+                            $pathInfo = pathinfo($project->project_image);
+                            if(isset($pathInfo['dirname']) && !File::exists($newDir = public_path('img/cache/').$pathInfo['dirname'])) {
+                                File::makeDirectory($newDir);
+                            }
+
+                            GlideImage::create(base_path('resources/assets/img/screenshots').'/'.$project->project_image)->modify(['w' => 390])->save(public_path('img/cache/').$project->project_image);
+                        ?>
+                    @endif
+                    <img class="img-responsive" src="{{ asset('img/cache/'.$project->project_image) }}">
                 </div>
             </div>
             <div class="project-details" id="{{ $project->id }}">
