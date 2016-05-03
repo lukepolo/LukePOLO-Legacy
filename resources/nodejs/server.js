@@ -1,7 +1,5 @@
-var base_path = __dirname.replace('resources/node', '');
-
 require('dotenv').config({
-    path: base_path +'.env'
+    path: __dirname + '/.env'
 });
 
 var

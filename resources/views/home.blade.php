@@ -21,7 +21,7 @@
         @foreach($projects as $project)
             <div class="project">
                 <div class="col-md-6 img-holder" data-project_id="{{ $project->id }}">
-                    <img class="img-responsive" src="{{ GlideImage::load($project->project_image, ['w' => 390]) }}">
+                    <img class="img-responsive" src="{{ GlideImage::create($project->project_image, ['w' => 390]) }}">
                 </div>
             </div>
             <div class="project-details" id="{{ $project->id }}">

@@ -1,6 +1,9 @@
 <?php
 
 return [
+
+    'driver' => 'gd',
+    
     /*
      * Glide will search for images in this directory
      *
