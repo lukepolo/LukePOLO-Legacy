@@ -74,6 +74,26 @@ class BlogController extends Controller
     }
 
     /**
+     * Searches for blogs based on their query
+     * @return mixed
+     */
+    public function getSearch()
+    {
+        $blogs = Blog::where('name', 'like', '%' . \Request::get('q') . '%')->get();
+
+        $results = [];
+        foreach ($blogs as $blog) {
+            $results[] = [
+                'id' => $blog->id,
+                'text' => $blog->name,
+                'action' => action('\App\Http\Controllers\BlogController@getView', [$blog->link_name])
+            ];
+        }
+
+        return response($results);
+    }
+
+    /**
      * Gets the create form
      * @return mixed
      */

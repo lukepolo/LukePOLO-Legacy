@@ -5,8 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Mongo\Comment;
 use App\Models\Mongo\CommentVote;
 
+/**
+ * Class CommentVotesController
+ * @package App\Http\Controllers
+ */
 class CommentVotesController extends Controller
 {
+    /**
+     * Stores a comment vote
+     * @return mixed
+     */
     public function store()
     {
         $comment = Comment::with([

@@ -5,11 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Mongo\Blog;
 use App\Models\Mongo\Comment;
 
+/**
+ * Class CommentsController
+ * @package App\Http\Controllers
+ */
 class CommentsController extends Controller
 {
-    public function show($comment_id)
+    /**
+     * Shows a comment based on the id
+     * @param $commentID
+     * @return mixed
+     */
+    public function show($commentID)
     {
-        $comment = Comment::find($comment_id);
+        $comment = Comment::find($commentID);
         if (empty($comment) === false) {
             return view('blog.comments.comment', ['comment' => $comment])->render();
         } else {
@@ -17,6 +26,10 @@ class CommentsController extends Controller
         }
     }
 
+    /**
+     * Stores a comment
+     * @return mixed
+     */
     public function store()
     {
         $comment_text = trim(\Request::get('comment'));
@@ -43,16 +56,21 @@ class CommentsController extends Controller
         }
     }
 
-    public function destroy($comment_id)
+    /**
+     * Deletes a comment
+     * @param $commentID
+     * @return mixed
+     */
+    public function destroy($commentID)
     {
-        $comment = Comment::with('replies')->with('blog')->find($comment_id);
+        $comment = Comment::with('replies')->with('blog')->find($commentID);
 
         if (\Auth::user()->role == 'admin' || \Auth::user()->id == $comment->user_id) {
             \Emitter::emit('delete_comment', route('blog/view', $comment->blog->link_name), [
                 'comment_id' => $comment->id
             ]);
 
-            $this->recursive_delete($comment);
+            $this->recursiveDelete($comment);
 
             $comment->delete();
 
@@ -62,11 +80,16 @@ class CommentsController extends Controller
         }
     }
 
-    public function update($comment_id)
+    /**
+     * Updates the comment
+     * @param $commentID
+     * @return mixed
+     */
+    public function update($commentID)
     {
         $comment_text = trim(\Request::get('comment'));
 
-        $comment = Comment::with('blog')->find($comment_id);
+        $comment = Comment::with('blog')->find($commentID);
 
         if (empty($comment_text) === false && \Auth::user()->id == $comment->user_id) {
             $comment->comment = $comment_text;
@@ -85,14 +108,18 @@ class CommentsController extends Controller
         }
     }
 
-    public function recursive_delete($comment)
+    /**
+     * Deletes sub comments of a comment
+     * @param $comment
+     */
+    private function recursiveDelete($comment)
     {
         foreach ($comment->replies as $reply) {
             \Emitter::emit('delete_comment', null, [
                 'comment_id' => $reply->id
             ]);
 
-            $this->recursive_delete(Comment::with('replies')->with('blog')->find($reply->id));
+            $this->recursiveDelete(Comment::with('replies')->with('blog')->find($reply->id));
 
             $reply->delete();
         }
