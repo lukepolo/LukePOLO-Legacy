@@ -19,7 +19,8 @@ class CommentsController extends Controller
     public function show($commentID)
     {
         $comment = Comment::find($commentID);
-        if (empty($comment) === false) {
+
+        if (!empty($comment)) {
             return view('blog.comments.comment', ['comment' => $comment])->render();
         } else {
             return response('Unauthorized.', 401);
@@ -32,14 +33,14 @@ class CommentsController extends Controller
      */
     public function store()
     {
-        $comment_text = trim(\Request::get('comment'));
+        $commentText = trim(\Request::get('comment'));
 
         $blog = Blog::find(\Request::get('blog_id'));
-        if (empty($comment_text) === false && empty($blog) === false) {
+        if (!empty($commentText) && !empty($blog)) {
             $comment = Comment::create([
                 'user_id' => \Auth::user()->id,
                 'blog_id' => \Request::get('blog_id'),
-                'comment' => $comment_text,
+                'comment' => $commentText,
                 'been_moderated' => \Auth::user()->role == 'admin' ? true : null,
                 'parent_id' => \Request::get('reply_to'),
                 'vote' => 0
@@ -87,12 +88,12 @@ class CommentsController extends Controller
      */
     public function update($commentID)
     {
-        $comment_text = trim(\Request::get('comment'));
+        $commentText = trim(\Request::get('comment'));
 
         $comment = Comment::with('blog')->find($commentID);
 
-        if (empty($comment_text) === false && \Auth::user()->id == $comment->user_id) {
-            $comment->comment = $comment_text;
+        if (!empty($commentText) && \Auth::user()->id == $comment->user_id) {
+            $comment->comment = $commentText;
 
             $comment->been_moderated = null;
 

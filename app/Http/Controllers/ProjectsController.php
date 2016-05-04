@@ -49,6 +49,8 @@ class ProjectsController extends Controller
             $end_date = null;
         }
 
+        // TODO - setting for dates and time
+
         Project::create([
             'name' => \Request::get('name'),
             'url' => \Request::get('URL'),

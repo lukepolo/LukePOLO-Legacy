@@ -45,6 +45,8 @@ class TimelinessController extends Controller
             $end_date = null;
         }
 
+        // TODO - setters for dates
+
         Timeline::create([
             'name' => \Request::get('name'),
             'color' => \Request::get('color'),

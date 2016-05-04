@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mongo\Comment;
+use DateTime;
 
 /**
  * Class AdminController
@@ -55,8 +56,11 @@ class AdminController extends Controller
      */
     public function getPopularPages()
     {
-        $visitors = \LaravelAnalytics::getMostVisitedPagesForPeriod(new \DateTime('2015-05-06 00:00:00'),
-            new \DateTime(), 10);
+        $visitors = \LaravelAnalytics::getMostVisitedPagesForPeriod(
+            new DateTime('2015-05-06 00:00:00'),
+            new DateTime(),
+            10
+        );
 
         return response()->json($visitors);
     }

@@ -80,6 +80,7 @@ class BlogController extends Controller
         $blogs = Blog::where('name', 'like', '%' . \Request::get('q') . '%')->get();
 
         $results = [];
+
         foreach ($blogs as $blog) {
             $results[] = [
                 'id' => $blog->id,
@@ -111,9 +112,7 @@ class BlogController extends Controller
     {
         $blog = Blog::create(\Request::except(['_token', 'tags']));
 
-        if (empty(\Request::get('tags')) === false) {
-            $blog->tags()->attach(\Request::get('tags'));
-        }
+        $blog->tags()->attach(\Request::get('tags', []));
 
         return redirect(action('BlogController@getAdminIndex'));
     }
@@ -145,11 +144,7 @@ class BlogController extends Controller
             \Request::except(\Request::except(['_token', 'tags']))
         ]);
 
-        if (empty(\Request::get('tags')) === false) {
-            $blog->tags()->sync(\Request::get('tags'));
-        } else {
-            $blog->tags()->sync([]);
-        }
+        $blog->tags()->sync(\Request::get('tags', []));
 
         $blog->save();
 

@@ -11,6 +11,7 @@ use App\Models\Mongo\CommentVote;
  */
 class CommentVotesController extends Controller
 {
+    // TODO - sepereate into private functions to make it easier to debug
     /**
      * Stores a comment vote
      * @return mixed
@@ -22,10 +23,9 @@ class CommentVotesController extends Controller
             'votes' => function ($query) {
                 $query->where('user_id', \Auth::user()->id);
             }
-        ])
-            ->find(\Request::get('comment'));
+        ])->find(\Request::get('comment'));
 
-        if (empty($comment) === false) {
+        if (!empty($comment)) {
             if (\Auth::user()->id != $comment->user_id) {
                 if (\Request::get('vote') == 1) {
                     $vote = 1;
@@ -41,7 +41,6 @@ class CommentVotesController extends Controller
                     $comment_vote = $comment->votes[0];
 
                     if ($comment_vote->vote != $vote) {
-                        // update it
                         $comment->votes[0]->vote = $vote;
 
                         $comment->vote = $comment->vote + ($vote * 2);
