@@ -31,7 +31,7 @@
             <div class="panel-body">
                 Blogs
                 <span>
-                    <a class="pull-right" href="{{ action('BlogController@getAdminIdex') }}">
+                    <a class="pull-right" href="{{ action('BlogController@getAdminIndex') }}">
                         <i class="fa fa-arrow-right"></i>
                     </a>
                 </span>

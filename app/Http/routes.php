@@ -68,7 +68,7 @@ Route::group(['middleware' => 'web'], function () {
         | Blog Routes
         |--------------------------------------------------------------------------
         */
-        Route::get('blogs', 'BlogController@getAdminIdex');
+        Route::get('blogs', 'BlogController@getAdminIndex');
         Route::get('blog/create', 'BlogController@getCreate');
         Route::post('blog/create', 'BlogController@getCreate');
         Route::get('blog/edit/{blogID}', 'BlogController@getEdit');

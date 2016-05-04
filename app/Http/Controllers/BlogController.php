@@ -16,7 +16,7 @@ class BlogController extends Controller
      * Gets all the blogs for the admin view
      * @return mixed
      */
-    public function getAdminIdex()
+    public function getAdminIndex()
     {
         return view('admin.blogs', [
             'blogs' => Blog::orderBy('created_at', 'desc')->get()
@@ -84,7 +84,7 @@ class BlogController extends Controller
             $results[] = [
                 'id' => $blog->id,
                 'text' => $blog->name,
-                'action' => action('\App\Http\Controllers\BlogController@getView', [$blog->link_name])
+                'action' => action('BlogController@getView', [$blog->link_name])
             ];
         }
 
@@ -115,7 +115,7 @@ class BlogController extends Controller
             $blog->tags()->attach(\Request::get('tags'));
         }
 
-        return redirect(action('\App\Http\Controllers\AdminController@getBlogs'));
+        return redirect(action('BlogController@getAdminIndex'));
     }
 
     /**
@@ -155,7 +155,7 @@ class BlogController extends Controller
 
         $blog->save();
 
-        return redirect(action('\App\Http\Controllers\AdminController@getBlogs'));
+        return redirect(action('BlogController@getAdminIndex'));
     }
 
     /**
@@ -167,6 +167,6 @@ class BlogController extends Controller
     {
         Blog::find($blogID)->delete();
 
-        return redirect(action('\App\Http\Controllers\AdminController@getBlogs'));
+        return redirect(action('BlogController@getAdminIndex'));
     }
 }
