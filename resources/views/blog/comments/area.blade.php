@@ -84,8 +84,9 @@
         @endforeach
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
+
+@push('scripts')
+    <script type="text/javascript">
         update_comment_number();
         $('.timestamp').timeago();
 
@@ -93,10 +94,11 @@
             $('.timestamp').timeago();
         }, 1000);
 
-        socket.on('create_comment', function (comment_id, parent_id) {
-            $.get('{{ action('CommentsController@show', [null]) }}/' + comment_id, function (html) {
-                if (parent_id) {
-                    $('.comment-row[data-id="' + parent_id + '"]').find('> .reply-area').append(html);
+        socket.on('create_comment', function (data) {
+
+            $.get('{{ action('CommentsController@show', [null]) }}/' + data.comment._id, function (html) {
+                if (data.comment.parent_id) {
+                    $('.comment-row[data-id="' + data.comment.parent_id + '"]').find('> .reply-area').append(html);
                 }
                 else {
                     $('.comments').prepend(html);
@@ -105,17 +107,18 @@
             });
         });
 
-        socket.on('update_comment', function (comment_id, comment) {
-            $('.comment-row[data-id="' + comment_id + '"]').find('.comment').first().html(comment);
+        socket.on('update_comment', function (data) {
+            $('.comment-row[data-id="' + data.comment._id + '"]').find('.comment').first().html(data.comment.comment);
         });
 
-        socket.on('delete_comment', function (comment_id) {
-            $('.comment-row[data-id="' + comment_id + '"]').remove();
+        socket.on('delete_comment', function (data) {
+            $('.comment-row[data-id="' + data.comment._id + '"]').remove();
             update_comment_number();
         });
 
-        socket.on('update_votes', function (comment_id, votes) {
-            $('.comment-row[data-id="' + comment_id + '"]').find('.comment-footer .up-votes').first().html(votes);
+        socket.on('update_votes', function (data) {
+            console.log(data);
+            $('.comment-row[data-id="' + data.comment._id + '"]').find('.comment-footer .up-votes').first().html(data.comment.vote);
         });
 
         $(document).on('submit', '.comment-form', function (e) {
@@ -240,13 +243,13 @@
                 $('input:focus').closest('form').find('.cancel').click();
             }
         });
-    });
 
-    function close_all() {
-        $('.cancel:visible').click();
-    }
+        function close_all() {
+            $('.cancel:visible').click();
+        }
 
-    function update_comment_number() {
-        $('.total_count').html($('.comment-row').length);
-    }
-</script>
+        function update_comment_number() {
+            $('.total_count').html($('.comment-row').length);
+        }
+    </script>
+@endpush

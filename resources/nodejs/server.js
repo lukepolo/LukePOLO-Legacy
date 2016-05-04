@@ -28,7 +28,6 @@ redis_broadcast.psubscribe('*', function (err, count) {
 });
 
 redis_broadcast.on('pmessage', function (subscribed, channel, message) {
-
     console.log(channel);
     message = JSON.parse(message);
     io.emit(channel, message.data);

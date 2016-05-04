@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CommentUpdateVotes;
 use App\Models\Mongo\Comment;
 use App\Models\Mongo\CommentVote;
 
@@ -62,10 +63,7 @@ class CommentVotesController extends Controller
                     $comment->save();
                 }
 
-                \Emitter::emit('update_votes', route('blog/view', $comment->blog->link_name), [
-                    'comment_id' => $comment->id,
-                    'votes' => $comment->vote
-                ]);
+                \Event::fire(new CommentUpdateVotes($comment));
 
                 return response('Success');
             }

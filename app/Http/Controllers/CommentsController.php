@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CommentCreated;
+use App\Events\CommentDeleted;
+use App\Events\CommentUpdated;
 use App\Models\Mongo\Blog;
 use App\Models\Mongo\Comment;
 
@@ -45,11 +48,8 @@ class CommentsController extends Controller
                 'parent_id' => \Request::get('reply_to'),
                 'vote' => 0
             ]);
-
-            \Emitter::emit('create_comment', route('blog/view', $blog->link_name), [
-                'comment_id' => $comment->id,
-                'parent_id' => \Request::get('reply_to')
-            ]);
+            
+            \Event::fire(new CommentCreated($comment));
 
             return response('Success');
         } else {
@@ -67,9 +67,9 @@ class CommentsController extends Controller
         $comment = Comment::with('replies')->with('blog')->find($commentID);
 
         if (\Auth::user()->role == 'admin' || \Auth::user()->id == $comment->user_id) {
-            \Emitter::emit('delete_comment', route('blog/view', $comment->blog->link_name), [
-                'comment_id' => $comment->id
-            ]);
+
+
+            \Event::fire(new CommentDeleted($comment));
 
             $this->recursiveDelete($comment);
 
@@ -97,12 +97,10 @@ class CommentsController extends Controller
 
             $comment->been_moderated = null;
 
-            \Emitter::emit('update_comment', route('blog/view', $comment->blog->link_name), [
-                'comment_id' => $comment->id,
-                'comment' => $comment->comment
-            ]);
-
             $comment->save();
+
+            \Event::fire(new CommentUpdated($comment));
+
             return response('Success');
         } else {
             return response('Unauthorized.', 401);
@@ -116,9 +114,8 @@ class CommentsController extends Controller
     private function recursiveDelete($comment)
     {
         foreach ($comment->replies as $reply) {
-            \Emitter::emit('delete_comment', null, [
-                'comment_id' => $reply->id
-            ]);
+
+            \Event::fire(new CommentCreated($reply));
 
             $this->recursiveDelete(Comment::with('replies')->with('blog')->find($reply->id));
 

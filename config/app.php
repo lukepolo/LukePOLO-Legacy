@@ -164,7 +164,6 @@ return [
          * Custom Service Providers
          */
         App\Providers\SettingsServiceProvider::class,
-        App\Providers\EmitterServiceProvider::class,
     ],
 
     /*

@@ -6,7 +6,7 @@ use App\Models\Mongo\Comment;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
-class CommentCreated extends Event implements ShouldBroadcast
+class CommentUpdated extends Event implements ShouldBroadcast
 {
     use SerializesModels;
 
@@ -32,7 +32,7 @@ class CommentCreated extends Event implements ShouldBroadcast
     public function broadcastOn()
     {
         return [
-            'create_comment'
+            'update_comment'
         ];
     }
 }

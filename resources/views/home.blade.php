@@ -23,11 +23,12 @@
                     @if(!File::exists($modifiedIMG = public_path('img/cache/').$project->project_image))
                         <?php
                             $pathInfo = pathinfo($project->project_image);
-                            if(isset($pathInfo['dirname']) && !File::exists($newDir = public_path('img/cache/').$pathInfo['dirname'])) {
+
+                            if (isset($pathInfo['dirname']) && !File::exists($newDir = public_path('img/cache/') . $pathInfo['dirname'])) {
                                 File::makeDirectory($newDir);
                             }
 
-                            GlideImage::create(base_path('resources/assets/img/screenshots').'/'.$project->project_image)->modify(['w' => 390])->save(public_path('img/cache/').$project->project_image);
+                            GlideImage::create(base_path('resources/assets/img/screenshots') . '/' . $project->project_image)->modify(['w' => 390])->save(public_path('img/cache/') . $project->project_image);
                         ?>
                     @endif
                     <img class="img-responsive" src="{{ asset('img/cache/'.$project->project_image) }}">
@@ -38,20 +39,26 @@
                     <span class="btn btn-info">
                         <i class="fa fa-arrow-left"></i>
                     </span>
-                    <h2> {{ $project->name }} <small><a target="_blank" href="{{ $project->url }}">{{ $project->url }}</a></small></h2>
+                    <h2>
+                        {{ $project->name }}
+                        <small><a target="_blank" href="{{ $project->url }}">{{ $project->url }}</a></small>
+                    </h2>
                 </div>
                 <hr>
                 <div class="row panel-links">
-                 @foreach($project->technologies as $technology)
+                    @foreach($project->technologies as $technology)
                         <div class="col-lg-3">
                             <div class="panel panel-default">
-                                <div style="background-color:#{{ isset($technologies[$technology]) ? $technologies[$technology]->color : '' }}" class="panel-color"></div>
+                                <div style="background-color:#{{ isset($technologies[$technology]) ? $technologies[$technology]->color : '' }}"
+                                     class="panel-color"></div>
                                 <div class="panel-body">
                                     {{ isset($technologies[$technology]) ? $technologies[$technology]->name : $technology}}
                                     @if(isset($technologies[$technology]))
                                         <span>
-                                            <a class="pull-right" target="_blank" href="{{ $technologies[$technology]->url }}">
-                                                <i style="color:#{{ $technologies[$technology]->color }}" class="fa fa-arrow-right"></i>
+                                            <a class="pull-right" target="_blank"
+                                               href="{{ $technologies[$technology]->url }}">
+                                                <i style="color:#{{ $technologies[$technology]->color }}"
+                                                   class="fa fa-arrow-right"></i>
                                             </a>
                                         </span>
                                     @endif
@@ -80,7 +87,7 @@
 
             // INIT Objects
             var timelines = {};
-            var merges= {};
+            var merges = {};
             var ag_colors = {};
             var colors = {};
 
@@ -91,8 +98,7 @@
             var big_r = 27;
             var vertical_multiplier = 0;
 
-            $(document).ready(function()
-            {
+            $(document).ready(function () {
                 projects = Snap("#git_tree");
 
                 // http://paletton.com/#uid=70f0u0ke9vf4TW49xJliLoCnugw
@@ -107,22 +113,22 @@
                 @foreach($projects->reverse() as $project)
                     @if(empty($project->timeline) === false)
                         new_branch("{{ $project->id }}", "{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "{{ $project->timeline->id }}");
-                timelines["{{ $project->timeline->id }}"] = {
-                    id : "{{ $project->timeline->id }}",
-                    timeline_id: "{{ $project->timeline->id }}",
-                    name: "{{ $project->timeline->name }}",
-                    start_date: "{{ $project->timeline->start_date->timestamp }}",
-                    end_date: "{{ empty($project->timeline->end_date) === false ? $project->timeline->end_date->timestamp : '' }}",
-                    horizontal_multiplier: 1,
-                    vertical_multiplier: 0,
-                    timeline: true
-                };
-                @else
-                    new_branch("{{ $project->id }}", "{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "");
-                @endif
-            @endforeach
+                        timelines["{{ $project->timeline->id }}"] = {
+                            id: "{{ $project->timeline->id }}",
+                            timeline_id: "{{ $project->timeline->id }}",
+                            name: "{{ $project->timeline->name }}",
+                            start_date: "{{ $project->timeline->start_date->timestamp }}",
+                            end_date: "{{ empty($project->timeline->end_date) === false ? $project->timeline->end_date->timestamp : '' }}",
+                            horizontal_multiplier: 1,
+                            vertical_multiplier: 0,
+                            timeline: true
+                        };
+                    @else
+                        new_branch("{{ $project->id }}", "{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "");
+                    @endif
+                @endforeach
 
-            get_timelines();
+                get_timelines();
 
                 draw();
 
@@ -135,30 +141,27 @@
                 lines.transform(flip_matrix);
                 circles.transform(flip_matrix);
 
-                projects.paper.selectAll('circle').forEach(function(elem)
-                {
+                projects.paper.selectAll('circle').forEach(function (elem) {
                     $(elem.node).attr('old_color', $(elem.node).attr('fill'));
 
-                    elem.mouseover(function()
-                    {
+                    elem.mouseover(function () {
                         this.animate({
-                                    fill: '#FFFFFF',
-                                    r: big_r,
-                                    strokeOpacity: 1
-                                },
-                                200,
-                                mina.easeinout);
+                            fill: '#FFFFFF',
+                            r: big_r,
+                            strokeOpacity: 1
+                        },
+                        200,
+                        mina.easeinout);
                     });
 
-                    elem.mouseout(function()
-                    {
+                    elem.mouseout(function () {
                         this.animate({
-                                    fill: $(this.node).attr('old_color'),
-                                    r: default_r,
-                                    strokeOpacity: .3
-                                },
-                                200,
-                                mina.easeinout);
+                            fill: $(this.node).attr('old_color'),
+                            r: default_r,
+                            strokeOpacity: .3
+                        },
+                        200,
+                        mina.easeinout);
                     });
                 });
             });

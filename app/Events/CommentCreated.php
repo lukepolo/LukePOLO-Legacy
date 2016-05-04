@@ -6,7 +6,7 @@ use App\Models\Mongo\Comment;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
-class CommentUpdateVotes extends Event implements ShouldBroadcast
+class CommentCreated extends Event implements ShouldBroadcast
 {
     use SerializesModels;
 
@@ -32,7 +32,7 @@ class CommentUpdateVotes extends Event implements ShouldBroadcast
     public function broadcastOn()
     {
         return [
-            'update_votes'
+            'create_comment'
         ];
     }
 }
