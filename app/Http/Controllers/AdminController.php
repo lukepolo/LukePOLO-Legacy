@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mongo\Blog;
 use App\Models\Mongo\Comment;
 
 /**
@@ -18,7 +17,8 @@ class AdminController extends Controller
     public function getIndex()
     {
         return view('admin.index', [
-            'comments' => Comment::with('blog')->where('user_id', '!=', \Auth::user()->id)->whereNull('been_moderated')->get()
+            'comments' => Comment::with('blog')->where('user_id', '!=',
+                \Auth::user()->id)->whereNull('been_moderated')->get()
         ]);
     }
 
@@ -55,7 +55,8 @@ class AdminController extends Controller
      */
     public function getPopularPages()
     {
-        $visitors = \LaravelAnalytics::getMostVisitedPagesForPeriod(new \DateTime('2015-05-06 00:00:00'), new \DateTime(), 10);
+        $visitors = \LaravelAnalytics::getMostVisitedPagesForPeriod(new \DateTime('2015-05-06 00:00:00'),
+            new \DateTime(), 10);
 
         return response()->json($visitors);
     }

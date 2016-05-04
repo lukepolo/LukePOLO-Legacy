@@ -68,6 +68,7 @@ class TagsController extends Controller
     {
         $tag = Tag::find($tagID);
         $tag->fill(\Request::except('_token'));
+        $tag->save();
 
         \Cache::forget('tags');
 

@@ -67,7 +67,6 @@ class TimelinesController extends Controller
             $end_date = null;
         }
 
-
         $timeline->name = \Request::get('name');
         $timeline->color = \Request::get('color');
         $timeline->start_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date'));
