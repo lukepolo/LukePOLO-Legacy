@@ -1,12 +1,14 @@
+var base_path = __dirname.replace('resources/nodejs', '');
+
 require('dotenv').config({
-    path: __dirname + '/.env'
+    path: base_path +'.env'
 });
 
 var
     env = process.env,
     port = env.NODE_SERVER_PORT,
     redis = require('ioredis'),
-    redis_client = new redis(),
+    redis_socket = new redis(),
     redis_broadcast = new redis(),
     cookie = require('cookie'),
     crypto = require('crypto'),
@@ -16,23 +18,24 @@ var
     offline_timeout = {},
     users = {};
 
-
-if(env.APP_ENV == 'production') {
-    console.log = function(){};
+if (env.APP_ENV == 'production') {
+    console.log('removing console log');
+    console.log = function () {
+    };
 }
 
-redis_broadcast.psubscribe('*', function(err, count) {
+redis_broadcast.psubscribe('*', function (err, count) {
 
 });
 
-redis_broadcast.on('pmessage', function(subscribed, channel, message) {
+redis_broadcast.on('pmessage', function (subscribed, channel, message) {
     message = JSON.parse(message);
 
     console.log(message);
     io.emit(channel, message.data);
 });
 
-if(env.NODE_HTTPS == 'yes') {
+if (env.NODE_HTTPS == 'yes') {
     console.log("HTTPS");
     server = require('https').createServer({
         key: fs.readFileSync(env.SSL_KEY),
@@ -45,14 +48,16 @@ console.log('Server on Port : ' + port);
 server.listen(port);
 var io = require('socket.io')(server);
 
-io.use(function(socket, next) {
+var admin_room = env.ADMIN_ROOM;
 
-    if(typeof socket.request.headers.cookie != 'undefined') {
-        redis_client.get('forcebook:' + decryptCookie(
+io.use(function (socket, next) {
+
+    if (typeof socket.request.headers.cookie != 'undefined') {
+        redis_socket.get('lukepolo:' + decryptCookie(
                 cookie.parse(
                     socket.request.headers.cookie
-                ).forcebook_rid
-            ), function(error, result) {
+                ).lukepolo_session
+            ), function (error, result) {
             if (error) {
                 console.log('ERROR');
                 next(new Error(error));
@@ -70,34 +75,28 @@ io.use(function(socket, next) {
         console.log('Not Authorized');
         next(new Error('Not Authorized'));
     }
-})
-io.on('connection', function (client)
-{
-    socket.on('user_info', function (user_info) {
+});
 
-        clearTimeout(offline_timeout[user_info.id]);
+io.on('connection', function (socket) {
 
-        if(!users[user_info.id]) {
-            socket.user_id = user_info.id;
+    if(socket.request.headers.cookie) {
+        var session_id = decryptCookie(cookie.parse(socket.request.headers.cookie).lukepolo_session);
+        clearTimeout(offline_timeout[session_id]);
+        var url = socket.request.headers.referer;
+        socket.join(url);
+        users[session_id] = url;
+        if (io.sockets.adapter.rooms.hasOwnProperty(admin_room)) {
+            io.to(admin_room).emit('users', users);
         }
-        else {
-            socket.leave(users[user_info.id].location);
-            users[user_info.id].location = user_info.location;
-        }
-
-        console.log('user joined '+user_info.location);
-
-        socket.join(user_info.location);
-    });
+    }
 
     socket.on('disconnect', function () {
         if (socket.user_id) {
             offline_timeout[socket.user_id] = setTimeout(
-                function() {
+                function () {
                     console.log('user ' + socket.user_id + ' disconnected');
                     delete users[socket.user_id]
-                    if (io.sockets.adapter.rooms.hasOwnProperty(admin_room))
-                    {
+                    if (io.sockets.adapter.rooms.hasOwnProperty(admin_room)) {
                         io.to(admin_room).emit('users', users);
                     }
                 }, 15000
@@ -105,50 +104,41 @@ io.on('connection', function (client)
         }
     });
 
-    client.on('get_users', function()
-    {
+    socket.on('get_users', function () {
         io.to(admin_room).emit('users', users);
     });
 
-    client.on('create_comment', function(data)
-    {
-        if(io.sockets.adapter.rooms.hasOwnProperty(admin_room))
-        {
+    socket.on('create_comment', function (data) {
+        if (io.sockets.adapter.rooms.hasOwnProperty(admin_room)) {
             io.to(admin_room).emit('create_comment', data.comment_id);
         }
 
         io.to(data.room).emit('create_comment', data.comment_id, data.parent_id);
     });
 
-    client.on('update_comment', function(data)
-    {
-        if(io.sockets.adapter.rooms.hasOwnProperty(admin_room))
-        {
+    socket.on('update_comment', function (data) {
+        if (io.sockets.adapter.rooms.hasOwnProperty(admin_room)) {
             io.to(admin_room).emit('update_comment', data.comment_id, data.comment);
         }
 
         io.to(data.room).emit('update_comment', data.comment_id, data.comment);
     });
 
-    client.on('delete_comment', function(data)
-    {
-        if(io.sockets.adapter.rooms.hasOwnProperty(admin_room))
-        {
+    socket.on('delete_comment', function (data) {
+        if (io.sockets.adapter.rooms.hasOwnProperty(admin_room)) {
             io.to(admin_room).emit('delete_comment', data.comment_id);
         }
 
         io.to(data.room).emit('delete_comment', data.comment_id);
     });
 
-    client.on('update_votes', function(data)
-    {
+    socket.on('update_votes', function (data) {
         io.to(data.room).emit('update_votes', data.comment_id, data.votes);
     });
 });
 
-function decryptCookie(cookie)
-{
-    if(cookie) {
+function decryptCookie(cookie) {
+    if (cookie) {
         var parsedCookie = JSON.parse(new Buffer(cookie, 'base64'));
 
         var iv = new Buffer(parsedCookie.iv, 'base64');
