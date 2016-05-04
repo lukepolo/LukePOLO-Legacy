@@ -41,18 +41,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ action('Auth\AuthController@getService', ['linkedin']) }}">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ action('Auth\AuthController@getService', ['twitter']) }}">
                                 <i class="fa fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ action('Auth\AuthController@getService', ['reddit']) }}">
-                                <i class="fa fa-reddit"></i>
                             </a>
                         </li>
                     @endif

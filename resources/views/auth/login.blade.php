@@ -21,18 +21,8 @@
             </a>
         </div>
         <div class="col-sm-4">
-            <a href="{{ action('Auth\AuthController@getService', ['linkedin']) }}">
-                <i class="fa fa-linkedin"></i>
-            </a>
-        </div>
-        <div class="col-sm-4">
             <a href="{{ action('Auth\AuthController@getService', ['twitter']) }}">
                 <i class="fa fa-twitter"></i>
-            </a>
-        </div>
-        <div class="col-sm-4">
-            <a href="{{ action('Auth\AuthController@getService', ['reddit']) }}">
-                <i class="fa fa-reddit"></i>
             </a>
         </div>
     </div>

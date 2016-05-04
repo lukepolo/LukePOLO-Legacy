@@ -255,7 +255,6 @@
                 };
                 var chart = new Chart($("#chart").get(0).getContext("2d")).Line(data,{
                     bezierCurve : true,
-                    multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>",
                     responsive: true,
                     scaleShowVerticalLines: false
                 });

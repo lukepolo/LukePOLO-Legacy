@@ -19,75 +19,75 @@
     <![endif]-->
     <script src="/js/jquery.min.js"></script>
 </head>
-<body class="admin">
-@include('layouts.core.header')
-<div class="col-md-12 text-center" class="mini-bar"></div>
-<div class="container">
-    @if(Auth::check())
-        @include('layouts.core.adminmenu')
-    @endif
-    @if (Session::has('success'))
-        <div class="col-md-6 col-md-offset-3  alert alert-success">
-            <strong>Success!</strong><br><br>
-            <ul>
-                {{ Session::get('success') }}
-            </ul>
+    <body class="admin">
+        @include('layouts.core.header')
+        <div class="col-md-12 text-center" class="mini-bar"></div>
+        <div class="container">
+            @if(Auth::check())
+                @include('layouts.core.adminmenu')
+            @endif
+            @if (Session::has('success'))
+                <div class="col-md-6 col-md-offset-3  alert alert-success">
+                    <strong>Success!</strong><br><br>
+                    <ul>
+                        {{ Session::get('success') }}
+                    </ul>
+                </div>
+            @endif
+            @yield('content')
         </div>
-    @endif
-    @yield('content')
-</div>
-@include('layouts.core.footer')
-<!-- Scripts -->
-<script src="/js/admin.js"></script>
-<script type="text/javascript">
-    $(document).ready(function()
-    {
-        FastClick.attach(document.body);
-
-        // Passes the XSRF-TOKEN to PHP
-        $(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-XSRF-TOKEN': "{{ isset($_COOKIE['XSRF-TOKEN']) ? $_COOKIE['XSRF-TOKEN'] : '' }}"
-                }
-            });
-        });
-
-        $(document).on("click", ".confirm", function(e)
-        {
-            var link = $(this);
-            e.preventDefault();
-            bootbox.confirm("Are you sure?", function (response)
+        @include('layouts.core.footer')
+        <!-- Scripts -->
+        <script src="/js/admin.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function()
             {
-                if (response)
-                {
-                    window.location = link.attr('href');
-                }
-            });
-        });
+                FastClick.attach(document.body);
 
-        // Render Selects with Select2
-        $('select').each(function()
-        {
-            // we don't want our debugbar to take this effect
-            if (!$(this).hasClass('phpdebugbar-datasets-switcher'))
-            {
-                // Make sure the select hasn't been rendered yet
-                if (typeof($._data(this).hasDataAttrs) == 'undefined')
-                {
-                    var selected = '';
+                // Passes the XSRF-TOKEN to PHP
+                $(function() {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-XSRF-TOKEN': "{{ isset($_COOKIE['XSRF-TOKEN']) ? $_COOKIE['XSRF-TOKEN'] : '' }}"
+                        }
+                    });
+                });
 
-                    // Since we are going to add an option to every select
-                    // we need to make sure nothing else was selected
-                    if (!$(this).attr('multiple') && $(this).find('option[selected]').length == 0)
+                $(document).on("click", ".confirm", function(e)
+                {
+                    var link = $(this);
+                    e.preventDefault();
+                    bootbox.confirm("Are you sure?", function (response)
                     {
-                        selected = 'selected';
+                        if (response)
+                        {
+                            window.location = link.attr('href');
+                        }
+                    });
+                });
+
+                // Render Selects with Select2
+                $('select').each(function()
+                {
+                    // we don't want our debugbar to take this effect
+                    if (!$(this).hasClass('phpdebugbar-datasets-switcher'))
+                    {
+                        // Make sure the select hasn't been rendered yet
+                        if (typeof($._data(this).hasDataAttrs) == 'undefined')
+                        {
+                            var selected = '';
+
+                            // Since we are going to add an option to every select
+                            // we need to make sure nothing else was selected
+                            if (!$(this).attr('multiple') && $(this).find('option[selected]').length == 0)
+                            {
+                                selected = 'selected';
+                            }
+                            $(this).prepend($('<option ' + selected + '></option>')).select2({placeholder: "Please select an Option"});
+                        }
                     }
-                    $(this).prepend($('<option ' + selected + '></option>')).select2({placeholder: "Please select an Option"});
-                }
-            }
-        });
-    });
-</script>
-</body>
+                });
+            });
+        </script>
+    </body>
 </html>
