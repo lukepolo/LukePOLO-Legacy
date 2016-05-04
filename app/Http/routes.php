@@ -68,7 +68,6 @@ Route::group(['middleware' => 'web'], function () {
         |--------------------------------------------------------------------------
         */
         Route::get('blogs', 'BlogController@getAdminIdex');
-        Route::get('blog/{blogID}', 'BlogController@getView');
         Route::get('blog/create', 'BlogController@getCreate');
         Route::post('blog/create', 'BlogController@getCreate');
         Route::get('blog/edit/{blogID}', 'BlogController@getEdit');

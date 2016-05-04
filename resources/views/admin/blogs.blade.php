@@ -32,7 +32,7 @@
                         {{ $blog->updated_at }}
                     </td>
                     <td>
-                        <a href="{{ action('BlogController@getView', [$blog->link_name]) }}">
+                        <a href="{{ route('blog/view', [$blog->link_name]) }}">
                             {{ $blog->link_name }}
                         </a>
                     </td>

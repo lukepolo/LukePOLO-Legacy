@@ -43,9 +43,7 @@ class BlogController extends Controller
 
         return view('blog', [
             'blogs' => $blogs->get(),
-            'tags' => \Cache::rememberForever('tags', function () {
-                return Tag::get();
-            }),
+            'tags' => Tag::get(),
             'tag' => $tag
         ]);
     }
