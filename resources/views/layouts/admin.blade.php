@@ -20,11 +20,11 @@
     <script src="/js/jquery.min.js"></script>
 </head>
 <body class="admin">
-@include('layouts.header')
+@include('layouts.core.header')
 <div class="col-md-12 text-center" class="mini-bar"></div>
 <div class="container">
     @if(Auth::check())
-        @include('layouts.adminmenu')
+        @include('layouts.core.adminmenu')
     @endif
     @if (Session::has('success'))
         <div class="col-md-6 col-md-offset-3  alert alert-success">
@@ -36,7 +36,7 @@
     @endif
     @yield('content')
 </div>
-@include('layouts.footer')
+@include('layouts.core.footer')
 <!-- Scripts -->
 <script src="/js/admin.js"></script>
 <script type="text/javascript">

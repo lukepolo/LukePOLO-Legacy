@@ -49,6 +49,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('markAsRead', 'AdminController@postMarkRead');
 
         Route::get('settings', 'SettingsController@getIndex');
+        Route::post('settings', 'SettingsController@postIndex');
 
         /*
         |--------------------------------------------------------------------------

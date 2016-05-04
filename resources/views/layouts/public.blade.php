@@ -26,7 +26,7 @@
     <script src="/js/jquery.min.js"></script>
 </head>
     <body>
-        @include('layouts.header')
+        @include('layouts.core.header')
 
         @if(\Request::url() == url())
             <div class="home-header" class="col-md-12 text-center">
@@ -48,7 +48,7 @@
         <div class="container">
             @yield('content')
         </div>
-        @include('layouts.footer')
+        @include('layouts.core.footer')
         <!-- Scripts -->
         <script src="/js/all.js"></script>
         <script>

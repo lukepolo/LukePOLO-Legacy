@@ -18,7 +18,7 @@ class TagsController extends Controller
      */
     public function getIndex()
     {
-        return view('tags', [
+        return view('tags.index', [
             'tags' => Tag::get()
         ]);
     }

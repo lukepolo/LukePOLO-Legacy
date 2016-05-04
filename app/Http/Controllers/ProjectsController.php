@@ -19,7 +19,7 @@ class ProjectsController extends Controller
      */
     public function getIndex()
     {
-        return view('projects', [
+        return view('projects.index', [
             'projects' => Project::with('timeline')->orderBy('start_date', 'dsc')->get()
         ]);
     }

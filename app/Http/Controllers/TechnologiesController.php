@@ -18,7 +18,7 @@ class TechnologiesController extends Controller
      */
     public function getIndex()
     {
-        return view('technologies', [
+        return view('technologies.index', [
             'technologies' => Technology::get()
         ]);
     }

@@ -18,8 +18,8 @@ class TimelinessController extends Controller
      */
     public function getIndex()
     {
-        return view('timeline', [
-            'Timeliness' => Timeline::get()
+        return view('timeliness.index', [
+            'timeliness' => Timeline::get()
         ]);
     }
 
@@ -29,7 +29,7 @@ class TimelinessController extends Controller
      */
     public function getCreate()
     {
-        return view('Timeliness.form');
+        return view('timeliness.form');
     }
 
     /**
@@ -62,7 +62,7 @@ class TimelinessController extends Controller
      */
     public function getEdit($timelineID)
     {
-        return view('Timeliness.form', [
+        return view('timeliness.form', [
             'timeline' => Timeline::find($timelineID)
         ]);
     }
