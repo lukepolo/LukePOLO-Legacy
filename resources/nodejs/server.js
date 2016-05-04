@@ -1,7 +1,7 @@
 var base_path = __dirname.replace('resources/nodejs', '');
 
 require('dotenv').config({
-    path: base_path +'.env'
+    path: base_path + '.env'
 });
 
 var
@@ -19,7 +19,6 @@ var
     users = {};
 
 if (env.APP_ENV == 'production') {
-    console.log('removing console log');
     console.log = function () {
     };
 }
@@ -29,9 +28,9 @@ redis_broadcast.psubscribe('*', function (err, count) {
 });
 
 redis_broadcast.on('pmessage', function (subscribed, channel, message) {
-    message = JSON.parse(message);
 
-    console.log(message);
+    console.log(channel);
+    message = JSON.parse(message);
     io.emit(channel, message.data);
 });
 
@@ -51,13 +50,13 @@ var io = require('socket.io')(server);
 var admin_room = env.ADMIN_ROOM;
 
 io.use(function (socket, next) {
-
     if (typeof socket.request.headers.cookie != 'undefined') {
         redis_socket.get('lukepolo:' + decryptCookie(
                 cookie.parse(
                     socket.request.headers.cookie
                 ).lukepolo_session
             ), function (error, result) {
+            
             if (error) {
                 console.log('ERROR');
                 next(new Error(error));
@@ -65,8 +64,7 @@ io.use(function (socket, next) {
             else if (result) {
                 console.log('Logged In');
                 next();
-            }
-            else {
+            } else {
                 console.log('Not Authorized');
                 next(new Error('Not Authorized'));
             }
@@ -79,7 +77,7 @@ io.use(function (socket, next) {
 
 io.on('connection', function (socket) {
 
-    if(socket.request.headers.cookie) {
+    if (socket.request.headers.cookie) {
         var session_id = decryptCookie(cookie.parse(socket.request.headers.cookie).lukepolo_session);
         clearTimeout(offline_timeout[session_id]);
         var url = socket.request.headers.referer;
