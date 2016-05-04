@@ -13,13 +13,13 @@ var gulp = require('gulp'),
 paths = {
     'css_public': './public/css/',
     'js_public': './public/js/',
-    'fonts_public': './public/fonts/',
+    'fonts_public': './public/build/fonts/',
     'sass': resources_path + '/assets/sass/',
     'sass_partials': resources_path + 'assets/sass/partials/',
     'js': resources_path + '/assets/js/',
     'img': resources_path + 'assets/img/',
 
-    'jquery': bower_path + 'jquery/',
+    'jquery': bower_path + 'jquery/dist/',
     'jquery_ui': bower_path + 'jquery-ui/',
     'bootstrap': bower_path + 'bootstrap-sass/assets/',
     'fontawesome': bower_path + 'fontawesome/',
@@ -55,8 +55,6 @@ elixir.extend('minify_img', function () {
 
 elixir(function (mix) {
     mix
-        .copy(paths.jquery + 'jquery.min.js', paths.js_public + 'jquery.min.js')
-        .copy(paths.jquery + 'jquery.min.map', paths.js_public + 'jquery.min.map')
         .copy(paths.jquery_ui + 'themes/base/jquery-ui.min.css', paths.sass_partials + '_jquery-ui-min.scss')
         .copy(paths.jquery_ui + 'themes/base/images', paths.img + 'jquery-ui')
         .copy(paths.fontawesome + 'fonts', paths.fonts_public)
@@ -70,6 +68,7 @@ elixir(function (mix) {
         .copy(paths.datepicker + 'css/bootstrap-datetimepicker.css', paths.sass_partials + '_bootstrap-datetimepicker.scss')
         .sass('app.scss')
         .scripts([
+            paths.jquery + 'jquery.js',
             paths.bootstrap + 'javascripts/bootstrap.js',
             paths.snap + 'snap.svg.js',
             paths.tinycolor + 'tinycolor.js',
@@ -79,9 +78,13 @@ elixir(function (mix) {
             paths.owl + 'owl.carousel.js',
             paths.lazyload + 'jquery.lazyload.js',
             paths.fastclick + 'fastclick.js',
-            paths.js + '**'
+            paths.js + 'git_lines.js',
+            paths.js + 'projects.js',
+            paths.js + 'search.js',
+            paths.js + 'select2.js',
         ], paths.js_public + 'all.js')
         .scripts([
+            paths.jquery + 'jquery.js',
             paths.bootstrap + 'javascripts/bootstrap.js',
             paths.snap + 'snap.svg.js',
             paths.tinycolor + 'tinycolor.js',
@@ -95,10 +98,13 @@ elixir(function (mix) {
             paths.owl + 'owl.carousel.js',
             paths.sisyphus + 'sisyphus.js',
             paths.fastclick + 'fastclick.js',
-            paths.js + '**'
+            paths.js + 'pane_links.js',
+            paths.js + 'select2.js',
+            paths.js + 'plugins.js',
+            paths.js + 'confirm.js'
         ], paths.js_public + 'admin.js')
         .minify_img()
-        .version(["public/css/app.css", "public/js/all.js"])
+        .version(['public/css/app.css', 'public/js/all.js', 'public/js/admin.js'])
         .browserSync({
             proxy: env.SITE_URL
         });

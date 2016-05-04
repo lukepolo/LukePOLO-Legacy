@@ -66,6 +66,9 @@
             </div>
         @endforeach
     </div>
+@endsection
+
+@push('scripts')
     @if(!Agent::isMobile())
         <script type="text/javascript">
             var projects;
@@ -104,22 +107,22 @@
                 @foreach($projects->reverse() as $project)
                     @if(empty($project->timeline) === false)
                         new_branch("{{ $project->id }}", "{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "{{ $project->timeline->id }}");
-                        timelines["{{ $project->timeline->id }}"] = {
-                            id : "{{ $project->timeline->id }}",
-                            timeline_id: "{{ $project->timeline->id }}",
-                            name: "{{ $project->timeline->name }}",
-                            start_date: "{{ $project->timeline->start_date->timestamp }}",
-                            end_date: "{{ empty($project->timeline->end_date) === false ? $project->timeline->end_date->timestamp : '' }}",
-                            horizontal_multiplier: 1,
-                            vertical_multiplier: 0,
-                            timeline: true
-                        };
-                    @else
-                        new_branch("{{ $project->id }}", "{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "");
-                    @endif
-                @endforeach
+                timelines["{{ $project->timeline->id }}"] = {
+                    id : "{{ $project->timeline->id }}",
+                    timeline_id: "{{ $project->timeline->id }}",
+                    name: "{{ $project->timeline->name }}",
+                    start_date: "{{ $project->timeline->start_date->timestamp }}",
+                    end_date: "{{ empty($project->timeline->end_date) === false ? $project->timeline->end_date->timestamp : '' }}",
+                    horizontal_multiplier: 1,
+                    vertical_multiplier: 0,
+                    timeline: true
+                };
+                @else
+                    new_branch("{{ $project->id }}", "{{ $project->name }}", "{{ $project->start_date->timestamp }}", "{{ $project->end_date->timestamp }}", "");
+                @endif
+            @endforeach
 
-                get_timelines();
+            get_timelines();
 
                 draw();
 
@@ -139,28 +142,28 @@
                     elem.mouseover(function()
                     {
                         this.animate({
-                            fill: '#FFFFFF',
-                            r: big_r,
-                            strokeOpacity: 1
-                        },
-                        200,
-                        mina.easeinout);
+                                    fill: '#FFFFFF',
+                                    r: big_r,
+                                    strokeOpacity: 1
+                                },
+                                200,
+                                mina.easeinout);
                     });
 
                     elem.mouseout(function()
                     {
                         this.animate({
-                            fill: $(this.node).attr('old_color'),
-                            r: default_r,
-                            strokeOpacity: .3
-                        },
-                        200,
-                        mina.easeinout);
+                                    fill: $(this.node).attr('old_color'),
+                                    r: default_r,
+                                    strokeOpacity: .3
+                                },
+                                200,
+                                mina.easeinout);
                     });
                 });
             });
         </script>
     @endif
-@endsection
+@endpush
 
 

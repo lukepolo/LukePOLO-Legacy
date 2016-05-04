@@ -10,12 +10,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ @isset($title) === true ? $title : '{ LukePOLO' }}</title>
 
     <link href='//fonts.googleapis.com/css?family=Josefin+Slab:100,400,700' rel='stylesheet' type='text/css'>
 
-    <link href="/css/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,7 +24,6 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="/js/jquery.min.js"></script>
 </head>
     <body>
         @include('layouts.core.header')
@@ -50,32 +50,13 @@
         </div>
         @include('layouts.core.footer')
         <!-- Scripts -->
-        <script src="/js/all.js"></script>
+        <script src="{{ elixir('js/all.js') }}"></script>
         <script>
-            $(document).ready(function()
-            {
-                $("img.lazy").lazyload();
-                FastClick.attach(document.body);
-
-                $('iframe[src*="youtube.com"]').wrap('<div class="youtubeWrapper" />');
-
-                $('.owl-carousel').owlCarousel({
-                    items: 1,
-                    nav: false,
-                    dots: true,
-                    loop: true,
-                    lazyLoad: true,
-                    autoplay: true,
-                    autoplayTimeout: 2000,
-                    autoplayHoverPause: true
-                });
-                // Passes the XSRF-TOKEN to PHP
-                $(function() {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-XSRF-TOKEN': "{{ isset($_COOKIE['XSRF-TOKEN']) ? $_COOKIE['XSRF-TOKEN'] : '' }}"
-                        }
-                    });
+            $(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-XSRF-TOKEN': "{{ isset($_COOKIE['XSRF-TOKEN']) ? $_COOKIE['XSRF-TOKEN'] : '' }}"
+                    }
                 });
             });
 
@@ -86,7 +67,7 @@
 
             ga('create', 'UA-33266635-1', 'auto');
             ga('send', 'pageview');
-
         </script>
+        @stack('scripts')
     </body>
 </html>

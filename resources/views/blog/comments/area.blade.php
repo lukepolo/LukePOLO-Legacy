@@ -9,16 +9,17 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if(\Auth::check())
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ \Auth()->user()->first_name }}
-                            {{ \Auth()->user()->last_name }}
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a></li>
-                        </ul>
-                    </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false">
+                                {{ \Auth()->user()->first_name }}
+                                {{ \Auth()->user()->last_name }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a></li>
+                            </ul>
+                        </li>
                     @else
                         <li>
                             <div class="navbar-text">
@@ -52,15 +53,16 @@
     </nav>
     @if(\Auth::check())
         {!! Form::open(['class' => 'comment-form form-horizontal']) !!}
-            <div class="form-group">
-                <div class="col-xs-1">
-                    <img class="pull-right user-image img-responsive" src="{{ empty(\Auth::user()->profile_img) === false ?  \Auth::user()->profile_img : asset('/img/user.svg') }}">
-                </div>
-                <div class="col-xs-11">
-                    {!! Form::text('comment', null, ['class'=> 'comment-text form-control','placeholder' => $blog->comments->count() == 0 ? 'Start the discussion . . .' : 'Join the discussion . . .' ]) !!}
-                </div>
+        <div class="form-group">
+            <div class="col-xs-1">
+                <img class="pull-right user-image img-responsive"
+                     src="{{ empty(\Auth::user()->profile_img) === false ?  \Auth::user()->profile_img : asset('/img/user.svg') }}">
             </div>
-            {!! Form::submit('Post', ['class' => 'pull-right comment-post btn btn-primary']) !!}
+            <div class="col-xs-11">
+                {!! Form::text('comment', null, ['class'=> 'comment-text form-control','placeholder' => $blog->comments->count() == 0 ? 'Start the discussion . . .' : 'Join the discussion . . .' ]) !!}
+            </div>
+        </div>
+        {!! Form::submit('Post', ['class' => 'pull-right comment-post btn btn-primary']) !!}
         {!! Form::close() !!}
 
         {!! Form::open(['class' => 'hide comment-edit-form row']) !!}
@@ -83,49 +85,40 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function()
-    {
+    $(document).ready(function () {
         update_comment_number();
         $('.timestamp').timeago();
 
-        window.setInterval(function(){
+        window.setInterval(function () {
             $('.timestamp').timeago();
         }, 1000);
 
-        socket.on('create_comment', function(comment_id, parent_id)
-        {
-            $.get('{{ action('CommentsController@show', [null]) }}/' + comment_id, function(html)
-            {
-                if(parent_id)
-                {
+        socket.on('create_comment', function (comment_id, parent_id) {
+            $.get('{{ action('CommentsController@show', [null]) }}/' + comment_id, function (html) {
+                if (parent_id) {
                     $('.comment-row[data-id="' + parent_id + '"]').find('> .reply-area').append(html);
                 }
-                else
-                {
+                else {
                     $('.comments').prepend(html);
                 }
                 update_comment_number();
             });
         });
 
-        socket.on('update_comment', function(comment_id, comment)
-        {
+        socket.on('update_comment', function (comment_id, comment) {
             $('.comment-row[data-id="' + comment_id + '"]').find('.comment').first().html(comment);
         });
 
-        socket.on('delete_comment', function(comment_id)
-        {
+        socket.on('delete_comment', function (comment_id) {
             $('.comment-row[data-id="' + comment_id + '"]').remove();
             update_comment_number();
         });
 
-        socket.on('update_votes', function(comment_id, votes)
-        {
+        socket.on('update_votes', function (comment_id, votes) {
             $('.comment-row[data-id="' + comment_id + '"]').find('.comment-footer .up-votes').first().html(votes);
         });
 
-        $(document).on('submit', '.comment-form', function(e)
-        {
+        $(document).on('submit', '.comment-form', function (e) {
 
             e.preventDefault();
             var form = $(this);
@@ -135,29 +128,24 @@
             var comment = $(this).find('.comment-text');
 
             $.post("{{ action('CommentsController@store') }}",
-            {
-                comment: comment.val(),
-                blog_id: "{{ $blog->id }}",
-                reply_to : $(form).data('reply-to')
-            }).success(function()
-            {
-                if($(form).data('reply-to'))
-                {
+                    {
+                        comment: comment.val(),
+                        blog_id: "{{ $blog->id }}",
+                        reply_to: $(form).data('reply-to')
+                    }).success(function () {
+                if ($(form).data('reply-to')) {
                     $(form).remove();
                 }
-                else
-                {
+                else {
                     form.find('.comment-post').prop('disabled', false);
                     comment.val('');
                 }
-            }).error(function()
-            {
+            }).error(function () {
                 form.find('.comment-post').prop('disabled', false);
             });
         });
 
-        $(document).on('submit', '.comment-edit-form', function(e)
-        {
+        $(document).on('submit', '.comment-edit-form', function (e) {
             e.preventDefault();
 
             var form = $(this);
@@ -170,59 +158,50 @@
                 url: "{{ action('CommentsController@update', null) }}/" + $(this).data('id'),
                 type: 'PUT',
                 data: {
-                    comment : comment.val()
+                    comment: comment.val()
                 }
-            }).success(function()
-            {
+            }).success(function () {
                 form.prev().removeClass('hide');
                 $(form).remove();
-            }).error(function()
-            {
+            }).error(function () {
 
                 form.find('.comment-post').prop('disabled', false);
             });
         });
 
-        $(document).on('click', '.delete', function(e)
-        {
+        $(document).on('click', '.delete', function (e) {
             $.ajax({
                 url: "{{ action('CommentsController@destroy', null) }}/" + $(this).data('id'),
                 type: 'DELETE'
             });
         });
 
-        $(document).on('click', '.up-vote', function()
-        {
+        $(document).on('click', '.up-vote', function () {
             var span = this;
             $.post("{{ action('CommentVotesController@store') }}",
-            {
-                comment: $(this).data('id'),
-                vote : 1
-            }).success(function()
-            {
+                    {
+                        comment: $(this).data('id'),
+                        vote: 1
+                    }).success(function () {
                 $(span).parent().find('.down-selected').removeClass('down-selected');
                 $(span).toggleClass('up-selected');
             });
         });
 
-        $(document).on('click', '.down-vote', function()
-        {
+        $(document).on('click', '.down-vote', function () {
             var span = this;
             $.post("{{ action('CommentVotesController@store') }}",
-            {
-                comment: $(this).data('id'),
-                vote: 0
-            }).success(function()
-            {
+                    {
+                        comment: $(this).data('id'),
+                        vote: 0
+                    }).success(function () {
                 $(span).parent().find('.up-selected').removeClass('up-selected');
                 $(span).toggleClass('down-selected');
             });
         });
 
-        $(document).on('click', '.reply', function()
-        {
-            if(!$(this).parent().after().next().is('form'))
-            {
+        $(document).on('click', '.reply', function () {
+            if (!$(this).parent().after().next().is('form')) {
                 close_all();
                 var comment_form = $('.comment-form').first().clone().attr('data-reply-to', $(this).data('id'));
 
@@ -234,10 +213,8 @@
             }
         });
 
-        $(document).on('click', '.edit', function()
-        {
-            if(!$(this).closest('.reply-area').find('.comment').next().is('form'))
-            {
+        $(document).on('click', '.edit', function () {
+            if (!$(this).closest('.reply-area').find('.comment').next().is('form')) {
                 close_all();
                 var comment_form = $('.comment-edit-form').first().clone().attr('data-reply-to', $(this).data('id'));
 
@@ -252,28 +229,24 @@
             }
         });
 
-        $(document).on('click', '.cancel', function()
-        {
+        $(document).on('click', '.cancel', function () {
             $(this).closest('.reply-area').find('.comment').removeClass('hide');
             $(this).closest('form').remove();
         });
 
-        $(document).keyup(function(e) {
+        $(document).keyup(function (e) {
 
-            if (e.keyCode == 27)
-            {
+            if (e.keyCode == 27) {
                 $('input:focus').closest('form').find('.cancel').click();
             }
         });
     });
 
-    function close_all()
-    {
+    function close_all() {
         $('.cancel:visible').click();
     }
 
-    function update_comment_number()
-    {
+    function update_comment_number() {
         $('.total_count').html($('.comment-row').length);
     }
 </script>

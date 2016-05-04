@@ -74,9 +74,11 @@
             {!! Form::submit(isset($project) === true ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
         </div>
     {!! Form::close() !!}
+@endsection
+
+@push('scripts')
     <script type="text/javascript">
-        $(document).ready(function()
-        {
+        $(document).ready(function () {
             $('#technologies').select2();
 
             $('#summernote').summernote({
@@ -98,4 +100,4 @@
             $('#datetimepicker1').datetimepicker();
         });
     </script>
-@endsection
+@endpush
