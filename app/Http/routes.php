@@ -60,7 +60,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('projects/create', 'ProjectsController@getCreate');
         Route::post('projects/create', 'ProjectsController@postCreate');
         Route::get('projects/edit/{projectID}', 'ProjectsController@getEdit');
-        Route::post('projects/edit{projectID}', 'ProjectsController@postEdit');
+        Route::post('projects/edit/{projectID}', 'ProjectsController@postEdit');
         Route::get('projects/delete/{projectID}', 'ProjectsController@getDelete');
 
         /*
