@@ -133,16 +133,14 @@ class BlogController extends Controller
 
     /**
      * Saves the updates to the blog
-     * @param BlogFormRequest $request
      * @param $blogID
+     * @param BlogFormRequest $request
      * @return mixed
      */
-    public function postEdit(BlogFormRequest $request, $blogID)
+    public function postEdit($blogID, BlogFormRequest $request)
     {
-        dd('ttest');
         $blog = Blog::with('tags')->find($blogID);
 
-        dd(\Request::all());
         $blog->fill([
             \Request::except(\Request::except(['_token', 'tags']))
         ]);
