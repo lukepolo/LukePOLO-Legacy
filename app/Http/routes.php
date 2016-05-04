@@ -80,12 +80,12 @@ Route::group(['middleware' => 'web'], function () {
         | Timeliness Routes
         |--------------------------------------------------------------------------
         */
-        Route::get('timelines', 'TimelinesController@getIndex');
-        Route::get('timeline/create', 'TimelinesController@getCreate');
-        Route::post('timeline/create', 'TimelinesController@postCreate');
-        Route::get('timeline/edit/{timelineID}', 'TimelinesController@getEdit');
-        Route::post('timelines/edit/{timelineID}', 'TimelinesController@postEdit');
-        Route::get('timelines/delete/{timelineID}', 'TimelinesController@getDelete');
+        Route::get('timeliness', 'TimelinessController@getIndex');
+        Route::get('timeline/create', 'TimelinessController@getCreate');
+        Route::post('timeline/create', 'TimelinessController@postCreate');
+        Route::get('timeline/edit/{timelineID}', 'TimelinessController@getEdit');
+        Route::post('timeliness/edit/{timelineID}', 'TimelinessController@postEdit');
+        Route::get('timeliness/delete/{timelineID}', 'TimelinessController@getDelete');
 
         /*
         |--------------------------------------------------------------------------

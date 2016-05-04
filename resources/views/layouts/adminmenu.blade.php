@@ -44,7 +44,7 @@
             <div class="panel-body">
                 Timelines
                 <span>
-                    <a class="pull-right" href="{{ action('TimelinesController@getIndex') }}">
+                    <a class="pull-right" href="{{ action('TimelinessController@getIndex') }}">
                         <i class="fa fa-arrow-right"></i>
                     </a>
                 </span>

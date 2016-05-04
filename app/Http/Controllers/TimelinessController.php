@@ -7,30 +7,33 @@ use App\Http\Requests\TimelineFormRequest;
 use App\Models\Mongo\Timeline;
 
 /**
- * Class TimelinesController
+ * Class TimelinessController
  * @package App\Http\Controllers
  */
-class TimelinesController extends Controller
+class TimelinessController extends Controller
 {
     /**
+     * The main timeline view
      * @return mixed
      */
     public function getIndex()
     {
         return view('timeline', [
-            'timelines' => Timeline::get()
+            'Timeliness' => Timeline::get()
         ]);
     }
 
     /**
+     * The create form
      * @return mixed
      */
     public function getCreate()
     {
-        return view('timelines.form');
+        return view('Timeliness.form');
     }
 
     /**
+     * Creates a new timeline
      * @param TimelineFormRequest $request
      * @return mixed
      */
@@ -49,17 +52,30 @@ class TimelinesController extends Controller
             'end_date' => $end_date
         ]);
 
-        return redirect(action('\App\Http\Controllers\TimelinesController@getIndex'));
+        return redirect(action('\App\Http\Controllers\TimelinessController@getIndex'));
     }
 
     /**
-     * @param $timeline_id
+     * The update form
+     * @param $timelineID
+     * @return mixed
+     */
+    public function getEdit($timelineID)
+    {
+        return view('Timeliness.form', [
+            'timeline' => Timeline::find($timelineID)
+        ]);
+    }
+
+    /**
+     * Updates a timeline
+     * @param $timelineID
      * @param TimelineFormRequest $request
      * @return mixed
      */
-    public function postEdit($timeline_id, TimelineFormRequest $request)
+    public function postEdit($timelineID, TimelineFormRequest $request)
     {
-        $timeline = Timeline::find($timeline_id);
+        $timeline = Timeline::find($timelineID);
 
         if (\Request::get('end_date') != '') {
             $end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
@@ -67,6 +83,7 @@ class TimelinesController extends Controller
             $end_date = null;
         }
 
+        // TODO - create a setter
         $timeline->name = \Request::get('name');
         $timeline->color = \Request::get('color');
         $timeline->start_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date'));
@@ -74,28 +91,18 @@ class TimelinesController extends Controller
 
         $timeline->save();
 
-        return redirect(action('\App\Http\Controllers\TimelinesController@getIndex'));
+        return redirect(action('\App\Http\Controllers\TimelinessController@getIndex'));
     }
-
+    
     /**
-     * @param $timeline_id
+     * Deletes a timeline
+     * @param $timelineID
      * @return mixed
      */
-    public function getEdit($timeline_id)
+    public function getDelete($timelineID)
     {
-        return view('timelines.form', [
-            'timeline' => Timeline::find($timeline_id)
-        ]);
-    }
+        Timeline::find($timelineID)->delete();
 
-    /**
-     * @param $timeline_id
-     * @return mixed
-     */
-    public function getDelete($timeline_id)
-    {
-        Timeline::find($timeline_id)->delete();
-
-        return redirect(action('\App\Http\Controllers\TimelinesController@getIndex'));
+        return redirect(action('\App\Http\Controllers\TimelinessController@getIndex'));
     }
 }
