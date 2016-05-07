@@ -97,8 +97,7 @@
         socket.on('update_comment', function (data) {
             if ($('div[data-id="' + data.comment._id + '"]').length != 0) {
                 $('div[data-id="' + data.comment._id + '"]').find('.comment').html(data.comment.comment);
-            }
-            else {
+            } else {
                 $.get('{{ action('AdminController@getComment', [null]) }}/' + data.comment._id, function (html) {
                     $('.admin-comments .panel-body').prepend(html);
                 });
@@ -123,8 +122,7 @@
                     if ('{{ \Session::getId() }}' != session_id) {
                         if (locations[location]) {
                             locations[location]++;
-                        }
-                        else {
+                        } else {
                             locations[location] = 1;
                         }
                     }
@@ -134,9 +132,9 @@
 
                 $.each(locations, function (location, user_count) {
                     $('.active-user-locations table tbody').append('<tr>' +
-                            '<td>' + location + '</td>' +
-                            '<td>' + user_count + '</td>' +
-                            '</tr>');
+                        '<td>' + location + '</td>' +
+                        '<td>' + user_count + '</td>' +
+                    '</tr>');
                 });
             }
             else {
@@ -177,16 +175,14 @@
 
             var form = $(this);
             var comment = $(this).find('.comment-text');
-            $.post("{{ action('CommentsController@store') }}",
-                    {
-                        comment: comment.val(),
-                        blog_id: $(form).data('blog-id'),
-                        reply_to: $(form).data('reply-to')
-                    }).success(function () {
+            $.post("{{ action('CommentsController@store') }}", {
+                comment: comment.val(),
+                blog_id: $(form).data('blog-id'),
+                reply_to: $(form).data('reply-to')
+            }).success(function () {
                 if ($(form).data('reply-to')) {
                     $(form).remove();
                 }
-
                 mark_read($(form).data('reply-to'));
             });
         });
