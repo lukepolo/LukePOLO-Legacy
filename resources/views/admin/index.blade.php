@@ -87,27 +87,27 @@
     <script type="text/javascript">
         socket.emit('get_users');
 
-        socket.on('create_comment', function (comment_id) {
-            $.get('{{ action('AdminController@getComment', [null]) }}/' + comment_id, function (html) {
+        socket.on('create_comment', function (data) {
+            $.get('{{ action('AdminController@getComment', [null]) }}/' + data.comment._id, function (html) {
                 $('.admin-comments .panel-body').prepend(html);
                 update_count();
             });
         });
 
-        socket.on('update_comment', function (comment_id, comment) {
-            if ($('div[data-id="' + comment_id + '"]').length != 0) {
-                $('div[data-id="' + comment_id + '"]').find('.comment').html(comment);
+        socket.on('update_comment', function (data) {
+            if ($('div[data-id="' + data.comment._id + '"]').length != 0) {
+                $('div[data-id="' + data.comment._id + '"]').find('.comment').html(data.comment.comment);
             }
             else {
-                $.get('{{ action('AdminController@getComment', [null]) }}/' + comment_id, function (html) {
+                $.get('{{ action('AdminController@getComment', [null]) }}/' + data.comment._id, function (html) {
                     $('.admin-comments .panel-body').prepend(html);
                 });
             }
             update_count();
         });
 
-        socket.on('delete_comment', function (comment_id) {
-            $('div[data-id="' + comment_id + '"]').remove();
+        socket.on('delete_comment', function (data) {
+            $('div[data-id="' + data.comment._id + '"]').remove();
             update_count();
         });
 

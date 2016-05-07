@@ -95,7 +95,6 @@
         }, 1000);
 
         socket.on('create_comment', function (data) {
-
             $.get('{{ action('CommentsController@show', [null]) }}/' + data.comment._id, function (html) {
                 if (data.comment.parent_id) {
                     $('.comment-row[data-id="' + data.comment.parent_id + '"]').find('> .reply-area').append(html);
@@ -117,7 +116,6 @@
         });
 
         socket.on('update_votes', function (data) {
-            console.log(data);
             $('.comment-row[data-id="' + data.comment._id + '"]').find('.comment-footer .up-votes').first().html(data.comment.vote);
         });
 

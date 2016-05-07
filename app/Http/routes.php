@@ -15,6 +15,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', 'HomeController@index');
     Route::get('login', 'Auth\AuthController@getLogin');
     Route::get('auth/service/{provider}', 'Auth\AuthController@getService');
+    Route::get('auth/callback/{provider}', 'Auth\AuthController@getCallback');
     Route::get('register', 'Auth\AuthController@getLogin');
     Route::get('logout', 'Auth\AuthController@getLogout');
 
