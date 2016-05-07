@@ -28,9 +28,18 @@ redis_broadcast.psubscribe('*', function (err, count) {
 });
 
 redis_broadcast.on('pmessage', function (subscribed, channel, message) {
-    console.log(channel);
-    message = JSON.parse(message);
-    io.emit(channel, message.data);
+    data = JSON.parse(message).data;
+    if(data.rooms) {
+        data.rooms.forEach(function(room) {
+            if (io.sockets.adapter.rooms.hasOwnProperty(room)) {
+                io.to(room).emit(channel, data);
+            } else {
+                console.log('FAILED TO SEND TO ROOM ' + room);
+            }
+        });
+    } else {
+        io.emit(channel, data);
+    }
 });
 
 if (env.NODE_HTTPS == 'yes') {
@@ -55,7 +64,7 @@ io.use(function (socket, next) {
                     socket.request.headers.cookie
                 ).lukepolo_session
             ), function (error, result) {
-            
+
             if (error) {
                 console.log('ERROR');
                 next(new Error(error));
@@ -103,34 +112,6 @@ io.on('connection', function (socket) {
 
     socket.on('get_users', function () {
         io.to(admin_room).emit('users', users);
-    });
-
-    socket.on('create_comment', function (data) {
-        if (io.sockets.adapter.rooms.hasOwnProperty(admin_room)) {
-            io.to(admin_room).emit('create_comment', data.comment_id);
-        }
-
-        io.to(data.room).emit('create_comment', data.comment_id, data.parent_id);
-    });
-
-    socket.on('update_comment', function (data) {
-        if (io.sockets.adapter.rooms.hasOwnProperty(admin_room)) {
-            io.to(admin_room).emit('update_comment', data.comment_id, data.comment);
-        }
-
-        io.to(data.room).emit('update_comment', data.comment_id, data.comment);
-    });
-
-    socket.on('delete_comment', function (data) {
-        if (io.sockets.adapter.rooms.hasOwnProperty(admin_room)) {
-            io.to(admin_room).emit('delete_comment', data.comment_id);
-        }
-
-        io.to(data.room).emit('delete_comment', data.comment_id);
-    });
-
-    socket.on('update_votes', function (data) {
-        io.to(data.room).emit('update_votes', data.comment_id, data.votes);
     });
 });
 

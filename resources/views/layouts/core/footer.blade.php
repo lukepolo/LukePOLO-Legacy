@@ -8,7 +8,7 @@
         </div>
     </div>
 </footer>
-<script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script type="text/javascript">
     @if(env('APP_ENV') == 'development')
         if (localStorage.debug != 'socket.io-client:socket') {

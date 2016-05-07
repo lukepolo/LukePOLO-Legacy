@@ -11,7 +11,7 @@ class CommentUpdateVotes extends Event implements ShouldBroadcast
     use SerializesModels;
 
     public $comment;
-    public $room;
+    public $rooms = [];
 
     /**
      * Create a new event instance.
@@ -21,7 +21,10 @@ class CommentUpdateVotes extends Event implements ShouldBroadcast
     public function __construct(Comment $comment)
     {
         $this->comment = $comment;
-        $this->room = route('blog/view', $comment->blog->link_name);
+        $this->rooms = [
+            route('blog/view', $comment->blog->link_name),
+            env('ADMIN_ROOM')
+        ];
     }
 
     /**
