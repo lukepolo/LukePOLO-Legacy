@@ -25,7 +25,7 @@ class AuthController extends Controller
     {
         $this->redirectTo = action('AdminController@getIndex');
 
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => 'getLogout']);
     }
 
     /**
