@@ -74,6 +74,6 @@ return [
 	|
 	*/
 
-	'prefix' => 'lukepolo',
+	'prefix' => env('APP_CACHE_PREFIX'),
 
 ];

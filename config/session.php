@@ -109,7 +109,7 @@ return [
 	|
 	*/
 
-	'cookie' => 'lukepolo_session',
+	'cookie' => env('APP_SESSION_COOKIE_NAME'),
 
 	/*
 	|--------------------------------------------------------------------------

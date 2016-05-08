@@ -29,6 +29,8 @@ class Authenticate
             }
         }
 
+        \Session::set('userID', Auth::user()->id);
+
         return $next($request);
     }
 }

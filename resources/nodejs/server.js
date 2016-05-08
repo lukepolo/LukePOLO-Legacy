@@ -4,45 +4,25 @@ require('dotenv').config({
     path: base_path + '.env'
 });
 
-var
-    env = process.env,
+var env = process.env,
     port = env.NODE_SERVER_PORT,
-    redis = require('ioredis'),
-    redis_socket = new redis(),
-    redis_broadcast = new redis(),
+    ioredis = require('ioredis'),
+    redis_socket = new ioredis(),
+    redis_broadcast = new ioredis(),
     cookie = require('cookie'),
     crypto = require('crypto'),
     PHPUnserialize = require('php-unserialize'),
     fs = require('fs'),
     server = null,
-    offline_timeout = {},
-    users = {};
+    offlineTimeout = {},
+    users = {},
+    adminRoom = env.ADMIN_ROOM;
 
-if (env.APP_ENV == 'production') {
-    console.log = function () {
-    };
+if (env.APP_DEBUG !== 'true') {
+    console.log = function () {};
 }
 
-redis_broadcast.psubscribe('*', function (err, count) {
-
-});
-
-redis_broadcast.on('pmessage', function (subscribed, channel, message) {
-    data = JSON.parse(message).data;
-    if(data.rooms) {
-        data.rooms.forEach(function(room) {
-            if (io.sockets.adapter.rooms.hasOwnProperty(room)) {
-                io.to(room).emit(channel, data);
-            } else {
-                console.log('FAILED TO SEND TO ROOM ' + room);
-            }
-        });
-    } else {
-        io.emit(channel, data);
-    }
-});
-
-if (env.NODE_HTTPS == 'yes') {
+if (env.NODE_HTTPS === 'true') {
     console.log("HTTPS");
     server = require('https').createServer({
         key: fs.readFileSync(env.SSL_KEY),
@@ -51,30 +31,58 @@ if (env.NODE_HTTPS == 'yes') {
 } else {
     server = require('http').createServer();
 }
+
 console.log('Server on Port : ' + port);
 server.listen(port);
 var io = require('socket.io')(server);
 
-var admin_room = env.ADMIN_ROOM;
+redis_broadcast.psubscribe('*', function (err, count) {});
+redis_broadcast.on('pmessage', function (fromSubscription, channel, message) {
+    console.log(message);
+    data = JSON.parse(message).data;
+    if (data.rooms) {
+        data.rooms.forEach(function (room) {
+            if (io.sockets.adapter.rooms.hasOwnProperty(room)) {
+                io.to(room).emit(channel, data);
+            }
+        });
+    } else {
+        io.emit(channel, data);
+    }
+});
 
 io.use(function (socket, next) {
     if (typeof socket.request.headers.cookie != 'undefined') {
-        redis_socket.get('lukepolo:' + decryptCookie(
-                cookie.parse(
-                    socket.request.headers.cookie
-                ).lukepolo_session
-            ), function (error, result) {
-
+        redis_socket.get(getLaravelSessionIDFromCookie(socket.request.headers.cookie), function (error, session) {
             if (error) {
-                console.log('ERROR');
-                next(new Error(error));
-            }
-            else if (result) {
-                console.log('Logged In');
-                next();
+                console.log('ERROR :' + error);
             } else {
-                console.log('Not Authorized');
-                next(new Error('Not Authorized'));
+
+                var userIdentifier = getUserIDFromSession(session) || socket.handshake.address;
+
+                socket.join(users[userIdentifier] = socket.request.headers.referer);
+                clearTimeout(offlineTimeout[userIdentifier]);
+
+                console.log(userIdentifier + ' logged in : joined ' + users[userIdentifier]);
+
+                if (io.sockets.adapter.rooms.hasOwnProperty(adminRoom)) {
+                    io.to(adminRoom).emit('users', users);
+                }
+
+                socket.on('disconnect', function () {
+                    console.log(userIdentifier + ' disconnected');
+                    socket.leave(users[userIdentifier]);
+                    offlineTimeout[userIdentifier] = setTimeout(
+                        function () {
+                            console.log(userIdentifier + 'user left');
+                            delete users[userIdentifier];
+                            if (io.sockets.adapter.rooms.hasOwnProperty(adminRoom)) {
+                                io.to(adminRoom).emit('users', users);
+                            }
+                        }, 3000
+                    );
+                });
+                next();
             }
         });
     } else {
@@ -84,38 +92,20 @@ io.use(function (socket, next) {
 });
 
 io.on('connection', function (socket) {
-
-    if (socket.request.headers.cookie) {
-        var session_id = decryptCookie(cookie.parse(socket.request.headers.cookie).lukepolo_session);
-        clearTimeout(offline_timeout[session_id]);
-        var url = socket.request.headers.referer;
-        socket.join(url);
-        users[session_id] = url;
-        if (io.sockets.adapter.rooms.hasOwnProperty(admin_room)) {
-            io.to(admin_room).emit('users', users);
-        }
-    }
-
-    socket.on('disconnect', function () {
-        if (socket.user_id) {
-            offline_timeout[socket.user_id] = setTimeout(
-                function () {
-                    console.log('user ' + socket.user_id + ' disconnected');
-                    delete users[socket.user_id]
-                    if (io.sockets.adapter.rooms.hasOwnProperty(admin_room)) {
-                        io.to(admin_room).emit('users', users);
-                    }
-                }, 15000
-            );
-        }
-    });
-
     socket.on('get_users', function () {
-        io.to(admin_room).emit('users', users);
+        io.to(adminRoom).emit('users', users);
     });
 });
 
-function decryptCookie(cookie) {
+
+function getLaravelSessionIDFromCookie(SocketCookie)
+{
+    if(cookie.parse(SocketCookie).hasOwnProperty(env.APP_SESSION_COOKIE_NAME)) {
+        return env.APP_CACHE_PREFIX + ':' + decryptLaravelCookie(cookie.parse(SocketCookie)[env.APP_SESSION_COOKIE_NAME]);
+    }
+}
+
+function decryptLaravelCookie(cookie) {
     if (cookie) {
         var parsedCookie = JSON.parse(new Buffer(cookie, 'base64'));
 
@@ -130,5 +120,18 @@ function decryptCookie(cookie) {
         ]);
 
         return PHPUnserialize.unserialize(resultSerialized);
+    }
+}
+
+function getUserIDFromSession(session) {
+    if(session) {
+        try {
+            var decryptedSession = PHPUnserialize.unserialize(decryptLaravelCookie(PHPUnserialize.unserialize(session)));
+            if (decryptedSession.hasOwnProperty('userID')) {
+                return decryptedSession.userID;
+            }
+        } catch(e) {
+            console.log('Session data has object, cannot deserialize', e);
+        }
     }
 }
