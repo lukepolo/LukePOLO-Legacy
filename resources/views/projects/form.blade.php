@@ -3,28 +3,28 @@
 @section('content')
     {!! Form::open() !!}
         <div class="col-md-10">
-            <textarea name="html" id="summernote">{{ isset($project) === true ? $project->html : '' }}</textarea>
+            <textarea name="html" id="summernote">{{ isset($project) ? $project->html : null }}</textarea>
         </div>
         <div class="col-md-2">
                 <div class="form-group">
                     {!! Form::label('Name') !!}
-                    {!! Form::text('name', isset($project) === true ? $project->name : '') !!}
+                    {!! Form::text('name', isset($project) ? $project->name : null) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('URL') !!}
-                    {!! Form::text('URL', isset($project) === true ? $project->url : '') !!}
+                    {!! Form::text('URL', isset($project) ? $project->url : null) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('Project Image') !!}
-                    {!! Form::text('project_image', isset($project) === true ? $project->project_image : '') !!}
+                    {!! Form::text('project_image', isset($project) ? $project->project_image : null) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('Start Date') !!}
-                    {!! Form::text('start_date', isset($project) === true ? $project->start_date->format('m-d-Y') : '', ['id' => 'start_date']) !!}
+                    {!! Form::text('start_date', isset($project) ? $project->start_date->format('m-d-Y') : null, ['id' => 'start_date']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('End Date') !!}
-                    {!! Form::text('end_date', isset($project) === true && empty($project->end_date) === false ? $project->end_date->format('m-d-Y') : '', ['id' => 'end_date']) !!}
+                    {!! Form::text('end_date', isset($project) && !empty($project->end_date) ? $project->end_date->format('m-d-Y') : null, ['id' => 'end_date']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('Timeline') !!}
@@ -42,14 +42,13 @@
                 <div class="form-group">
                     {!! Form::label('Technologies') !!}
                     <?php
-                        if(isset($project) === true)
-                        {
+                        if(isset($project)) {
                             $project_technologies = array_flip($project->technologies);
                         }
                     ?>
                     <select id="technologies" name="technologies[]" multiple>
                         @foreach($technologies as $technology)
-                            @if(isset($project) === true && array_key_exists($technology->id, $project_technologies))
+                            @if(isset($project) && array_key_exists($technology->id, $project_technologies))
                                 <?php
                                     unset($project_technologies[$technology->id]);
                                     $selected = 'selected="selected"';
@@ -71,7 +70,7 @@
                     </select>
                 </div>
             <br>
-            {!! Form::submit(isset($project) === true ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit(isset($project) ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
         </div>
     {!! Form::close() !!}
 @endsection

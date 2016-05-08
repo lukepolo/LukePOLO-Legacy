@@ -5,7 +5,7 @@
             <h1 class="blog-name">
                 { {{ $blog->name }}
                 @if(\Auth::check() && \Auth::user()->role == 'admin')
-                    <a href="{{ action('BlogController@getEdit', [$blog->id]) }}" class="pull-right btn btn-sm btn-primary">
+                    <a href="{{ action('BlogController@getEdit', $blog->id) }}" class="pull-right btn btn-sm btn-primary">
                         Edit
                     </a>
                 @endif

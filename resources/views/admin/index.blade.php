@@ -88,7 +88,7 @@
         socket.emit('get_users');
 
         socket.on('create_comment', function (data) {
-            $.get('{{ action('AdminController@getComment', [null]) }}/' + data.comment._id, function (html) {
+            $.get('{{ action('AdminController@getComment') }}/' + data.comment._id, function (html) {
                 $('.admin-comments .panel-body').prepend(html);
                 update_count();
             });
@@ -98,7 +98,7 @@
             if ($('div[data-id="' + data.comment._id + '"]').length != 0) {
                 $('div[data-id="' + data.comment._id + '"]').find('.comment').html(data.comment.comment);
             } else {
-                $.get('{{ action('AdminController@getComment', [null]) }}/' + data.comment._id, function (html) {
+                $.get('{{ action('AdminController@getComment') }}/' + data.comment._id, function (html) {
                     $('.admin-comments .panel-body').prepend(html);
                 });
             }

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <h3>Tags</h3>
-    @if($tags->count() != 0)
+    @if($tags->count())
         <table class="table table-striped">
             <thead>
                 <th>Name</th>
@@ -11,10 +11,10 @@
             <tbody>
             @foreach($tags as $tag)
                 <tr>
-                    <td><a href="{{ action('TagsController@getEdit', [$tag->id]) }}">{{ $tag->name }}</a></td>
+                    <td><a href="{{ action('TagsController@getEdit', $tag->id) }}">{{ $tag->name }}</a></td>
                     <td>{{ $tag->color }}</td>
                     <td>
-                        <a class="confirm" href="{{ action('TagsController@getDelete', [$tag->id]) }}">Delete</a>
+                        <a class="confirm" href="{{ action('TagsController@getDelete', $tag->id) }}">Delete</a>
                     </td>
                 </tr>
             @endforeach

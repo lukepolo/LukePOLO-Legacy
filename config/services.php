@@ -28,9 +28,4 @@ return [
         'client_secret' => 'f50d00daa7e0b4aafb554a9a9ee35da197debb9f',
         'redirect' => env('OAUTH_URL').'/auth/callback/github'
     ],
-    'facebook' => [
-        'client_id' => '895876067125328',
-        'client_secret' => '8f984f54cd785725127b513b3075b905',
-        'redirect' => env('OAUTH_URL').'/auth/callback/facebook'
-    ]
 ];

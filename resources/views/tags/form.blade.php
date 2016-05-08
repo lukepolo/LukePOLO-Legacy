@@ -5,11 +5,11 @@
         {!! \Form::open() !!}
             <div class="form-group">
                 {!! Form::label('name', 'Tag Name') !!}
-                {!! Form::text('name', isset($tag) ? $tag->name : '' ) !!}
+                {!! Form::text('name', isset($tag) ? $tag->name : null ) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('color', 'Color') !!}
-                {!! Form::text('color', isset($tag) ? $tag->color : '') !!}
+                {!! Form::text('color', isset($tag) ? $tag->color : null) !!}
             </div>
             {!! Form::submit(isset($tag) ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
         {!! Form::close() !!}

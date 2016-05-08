@@ -6,24 +6,24 @@
                 <a class="label clear-filter" href="{{ action('BlogController@getPublicIndex') }}">Clear Filters</a>
             </div>
         @endif
-        @if($blogs->count() != 0)
+        @if($blogs->count())
             @foreach($blogs as $blog)
                 <div class="blog">
                     <div class="row">
                         <h1 class="blog-name">
-                            <a href="{{ route('blog/view', [$blog->link_name]) }}">{ {{ $blog->name  }}</a>
+                            <a href="{{ route('blog/view', $blog->link_name) }}">{ {{ $blog->name  }}</a>
                         </h1>
                         <small>{{ $blog->created_at->format('F jS Y g:i A') }}</small>
                         <div class="technologies">
-                                @foreach($blog->tags as $tag)
-                                    <span class="label" style="background-color:#{{ $tag->color }}">
-                                        {{ $tag->name }}
-                                    </span>
-                                @endforeach
+                            @foreach($blog->tags as $tag)
+                                <span class="label" style="background-color:#{{ $tag->color }}">
+                                    {{ $tag->name }}
+                                </span>
+                            @endforeach
                         </div>
                     </div>
                     <div class="row">
-                        <a href="{{ route('blog/view', [$blog->link_name]) }}">
+                        <a href="{{ route('blog/view', $blog->link_name) }}">
                             <img class="img-responsive blog-image center-block" src="{{ $blog->image }}">
                         </a>
                     </div>
@@ -33,7 +33,7 @@
                         </p>
                     </div>
                     <div class="row">
-                        <a class="pull-right continue-reading" href="{{ route('blog/view', [$blog->link_name]) }}">
+                        <a class="pull-right continue-reading" href="{{ route('blog/view', $blog->link_name) }}">
                             Continue Reading ...
                         </a>
                     </div>

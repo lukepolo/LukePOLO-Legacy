@@ -6,22 +6,17 @@
             Login
         </div>
         <div class="col-sm-4">
-            <a href="{{ action('Auth\AuthController@getService', ['google']) }}">
+            <a href="{{ action('Auth\AuthController@getService', 'google') }}">
                 <i class="fa fa-google"></i>
             </a>
         </div>
         <div class="col-sm-4">
-            <a href="{{ action('Auth\AuthController@getService', ['github']) }}">
+            <a href="{{ action('Auth\AuthController@getService', 'github') }}">
                 <i class="fa fa-github"></i>
             </a>
         </div>
         <div class="col-sm-4">
-            <a href="{{ action('Auth\AuthController@getService', ['facebook']) }}">
-                <i class="fa fa-facebook"></i>
-            </a>
-        </div>
-        <div class="col-sm-4">
-            <a href="{{ action('Auth\AuthController@getService', ['twitter']) }}">
+            <a href="{{ action('Auth\AuthController@getService', 'twitter') }}">
                 <i class="fa fa-twitter"></i>
             </a>
         </div>

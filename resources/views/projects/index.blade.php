@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    @if($projects->count() != 0)
+    @if($projects->count())
         <table class="table table-striped">
             <thead>
             <th>Name</th>
@@ -14,7 +14,7 @@
             @foreach($projects as $project)
                 <tr>
                     <td>
-                        <a href="{{ action('ProjectsController@getEdit', [$project->id]) }}">
+                        <a href="{{ action('ProjectsController@getEdit', $project->id) }}">
                             {{ $project->name }}
                         </a>
                     </td>
@@ -23,11 +23,11 @@
                             {{ $project->url }}
                         </a>
                     </td>
-                    <td>{{ empty($project->timeline) === false ? $project->timeline->name : ''}}</td>
+                    <td>{{ !empty($project->timeline) ? $project->timeline->name : ''}}</td>
                     <td>{{ $project->start_date->format('F jS Y g:i A') }}</td>
                     <td>{{ $project->end_date->format('F jS Y g:i A') }}</td>
                     <td>
-                        <a class="confirm" href="{{ action('ProjectsController@getDelete', [$project->id]) }}">Delete</a>
+                        <a class="confirm" href="{{ action('ProjectsController@getDelete', $project->id) }}">Delete</a>
                     </td>
                 </tr>
             @endforeach

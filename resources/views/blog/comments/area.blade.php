@@ -27,22 +27,17 @@
                             </div>
                         </li>
                         <li>
-                            <a href="{{ action('Auth\AuthController@getService', ['google']) }}">
+                            <a href="{{ action('Auth\AuthController@getService', 'google') }}">
                                 <i class="fa fa-google"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ action('Auth\AuthController@getService', ['github']) }}">
+                            <a href="{{ action('Auth\AuthController@getService', 'github') }}">
                                 <i class="fa fa-github"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ action('Auth\AuthController@getService', ['facebook']) }}">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ action('Auth\AuthController@getService', ['twitter']) }}">
+                            <a href="{{ action('Auth\AuthController@getService', 'twitter') }}">
                                 <i class="fa fa-twitter"></i>
                             </a>
                         </li>
@@ -95,7 +90,7 @@
         }, 1000);
 
         socket.on('create_comment', function (data) {
-            $.get('{{ action('CommentsController@show', [null]) }}/' + data.comment._id, function (html) {
+            $.get('{{ action('CommentsController@show', null) }}/' + data.comment._id, function (html) {
                 if (data.comment.parent_id) {
                     $('.comment-row[data-id="' + data.comment.parent_id + '"]').find('> .reply-area').append(html);
                 }

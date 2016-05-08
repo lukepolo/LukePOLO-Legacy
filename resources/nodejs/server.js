@@ -97,7 +97,6 @@ io.on('connection', function (socket) {
     });
 });
 
-
 function getLaravelSessionIDFromCookie(SocketCookie)
 {
     if(cookie.parse(SocketCookie).hasOwnProperty(env.APP_SESSION_COOKIE_NAME)) {

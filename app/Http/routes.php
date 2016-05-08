@@ -43,7 +43,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::resource('comments', 'CommentsController');
     Route::resource('comment-vote', 'CommentVotesController');
 
-    Route::get('comment/{commentID}', 'AdminController@getComment');
+    Route::get('comment/{commentID?}', 'AdminController@getComment');
     Route::get('visits', 'AdminController@getVisits');
     Route::get('popularPages', 'AdminController@getPopularPages');
     Route::post('markAsRead', 'AdminController@postMarkRead');

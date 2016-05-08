@@ -5,42 +5,42 @@
         <div class="row">
             <h3>Preview Text</h3>
             <textarea name="preview_text"
-                      id="preview_blog">{{ isset($blog) === true ? $blog->preview_text : '' }}</textarea>
+                      id="preview_blog">{{ isset($blog) ? $blog->preview_text : null }}</textarea>
         </div>
         <br>
         <div class="row">
-            <textarea name="html" id="blog">{{ isset($blog) === true ? $blog->html : '' }}</textarea>
+            <textarea name="html" id="blog">{{ isset($blog) ? $blog->html : null }}</textarea>
         </div>
     </div>
     <div class="col-md-2">
         <div class="form-group">
             {!! Form::label('Name') !!}
-            {!! Form::text('name', isset($blog) === true ? $blog->name : '') !!}
+            {!! Form::text('name', isset($blog) ? $blog->name : null) !!}
         </div>
         <div class="checkbox">
             <label>
                 {!! Form::hidden('draft', '0') !!}
-                {!! Form::checkbox('draft', '1', isset($blog) === true ? $blog->draft : '') !!}
+                {!! Form::checkbox('draft', '1', isset($blog) ? $blog->draft : null) !!}
                 Draft
             </label>
         </div>
         <div class="form-group">
             {!! Form::label('Link Name') !!}
-            {!! Form::text('link_name', isset($blog) === true ? $blog->link_name : '') !!}
+            {!! Form::text('link_name', isset($blog) ? $blog->link_name : null) !!}
         </div>
         <div class="form-group">
             {!! Form::label('Image') !!}
-            {!! Form::text('image', isset($blog) === true ? $blog->image : '') !!}
+            {!! Form::text('image', isset($blog) ? $blog->image : null) !!}
         </div>
         <div class="form-group">
             {!! Form::label('Tags') !!}
-            @if(isset($blog) === true)
+            @if(isset($blog))
                 <?php $blog_tags = $blog->tags->keyBy('_id')->toArray(); ?>
             @endif
 
             <select id="tags" multiple name="tags[]">
                 @foreach($tags as $tag)
-                    @if(isset($blog_tags) === true && array_key_exists($tag->id, $blog_tags) === true)
+                    @if(isset($blog_tags) && array_key_exists($tag->id, $blog_tags))
                         <option selected="selected" value="{{ $tag->id }}">{{ $tag->name }}</option>
                     @else
                         <option value="{{ $tag->id }}">{{ $tag->name }}</option>
@@ -48,7 +48,7 @@
                 @endforeach
             </select>
         </div>
-        {!! Form::submit(isset($blog) === true ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit(isset($blog) ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
     </div>
 
     {!! Form::close() !!}

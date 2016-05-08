@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    @if($blogs->count() != 0)
+    @if($blogs->count())
         <table class="table table-striped">
             <thead>
                 <th>Name</th>
@@ -14,7 +14,7 @@
             @foreach($blogs as $blog)
                 <tr>
                     <td>
-                        <a href="{{ action('BlogController@getEdit', [$blog->id]) }}">
+                        <a href="{{ action('BlogController@getEdit', $blog->id) }}">
                             {{ $blog->name }}
                         </a>
                     </td>
@@ -32,12 +32,12 @@
                         {{ $blog->updated_at }}
                     </td>
                     <td>
-                        <a href="{{ route('blog/view', [$blog->link_name]) }}">
+                        <a href="{{ route('blog/view', $blog->link_name) }}">
                             {{ $blog->link_name }}
                         </a>
                     </td>
                     <td>
-                        <a class="confirm" href="{{ action('BlogController@getDelete', [$blog->id]) }}">Delete</a>
+                        <a class="confirm" href="{{ action('BlogController@getDelete', $blog->id) }}">Delete</a>
                     </td>
                 </tr>
             @endforeach
