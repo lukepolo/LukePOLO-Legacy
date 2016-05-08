@@ -13,10 +13,11 @@ var gulp = require('gulp'),
 paths = {
     'css_public': './public/css/',
     'js_public': './public/js/',
+    'img_public': './public/js/',
     'fonts_public': './public/build/fonts/',
-    'sass': resources_path + '/assets/sass/',
+    'sass': resources_path + 'assets/sass/',
     'sass_partials': resources_path + 'assets/sass/partials/',
-    'js': resources_path + '/assets/js/',
+    'js': resources_path + 'assets/js/',
     'img': resources_path + 'assets/img/',
 
     'jquery': bower_path + 'jquery/dist/',
@@ -42,15 +43,10 @@ paths = {
 elixir.extend('minify_img', function () {
     new elixir.Task('minify_img', function () {
         return gulp.src(paths.img + '**')
-            .pipe(imagemin({
-                progressive: true,
-                svgoPlugins: [{
-                    removeViewBox: false
-                }]
-            }))
-            .pipe(gulp.dest('public/img'));
+            .pipe(imagemin())
+            .pipe(gulp.dest(paths.img_public));
     })
-        .watch(paths.img + '**');
+    .watch(paths.img + '**');
 });
 
 elixir(function (mix) {
@@ -103,7 +99,7 @@ elixir(function (mix) {
             paths.js + 'plugins.js',
             paths.js + 'confirm.js'
         ], paths.js_public + 'admin.js')
-        .minify_img()
+        // .minify_img()
         .version(['public/css/app.css', 'public/js/all.js', 'public/js/admin.js'])
         .browserSync({
             proxy: env.SITE_URL

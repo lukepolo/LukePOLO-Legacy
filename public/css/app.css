@@ -8931,6 +8931,13 @@ html.admin {
 #main-nav .navbar-nav > li > a:hover {
   border-bottom: 1px dotted #FFFFFF; }
 
+@media (max-width: 767px) {
+  #main-nav .open .dropdown-menu > li > a {
+    color: #ffffff !important;
+    border-bottom: 1px solid transparent !important; }
+    #main-nav .open .dropdown-menu > li > a:hover {
+      border-bottom: 1px dotted #FFFFFF !important; } }
+
 #main-nav .navbar-nav > .open > a,
 #main-nav .navbar-nav > .open > a:hover,
 #main-nav .navbar-nav > .open > a:focus {

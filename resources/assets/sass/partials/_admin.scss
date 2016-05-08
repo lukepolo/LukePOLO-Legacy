@@ -1,32 +1,51 @@
 .img-holder {
   height: 180px;
-  overflow:hidden;
+  overflow: hidden;
   margin-bottom: 40px;
   cursor: pointer;
 }
 
 @mixin panelColor($color) {
-  i { color: $color;  }
-  .panel-color { background-color: $color; }
+  i {
+    color: $color;
+  }
+  .panel-color {
+    background-color: $color;
+  }
 }
 
 .panel-links {
   margin-top: 15px;
-  & > div:nth-child(1) { @include panelColor($swb-orange); }
-  & > div:nth-child(2) { @include panelColor($swb-yellow); }
-  & > div:nth-child(3) { @include panelColor($swb-blue); }
-  & > div:nth-child(4) { @include panelColor($swb-green); }
-  & > div:nth-child(5) { @include panelColor($swb-red); }
-  & > div:nth-child(6) { @include panelColor($swb-lightBlue); }
-  & > div:nth-child(7) { @include panelColor($swb-lightGrey); }
+  & > div:nth-child(1) {
+    @include panelColor($swb-orange);
+  }
+  & > div:nth-child(2) {
+    @include panelColor($swb-yellow);
+  }
+  & > div:nth-child(3) {
+    @include panelColor($swb-blue);
+  }
+  & > div:nth-child(4) {
+    @include panelColor($swb-green);
+  }
+  & > div:nth-child(5) {
+    @include panelColor($swb-red);
+  }
+  & > div:nth-child(6) {
+    @include panelColor($swb-lightBlue);
+  }
+  & > div:nth-child(7) {
+    @include panelColor($swb-lightGrey);
+  }
 }
 
 .visitor-chart {
   height: 315px;
 }
+
 .active-users {
-  height:150px;
-  font-size:125px;
+  height: 150px;
+  font-size: 125px;
 }
 
 .note-editable {
@@ -35,10 +54,10 @@
 
 .comment-form {
   .cancel {
-    margin-right:5px;
+    margin-right: 5px;
   }
 }
 
 .mark-read {
-  margin-right:5px;
+  margin-right: 5px;
 }

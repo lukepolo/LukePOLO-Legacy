@@ -24,6 +24,18 @@
     border-bottom: 1px dotted #FFFFFF;
   }
 
+  @media (max-width: $grid-float-breakpoint-max) {
+    .open .dropdown-menu {
+      > li > a {
+        color: #ffffff !important;
+        border-bottom: 1px solid transparent !important;
+        &:hover {
+          border-bottom: 1px dotted #FFFFFF !important;
+        }
+      }
+    }
+  }
+
   .navbar-nav > .open > a,
   .navbar-nav > .open > a:hover,
   .navbar-nav > .open > a:focus {
@@ -31,8 +43,6 @@
     color: #FFFFFF;
   }
 }
-
-
 
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #FFFFFF;

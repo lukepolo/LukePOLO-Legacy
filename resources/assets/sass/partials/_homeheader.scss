@@ -6,23 +6,23 @@
   .logo-text {
     padding-top: 20px;
     font-size: 120px;
-    @media(max-width:768px) {
+    @media(max-width: 768px) {
       font-size: 60px;
     }
     color: #FFFFFF;
     line-height: 1em;
-    margin:0;
+    margin: 0;
   }
 
   .logo-sub-text {
-    font-size:60px;
-    @media(max-width:768px) {
+    font-size: 60px;
+    @media(max-width: 768px) {
       font-size: 30px;
     }
     font-weight: 100;
-    font-style:normal;
+    font-style: normal;
     color: #FFFFFF;
-    margin:0;
+    margin: 0;
     line-height: 1em;
   }
 
