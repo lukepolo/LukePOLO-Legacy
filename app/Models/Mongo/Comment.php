@@ -62,6 +62,47 @@ class Comment extends \Moloquent
     }
 
     /**
+     * Gets the up votes for a comment
+     * @return mixed
+     */
+    public function getUpVotes()
+    {
+        return count($this->votes->filter(function($vote) {
+            return $vote->vote == 1;
+        }));
+    }
+
+    /**
+     * Gets the down votes for a comment
+     * @return mixed
+     */
+    public function getDownVotes()
+    {
+        return count($this->votes->filter(function($vote) {
+            return $vote->vote != 1;
+        }));
+    }
+
+    /**
+     * Gets the current users vote
+     * @return mixed
+     */
+    public function getCurrentUserVote()
+    {
+        if(\Auth::check()) {
+            if ($this->votes->count()) {
+                $vote = $this->votes->first(function ($index, $vote) {
+                    return $vote->user_id == \Auth::user()->id;
+                });
+
+                if(!empty($vote)) {
+                    return $vote->vote;
+                }
+            }
+        }
+    }
+
+    /**
      * On delete we want to cascade deletes
      * @return bool|null
      * @throws \Exception

@@ -111,7 +111,9 @@
         });
 
         socket.on('update_votes', function (data) {
-            $('.comment-row[data-id="' + data.comment._id + '"]').find('.comment-footer .up-votes').first().html(data.comment.vote);
+            var commentRow = $('.comment-row[data-id="' + data.comment._id + '"]');
+            commentRow.find('.comment-footer .js-up-vote-count').html(' ' + data.upVotes);
+            commentRow.find('.comment-footer .js-down-vote-count').html(' ' + data.downVotes);
         });
 
         $(document).on('submit', '.comment-form', function (e) {
@@ -123,8 +125,7 @@
 
             var comment = $(this).find('.comment-text');
 
-            $.post("{{ action('CommentsController@store') }}",
-                    {
+            $.post("{{ action('CommentsController@store') }}", {
                         comment: comment.val(),
                         blog_id: "{{ $blog->id }}",
                         reply_to: $(form).data('reply-to')
@@ -174,25 +175,23 @@
 
         $(document).on('click', '.up-vote', function () {
             var span = this;
-            $.post("{{ action('CommentVotesController@store') }}",
-                    {
-                        comment: $(this).data('id'),
-                        vote: 1
-                    }).success(function () {
+            $.post("{{ action('CommentVotesController@store') }}", {
+                comment: $(this).data('id'),
+                vote: 1
+            }).success(function () {
                 $(span).parent().find('.down-selected').removeClass('down-selected');
-                $(span).toggleClass('up-selected');
+                $(span).addClass('up-selected');
             });
         });
 
         $(document).on('click', '.down-vote', function () {
             var span = this;
-            $.post("{{ action('CommentVotesController@store') }}",
-                    {
-                        comment: $(this).data('id'),
-                        vote: 0
-                    }).success(function () {
+            $.post("{{ action('CommentVotesController@store') }}", {
+                comment: $(this).data('id'),
+                vote: 0
+            }).success(function () {
                 $(span).parent().find('.up-selected').removeClass('up-selected');
-                $(span).toggleClass('down-selected');
+                $(span).addClass('down-selected');
             });
         });
 
