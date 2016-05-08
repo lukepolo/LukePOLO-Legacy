@@ -13,12 +13,14 @@ class Settings
     static $settings;
 
     /**
-     * // TODO - remember forever
-     * Settings constructor setsup all the settings into an array for fast use
+     * Settings constructor.
      */
     public function __construct()
     {
         static::$settings = \Cache::rememberForever('settings', function () {
+
+            $settings = [];
+
             foreach (modelSettings::get() as $setting) {
                 $settings[$setting->name] = $setting->data;
             }

@@ -42990,6 +42990,17 @@ S2.define('jquery.select2',[
 	}
 }());
 
+$(document).on('click', '.panel-links .panel-body', function (e) {
+    var link = $(this).find('a');
+    if (link.attr('href')) {
+        if (link.attr('target')) {
+            window.open(link.attr('href'), link.attr('target'));
+        }
+        else {
+            window.location = link.attr('href');
+        }
+    }
+});
 $('select').each(function () {
     if (!$(this).hasClass('phpdebugbar-datasets-switcher')) {
         if (typeof($._data(this).hasDataAttrs) == 'undefined') {
@@ -43000,5 +43011,31 @@ $('select').each(function () {
             $(this).prepend($('<option ' + selected + '></option>')).select2({placeholder: "Please select an Option"});
         }
     }
+});
+$("img.lazy").lazyload();
+
+FastClick.attach(document.body);
+
+$('iframe[src*="youtube.com"]').wrap('<div class="youtubeWrapper" />');
+
+$('.owl-carousel').owlCarousel({
+    items: 1,
+    nav: false,
+    dots: true,
+    loop: true,
+    lazyLoad: true,
+    autoplay: true,
+    autoplayTimeout: 2000,
+    autoplayHoverPause: true
+});
+
+$(document).on("click", ".confirm", function (e) {
+    var link = $(this);
+    e.preventDefault();
+    bootbox.confirm("Are you sure?", function (response) {
+        if (response) {
+            window.location = link.attr('href');
+        }
+    });
 });
 //# sourceMappingURL=admin.js.map

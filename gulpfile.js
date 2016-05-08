@@ -81,7 +81,7 @@ elixir(function (mix) {
             paths.js + 'git_lines.js',
             paths.js + 'projects.js',
             paths.js + 'search.js',
-            paths.js + 'select2.js',
+            paths.js + 'select2.js'
         ], paths.js_public + 'all.js')
         .scripts([
             paths.jquery + 'jquery.js',
@@ -98,7 +98,7 @@ elixir(function (mix) {
             paths.owl + 'owl.carousel.js',
             paths.sisyphus + 'sisyphus.js',
             paths.fastclick + 'fastclick.js',
-            paths.js + 'pane_links.js',
+            paths.js + 'panel_links.js',
             paths.js + 'select2.js',
             paths.js + 'plugins.js',
             paths.js + 'confirm.js'
