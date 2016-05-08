@@ -11,7 +11,7 @@ var env = process.env,
     redis_broadcast = new ioredis(),
     cookie = require('cookie'),
     crypto = require('crypto'),
-    PHPUnserialize = require('php-unserialize'),
+    PHPUnserialize = require('php-serialize'),
     fs = require('fs'),
     server = null,
     offlineTimeout = {},
@@ -74,7 +74,7 @@ io.use(function (socket, next) {
                     socket.leave(users[userIdentifier]);
                     offlineTimeout[userIdentifier] = setTimeout(
                         function () {
-                            console.log(userIdentifier + 'user left');
+                            console.log(userIdentifier + ' user left');
                             delete users[userIdentifier];
                             if (io.sockets.adapter.rooms.hasOwnProperty(adminRoom)) {
                                 io.to(adminRoom).emit('users', users);
@@ -118,14 +118,14 @@ function decryptLaravelCookie(cookie) {
             decipher.final()
         ]);
 
-        return PHPUnserialize.unserialize(resultSerialized);
+        return PHPUnserialize.unserialize(resultSerialized.toString('utf8'));
     }
 }
 
 function getUserIDFromSession(session) {
     if(session) {
         try {
-            var decryptedSession = PHPUnserialize.unserialize(decryptLaravelCookie(PHPUnserialize.unserialize(session)));
+            var decryptedSession = PHPUnserialize.unserialize(decryptLaravelCookie(PHPUnserialize.unserialize(session).toString('utf8')));
             if (decryptedSession.hasOwnProperty('userID')) {
                 return decryptedSession.userID;
             }

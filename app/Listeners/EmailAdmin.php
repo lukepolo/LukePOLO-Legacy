@@ -22,7 +22,9 @@ class EmailAdmin
      */
     public function handle(CommentCreated $event)
     {
-        \Mail::queue('emails.newComment', [], function(Message $message) {
+        \Mail::queue('emails.newComment', [
+            'comment' => $event->comment->load(['user', 'blog'])
+        ], function(Message $message) {
             $message->to('Luke@LukePOLO.com');
             $message->subject('New Comment');
         });

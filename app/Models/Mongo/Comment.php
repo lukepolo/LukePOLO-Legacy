@@ -30,7 +30,7 @@ class Comment extends \Moloquent
      * Relates to other parent comments
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function comment()
+    public function parentComment()
     {
         return $this->belongsTo('\App\Models\Mongo\Comment', 'parent_id', '_id');
     }
