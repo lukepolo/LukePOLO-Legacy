@@ -4,33 +4,32 @@
     <div class="col-md-10">
         <div class="row">
             <h3>Preview Text</h3>
-            <textarea name="preview_text"
-                      id="preview_blog">{{ isset($blog) ? $blog->preview_text : null }}</textarea>
+            {!! Form::textarea('preview_text', isset($blog) ? $blog->preview_text : null, ['class' => 'form-control', 'id' => 'preview_blog']) !!}
         </div>
         <br>
         <div class="row">
-            <textarea name="html" id="blog">{{ isset($blog) ? $blog->html : null }}</textarea>
+            {!! Form::textarea('html', isset($blog) ? $blog->html : null, ['class' => 'form-control', 'id' => 'blog']) !!}
         </div>
     </div>
     <div class="col-md-2">
         <div class="form-group">
             {!! Form::label('Name') !!}
-            {!! Form::text('name', isset($blog) ? $blog->name : null) !!}
+            {!! Form::text('name', isset($blog) ? $blog->name : null, ['class' => 'form-control']) !!}
         </div>
         <div class="checkbox">
             <label>
                 {!! Form::hidden('draft', '0') !!}
-                {!! Form::checkbox('draft', '1', isset($blog) ? $blog->draft : null) !!}
+                {!! Form::checkbox('draft', '1', isset($blog) ? $blog->draft : null, ['class' => 'checkbox']) !!}
                 Draft
             </label>
         </div>
         <div class="form-group">
             {!! Form::label('Link Name') !!}
-            {!! Form::text('link_name', isset($blog) ? $blog->link_name : null) !!}
+            {!! Form::text('link_name', isset($blog) ? $blog->link_name : null, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('Image') !!}
-            {!! Form::text('image', isset($blog) ? $blog->image : null) !!}
+            {!! Form::text('image', isset($blog) ? $blog->image : null, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('Tags') !!}

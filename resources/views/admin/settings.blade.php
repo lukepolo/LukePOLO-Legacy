@@ -8,7 +8,7 @@
                         switch($setting->type){
                             case 'text':
                                 echo Form::label($setting->id, ucwords(str_replace('_',' ', $setting->name)));
-                                echo Form::text($setting->id, $setting->data);
+                                echo Form::text($setting->id, $setting->data, ['class' => 'form-control']);
                                 break;
                             case 'boolean':
                                 ?>
@@ -19,7 +19,7 @@
                                             if($setting->data == 0) {
                                                 $setting->data = false;
                                             }
-                                            echo Form::checkbox($setting->id, true, $setting->data);
+                                            echo Form::checkbox($setting->id, true, $setting->data, ['class' => 'checkbox']);
                                             echo ucwords($setting->name);
                                         ?>
                                         </label>

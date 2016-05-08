@@ -5,15 +5,15 @@
         {!! \Form::open() !!}
         <div class="form-group">
             {!! Form::label('name', 'Timeline Name') !!}
-            {!! Form::text('name', isset($timeline) ? $timeline->name : null ) !!}
+            {!! Form::text('name', isset($timeline) ? $timeline->name : null, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('Start Date') !!}
-            {!! Form::text('start_date', isset($timeline) ? $timeline->start_date->format('m-d-Y') : null, ['id' => 'start_date']) !!}
+            {!! Form::text('start_date', isset($timeline) ? $timeline->start_date->format('m-d-Y') : null, ['class' => 'form-control', 'id' => 'start_date']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('End Date') !!}
-            {!! Form::text('end_date', isset($timeline) && !empty($timeline->end_date) ? $timeline->end_date->format('m-d-Y') : null, ['id' => 'end_date']) !!}
+            {!! Form::text('end_date', isset($timeline) && !empty($timeline->end_date) ? $timeline->end_date->format('m-d-Y') : null, ['class' => 'form-control', 'id' => 'end_date']) !!}
         </div>
         {!! Form::submit(isset($timeline) ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
         {!! Form::close() !!}

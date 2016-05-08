@@ -36,7 +36,7 @@
                     &bull; <span data-id="{{ $comment->id }}" class="btn-link reply">Reply</span>
                 @endif
             @else
-                &bull; <span data-id="{{ $comment->id }}" class="btn-link edit">Edit</span>
+                <span data-id="{{ $comment->id }}" class="btn-link edit">Edit</span>
             @endif
             @if(\Auth::check() && (\Auth::user()->role == 'admin' || $comment->user_id == \Auth::user()->id))
                 &bull; <span data-id="{{ $comment->id }}" class="btn-link delete">Delete</span>
