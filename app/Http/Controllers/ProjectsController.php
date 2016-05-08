@@ -49,7 +49,7 @@ class ProjectsController extends Controller
             $end_date = null;
         }
 
-        Project::create([
+        $project = Project::create([
             'name' => \Request::get('name'),
             'url' => \Request::get('URL'),
             'start_date' => \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date')),
@@ -57,8 +57,9 @@ class ProjectsController extends Controller
             'technologies' => \Request::get('technologies'),
             'timeline_id' => \Request::get('timeline'),
             'html' => \Request::get('html'),
-            'project_image' => \Request::get('project_image')
         ]);
+
+        $this->saveProjectImage($project);
 
         return redirect(action('\App\Http\Controllers\ProjectsController@getIndex'));
     }
@@ -101,11 +102,12 @@ class ProjectsController extends Controller
         $project->end_date = $end_date;
         $project->timeline_id = \Request::get('timeline');
         $project->html = \Request::get('html');
-        $project->project_image = \Request::get('project_image');
 
         $project->technologies()->sync(\Request::get('technologies', []));
 
         $project->save();
+
+        $this->saveProjectImage($project);
 
         return redirect(action('\App\Http\Controllers\ProjectsController@getIndex'));
     }
@@ -120,5 +122,19 @@ class ProjectsController extends Controller
         Project::find($projectID)->delete();
 
         return redirect(action('\App\Http\Controllers\ProjectsController@getIndex'));
+    }
+
+    public function saveProjectImage(Project $project)
+    {
+        /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $projectImage */
+
+        if (\Request::hasFile('project_image') && \Request::file('project_image')->isValid()) {
+            $projectImage = \Request::file('project_image');
+            $fileName = $project->id . '-' . $projectImage->getClientOriginalName() . $projectImage->getClientOriginalExtension();
+            if ($projectImage->move(public_path('img/uploads/project_images'), $fileName)) {
+                $project->project_image = $fileName;
+                $project->save();
+            }
+        }
     }
 }

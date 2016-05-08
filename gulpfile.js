@@ -37,7 +37,8 @@ paths = {
     'owl': bower_path + 'owl.carousel/dist/',
     'sisyphus': bower_path + 'sisyphus/',
     'lazyload': bower_path + 'jquery.lazyload/',
-    'fastclick': bower_path + 'fastclick/lib/'
+    'fastclick': bower_path + 'fastclick/lib/',
+    'dropzone' : bower_path + 'dropzone/dist/'
 };
 
 elixir.extend('minify_img', function () {
@@ -62,6 +63,7 @@ elixir(function (mix) {
         .copy(paths.owl + 'assets/ajax-loader.gif', paths.img)
         .copy(paths.owl + 'assets/owl.video.play.png', paths.img)
         .copy(paths.datepicker + 'css/bootstrap-datetimepicker.css', paths.sass_partials + '_bootstrap-datetimepicker.scss')
+        .copy(paths.dropzone + 'dropzone.css' , paths.sass_partials + '_dropzone.scss')
         .sass('app.scss')
         .scripts([
             paths.jquery + 'jquery.js',
@@ -94,10 +96,12 @@ elixir(function (mix) {
             paths.owl + 'owl.carousel.js',
             paths.sisyphus + 'sisyphus.js',
             paths.fastclick + 'fastclick.js',
+            paths.dropzone + 'dropzone.js',
             paths.js + 'panel_links.js',
             paths.js + 'select2.js',
             paths.js + 'plugins.js',
-            paths.js + 'confirm.js'
+            paths.js + 'confirm.js',
+            paths.lazyload + 'jquery.lazyload.js'
         ], paths.js_public + 'admin.js')
         // .minify_img()
         .version(['public/css/app.css', 'public/js/all.js', 'public/js/admin.js'])

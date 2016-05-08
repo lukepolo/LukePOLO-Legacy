@@ -6,17 +6,18 @@ class ProjectFormRequest extends FormRequest
 {
     public function rules()
     {
-        $id = null;
-        if ($this->one) {
-            $id = ',' . $this->one;
-        }
 
-        return [
-            'name' => 'required|unique:projects,' . $id,
+        $rules = [
+            'name' => 'required|unique:projects,' . $this->projectID,
             'start_date' => 'required',
             'end_date' => 'required',
-            'project_image' => 'required',
         ];
+
+        if(empty($this->projectID)) {
+            $rules['project_image'] = 'required|image';
+        }
+
+        return $rules;
     }
 
     public function authorize()

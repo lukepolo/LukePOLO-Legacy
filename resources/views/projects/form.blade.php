@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
-    {!! Form::open() !!}
-        <div class="col-md-10">
+    {!! Form::open(['enctype' => 'multipart/form-data']) !!}
+        <div class="col-md-9">
             <textarea name="html" id="summernote">{{ isset($project) ? $project->html : null }}</textarea>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
                 <div class="form-group">
                     {!! Form::label('Name') !!}
                     {!! Form::text('name', isset($project) ? $project->name : null, ['class' => 'form-control']) !!}
@@ -16,7 +16,13 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('Project Image') !!}
-                    {!! Form::text('project_image', isset($project) ? $project->project_image : null,['class' => 'form-control']) !!}
+                    <div class="dropzone">
+                        <div class="@if(!isset($project)) hide @endif js-preview-reset btn btn-xs btn-primary">Reset</div>
+                        <h4 class="@if(isset($project)) hide @endif  dropzone-text">Drop files here or click to upload.</h4>
+                        <input type="file" name="project_image" id="js-image-upload" accept="image/jpeg">
+                        <img id="image-preview" class="img-responsive" src="{{ isset($project) ? asset('img/uploads/project_images/'.$project->project_image) : null }}"/>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     {!! Form::label('Start Date') !!}
@@ -62,6 +68,33 @@
                 $('#start_date').data("DateTimePicker").maxDate(e.date);
             });
             $('#datetimepicker1').datetimepicker();
+
+            $("#js-image-upload").on('click', function() {
+                clearPreview();
+            });
+
+            $("#js-image-upload").on('change' ,function() {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#image-preview').attr('src', e.target.result);
+                    $('.js-preview-reset').removeClass('hide');
+                    $('.dropzone-text').addClass('hide');
+                };
+
+                reader.readAsDataURL(this.files[0]);
+            });
+
+            $('.js-preview-reset').on('click', function() {
+                clearPreview();
+            });
+
+            function clearPreview() {
+                $('#js-image-upload').val('');
+                $('#image-preview').attr('src', '');
+                $('.js-preview-reset').addClass('hide');
+                $('.dropzone-text').removeClass('hide');
+            }
         });
     </script>
 @endpush

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     {!! Form::open() !!}
-    <div class="col-md-10">
+    <div class="col-md-9">
         <div class="row">
             <h3>Preview Text</h3>
             {!! Form::textarea('preview_text', isset($blog) ? $blog->preview_text : null, ['class' => 'form-control', 'id' => 'preview_blog']) !!}
@@ -11,7 +11,7 @@
             {!! Form::textarea('html', isset($blog) ? $blog->html : null, ['class' => 'form-control', 'id' => 'blog']) !!}
         </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
         <div class="form-group">
             {!! Form::label('Name') !!}
             {!! Form::text('name', isset($blog) ? $blog->name : null, ['class' => 'form-control']) !!}

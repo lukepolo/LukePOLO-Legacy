@@ -162,9 +162,4 @@ class BlogController extends Controller
 
         return redirect(action('BlogController@getAdminIndex'));
     }
-
-    public function postIMG()
-    {
-        
-    }
 }

@@ -1,4 +1,6 @@
-$("img.lazy").lazyload();
+if($("img.lazy").length) {
+    $("img.lazy").lazyload();
+}
 
 FastClick.attach(document.body);
 
