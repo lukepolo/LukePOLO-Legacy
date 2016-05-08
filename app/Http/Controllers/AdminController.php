@@ -18,8 +18,7 @@ class AdminController extends Controller
     public function getIndex()
     {
         return view('admin.index', [
-            'comments' => Comment::with('blog')->where('user_id', '!=',
-                \Auth::user()->id)->whereNull('been_moderated')->get()
+            'comments' => Comment::with('blog')->where('user_id', '!=', \Auth::user()->id)->whereNull('been_moderated')->get()
         ]);
     }
 
