@@ -12,7 +12,7 @@ class ProjectFormRequest extends FormRequest
         }
 
         return [
-            'name' => 'required|unique:projects' . $id,
+            'name' => 'required|unique:projects,' . $id,
             'start_date' => 'required',
             'end_date' => 'required',
             'project_image' => 'required',

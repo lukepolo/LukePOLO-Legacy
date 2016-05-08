@@ -46,22 +46,18 @@
                 </div>
                 <hr>
                 <div class="row panel-links">
-                    @foreach($project->technologies as $technology)
+                    @foreach($project->technologies->sortBy('name') as $technology)
                         <div class="col-lg-3">
                             <div class="panel panel-default">
-                                <div style="background-color:#{{ isset($technologies[$technology]) ? $technologies[$technology]->color : '' }}"
+                                <div style="background-color:#{{ $technology->color }}"
                                      class="panel-color"></div>
                                 <div class="panel-body">
-                                    {{ isset($technologies[$technology]) ? $technologies[$technology]->name : $technology}}
-                                    @if(isset($technologies[$technology]))
-                                        <span>
-                                            <a class="pull-right" target="_blank"
-                                               href="{{ $technologies[$technology]->url }}">
-                                                <i style="color:#{{ $technologies[$technology]->color }}"
-                                                   class="fa fa-arrow-right"></i>
-                                            </a>
-                                        </span>
-                                    @endif
+                                    {{ $technology->name }}
+                                    <span>
+                                        <a class="pull-right" target="_blank" href="{{ $technology->url }}">
+                                            <i style="color:#{{ $technology->color }}" class="fa fa-arrow-right"></i>
+                                        </a>
+                                    </span>
                                 </div>
                             </div>
                         </div>

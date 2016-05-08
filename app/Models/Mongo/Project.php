@@ -22,7 +22,7 @@ class Project extends \Moloquent
      */
     public function timeline()
     {
-        return $this->belongsTo('\App\Models\Mongo\Timeline');
+        return $this->belongsTo(\App\Models\Mongo\Timeline::class);
     }
 
     /**
@@ -31,6 +31,6 @@ class Project extends \Moloquent
      */
     public function technologies()
     {
-        return $this->hasMany(\App\Models\Mongo\Technology::class);
+        return $this->belongsToMany(\App\Models\Mongo\Technology::class);
     }
 }

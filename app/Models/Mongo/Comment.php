@@ -23,7 +23,7 @@ class Comment extends \Moloquent
      */
     public function blog()
     {
-        return $this->belongsTo('\App\Models\Mongo\Blog');
+        return $this->belongsTo(\App\Models\Mongo\Blog::class);
     }
 
     /**
@@ -32,7 +32,7 @@ class Comment extends \Moloquent
      */
     public function parentComment()
     {
-        return $this->belongsTo('\App\Models\Mongo\Comment', 'parent_id', '_id');
+        return $this->belongsTo(\App\Models\Mongo\Comment::class, 'parent_id', '_id');
     }
 
     /**
@@ -41,7 +41,7 @@ class Comment extends \Moloquent
      */
     public function replies()
     {
-        return $this->hasMany('\App\Models\Mongo\Comment', 'parent_id', '_id')->orderBy('created_at', 'asc');
+        return $this->hasMany(\App\Models\Mongo\Comment::class, 'parent_id', '_id')->orderBy('created_at', 'asc');
     }
     /**
      * Relates a comment to a user
@@ -49,7 +49,7 @@ class Comment extends \Moloquent
      */
     public function user()
     {
-        return $this->belongsTo('\App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     /**
@@ -58,7 +58,7 @@ class Comment extends \Moloquent
      */
     public function votes()
     {
-        return $this->hasMany('\App\Models\Mongo\CommentVote');
+        return $this->hasMany(\App\Models\Mongo\CommentVote::class);
     }
 
     /**

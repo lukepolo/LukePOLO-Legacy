@@ -28,46 +28,11 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('Timeline') !!}
-                    <select name="timeline">
-                        <option value="null">None</option>
-                        @foreach($timelines as $timeline)
-                            @if(empty($project->timeline) === false && $timeline->id == $project->timeline->id)
-                                <option selected="selected" value="{{ $timeline->id }}">{{ $timeline->name }}</option>
-                            @else
-                                <option value="{{ $timeline->id }}">{{ $timeline->name }}</option>
-                            @endif
-                        @endforeach
-                    </select>
+                    {!! Form::select('timeline', $timelines->lists('name', 'id'), isset($project) ? $project->timeline_id : []) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('Technologies') !!}
-                    <?php
-                        if(isset($project)) {
-                            $project_technologies = array_flip($project->technologies);
-                        }
-                    ?>
-                    <select id="technologies" name="technologies[]" multiple>
-                        @foreach($technologies as $technology)
-                            @if(isset($project) && array_key_exists($technology->id, $project_technologies))
-                                <?php
-                                    unset($project_technologies[$technology->id]);
-                                    $selected = 'selected="selected"';
-                                ?>
-                            @else
-                                <?php $selected = ''; ?>
-                            @endif
-                            <option {{ $selected }} value="{{ $technology->id }}">
-                                {{ $technology->name }}
-                            </option>
-                        @endforeach
-                        @if(isset($project) === true)
-                            @foreach($project_technologies as $technology => $key)
-                                <option selected="selected" value="{{ $technology }}">
-                                    {{ $technology }}
-                                </option>
-                            @endforeach
-                        @endif
-                    </select>
+                    {!! Form::select('technologies[]', $technologies->lists('name', 'id'), isset($project) ? $project->technologies->lists('id')->toArray() : [], ['multiple']) !!}
                 </div>
             <br>
             {!! Form::submit(isset($project) ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}

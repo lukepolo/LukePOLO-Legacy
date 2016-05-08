@@ -17,6 +17,6 @@ class Tag extends \Moloquent
      */
     public function blogs()
     {
-        return $this->belongsToMany('\App\Models\Mongo\Blog');
+        return $this->belongsToMany(\App\Models\Mongo\Blog::class);
     }
 }

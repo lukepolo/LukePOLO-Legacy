@@ -34,19 +34,7 @@
         </div>
         <div class="form-group">
             {!! Form::label('Tags') !!}
-            @if(isset($blog))
-                <?php $blog_tags = $blog->tags->keyBy('_id')->toArray(); ?>
-            @endif
-
-            <select id="tags" multiple name="tags[]">
-                @foreach($tags as $tag)
-                    @if(isset($blog_tags) && array_key_exists($tag->id, $blog_tags))
-                        <option selected="selected" value="{{ $tag->id }}">{{ $tag->name }}</option>
-                    @else
-                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
-                    @endif
-                @endforeach
-            </select>
+            {!! Form::select('tags[]', $tags->lists('name', 'id'), isset($blog) ? $blog->tags->lists('id')->toArray() : [], ['multiple']) !!}
         </div>
         {!! Form::submit(isset($blog) ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}
     </div>
@@ -54,7 +42,7 @@
     {!! Form::close() !!}
 @endsection
 
-@push('scripts)
+@push('scripts')
 <script type="text/javascript">
     $(document).ready(function () {
         // save text

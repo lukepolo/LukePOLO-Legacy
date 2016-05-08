@@ -17,7 +17,7 @@ class Blog extends \Moloquent
      */
     public function comments()
     {
-        return $this->hasMany('\App\Models\Mongo\Comment')->orderBy('created_at', 'desc');
+        return $this->hasMany(\App\Models\Mongo\Comment::class)->orderBy('created_at', 'desc');
     }
 
     /**
@@ -26,6 +26,6 @@ class Blog extends \Moloquent
      */
     public function tags()
     {
-        return $this->belongsToMany('\App\Models\Mongo\Tag');
+        return $this->belongsToMany(\App\Models\Mongo\Tag::class);
     }
 }

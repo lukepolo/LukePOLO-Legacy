@@ -49,8 +49,6 @@ class ProjectsController extends Controller
             $end_date = null;
         }
 
-        dd(\Request::get('technologies'));
-
         Project::create([
             'name' => \Request::get('name'),
             'url' => \Request::get('URL'),
@@ -72,7 +70,7 @@ class ProjectsController extends Controller
      */
     public function getEdit($projectID)
     {
-        $project = Project::with('timeline')->find($projectID);
+        $project = Project::with(['timeline', 'technologies'])->find($projectID);
 
         return view('projects.form', [
             'project' => $project,
@@ -89,7 +87,7 @@ class ProjectsController extends Controller
      */
     public function postEdit($projectID, ProjectFormRequest $request)
     {
-        $project = Project::find($projectID);
+        $project = Project::with('technologies')->find($projectID);
 
         if (\Request::has('end_date')) {
             $end_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('end_date'));
@@ -101,10 +99,11 @@ class ProjectsController extends Controller
         $project->url = \Request::get('URL');
         $project->start_date = \Carbon\Carbon::createFromFormat('m-d-Y', \Request::get('start_date'));
         $project->end_date = $end_date;
-        $project->technologies = \Request::get('technologies');
         $project->timeline_id = \Request::get('timeline');
         $project->html = \Request::get('html');
         $project->project_image = \Request::get('project_image');
+
+        $project->technologies()->sync(\Request::get('technologies', []));
 
         $project->save();
 
