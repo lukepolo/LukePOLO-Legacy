@@ -40,6 +40,11 @@ Route::group(['middleware' => 'web'], function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'AdminController@getIndex');
 
+    Route::get('users', 'Auth\AuthController@getUsers');
+    Route::get('user/{userID}', 'Auth\AuthController@getUser');
+    Route::post('user/{userID}', 'Auth\AuthController@postUpdateUser');
+    Route::get('user/delete/{userID}', 'Auth\AuthController@getDisableLogin');
+
     Route::resource('comments', 'CommentsController');
     Route::resource('comment-vote', 'CommentVotesController');
 

@@ -18,14 +18,19 @@ class AuthController extends Controller
 
     /**
      * Create a new authentication controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
         $this->redirectTo = action('AdminController@getIndex');
 
-        $this->middleware($this->guestMiddleware(), ['except' => 'getLogout']);
+        $this->middleware($this->guestMiddleware(), ['except' => [
+                'getLogout',
+                'getUsers',
+                'getUser',
+                'postUpdateUser',
+                'getDisableLogin'
+            ]
+        ]);
     }
 
     /**
@@ -55,19 +60,19 @@ class AuthController extends Controller
         }
 
         if (empty($user) === false) {
-            $user_provider = UserProvider::with('user')->where('provider_id', $user->id)
+            $userProvider = UserProvider::with('user')->where('provider_id', $user->id)
                 ->where('provider', $provider)
                 ->first();
 
-            if (empty($user_provider) === false) {
-                \Auth::login($user_provider->user);
+            if (empty($userProvider) === false) {
+                \Auth::login($userProvider->user);
             } else {
-                $name_parts = explode(' ', $user->getName());
-                $first_name = array_shift($name_parts);
-                $last_name = array_pop($name_parts);
+                $nameParts = explode(' ', $user->getName());
+                $firstName = array_shift($nameParts);
+                $lastName = array_pop($nameParts);
                 $this->create([
-                    'first_name' => $first_name,
-                    'last_name' => $last_name,
+                    'first_name' => $firstName,
+                    'last_name' => $lastName,
                     'profile_img' => $user->getAvatar(),
                     'email' => $user->getEmail(),
                     'provider' => $provider,
@@ -116,5 +121,55 @@ class AuthController extends Controller
         } else {
             throw new HttpResponseException(redirect()->back()->withInput()->withErrors('Registration is Disabled!'));
         }
+    }
+
+    /**
+     * Shows all the users
+     * @return mixed
+     */
+    public function getUsers()
+    {
+        $userQuery = new User();
+
+        if(\Request::has('disabled')) {
+            $userQuery = $userQuery->withTrashed();
+        }
+        return view('auth.users.index', [
+            'users' => $userQuery->paginate(15)
+        ]);
+    }
+
+    /**
+     * Views the users form
+     * @param $userID
+     * @return mixed
+     */
+    public function getUser($userID)
+    {
+        return view('auth.users.form', [
+            'user' => User::findOrFail($userID)
+        ]);
+    }
+
+    /**
+     * Updates a user
+     * @param $userID
+     * @return mixed
+     */
+    public function postUpdateUser($userID)
+    {
+        User::findOrFail($userID)->update(\Request::except('_token'));
+        return redirect(action('Auth\AuthController@getUsers'));
+    }
+
+    /**
+     * Disables a user from being able to login
+     * @param $userID
+     * @return mixed
+     */
+    public function getDisableLogin($userID)
+    {
+        User::findOrFail($userID)->delete();
+        return back();
     }
 }

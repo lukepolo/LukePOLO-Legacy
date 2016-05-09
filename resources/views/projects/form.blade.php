@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('Timeline') !!}
-                    {!! Form::select('timeline', $timelines->lists('name', 'id'), isset($project) ? $project->timeline_id : [], ['class' => 'form-control']) !!}
+                    {!! Form::select('timeline', $timelines->lists('name', 'id'), isset($project) ? $project->timeline_id : null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('Technologies') !!}

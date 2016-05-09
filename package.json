@@ -8,6 +8,7 @@
     "ioredis": "^1.15.1",
     "laravel-elixir": "^5.0.0",
     "mcrypt": "^0.1.10",
+    "php-serialize": "^1.2.0",
     "php-unserialize": "0.0.1",
     "socket.io": "^1.4.5"
   }

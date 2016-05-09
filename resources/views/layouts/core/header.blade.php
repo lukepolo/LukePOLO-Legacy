@@ -26,6 +26,7 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ action('AdminController@getIndex') }}">Dashboard</a></li>
+                            <li><a href="{{ action('Auth\AuthController@getUsers') }}">Users</a></li>
                             <li><a href="{{ action('SettingsController@getIndex') }}">Settings</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a></li>
