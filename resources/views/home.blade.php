@@ -28,7 +28,10 @@
                                 File::makeDirectory($newDir);
                             }
 
-                            GlideImage::create(base_path('resources/assets/img/screenshots') . '/' . $project->project_image)->modify(['w' => 390])->save(public_path('img/cache/') . $project->project_image);
+                            $projectImage = public_path('img/uploads/project_images/') . $project->project_image;
+                            if(File::exists($projectImage)) {
+                                GlideImage::create($projectImage)->modify(['w' => 390])->save(public_path('img/cache/') . $project->project_image);
+                            }
                         ?>
                     @endif
                     <img class="img-responsive" src="{{ asset('img/cache/'.$project->project_image) }}">

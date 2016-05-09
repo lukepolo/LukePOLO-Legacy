@@ -130,7 +130,7 @@ class ProjectsController extends Controller
 
         if (\Request::hasFile('project_image') && \Request::file('project_image')->isValid()) {
             $projectImage = \Request::file('project_image');
-            $fileName = $project->id . '-' . $projectImage->getClientOriginalName() . $projectImage->getClientOriginalExtension();
+            $fileName = $project->id . '-' . $projectImage->getClientOriginalName();
             if ($projectImage->move(public_path('img/uploads/project_images'), $fileName)) {
                 $project->project_image = $fileName;
                 $project->save();

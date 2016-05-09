@@ -13,12 +13,11 @@ var gulp = require('gulp'),
 paths = {
     'css_public': './public/css/',
     'js_public': './public/js/',
-    'img_public': './public/js/',
+    'img_public': './public/build/img/',
     'fonts_public': './public/build/fonts/',
     'sass': resources_path + 'assets/sass/',
     'sass_partials': resources_path + 'assets/sass/partials/',
     'js': resources_path + 'assets/js/',
-    'img': resources_path + 'assets/img/',
 
     'jquery': bower_path + 'jquery/dist/',
     'jquery_ui': bower_path + 'jquery-ui/',
@@ -41,27 +40,18 @@ paths = {
     'dropzone' : bower_path + 'dropzone/dist/'
 };
 
-elixir.extend('minify_img', function () {
-    new elixir.Task('minify_img', function () {
-        return gulp.src(paths.img + '**')
-            .pipe(imagemin())
-            .pipe(gulp.dest(paths.img_public));
-    })
-    .watch(paths.img + '**');
-});
-
 elixir(function (mix) {
     mix
         .copy(paths.jquery_ui + 'themes/base/jquery-ui.min.css', paths.sass_partials + '_jquery-ui-min.scss')
-        .copy(paths.jquery_ui + 'themes/base/images', paths.img + 'jquery-ui')
+        .copy(paths.jquery_ui + 'themes/base/images', paths.img_public + 'jquery-ui')
         .copy(paths.fontawesome + 'fonts', paths.fonts_public)
         .copy(paths.bootstrap + 'fonts', paths.fonts_public)
         .copy(paths.summernote + 'summernote.css', paths.sass_partials + '_summernote.scss')
         .copy(paths.select2 + 'css/select2.css', paths.sass_partials + '_select2.scss')
         .copy(paths.owl + 'assets/owl.carousel.css', paths.sass_partials + '_owl.scss')
         .copy(paths.owl + 'assets/owl.theme.default.min.css', paths.sass_partials + '_owl_theme.scss')
-        .copy(paths.owl + 'assets/ajax-loader.gif', paths.img)
-        .copy(paths.owl + 'assets/owl.video.play.png', paths.img)
+        .copy(paths.owl + 'assets/ajax-loader.gif', paths.img_public)
+        .copy(paths.owl + 'assets/owl.video.play.png', paths.img_public)
         .copy(paths.datepicker + 'css/bootstrap-datetimepicker.css', paths.sass_partials + '_bootstrap-datetimepicker.scss')
         .copy(paths.dropzone + 'dropzone.css' , paths.sass_partials + '_dropzone.scss')
         .sass('app.scss')
@@ -103,7 +93,6 @@ elixir(function (mix) {
             paths.js + 'confirm.js',
             paths.lazyload + 'jquery.lazyload.js'
         ], paths.js_public + 'admin.js')
-        // .minify_img()
         .version(['public/css/app.css', 'public/js/all.js', 'public/js/admin.js'])
         .browserSync({
             proxy: env.SITE_URL
