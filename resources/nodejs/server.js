@@ -125,7 +125,7 @@ function decryptLaravelCookie(cookie) {
 function getUserIDFromSession(session) {
     if(session) {
         try {
-            var decryptedSession = PHPUnserialize.unserialize(decryptLaravelCookie(PHPUnserialize.unserialize(session).toString('utf8')));
+            var decryptedSession = PHPUnserialize.unserialize(decryptLaravelCookie(PHPUnserialize.unserialize(session).toString('utf8')), {}, {strict: false});
             if (decryptedSession.hasOwnProperty('userID')) {
                 return decryptedSession.userID;
             }
