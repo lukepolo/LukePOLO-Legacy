@@ -12,9 +12,10 @@ use Illuminate\Database\Eloquent\Model;
  * Class User
  * @package App\Models
  */
-class User extends Model implements AuthenticatableContract
+class User extends \Moloquent implements AuthenticatableContract
 {
-    use Authenticatable, SoftDeletes, HybridRelations;
+    use Authenticatable, SoftDeletes;
+    protected $connection = 'mongodb';
     protected $guarded = ['_id'];
 
     public function getName()
