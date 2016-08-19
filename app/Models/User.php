@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Jenssegers\Mongodb\Eloquent\HybridRelations;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
 /**
@@ -12,7 +13,7 @@ use Jenssegers\Mongodb\Eloquent\SoftDeletes;
  */
 class User extends \Moloquent implements AuthenticatableContract
 {
-    use Authenticatable , SoftDeletes;
+    use Authenticatable , SoftDeletes, HybridRelations;
     protected $guarded = ['_id'];
 
     public function getName()
