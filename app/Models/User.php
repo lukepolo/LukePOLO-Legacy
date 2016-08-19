@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class User extends Model implements AuthenticatableContract
 {
-    use Authenticatable , SoftDeletes, HybridRelations;
+    use Authenticatable, SoftDeletes, HybridRelations;
     protected $guarded = ['_id'];
 
     public function getName()
