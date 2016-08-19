@@ -45,6 +45,19 @@ return [
 	*/
 
 	'connections' => [
+        'mysql' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'codepier'),
+            'username' => env('DB_USERNAME', 'codepier'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => null,
+        ],
 		'mongodb' => [
 			'driver'   => 'mongodb',
 			'host'     => env('DB_HOST', 'localhost'),

@@ -12,12 +12,12 @@ class ConvertTechnologies extends Migration
      */
     public function up()
     {
-        foreach(\App\Models\Mongo\Project::get() as $project) {
-            $technologies = $project->technologies;
-            $project->unset('technologies');
-            $project->technologies()->sync($technologies);
-            $project->save();
-        }
+//        foreach(\App\Models\Mongo\Project::get() as $project) {
+//            $technologies = $project->technologies;
+//            $project->unset('technologies');
+//            $project->technologies()->sync($technologies);
+//            $project->save();
+//        }
     }
 
     /**
