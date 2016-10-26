@@ -22,13 +22,7 @@
                 <div class="col-md-6 img-holder" data-project_id="{{ $project->id }}">
                     @if(!File::exists($modifiedIMG = public_path('img/cache/').$project->project_image))
                         <?php
-                            $pathInfo = pathinfo($project->project_image);
-
-                            if (isset($pathInfo['dirname']) && !File::exists($newDir = public_path('img/cache/') . $pathInfo['dirname'])) {
-                                File::makeDirectory($newDir);
-                            }
-
-                            $projectImage = public_path('img/uploads/project_images/') . $project->project_image;
+                            $projectImage = storage_path('img/uploads/project_images/') . $project->project_image;
                             if(File::exists($projectImage)) {
                                 GlideImage::create($projectImage)->modify(['w' => 390])->save(public_path('img/cache/') . $project->project_image);
                             }
