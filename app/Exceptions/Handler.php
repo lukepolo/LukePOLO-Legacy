@@ -64,6 +64,7 @@ class Handler extends ExceptionHandler
     protected function convertExceptionToResponse(Exception $e)
     {
         if (config('app.debug')) {
+            $this->unsetSensitiveData();
             $whoops = new Run();
             if (\Request::ajax()) {
                 $whoops->pushHandler(new JsonResponseHandler());
@@ -79,5 +80,16 @@ class Handler extends ExceptionHandler
         }
 
         return parent::convertExceptionToResponse($e);
+    }
+
+    /**
+     * Don't ever display sensitive data in Whoops pages.
+     */
+    protected function unsetSensitiveData()
+    {
+        foreach ($_ENV as $key => $value) {
+            unset($_SERVER[$key]);
+        }
+        $_ENV = [];
     }
 }

@@ -26,7 +26,8 @@ if (env.NODE_HTTPS === 'true') {
     console.log("HTTPS");
     server = require('https').createServer({
         key: fs.readFileSync(env.SSL_KEY),
-        cert: fs.readFileSync(env.SSL_CERT)
+        cert: fs.readFileSync(env.SSL_CERT),
+        ca : fs.readFileSync(env.SSL_CA),
     });
 } else {
     server = require('http').createServer();
